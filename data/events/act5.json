@@ -829,6 +829,267 @@
       ]
     },
     {
+      "id": "desk_justice_may_leash",
+      "date": "1991-04-28",
+      "act": 5,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Pravosuđe pred svibanjskom rotacijom",
+      "location": "Beograd — Savezni sekretarijat za pravosuđe",
+      "briefing": "Konfederalni nacrt (ako je otvoren) i rotacija Mesića na kalendaru. Sekretarijat pita: ustavni kanal / arbitraža / tvrdi akti pred 15. svibnja. Nije lipanjski rat. Nije Izetbegović–Gligorov. Marković = predsjednik SIV-a.",
+      "constitutional_note": "E3: otvorena povelja + Predsjedništvo koje se može sastati; sjedenje Mesića ≠ zastoj.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "confederal_talks_open",
+          "desk_event_justice_seen",
+          "justice_rule_memo",
+          "pakrac_standoff"
+        ],
+        "flags_not": [
+          "desk_event_justice_may_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "keep_const",
+          "label": "Ustavni kanal do rotacije.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "justice": {
+                "posture": "constitutional"
+              }
+            },
+            "federal.legitimacy": 2,
+            "federal.presidency_cohesion": 2,
+            "flags_add": [
+              "justice_constitutional_line",
+              "desk_event_justice_may_seen"
+            ]
+          }
+        },
+        {
+          "id": "arb_may",
+          "label": "Arbitraža uz konfederalni stol (ako postoji).",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "justice": {
+                "posture": "arbitrate"
+              }
+            },
+            "desk_add": {
+              "presidency": {
+                "loyalty": 2
+              }
+            },
+            "federal.war_risk": -2,
+            "flags_add": [
+              "justice_arbitrate_line",
+              "presidency_mediation_active",
+              "desk_event_justice_may_seen"
+            ]
+          }
+        },
+        {
+          "id": "hard_may",
+          "label": "Tvrdi akti — rizik sukoba s otvorenim stolom.",
+          "legal": "presidency_decree",
+          "effects": {
+            "desk_set": {
+              "justice": {
+                "posture": "hard"
+              }
+            },
+            "federal.war_risk": 3,
+            "federal.presidency_cohesion": -3,
+            "flags_add": [
+              "justice_hard_line",
+              "desk_conflict_hard_conf",
+              "desk_event_justice_may_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "confederal_conflict_warn",
+      "date": "1991-05-02",
+      "act": 5,
+      "desk": "PRET",
+      "priority": "crisis",
+      "title": "Sukob postava: tvrdi šalteri i konfederalni stol",
+      "location": "Beograd — Predsjedništvo SFRJ",
+      "briefing": "Ako su JNA/SSUP/Predsjedništvo/pravosuđe na tvrdoj postavi dok je konfederalni stol otvoren, papir i sila vuku u suprotnim smjerovima. Ova kartica je upozorenje — ne bitka. Možete ublažiti postavu, držati stol, ili prihvatiti sukob (soft-lock prema E5).",
+      "constitutional_note": "E3 isključuje zastoj. Tvrda postava + otvoreni stol = politički sukob, ne automatski rat.",
+      "documents": [],
+      "requires": {
+        "flags": [
+          "confederal_talks_open"
+        ],
+        "flags_any": [
+          "presidency_hardline",
+          "jna_mobilization_alert",
+          "jna_political_weight",
+          "ssup_hard_line",
+          "justice_hard_line"
+        ],
+        "flags_not": [
+          "desk_event_conflict_warn_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "ease",
+          "label": "Ublaži tvrde postave: medijacija + ustavni kanal.",
+          "legal": "presidency_decree",
+          "effects": {
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              },
+              "justice": {
+                "posture": "constitutional"
+              }
+            },
+            "desk_add": {
+              "jna": {
+                "agenda_tension": -4
+              },
+              "ssup": {
+                "agenda_tension": -3
+              }
+            },
+            "federal.war_risk": -4,
+            "federal.presidency_cohesion": 4,
+            "flags_add": [
+              "presidency_mediation_active",
+              "justice_constitutional_line",
+              "desk_event_conflict_warn_seen"
+            ],
+            "flags_remove": [
+              "presidency_hardline",
+              "justice_hard_line",
+              "desk_conflict_hard_conf"
+            ]
+          }
+        },
+        {
+          "id": "hold_table",
+          "label": "Drži stol otvorenim; tvrde postave ostaju na papiru.",
+          "legal": "political",
+          "effects": {
+            "federal.presidency_cohesion": -2,
+            "federal.war_risk": 2,
+            "flags_add": [
+              "desk_conflict_soft_lock",
+              "desk_event_conflict_warn_seen"
+            ]
+          }
+        },
+        {
+          "id": "accept_clash",
+          "label": "Prihvati sukob: tvrdo preko stola.",
+          "legal": "emergency",
+          "effects": {
+            "federal.war_risk": 6,
+            "federal.legitimacy": -4,
+            "federal.presidency_cohesion": -5,
+            "flags_add": [
+              "desk_conflict_hard_conf",
+              "player_used_emergency",
+              "desk_event_conflict_warn_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_fer_trade_may",
+      "date": "1991-05-06",
+      "act": 5,
+      "desk": "SIV",
+      "priority": "regional",
+      "title": "FER / trgovina: tihi koridor pred 15. V",
+      "location": "Beograd — Savezni sekretarijat za vanjske ekonomske odnose",
+      "briefing": "FER (vanjski ekonomski odnosi) nije šalter u Pass 1–3, ali kartica veže financije/NBJ i carine. Pred svibnjem: otvori koridor, drži MMF liniju, ili smrzni transfer uz rizik. Nije raspada banke. Marković = predsjednik SIV-a.",
+      "constitutional_note": "Nema čina VI. Lipanj nije na stolu.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "customs_war_active",
+          "imf_standby_active",
+          "nby_tight_dinar",
+          "finance_transfers_open",
+          "nby_reserves_held"
+        ],
+        "flags_not": [
+          "desk_event_fer_may_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "open_corridor",
+          "label": "Otvori tihi trgovinski koridor među republikama.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "finance": {
+                "posture": "open"
+              }
+            },
+            "federal.inter_republic_trade": 4,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "finance_transfers_open",
+              "desk_event_fer_may_seen"
+            ],
+            "flags_remove": [
+              "finance_transfer_freeze"
+            ]
+          }
+        },
+        {
+          "id": "imf_hold",
+          "label": "Drži MMF/stand-by liniju uz NBJ.",
+          "legal": "siv",
+          "effects": {
+            "desk_add": {
+              "nby": {
+                "loyalty": 2
+              }
+            },
+            "federal.imf_pressure": -3,
+            "federal.hard_currency": 2,
+            "flags_add": [
+              "finance_imf_aligned",
+              "desk_event_fer_may_seen"
+            ]
+          }
+        },
+        {
+          "id": "freeze",
+          "label": "Smrzni transfer — kratkoročni proračun, dugoročni rizik.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "finance": {
+                "posture": "freeze"
+              }
+            },
+            "federal.federal_budget": 3,
+            "SI.federal_trust": -3,
+            "HR.federal_trust": -3,
+            "flags_add": [
+              "finance_transfer_freeze",
+              "desk_event_fer_may_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "croatian_chair_skh",
       "date": "1991-05-15",
       "act": 5,

@@ -68,6 +68,66 @@ export function needsPresidencyVote(legal) {
   return legal === "presidency_decree" || legal === "emergency";
 }
 
+/**
+ * Pass 4: presidency vote interactions with desk posture.
+ * Soft bias for UI + cohesion effects — does not rewrite historical seat roster.
+ */
+export function deskVoteModifiers(state) {
+  const notes = [];
+  let softFor = 0;
+  let softAgainst = 0;
+  let emergencyPenalty = 0;
+  const d = state.desks || {};
+  const f = state.flags || {};
+
+  if (f.presidency_mediation_active || d.presidency?.posture === "mediate") {
+    softFor += 1;
+    notes.push("vote.mod.mediate");
+  }
+  if (f.presidency_quorum_guard) {
+    softFor += 1;
+    notes.push("vote.mod.quorum");
+  }
+  if (f.justice_constitutional_line || d.justice?.posture === "constitutional") {
+    softFor += 1;
+    notes.push("vote.mod.justiceConst");
+  }
+  if (f.justice_arbitrate_line || d.justice?.posture === "arbitrate") {
+    softFor += 1;
+    notes.push("vote.mod.justiceArb");
+  }
+  if (f.presidency_hardline || d.presidency?.posture === "hardline") {
+    softAgainst += 1;
+    emergencyPenalty += 1;
+    notes.push("vote.mod.hardline");
+  }
+  if (f.jna_mobilization_alert || f.jna_political_weight || d.jna?.posture === "alert" || d.jna?.posture === "political") {
+    softAgainst += 1;
+    emergencyPenalty += 1;
+    notes.push("vote.mod.jna");
+  }
+  if (f.ssup_hard_line || d.ssup?.posture === "hard") {
+    softAgainst += 1;
+    notes.push("vote.mod.ssup");
+  }
+  if (f.justice_hard_line || d.justice?.posture === "hard") {
+    softAgainst += 1;
+    notes.push("vote.mod.justiceHard");
+  }
+  if (f.confederal_talks_open && softAgainst >= 2) {
+    notes.push("vote.mod.conflict");
+  }
+
+  return {
+    softFor,
+    softAgainst,
+    net: softFor - softAgainst,
+    emergencyPenalty,
+    notes,
+  };
+}
+
+
 function dir(partial) {
   return {
     needs_votes: needsPresidencyVote(partial.legal) ? 5 : 0,

@@ -1110,6 +1110,145 @@
           }
         }
       ]
+    },
+    {
+      "id": "justice",
+      "agency_id": "justice",
+      "name": "Pravosuđe",
+      "name_hr": "Savezni sekretarijat za pravosuđe",
+      "kind": "secretariat",
+      "briefing": "Savezni pravni sloj: Ustavni sud još postoji na papiru, a sekretarijat drži kanal za ustavne tužbe, arbitražu među republikama i jezik vladavine prava. Nema suđenja za rat — ima papira koji drži ili kida stol. Postava (ustav / arbitraža / tvrdo) mjesečno mijenja legitimnost i napetost, a teži na glasove Predsjedništva.",
+      "stats": {
+        "loyalty": 58,
+        "capacity": 52,
+        "agenda_tension": 28
+      },
+      "posture_default": "constitutional",
+      "postures": [
+        "constitutional",
+        "arbitrate",
+        "hard"
+      ],
+      "actions": [
+        {
+          "id": "hold_constitutional",
+          "label": "Drži ustavni kanal: Ustavni sud i savezni postupci, ne policija.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "justice": {
+                "posture": "constitutional"
+              }
+            },
+            "desk_add": {
+              "justice": {
+                "loyalty": 3,
+                "agenda_tension": -3
+              }
+            },
+            "federal.legitimacy": 2,
+            "federal.assembly_function": 2,
+            "flags_add": [
+              "justice_constitutional_line"
+            ],
+            "flags_remove": [
+              "justice_hard_line"
+            ]
+          }
+        },
+        {
+          "id": "open_arbitrate",
+          "label": "Otvori arbitražu među republikama (meki stol, ne dekret).",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "justice": {
+                "posture": "arbitrate"
+              }
+            },
+            "desk_add": {
+              "justice": {
+                "capacity": 3,
+                "agenda_tension": 2
+              }
+            },
+            "federal.presidency_cohesion": 2,
+            "federal.war_risk": -1,
+            "SI.federal_trust": 2,
+            "HR.federal_trust": 2,
+            "flags_add": [
+              "justice_arbitrate_line",
+              "presidency_mediation_active"
+            ],
+            "flags_remove": [
+              "justice_hard_line"
+            ]
+          }
+        },
+        {
+          "id": "harden_justice",
+          "label": "Tvrdi pravni pritisak: savezni akti preko republikanskih Sabora.",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_set": {
+              "justice": {
+                "posture": "hard"
+              }
+            },
+            "desk_add": {
+              "justice": {
+                "agenda_tension": 8,
+                "loyalty": -2
+              }
+            },
+            "federal.legitimacy": -2,
+            "federal.war_risk": 1,
+            "SI.secession_readiness": 2,
+            "HR.secession_readiness": 2,
+            "flags_add": [
+              "justice_hard_line"
+            ],
+            "flags_remove": [
+              "justice_constitutional_line",
+              "justice_arbitrate_line"
+            ]
+          }
+        },
+        {
+          "id": "file_rule_of_law",
+          "label": "Podnesi bilješku o vladavini prava Predsjedništvu (prije izvanrednog).",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "confederal_talks_open",
+              "presidency_mediation_active",
+              "multiparty_wave"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "justice": {
+                "loyalty": 2,
+                "capacity": 2
+              }
+            },
+            "federal.legitimacy": 3,
+            "federal.presidency_cohesion": 1,
+            "flags_add": [
+              "justice_rule_memo"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

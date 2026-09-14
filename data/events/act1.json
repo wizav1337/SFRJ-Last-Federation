@@ -200,6 +200,91 @@
       ]
     },
     {
+      "id": "desk_ssp_nonaligned_open",
+      "date": "1990-02-08",
+      "act": 1,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "SSP: nesvrstani kanal još otvoren",
+      "location": "Beograd — Savezni sekretarijat za inozemne poslove",
+      "briefing": "Prije višestranačkog vala SSP još drži nesvrstani jezik. Nije priznanje EEZ-a. Nije ni rat. Kartica pita: ostaje li Savez u starom kanalu, tiho gleda zapad, ili se povlači u izolaciju. Marković je predsjednik SIV-a, ne „predsjednik Jugoslavije“.",
+      "constitutional_note": "Vanjska politika formalno dijeljena: Predsjedništvo + SIV/SSP. Ovo nije dekret o priznanju.",
+      "documents": [],
+      "requires": {
+        "flags_not": [
+          "desk_event_ssp_open_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "keep_nam",
+          "label": "Ostavi nesvrstani držaj. Bez novih nota.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "ssp": {
+                "posture": "nonaligned"
+              }
+            },
+            "desk_add": {
+              "ssp": {
+                "loyalty": 3
+              }
+            },
+            "federal.international_standing": 1,
+            "flags_add": [
+              "desk_event_ssp_open_seen"
+            ]
+          }
+        },
+        {
+          "id": "quiet_west",
+          "label": "Tihi zapadni demarš — bez priznanja, bez buke.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "ssp": {
+                "posture": "ec_track"
+              }
+            },
+            "desk_add": {
+              "ssp": {
+                "agenda_tension": 4
+              }
+            },
+            "federal.international_standing": 3,
+            "federal.imf_pressure": -2,
+            "flags_add": [
+              "ssp_quiet_demarche",
+              "desk_event_ssp_open_seen"
+            ]
+          }
+        },
+        {
+          "id": "pull_in",
+          "label": "Povuci kanal: manje vanjskog, više unutarnjeg.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "ssp": {
+                "posture": "isolation"
+              }
+            },
+            "desk_add": {
+              "ssp": {
+                "loyalty": -2,
+                "agenda_tension": 5
+              }
+            },
+            "federal.international_standing": -3,
+            "flags_add": [
+              "desk_event_ssp_open_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "markovic_mandate",
       "date": "1990-02-12",
       "act": 1,
@@ -414,6 +499,100 @@
             "federal.presidency_cohesion": -1,
             "flags_add": [
               "desk_event_jna_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_justice_open",
+      "date": "1990-02-28",
+      "act": 1,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Pravosuđe: ustavni kanal ili tvrdi akti",
+      "location": "Beograd — Savezni sekretarijat za pravosuđe",
+      "briefing": "Nakon Kongresa i prije proljetnih izbora sekretarijat za pravosuđe pita: ostaje li Ustavni sud mirni kanal, otvara li se arbitraža među republikama, ili savezni akti tvrdo pritiskaju Sabore. Mirnodopski papir — nema suđenja za frontu. Marković ostaje predsjednik SIV-a.",
+      "constitutional_note": "Ustavni sud Jugoslavije još postoji. Ova kartica ne raspada ga i ne piše rat.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "skj_renounced_monopoly",
+          "multiparty_wave",
+          "skj_split"
+        ]
+      },
+      "choices": [
+        {
+          "id": "const_line",
+          "label": "Ustavni kanal. Sud i postupci, ne policija.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "justice": {
+                "posture": "constitutional"
+              }
+            },
+            "desk_add": {
+              "justice": {
+                "loyalty": 4,
+                "agenda_tension": -2
+              }
+            },
+            "federal.legitimacy": 3,
+            "federal.assembly_function": 2,
+            "flags_add": [
+              "justice_constitutional_line",
+              "desk_event_justice_seen"
+            ]
+          }
+        },
+        {
+          "id": "arb_line",
+          "label": "Arbitraža među republikama — meki stol.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "justice": {
+                "posture": "arbitrate"
+              }
+            },
+            "desk_add": {
+              "justice": {
+                "capacity": 3
+              }
+            },
+            "federal.presidency_cohesion": 3,
+            "SI.federal_trust": 2,
+            "HR.federal_trust": 2,
+            "flags_add": [
+              "justice_arbitrate_line",
+              "presidency_mediation_active",
+              "desk_event_justice_seen"
+            ]
+          }
+        },
+        {
+          "id": "hard_line",
+          "label": "Tvrdi pravni pritisak na Sabore.",
+          "legal": "presidency_decree",
+          "effects": {
+            "desk_set": {
+              "justice": {
+                "posture": "hard"
+              }
+            },
+            "desk_add": {
+              "justice": {
+                "agenda_tension": 7
+              }
+            },
+            "federal.legitimacy": -2,
+            "SI.secession_readiness": 3,
+            "HR.secession_readiness": 3,
+            "flags_add": [
+              "justice_hard_line",
+              "desk_event_justice_seen"
             ]
           }
         }
@@ -710,6 +889,98 @@
             "SI.to_control": 6,
             "HR.to_control": 6,
             "federal.war_risk": 4
+          }
+        }
+      ]
+    },
+    {
+      "id": "presidency_drnovsek_spring",
+      "date": "1990-03-20",
+      "act": 1,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Drnovšek: proljetni koridor Predsjedništva",
+      "location": "Beograd — Predsjedništvo SFRJ",
+      "briefing": "Drnovšek još drži čekić (do 15. svibnja). Inventura TO i SIV postava već su na stolu. Kartica nudi medijaciju, kvorum ili tvrdu liniju prije izbora u SI/HR. Nije rotacija Jovića — to je svibanj. Nije ni Mesić.",
+      "constitutional_note": "Predsjedatelj je Drnovšek. Stolac nije Milošević. E3 kasnije traži Predsjedništvo koje se još može sastati.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "talked_drnovsek",
+          "to_inventory_ordered",
+          "markovic_dinar_program",
+          "siv_austerity_stance",
+          "siv_stimulus_stance"
+        ],
+        "flags_not": [
+          "presidency_rotation_jovic",
+          "desk_event_drnovsek_spring_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "mediate",
+          "label": "Medijacija: stol prije dekreta.",
+          "legal": "presidency_decree",
+          "effects": {
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            },
+            "desk_add": {
+              "presidency": {
+                "loyalty": 3
+              }
+            },
+            "federal.presidency_cohesion": 4,
+            "federal.war_risk": -2,
+            "flags_add": [
+              "presidency_mediation_active",
+              "desk_event_drnovsek_spring_seen"
+            ]
+          }
+        },
+        {
+          "id": "quorum",
+          "label": "Čuvaj kvorum: osam mjesta, ne prazan stol.",
+          "legal": "presidency_decree",
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "capacity": 4
+              }
+            },
+            "federal.presidency_cohesion": 3,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "presidency_quorum_guard",
+              "desk_event_drnovsek_spring_seen"
+            ]
+          }
+        },
+        {
+          "id": "hardline",
+          "label": "Tvrda linija Predsjedništva prije izbora.",
+          "legal": "presidency_decree",
+          "effects": {
+            "desk_set": {
+              "presidency": {
+                "posture": "hardline"
+              }
+            },
+            "desk_add": {
+              "presidency": {
+                "agenda_tension": 6
+              }
+            },
+            "federal.presidency_cohesion": -3,
+            "SI.secession_readiness": 3,
+            "HR.secession_readiness": 3,
+            "flags_add": [
+              "presidency_hardline",
+              "desk_event_drnovsek_spring_seen"
+            ]
           }
         }
       ]

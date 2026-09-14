@@ -1,5 +1,5 @@
 import { t } from "./i18n.js";
-import { confederalStackDepth } from "./desks.js";
+import { confederalStackDepth, deskConflictWarnings } from "./desks.js";
 
 /**
  * Slice A does not run the full campaign lock. Early-loss still fires
@@ -505,5 +505,15 @@ export function livePressureWarnings(state) {
     });
   }
 
-  return warnings.slice(0, 3);
+  // Pass 4: hardline desks vs open confederal talks
+  for (const w of deskConflictWarnings(state)) {
+    const desks = (w.desks || []).join("/");
+    warnings.push({
+      id: w.id,
+      severity: w.severity,
+      text: t(w.textKey, { desks: desks || "—" }),
+    });
+  }
+
+  return warnings.slice(0, 4);
 }
