@@ -13,8 +13,11 @@
  * - TO coordinate|inventory|republic_hold → to_control SI/HR, inventory flags
  * - NBJ tight|loose|fragment → inflation, hard_currency, dinar program
  *
- * Action economy (Pass 3): shared monthly attention with reforms.
+ * Action economy (Pass 3–4): shared monthly attention with reforms.
  * attentionCap = 3 (4 if SIV ≥ 60). Desk + reform both burn attention_left.
+ * Pass 4: attention_spent_desks / attention_spent_reforms breakdown in UI;
+ * soft-lock / conflict warnings when hardline desks clash with open confederal talks;
+ * justice desk posture feeds legitimacy + presidency vote bias.
  * Soft-block if already in posture with flag.
  */
 import { clamp, pathAdd } from "./state.js";
@@ -31,6 +34,7 @@ const POSTURE_FLAG_MAP = {
   finance: { open: "finance_transfers_open", freeze: "finance_transfer_freeze" },
   to: { coordinate: "to_coordinate_posture", inventory: "to_inventory_push", republic_hold: "to_republic_hold" },
   nby: { tight: "nby_tight_dinar", loose: "nby_loose_credit", fragment: "nby_fragment_risk" },
+  justice: { constitutional: "justice_constitutional_line", arbitrate: "justice_arbitrate_line", hard: "justice_hard_line" },
 };
 
 export function initDesks(state, catalog) {
@@ -92,6 +96,8 @@ export function grantAttentionActions(state) {
   state.desk_month = month;
   state.reform_month = month;
   state.attention_left = attentionCap(state);
+  state.attention_spent_desks = 0;
+  state.attention_spent_reforms = 0;
   syncAttentionDisplays(state);
 }
 
@@ -100,12 +106,72 @@ export function grantDeskActions(state) {
   grantAttentionActions(state);
 }
 
-export function spendAttention(state, n = 1) {
+export function spendAttention(state, n = 1, bucket = "desk") {
   const cost = Math.max(1, n || 1);
   if ((state.attention_left ?? 0) < cost) return false;
   state.attention_left -= cost;
+  if (bucket === "reform") {
+    state.attention_spent_reforms = (state.attention_spent_reforms || 0) + cost;
+  } else {
+    state.attention_spent_desks = (state.attention_spent_desks || 0) + cost;
+  }
   syncAttentionDisplays(state);
   return true;
+}
+
+/** UI helper: spent this month on desks vs reforms vs remaining. */
+export function attentionBreakdown(state) {
+  const cap = attentionCap(state);
+  const left = Math.max(0, state.attention_left ?? 0);
+  const desks = Math.max(0, state.attention_spent_desks || 0);
+  const reforms = Math.max(0, state.attention_spent_reforms || 0);
+  return { cap, left, desks, reforms, spent: desks + reforms };
+}
+
+/**
+ * Soft-lock / conflict: hardline desk postures vs open confederal talks.
+ * Returns warning objects for UI; does not hard-block (soft-lock = warn + cost friction).
+ */
+export function deskConflictWarnings(state) {
+  if (!state?.flags?.confederal_talks_open) return [];
+  const hard = [];
+  if (state.flags.presidency_hardline || state.desks?.presidency?.posture === "hardline") hard.push("presidency");
+  if (state.flags.jna_mobilization_alert || state.flags.jna_political_weight) hard.push("jna");
+  if (state.flags.ssup_hard_line || state.desks?.ssup?.posture === "hard") hard.push("ssup");
+  if (state.flags.justice_hard_line || state.desks?.justice?.posture === "hard") hard.push("justice");
+  if (state.flags.to_inventory_push || state.desks?.to?.posture === "inventory") hard.push("to");
+  if (!hard.length && !state.flags.desk_conflict_soft_lock && !state.flags.desk_conflict_hard_conf) return [];
+  const out = [];
+  if (hard.length || state.flags.desk_conflict_hard_conf) {
+    out.push({
+      id: "CONFLICT",
+      severity: state.flags.desk_conflict_hard_conf ? "critical" : "warn",
+      textKey: "conflict.hardConf",
+      desks: hard,
+    });
+  } else if (state.flags.desk_conflict_soft_lock) {
+    out.push({
+      id: "CONFLICT",
+      severity: "warn",
+      textKey: "conflict.softLock",
+      desks: hard,
+    });
+  }
+  return out;
+}
+
+export function isHardlineConflictAction(deskId, action) {
+  const posture = action?.effects?.desk_set?.[deskId]?.posture;
+  if (!posture) return false;
+  const hard = {
+    jna: ["alert", "political"],
+    presidency: ["hardline"],
+    ssup: ["hard"],
+    justice: ["hard"],
+    to: ["inventory"],
+    nby: ["fragment"],
+  };
+  return (hard[deskId] || []).includes(posture);
 }
 
 export function listDesks(catalog) {
@@ -179,11 +245,20 @@ export function actionsForDesk(state, catalog, deskId) {
         block_reason = t("desk.samePosture");
       }
     }
+    let conflict_warn = "";
+    if (
+      !blocked &&
+      state.flags.confederal_talks_open &&
+      isHardlineConflictAction(deskId, raw)
+    ) {
+      conflict_warn = t("conflict.actionWarn");
+    }
     return {
       ...raw,
       deskId,
       blocked,
       block_reason,
+      conflict_warn,
       reformCost,
       budgetCost,
       needs_votes: 0,
@@ -204,8 +279,22 @@ export function applyDeskAction(state, catalog, deskId, actionId) {
       return { ok: false, reason: t("desk.none") };
     }
     if (state.attention_left != null) {
-      if (!spendAttention(state, action.reformCost)) {
+      // Soft-lock friction: hardline action while confederal talks open costs +1 attention if available
+      let cost = action.reformCost;
+      let conflictTax = false;
+      if (
+        state.flags.confederal_talks_open &&
+        isHardlineConflictAction(deskId, action) &&
+        (state.attention_left ?? 0) >= cost + 1
+      ) {
+        cost += 1;
+        conflictTax = true;
+      }
+      if (!spendAttention(state, cost, "desk")) {
         return { ok: false, reason: t("desk.none") };
+      }
+      if (conflictTax) {
+        state.flags.desk_conflict_soft_lock = true;
       }
     } else {
       state.desk_actions -= action.reformCost;
@@ -381,6 +470,39 @@ export function applyDeskMonthlyPosture(state, scale = 1) {
     }
   }
 
+
+  const justice = state.desks.justice;
+  if (justice) {
+    if (justice.posture === "constitutional") {
+      f.legitimacy = clamp(f.legitimacy + 0.3 * s);
+      f.assembly_function = clamp(f.assembly_function + 0.2 * s);
+    } else if (justice.posture === "arbitrate") {
+      f.presidency_cohesion = clamp(f.presidency_cohesion + 0.35 * s);
+      f.war_risk = clamp(f.war_risk - 0.2 * s);
+    } else if (justice.posture === "hard") {
+      f.legitimacy = clamp(f.legitimacy - 0.25 * s);
+      if (state.units.SI) state.units.SI.secession_readiness = clamp(state.units.SI.secession_readiness + 0.3 * s);
+      if (state.units.HR) state.units.HR.secession_readiness = clamp(state.units.HR.secession_readiness + 0.3 * s);
+      if (state.flags.confederal_talks_open) {
+        f.war_risk = clamp(f.war_risk + 0.35 * s);
+        f.presidency_cohesion = clamp(f.presidency_cohesion - 0.3 * s);
+      }
+    }
+  }
+
+  // Pass 4: soft-lock drift — hard desks + open confederal talks raise war_risk quietly
+  if (state.flags.confederal_talks_open) {
+    const hardCount =
+      (state.flags.presidency_hardline ? 1 : 0) +
+      (state.flags.jna_mobilization_alert || state.flags.jna_political_weight ? 1 : 0) +
+      (state.flags.ssup_hard_line ? 1 : 0) +
+      (state.flags.justice_hard_line ? 1 : 0);
+    if (hardCount >= 2) {
+      f.war_risk = clamp(f.war_risk + 0.35 * s * hardCount);
+      f.presidency_cohesion = clamp(f.presidency_cohesion - 0.2 * s);
+    }
+  }
+
   // Pass 3: confederal stack — Kučan/Jović/Mesić/mediation quietly supports E3 path
   const confStack = confederalStackDepth(state);
   if (confStack >= 2 && state.flags.confederal_talks_open) {
@@ -407,6 +529,7 @@ export function confederalStackDepth(state) {
   if (f.presidency_quorum_guard) n += 1;
   if (f.dialogue_kucan_charter) n += 1;
   if (f.confederal_stack_memo) n += 1;
+  if (f.justice_arbitrate_line || f.justice_rule_memo) n += 1;
   return n;
 }
 
@@ -451,6 +574,12 @@ export function syncDeskFlagsFromPosture(state) {
     state.flags.ssup_hard_line = ssup.posture === "hard";
     state.flags.ssup_observe_line = ssup.posture === "observe";
   }
+  const justice = state.desks.justice;
+  if (justice) {
+    state.flags.justice_constitutional_line = justice.posture === "constitutional";
+    state.flags.justice_arbitrate_line = justice.posture === "arbitrate";
+    state.flags.justice_hard_line = justice.posture === "hard";
+  }
 }
 
 /** Compact strip chips for UI — id + short posture label + tone. */
@@ -461,7 +590,7 @@ export function deskStatusChips(state, catalog) {
     const posture = rt?.posture || d.posture_default || "default";
     let tone = "neutral";
     if (["alert", "hard", "hardline", "inventory", "fragment", "political", "freeze"].includes(posture)) tone = "warn";
-    if (["garrison", "mediate", "soft", "coordinate", "tight", "open", "technocrat", "observe"].includes(posture)) tone = "good";
+    if (["garrison", "mediate", "soft", "coordinate", "tight", "open", "technocrat", "observe", "constitutional", "arbitrate"].includes(posture)) tone = "good";
     return {
       id: d.id,
       name: d.name,

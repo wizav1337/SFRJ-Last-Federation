@@ -109,8 +109,10 @@ function continueSave(game) {
   if (game.state.activeDialogue === undefined) game.state.activeDialogue = null;
   if (game.state.attention_left == null) game.state.attention_left = game.state.reform_actions || 0;
   if (!game.state.attention_month) game.state.attention_month = game.state.reform_month || "";
-  if (game.state.save_schema == null || game.state.save_schema < 3) {
-    game.state.save_schema = 3; // Pass 3: shared attention + multi-visit dialogue
+  if (game.state.attention_spent_desks == null) game.state.attention_spent_desks = 0;
+  if (game.state.attention_spent_reforms == null) game.state.attention_spent_reforms = 0;
+  if (game.state.save_schema == null || game.state.save_schema < 4) {
+    game.state.save_schema = 4; // Pass 4: attention UX + justice + conflict soft-lock
   }
   for (const u of Object.values(game.state.units || {})) {
     if (u.jna_threatened == null) u.jna_threatened = false;
@@ -228,6 +230,7 @@ function showAftermath(game, { months, ending, election, next }) {
 }
 
 function commitChoice(game, event, choice, vote = {}) {
+  applyDeskVoteAftermath(game.state, vote);
   if (!event.spawn_only) expireReformActions(game.state);
   const previousClock = game.state.federal.clock;
   if (vote.usedEmergency || choice.legal === "emergency") {
@@ -268,6 +271,26 @@ function commitChoice(game, event, choice, vote = {}) {
   showAftermath(game, { ...aftermath, election });
 }
 
+
+function applyDeskVoteAftermath(state, vote = {}) {
+  const mod = vote.deskMod;
+  if (!mod) return;
+  const f = state.federal;
+  const clamp = (n, lo = 0, hi = 100) => Math.max(lo, Math.min(hi, Math.round(n)));
+  if (mod.net > 0) {
+    f.presidency_cohesion = clamp(f.presidency_cohesion + Math.min(2, mod.softFor));
+  } else if (mod.net < 0) {
+    f.presidency_cohesion = clamp(f.presidency_cohesion - Math.min(2, mod.softAgainst));
+  }
+  if (vote.usedEmergency && mod.emergencyPenalty) {
+    f.legitimacy = clamp(f.legitimacy - 2 * mod.emergencyPenalty);
+    f.war_risk = clamp(f.war_risk + mod.emergencyPenalty);
+  }
+  if (state.flags.confederal_talks_open && mod.softAgainst >= 2) {
+    state.flags.desk_conflict_soft_lock = true;
+  }
+}
+
 function onChoice(game, event, choice) {
   if (needsPresidencyVote(choice.legal)) {
     showPresidencyVote(game, {
@@ -282,6 +305,7 @@ function onChoice(game, event, choice) {
 }
 
 function commitDirective(game, directive, vote = {}) {
+  applyDeskVoteAftermath(game.state, vote);
   const previousClock = game.state.federal.clock;
   const result = applyDirective(game.state, directive, {
     usedEmergency: !!vote.usedEmergency,
@@ -298,6 +322,7 @@ function commitDirective(game, directive, vote = {}) {
 }
 
 function commitReform(game, reform, vote = {}) {
+  applyDeskVoteAftermath(game.state, vote);
   const previousClock = game.state.federal.clock;
   const result = applyReform(game.state, reform, { usedEmergency: !!vote.usedEmergency });
   if (!result.ok) {

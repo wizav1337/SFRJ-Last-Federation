@@ -69,6 +69,10 @@ function deskDialogueElectionBias(unit, spec, state) {
   if (f.ssup_hard_line && id === "HR") d -= 3;
   if (f.ssup_soft_line && f.desk_event_ssup_seen && id === "HR") d += 1;
   if (f.ssp_ec_track && (id === "SI" || id === "HR")) d += 1;
+  // Justice (Pass 4)
+  if (f.justice_constitutional_line || f.justice_arbitrate_line) d += 1;
+  if (f.justice_hard_line && (id === "SI" || id === "HR")) d -= 2;
+  if (f.dialogue_drnovsek_spring || f.dialogue_drnovsek_eve) d += id === "SI" ? 1 : 0;
   // Kučan / Tuđman
   if (f.dialogue_kucan_conf && id === "SI") d += 3;
   if (f.dialogue_kucan_press && id === "SI") d -= 4;

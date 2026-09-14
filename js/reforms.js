@@ -490,7 +490,7 @@ export function applyReform(state, reform, opts = {}) {
   }
 
   if (state.attention_left != null) {
-    if (!spendAttention(state, 1)) return { ok: false, reason: t("reform.none") };
+    if (!spendAttention(state, 1, "reform")) return { ok: false, reason: t("reform.none") };
   } else {
     state.reform_actions = Math.max(0, (state.reform_actions || 0) - 1);
   }

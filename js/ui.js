@@ -12,6 +12,7 @@ import {
   chairName,
   seatHolder,
   needsPresidencyVote,
+  deskVoteModifiers,
 } from "./agencies.js";
 import { paintMap, refreshTip } from "./map.js";
 import { idleBrief, livePressureWarnings } from "./endings.js";
@@ -25,7 +26,9 @@ import {
   deskStatusLabel,
   deskStatusChips,
   attentionCap,
+  attentionBreakdown,
   confederalStackDepth,
+  deskConflictWarnings,
 } from "./desks.js";
 import {
   listDialogues,
@@ -70,13 +73,14 @@ export function showEncyclopedia(game) {
     .map((id) => `<li><strong>${id}</strong> — ${t("end." + id + ".title")}: ${t("end." + id + ".flavor", { date: "…" })}</li>`)
     .join("");
   const timeline = `
-    <li><strong>sij 1990.</strong> — 14. kongres SKJ, odricanje vodeće uloge</li>
-    <li><strong>velj–ožu 1990.</strong> — višestranački zakoni; stand-by / dinar</li>
-    <li><strong>tra–svi 1990.</strong> — izbori SI/HR; rotacija Jović</li>
-    <li><strong>srp–ruj 1990.</strong> — srpski referendum/ustav; balvani; suverenost</li>
-    <li><strong>lis–pro 1990.</strong> — carine; izbori MK/BA/RS–ME; plebiscit SI</li>
-    <li><strong>sij–ožu 1991.</strong> — SIV vs kabineti; razoružanje; Pakrac; 9. ožujak</li>
-    <li><strong>tra–svi 1991.</strong> — konfederalni nacrt; rotacija Mesić; kraj odsječka A</li>`;
+    <li><strong>sij 1990.</strong> — 14. kongres SKJ, odricanje vodeće uloge; Drnovšek na čekiću</li>
+    <li><strong>velj–ožu 1990.</strong> — SSP/nesvrstani; pravosuđe; višestranački zakoni; stand-by / dinar; TO inventura</li>
+    <li><strong>tra–svi 1990.</strong> — SSUP pred izborima; izbori SI/HR; rotacija Jović; pravosuđe nakon listića</li>
+    <li><strong>srp–ruj 1990.</strong> — srpski referendum/ustav; balvani; SDB; suverenost</li>
+    <li><strong>lis–pro 1990.</strong> — konfederalni stog; carine; izbori MK/BA/RS–ME; SSUP/SSP/Predsjedništvo pred plebiscitom</li>
+    <li><strong>sij–ožu 1991.</strong> — SIV vs kabineti; razoružanje; Pakrac; 9. ožujak; uze SDB</li>
+    <li><strong>tra–svi 1991.</strong> — konfederalni nacrt; sukob tvrdih šaltera/stola; FER/trgovina; pravosuđe pred rotacijom; Mesić; kraj odsječka A</li>
+    <li><strong>Pass 3–4</strong> — ${t("ency.timelinePass34")}</li>`;
   $("ency-body").innerHTML = `
     <p class="kicker" style="color:#8a7340">${t("ency.kicker")}</p>
     <h1>SFRJ 1990</h1>
@@ -243,12 +247,12 @@ export function renderInspector(game) {
 
 export function renderAgencies(game) {
   const list = workshopAgencies(game.state);
-  const attnLeft = game.state.attention_left != null ? game.state.attention_left : (game.state.reform_actions ?? 0);
-  const attnCap = attentionCap(game.state);
-  const left = attnLeft;
-  const cap = attnCap;
-  const dLeft = attnLeft;
-  const dCap = attnCap;
+  const br = attentionBreakdown(game.state);
+  const left = br.left;
+  const cap = br.cap;
+  const dLeft = br.left;
+  const dCap = br.cap;
+  const spendTip = t("attention.breakdown", { desks: br.desks, reforms: br.reforms, left: br.left, cap: br.cap });
   const pressure = livePressureWarnings(game.state)
     .map(
       (w) =>
@@ -266,15 +270,17 @@ export function renderAgencies(game) {
     )
     .join("");
   $("agency-strip").innerHTML =
-    `<button class="agency reform-btn" data-reform="1" title="${t("attention.tip")}">
+    `<button class="agency reform-btn" data-reform="1" title="${spendTip}">
         <div class="aid">${t("reform.kicker")}</div>
         <div class="aname">${t("reform.btn")}</div>
         <div class="status-pip active">${t("attention.left", { n: left, cap })}</div>
+        <div class="attn-spend">${t("attention.spentShort", { desks: br.desks, reforms: br.reforms })}</div>
       </button>` +
-    `<button class="agency desk-hub-btn" data-desks="1" title="${t("attention.tip")}">
+    `<button class="agency desk-hub-btn" data-desks="1" title="${spendTip}">
         <div class="aid">${t("desk.hubAid")}</div>
         <div class="aname">${t("desk.hub")}</div>
         <div class="status-pip active">${t("attention.shared", { n: dLeft, cap: dCap })}</div>
+        <div class="attn-spend">${t("attention.spentShort", { desks: br.desks, reforms: br.reforms })}</div>
       </button>` +
     `<button class="agency chat-hub-btn" data-chat="1">
         <div class="aid">${t("dialogue.hubAid")}</div>
@@ -389,8 +395,9 @@ export function showReformDesk(game, family) {
     .join("");
   openModal(`
     <div class="modal wide">
-      <p class="kicker" style="color:#8a7340">${t("reform.kicker")} · ${t("attention.left", { n: state.attention_left != null ? state.attention_left : state.reform_actions || 0, cap: attentionCap(state) })} · ${t("attention.tipShort")}</p>
+      <p class="kicker" style="color:#8a7340">${t("reform.kicker")} · ${t("attention.left", { n: attentionBreakdown(state).left, cap: attentionBreakdown(state).cap })} · ${t("attention.tipShort")}</p>
       <h2>${t("reform.title")}</h2>
+      <p class="attn-breakdown">${t("attention.breakdown", { desks: attentionBreakdown(state).desks, reforms: attentionBreakdown(state).reforms, left: attentionBreakdown(state).left, cap: attentionBreakdown(state).cap })}</p>
       <p>${t("reform.note", { name: unit?.name || "" })}</p>
       <div class="desks" style="margin:10px 0 14px">${switcher}</div>
       <div class="event-choices" style="padding:0;grid-template-columns:1fr 1fr">${actions}</div>
@@ -498,13 +505,19 @@ export function showDeskHub(game, focusId) {
         `<button type="button" class="desk ${d.id === id ? "active" : ""}" data-desk-switch="${d.id}">${d.name}</button>`
     )
     .join("");
+  const br = attentionBreakdown(game.state);
+  const conflicts = deskConflictWarnings(game.state);
+  const conflictBanner = conflicts.length
+    ? `<div class="conflict-banner sev-${conflicts[0].severity}">${t(conflicts[0].textKey, { desks: (conflicts[0].desks || []).join("/") || "—" })}</div>`
+    : "";
   const actions = actionsForDesk(game.state, catalog, id)
     .map((a) => {
       const costBits = [];
       if (a.reformCost) costBits.push(t("desk.costReform", { n: a.reformCost }));
       if (a.budgetCost) costBits.push(t("desk.costBudget", { n: a.budgetCost }));
+      if (a.conflict_warn) costBits.push(a.conflict_warn);
       return `
-        <button class="choice political ${a.blocked ? "blocked" : ""}" data-desk-act="${a.id}" ${a.blocked ? "disabled" : ""}>
+        <button class="choice political ${a.blocked ? "blocked" : ""} ${a.conflict_warn ? "conflict-choice" : ""}" data-desk-act="${a.id}" ${a.blocked ? "disabled" : ""}>
           <span class="legal">${costBits.join(" · ") || t("desk.costFree")}${a.blocked ? " · " + t("event.locked") : ""}</span>
           <span class="label">${a.blocked ? a.block_reason : a.label}</span>
         </button>`;
@@ -512,7 +525,9 @@ export function showDeskHub(game, focusId) {
     .join("");
   openModal(`
     <div class="modal wide desk-modal">
-      <p class="kicker" style="color:#8a7340">${t("desk.kicker")} · ${t("attention.left", { n: game.state.attention_left != null ? game.state.attention_left : game.state.desk_actions || 0, cap: attentionCap(game.state) })} · ${t("attention.tipShort")}</p>
+      <p class="kicker" style="color:#8a7340">${t("desk.kicker")} · ${t("attention.left", { n: br.left, cap: br.cap })} · ${t("attention.tipShort")}</p>
+      <p class="attn-breakdown">${t("attention.breakdown", { desks: br.desks, reforms: br.reforms, left: br.left, cap: br.cap })}</p>
+      ${conflictBanner}
       <h2>${def.name_hr || def.name}</h2>
       <p>${def.briefing}</p>
       <div class="desk-stats">
@@ -548,9 +563,10 @@ export function showDialogueHub(game) {
         status === "revisit" ? t("dialogue.revisit") : status === "done" ? t("dialogue.done") : t("dialogue.open");
       const cls = status === "done" ? "done-chat" : status === "revisit" ? "revisit-chat" : "";
       const disabled = status === "done" || status === "locked" ? "disabled" : "";
+      const revisitHint = status === "revisit" ? `<span class="revisit-pip">${t("dialogue.revisitPip")}</span>` : "";
       return `
         <button class="choice political ${cls}" data-dlg="${d.id}" ${disabled}>
-          <span class="legal">${d.desk || "—"} · ${statusLabel}${visits ? " · ×" + visits : ""}</span>
+          <span class="legal">${d.desk || "—"} · ${statusLabel}${visits ? " · ×" + visits : ""}${revisitHint}</span>
           <span class="label">${d.speaker} — ${d.title}</span>
         </button>`;
     })
@@ -640,9 +656,15 @@ export function closeModal() {
 export function showPresidencyVote(game, { legal, title, onPass, onWithdraw }) {
   const s = game.state;
   const tally = presidencyTally(s);
+  const mod = deskVoteModifiers(s);
+  const effective = Math.max(0, Math.min(8, tally + Math.max(-2, Math.min(2, mod.net))));
   const emergencyPath = legal === "emergency";
   const haveFive = tally >= 5;
+  const effectiveFive = effective >= 5 || haveFive;
   const chair = chairName(s);
+  const modNotes = (mod.notes || [])
+    .map((k) => `<li>${t(k)}</li>`)
+    .join("");
   const seats = UNIT_IDS.map((id) => {
     const on = s.presidency[id];
     return `
@@ -660,8 +682,13 @@ export function showPresidencyVote(game, { legal, title, onPass, onWithdraw }) {
       <div class="vote-grid">${seats}</div>
       <p><strong>${haveFive ? t("vote.tallyYes", { n: tally }) : t("vote.tallyNo", { n: tally })}</strong>
          ${emergencyPath ? t("vote.alreadyEmergency") : ""}</p>
+      <div class="vote-desk-mod">
+        <p class="kicker" style="color:#8a7340">${t("vote.deskMod")}</p>
+        <p>${t("vote.effective", { n: effective, raw: tally, net: mod.net >= 0 ? "+" + mod.net : String(mod.net) })}</p>
+        ${modNotes ? `<ul class="vote-mod-list">${modNotes}</ul>` : `<p class="const-note">${t("vote.deskModNone")}</p>`}
+      </div>
       <div class="modal-actions">
-        <button class="btn primary" id="vote-pass" ${haveFive || emergencyPath ? "" : "disabled"}>
+        <button class="btn primary" id="vote-pass" ${effectiveFive || emergencyPath ? "" : "disabled"}>
           ${emergencyPath ? t("vote.passEmergency") : t("vote.pass")}
         </button>
         <button class="btn" id="vote-emergency">${t("vote.override")}</button>
@@ -671,11 +698,11 @@ export function showPresidencyVote(game, { legal, title, onPass, onWithdraw }) {
   `);
   $("vote-pass").onclick = () => {
     closeModal();
-    onPass({ usedEmergency: false });
+    onPass({ usedEmergency: false, deskMod: mod });
   };
   $("vote-emergency").onclick = () => {
     closeModal();
-    onPass({ usedEmergency: true });
+    onPass({ usedEmergency: true, deskMod: mod });
   };
   $("vote-withdraw").onclick = () => {
     closeModal();

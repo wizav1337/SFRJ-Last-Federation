@@ -184,6 +184,22 @@ export const CORE_FLAGS = [
   "desk_event_ssup_pleb_seen",
   "desk_event_pret_pleb_seen",
   "desk_event_sdb_may_seen",
+  "justice_constitutional_line",
+  "justice_arbitrate_line",
+  "justice_hard_line",
+  "justice_rule_memo",
+  "desk_event_justice_seen",
+  "desk_event_justice_may_seen",
+  "desk_event_justice_votes_seen",
+  "desk_event_ssp_open_seen",
+  "desk_event_drnovsek_spring_seen",
+  "desk_event_conflict_warn_seen",
+  "desk_event_fer_may_seen",
+  "desk_conflict_soft_lock",
+  "desk_conflict_hard_conf",
+  "dialogue_drnovsek_congress",
+  "dialogue_drnovsek_spring",
+  "dialogue_drnovsek_eve",
 ];
 
 const BOOLEAN_FEDERAL = new Set(["skj_leading_role"]);
@@ -288,7 +304,9 @@ export function createNewState(catalogs) {
     activeDialogue: null,
     attention_left: 0,
     attention_month: "",
-    save_schema: 3,
+    attention_spent_desks: 0,
+    attention_spent_reforms: 0,
+    save_schema: 4,
   };
 }
 

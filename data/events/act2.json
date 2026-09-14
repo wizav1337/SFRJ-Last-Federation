@@ -361,6 +361,73 @@
       ]
     },
     {
+      "id": "desk_justice_after_votes",
+      "date": "1990-05-22",
+      "act": 2,
+      "desk": "SIV",
+      "priority": "regional",
+      "title": "Pravosuđe nakon listića",
+      "location": "Beograd — Savezni sekretarijat za pravosuđe",
+      "briefing": "Nakon izbora u SI/HR sekretarijat može ponoviti ustavni ili arbitražni jezik — ili tvrdo. Zahtijeva da je pravosuđe već dirnuto ili da je medijacija/konfederalni jezik u zraku.",
+      "constitutional_note": "Rotacija Jovića je 15. svibnja; ova kartica je poslije listića, ne zamjena rotacije.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "slovenia_election_held",
+          "croatia_election_held"
+        ],
+        "flags_not": [
+          "desk_event_justice_votes_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "const2",
+          "label": "Ustavni kanal nakon izbora.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "justice": {
+                "posture": "constitutional"
+              }
+            },
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "justice_constitutional_line",
+              "desk_event_justice_votes_seen"
+            ]
+          }
+        },
+        {
+          "id": "arb2",
+          "label": "Arbitraža uz novi sastav Predsjedništva.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "justice": {
+                "posture": "arbitrate"
+              }
+            },
+            "federal.presidency_cohesion": 2,
+            "flags_add": [
+              "justice_arbitrate_line",
+              "desk_event_justice_votes_seen"
+            ]
+          }
+        },
+        {
+          "id": "skip2",
+          "label": "Ostavi pravosuđe na starom papiru.",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "desk_event_justice_votes_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "hdz_government",
       "date": "1990-05-25",
       "act": 2,
@@ -490,6 +557,60 @@
       ]
     },
     {
+      "id": "barracks_quiet",
+      "date": "1990-05-28",
+      "act": 2,
+      "desk": "PRET",
+      "priority": "regional",
+      "title": "Vojarne, ne skladišta",
+      "location": "SSNO / garnizoni JNA",
+      "briefing": "U proljeće niste naredili savezni popis Teritorijalne obrane. Stožer JNA i dalje hoće sliku tko što drži prije ljeta. Prihvatit će popis vojarni. Neće prihvatiti da je pitanje nepristojno. Ovaj spis postoji samo zato što naredba o popisu nije pala.",
+      "constitutional_note": "Popis vojarni savezno je vlasništvo. Skladišta TO argument su koji ste odbili pokrenuti. Pokrenuti ga sada, nakon listića, glasnije je.",
+      "documents": [
+        "all_peoples_defence"
+      ],
+      "requires": {
+        "flags_not": [
+          "to_inventory_ordered"
+        ]
+      },
+      "choices": [
+        {
+          "id": "joint_commission",
+          "label": "Mješovito povjerenstvo. Časnici JNA i republikanske TO u istoj sobi, bez oduzimanja.",
+          "legal": "constitutional",
+          "effects": {
+            "federal.legitimacy": 3,
+            "federal.jna_cohesion": 2,
+            "SI.federal_trust": 3,
+            "HR.federal_trust": 2
+          }
+        },
+        {
+          "id": "leave_alone",
+          "label": "Ostavi TO na miru. Napiši da je vojska dovoljna.",
+          "legal": "political",
+          "effects": {
+            "federal.jna_cohesion": -7,
+            "SI.to_control": 5,
+            "HR.to_control": 5
+          }
+        },
+        {
+          "id": "quiet_redeploy",
+          "label": "Tiho prerasporedi JNA prema skladištima koja ne imenuješ.",
+          "legal": "presidency_decree",
+          "effects": {
+            "SI.federal_trust": -6,
+            "HR.federal_trust": -5,
+            "federal.war_risk": 4,
+            "SI.jna_presence": 6,
+            "HR.jna_presence": 5
+          }
+        }
+      ]
+    },
+    {
       "id": "to_inventory_followup",
       "date": "1990-05-28",
       "act": 2,
@@ -544,60 +665,6 @@
             "SI.to_control": 4,
             "HR.to_control": 4,
             "federal.war_risk": 3
-          }
-        }
-      ]
-    },
-    {
-      "id": "barracks_quiet",
-      "date": "1990-05-28",
-      "act": 2,
-      "desk": "PRET",
-      "priority": "regional",
-      "title": "Vojarne, ne skladišta",
-      "location": "SSNO / garnizoni JNA",
-      "briefing": "U proljeće niste naredili savezni popis Teritorijalne obrane. Stožer JNA i dalje hoće sliku tko što drži prije ljeta. Prihvatit će popis vojarni. Neće prihvatiti da je pitanje nepristojno. Ovaj spis postoji samo zato što naredba o popisu nije pala.",
-      "constitutional_note": "Popis vojarni savezno je vlasništvo. Skladišta TO argument su koji ste odbili pokrenuti. Pokrenuti ga sada, nakon listića, glasnije je.",
-      "documents": [
-        "all_peoples_defence"
-      ],
-      "requires": {
-        "flags_not": [
-          "to_inventory_ordered"
-        ]
-      },
-      "choices": [
-        {
-          "id": "joint_commission",
-          "label": "Mješovito povjerenstvo. Časnici JNA i republikanske TO u istoj sobi, bez oduzimanja.",
-          "legal": "constitutional",
-          "effects": {
-            "federal.legitimacy": 3,
-            "federal.jna_cohesion": 2,
-            "SI.federal_trust": 3,
-            "HR.federal_trust": 2
-          }
-        },
-        {
-          "id": "leave_alone",
-          "label": "Ostavi TO na miru. Napiši da je vojska dovoljna.",
-          "legal": "political",
-          "effects": {
-            "federal.jna_cohesion": -7,
-            "SI.to_control": 5,
-            "HR.to_control": 5
-          }
-        },
-        {
-          "id": "quiet_redeploy",
-          "label": "Tiho prerasporedi JNA prema skladištima koja ne imenuješ.",
-          "legal": "presidency_decree",
-          "effects": {
-            "SI.federal_trust": -6,
-            "HR.federal_trust": -5,
-            "federal.war_risk": 4,
-            "SI.jna_presence": 6,
-            "HR.jna_presence": 5
           }
         }
       ]

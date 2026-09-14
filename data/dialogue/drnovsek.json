@@ -122,6 +122,218 @@
           }
         }
       ]
+    },
+    "after_congress": {
+      "text": "Drnovšek vas prima nakon Kongresa. „Slovenija je izašla iz dvorane, ne iz institucija. Ako Savez odgovori inventurom i prijetnjom umjesto stola, kalendar će se pisati u Ljubljani — i prije svibnja.“",
+      "choices": [
+        {
+          "id": "reassure",
+          "label": "Ponovi poziv za stol — bez inventure kao kazne.",
+          "next": null,
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "loyalty": 3
+              }
+            },
+            "SI.federal_trust": 4,
+            "SI.secession_readiness": -2,
+            "federal.presidency_cohesion": 2,
+            "flags_add": [
+              "slovenia_invited_back",
+              "dialogue_drnovsek_congress"
+            ]
+          }
+        },
+        {
+          "id": "procedure",
+          "label": "Postupak: Kongres je gotov; izbori su republikanski.",
+          "next": null,
+          "effects": {
+            "federal.legitimacy": 1,
+            "SI.federal_trust": 1,
+            "flags_add": [
+              "dialogue_drnovsek_congress"
+            ]
+          }
+        },
+        {
+          "id": "warn",
+          "label": "Upozori: Savez neće trpjeti jednostrane kalendare.",
+          "next": null,
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "agenda_tension": 5
+              }
+            },
+            "SI.secession_readiness": 4,
+            "SI.federal_trust": -4,
+            "federal.war_risk": 1,
+            "flags_add": [
+              "dialogue_drnovsek_congress",
+              "dialogue_drnovsek_pressure"
+            ]
+          }
+        }
+      ]
+    },
+    "spring_corridor": {
+      "text": "Proljeće 1990. Drnovšek još drži čekić. „Imate SIV, imate TO papir, imate izbore pred vratima. Medijacija sada je jeftinija od dekreta u svibnju.“",
+      "choices": [
+        {
+          "id": "mediate_spring",
+          "label": "Otvori proljetni koridor medijacije.",
+          "next": null,
+          "effects": {
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            },
+            "desk_add": {
+              "presidency": {
+                "loyalty": 2
+              }
+            },
+            "federal.presidency_cohesion": 3,
+            "federal.war_risk": -2,
+            "flags_add": [
+              "presidency_mediation_active",
+              "dialogue_drnovsek_spring"
+            ]
+          }
+        },
+        {
+          "id": "quorum_spring",
+          "label": "Čuvaj kvorum Predsjedništva do rotacije.",
+          "next": null,
+          "effects": {
+            "federal.presidency_cohesion": 2,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "presidency_quorum_guard",
+              "dialogue_drnovsek_spring"
+            ]
+          }
+        },
+        {
+          "id": "wait_spring",
+          "label": "Pričekaj izbore. Bez novog papira.",
+          "next": null,
+          "effects": {
+            "flags_add": [
+              "dialogue_drnovsek_spring"
+            ]
+          }
+        }
+      ]
+    },
+    "eve_rotation": {
+      "text": "Uoči 15. svibnja. „Jović preuzima čekić. Ja odlazim s mjesta predsjedatelja — ne iz Predsjedništva kao član dok me zamjene. Ako želite konfederalni jezik kasnije, ne spalite kvorum sada.“",
+      "choices": [
+        {
+          "id": "handoff_soft",
+          "label": "Meki prijelaz: zapiši kvorum i poziv Sloveniji.",
+          "next": null,
+          "effects": {
+            "federal.presidency_cohesion": 3,
+            "SI.federal_trust": 3,
+            "flags_add": [
+              "presidency_quorum_guard",
+              "slovenia_invited_back",
+              "dialogue_drnovsek_eve"
+            ]
+          }
+        },
+        {
+          "id": "handoff_note",
+          "label": "Zapiši samo bilješku — bez novih uvjeta.",
+          "next": null,
+          "effects": {
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "dialogue_drnovsek_eve"
+            ]
+          }
+        },
+        {
+          "id": "handoff_hard",
+          "label": "Tvrdi prijelaz: Savez prije stola.",
+          "next": null,
+          "effects": {
+            "desk_set": {
+              "presidency": {
+                "posture": "hardline"
+              }
+            },
+            "federal.presidency_cohesion": -2,
+            "SI.secession_readiness": 3,
+            "flags_add": [
+              "presidency_hardline",
+              "dialogue_drnovsek_eve"
+            ]
+          }
+        }
+      ]
     }
-  }
+  },
+  "entries": [
+    {
+      "id": "start",
+      "node": "start",
+      "once": true,
+      "priority": 0
+    },
+    {
+      "id": "after_congress",
+      "node": "after_congress",
+      "once": true,
+      "priority": 2,
+      "require_done": true,
+      "available_from": "1990-01-24",
+      "available_until": "1990-05-15",
+      "unlock": {
+        "flags_any": [
+          "skj_split",
+          "slovenia_walkout",
+          "skj_renounced_monopoly"
+        ]
+      }
+    },
+    {
+      "id": "spring_corridor",
+      "node": "spring_corridor",
+      "once": true,
+      "priority": 3,
+      "require_done": true,
+      "available_from": "1990-03-01",
+      "available_until": "1990-05-15",
+      "unlock": {
+        "flags_any": [
+          "dialogue_drnovsek_invite",
+          "to_inventory_ordered",
+          "multiparty_wave",
+          "markovic_dinar_program"
+        ]
+      }
+    },
+    {
+      "id": "eve_rotation",
+      "node": "eve_rotation",
+      "once": true,
+      "priority": 4,
+      "require_done": true,
+      "available_from": "1990-05-01",
+      "available_until": "1990-05-15",
+      "unlock": {
+        "flags_any": [
+          "dialogue_drnovsek_observers",
+          "dialogue_drnovsek_spring",
+          "presidency_mediation_active",
+          "presidency_quorum_guard"
+        ]
+      }
+    }
+  ]
 }

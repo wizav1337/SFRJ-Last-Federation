@@ -71,7 +71,7 @@ Nema borbe, nema Desetodnevnog rata, nema lipanjskih proglašenja kao dovršenog
 - **ID-ovi, ključevi, imena datoteka, zastavice** ostaju engleski.
 - **Titograd** ostaje Titograd.
 - **Stranačke kratice** (HDZ, SDS, SDA, DEMOS, SPS, SKJ) ostaju; puno hrvatsko ime stoji uz prvo pojavljivanje.
-- **Engleski `data/i18n/en.json`** ostaje kao prazan fallback. Zadani jezik pri paljenju je hrvatski.
+- **Engleski `data/i18n/en.json`** je proširen (Pass 4) za chrome / šaltere / dijalog, ali zadani jezik pri paljenju ostaje hrvatski.
 
 ---
 
@@ -189,4 +189,43 @@ Zajednički mjesečni bazen: **3** (4 ako SIV ≥ 60). Reforme i šalteri troše
 - E3: otvorena povelja (≥4) + Predsjedništvo koje se može sastati; sjedenje Mesića ≠ blokada
 - Nema čina VI; nema lipanjskog rata; Izetbegović–Gligorov nije na travanjskoj kartici
 - Marković = predsjednik **SIV-a**
+- ID-ovi i zastavice engleski; UI hrvatski
+
+
+---
+
+## Dodatak — Pass 4 `expand/pass4-systems`
+
+Pažnja (UI raspodjela šalteri vs reforme); soft-lock sukoba tvrdih šaltera s otvorenim konfederalnim stolom; šalter **Pravosuđe**; dublji glas Predsjedništva × postava; Drnovšek multi-visit; kartice čina I i kasnog V; `save_schema` 4; `scripts/smoke.mjs`.
+
+### Nova / proširena kartica
+
+| Spis | Datum | Napomena |
+|---|---|---|
+| `desk_ssp_nonaligned_open` | 1990-02-08 | SSP nesvrstani / tihi zapad / izolacija; Marković = SIV |
+| `desk_justice_open` | 1990-02-28 | Ustavni kanal / arbitraža / tvrdo; Ustavni sud postoji |
+| `presidency_drnovsek_spring` | 1990-03-20 | Drnovšek još drži čekić; medijacija/kvorum/tvrdo |
+| `desk_justice_after_votes` | 1990-05-22 | `flags_any` SI/HR izbori; pravosuđe nakon listića |
+| `desk_justice_may_leash` | 1991-04-28 | Pravosuđe pred svibanjskom rotacijom; E3 pravilo ponovljeno |
+| `confederal_conflict_warn` | 1991-05-02 | Soft-lock: tvrdi šalteri + otvoreni stol; nije bitka |
+| `desk_fer_trade_may` | 1991-05-06 | FER/trgovina/MMF pred 15. V; nema raspada banke |
+
+### Razgovori
+
+- Drnovšek: `after_congress`, `spring_corridor`, `eve_rotation` (do 15. V 1990.)
+- `player_used_jna_threat` nije diran na ovim granama
+
+### Soft-lock / sukob
+
+Tvrda postava (Predsjedništvo / JNA / SSUP / pravosuđe / inventura TO) uz `confederal_talks_open` → upozorenje na traci; tvrda akcija šaltera može koštati **+1** pažnju. Nije hard-block. E3 pravilo **nije** dirano.
+
+### Glas Predsjedništva
+
+`deskVoteModifiers`: medijacija / kvorum / ustavno-arbitražno pravosuđe vs tvrda JNA/SSUP/pravosuđe. Učinak na prikazani zbroj i koheziju / legitimnost pri izvanrednom.
+
+### Pravila koja nisu dirana
+
+- E3: otvorena povelja (≥4) + Predsjedništvo koje se može sastati; sjedenje Mesića ≠ blokada
+- Nema čina VI; nema lipanjskog rata; Izetbegović–Gligorov nije na travanjskoj kartici
+- Marković = predsjednik **SIV-a**; Drnovšek predsjedatelj do 15. V 1990.; Jović nije Milošević
 - ID-ovi i zastavice engleski; UI hrvatski
