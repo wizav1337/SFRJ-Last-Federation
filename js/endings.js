@@ -214,6 +214,17 @@ function pathNotes(state) {
   if (state.flags.presidency_hardline) notes.push(t("path.deskHardline"));
   if (state.flags.talked_kadijevic) notes.push(t("path.talkKadijevic"));
   if (state.flags.talked_markovic) notes.push(t("path.talkMarkovic"));
+  if (state.flags.to_inventory_push) notes.push(t("path.deskToInventory"));
+  else if (state.flags.to_coordinate_posture) notes.push(t("path.deskToCoord"));
+  else if (state.flags.to_republic_hold) notes.push(t("path.deskToRep"));
+  if (state.flags.nby_tight_dinar) notes.push(t("path.deskNbyTight"));
+  else if (state.flags.nby_fragment_risk) notes.push(t("path.deskNbyFrag"));
+  if (state.flags.talked_kucan) notes.push(t("path.talkKucan"));
+  if (state.flags.talked_tudman) notes.push(t("path.talkTudman"));
+  if (state.flags.talked_markovic_late) notes.push(t("path.talkMarkovicLate"));
+  if (state.flags.talked_kadijevic_late) notes.push(t("path.talkKadijevicLate"));
+  if (state.flags.dialogue_kucan_conf) notes.push(t("path.kucanConf"));
+  if (state.flags.dialogue_tudman_hard) notes.push(t("path.tudmanHard"));
   return notes;
 }
 

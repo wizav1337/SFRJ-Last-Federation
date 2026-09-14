@@ -227,6 +227,84 @@
       ]
     },
     {
+      "id": "desk_ssp_before_pleb",
+      "date": "1990-12-18",
+      "act": 4,
+      "desk": "SIV",
+      "priority": "regional",
+      "title": "SSP: nota prije plebiscita",
+      "location": "Savezni sekretarijat za inozemne poslove",
+      "briefing": "Prije 23. prosinca, SSP može gurnuti kolosijek EEZ (nota, ne priznanje), ostati na nesvrstanima ili poslati tihu demaršu o jedinstvenom tržištu. Plebiscit je savjetodavni uvod — nije proglašenje.",
+      "constitutional_note": "Nema priznanja neovisnosti u ovom odsječku. EC troika gleda, ne odlučuje.",
+      "documents": [],
+      "choices": [
+        {
+          "id": "ec",
+          "label": "Kolosijek EEZ: nota, promatrači, ne priznanje.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssp": {
+                "posture": "ec_track"
+              }
+            },
+            "desk_add": {
+              "ssp": {
+                "capacity": 4
+              }
+            },
+            "federal.international_standing": 5,
+            "flags_add": [
+              "ssp_ec_track",
+              "ec_troika_watching",
+              "desk_event_ssp_pleb_seen"
+            ]
+          }
+        },
+        {
+          "id": "nonaligned",
+          "label": "Nesvrstani jezik. Manje EEZ.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssp": {
+                "posture": "nonaligned"
+              }
+            },
+            "desk_add": {
+              "ssp": {
+                "loyalty": 3
+              }
+            },
+            "flags_add": [
+              "desk_event_ssp_pleb_seen"
+            ],
+            "flags_remove": [
+              "ssp_ec_track"
+            ]
+          }
+        },
+        {
+          "id": "demarche",
+          "label": "Tiha demarša o jedinstvenom tržištu.",
+          "legal": "political",
+          "effects": {
+            "desk_add": {
+              "ssp": {
+                "capacity": 3
+              }
+            },
+            "federal.international_standing": 3,
+            "federal.inter_republic_trade": 2,
+            "flags_add": [
+              "ssp_quiet_demarche",
+              "desk_event_ssp_pleb_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "ec_troika_note",
       "date": "1990-12-20",
       "act": 4,

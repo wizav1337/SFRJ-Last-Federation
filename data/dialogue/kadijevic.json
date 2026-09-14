@@ -91,8 +91,8 @@
       "choices": [
         {
           "id": "end_civ",
-          "label": "Prihvati uvjet kvoruma.",
-          "next": null,
+          "label": "Prihvati uvjet kvoruma — i pitaj za TO.",
+          "next": "civilian_to",
           "effects": {
             "desk_add": {
               "presidency": {
@@ -117,8 +117,8 @@
       "choices": [
         {
           "id": "end_alert",
-          "label": "Zapiši postavu: pripravnost.",
-          "next": null,
+          "label": "Zapiši postavu: pripravnost — i pitaj granicu.",
+          "next": "alert_bound",
           "effects": {
             "desk_set": {
               "jna": {
@@ -139,6 +139,99 @@
           "effects": {
             "federal.legitimacy": -5,
             "federal.war_risk": 4
+          }
+        }
+      ]
+    },
+    "civilian_to": {
+      "text": "„TO nije JNA. Ako inventuru gurate kao kaznu, Ljubljana i Zagreb će držati skladišta kao svoja. Ako koordinirate popis, možda još imate savezni jezik.“",
+      "choices": [
+        {
+          "id": "to_coord",
+          "label": "Koordiniraj TO sa JNA — popis, ne oduzimanje.",
+          "next": null,
+          "effects": {
+            "desk_set": {
+              "to": {
+                "posture": "coordinate"
+              }
+            },
+            "desk_add": {
+              "to": {
+                "loyalty": 4,
+                "agenda_tension": -3
+              }
+            },
+            "federal.war_risk": -1,
+            "flags_add": [
+              "to_coordinate_posture",
+              "dialogue_kadijevic_to"
+            ]
+          }
+        },
+        {
+          "id": "to_inventory",
+          "label": "Ipak gurni inventuru. Papir prije politike.",
+          "next": null,
+          "effects": {
+            "desk_set": {
+              "to": {
+                "posture": "inventory"
+              }
+            },
+            "desk_add": {
+              "to": {
+                "capacity": 3,
+                "agenda_tension": 5
+              }
+            },
+            "flags_add": [
+              "to_inventory_push",
+              "to_inventory_ordered",
+              "dialogue_kadijevic_to"
+            ],
+            "SI.federal_trust": -2,
+            "HR.federal_trust": -2
+          }
+        }
+      ]
+    },
+    "alert_bound": {
+      "text": "„Pripravnost nije ulica. Ako SSUP krene tvrdo nakon balvana, JNA neće biti ukras — bit će izgovor. Držite unutarnje poslove mekim dok još možete.“",
+      "choices": [
+        {
+          "id": "alert_leash",
+          "label": "Zabilježi: pripravnost + meka linija SSUP.",
+          "next": null,
+          "effects": {
+            "desk_set": {
+              "ssup": {
+                "posture": "soft"
+              }
+            },
+            "desk_add": {
+              "ssup": {
+                "loyalty": 2
+              }
+            },
+            "flags_add": [
+              "ssup_soft_line",
+              "dialogue_kadijevic_bound"
+            ],
+            "flags_remove": [
+              "ssup_hard_line"
+            ],
+            "federal.war_risk": -1
+          }
+        },
+        {
+          "id": "alert_alone",
+          "label": "Samo pripravnost. SSUP kasnije.",
+          "next": null,
+          "effects": {
+            "flags_add": [
+              "dialogue_kadijevic_bound"
+            ]
           }
         }
       ]

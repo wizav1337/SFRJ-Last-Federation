@@ -1,0 +1,152 @@
+{
+  "id": "kadijevic_late",
+  "speaker": "Veljko Kadijević",
+  "title": "SSNO — zimski krug 1991.",
+  "desk": "jna",
+  "available_from": "1991-01-01",
+  "unlock": {
+    "flags": [
+      "talked_kadijevic"
+    ]
+  },
+  "nodes": {
+    "start": {
+      "text": "Zima 1991. Kadijević govori o naredbi o neregularnim formacijama i o tome što TO još drži. „Predsjedništvo mora glasati. Pet od osam. Bez pet, štaba neće igrati kazalište — ni u Pakracu.“",
+      "choices": [
+        {
+          "id": "quorum_first",
+          "label": "Prvo kvorum i civilni lanac. Bez ulične pripravnosti.",
+          "next": "quorum",
+          "effects": {
+            "desk_set": {
+              "jna": {
+                "posture": "garrison"
+              },
+              "presidency": {
+                "posture": "mediate"
+              }
+            },
+            "desk_add": {
+              "jna": {
+                "loyalty": 4
+              },
+              "presidency": {
+                "loyalty": 3
+              }
+            },
+            "federal.jna_obedience_to_civilian": 5,
+            "federal.war_risk": -3,
+            "flags_add": [
+              "talked_kadijevic_late",
+              "jna_civilian_chain",
+              "jna_garrison_posture",
+              "presidency_quorum_guard",
+              "dialogue_kadijevic_winter"
+            ],
+            "flags_remove": [
+              "jna_mobilization_alert"
+            ]
+          }
+        },
+        {
+          "id": "disarm_line",
+          "label": "Podrži naredbu o neregularnim formacijama — strogo, bez tenkova u gradu.",
+          "next": "disarm",
+          "effects": {
+            "desk_set": {
+              "jna": {
+                "posture": "alert"
+              },
+              "to": {
+                "posture": "inventory"
+              }
+            },
+            "desk_add": {
+              "jna": {
+                "capacity": 3,
+                "agenda_tension": 5
+              },
+              "to": {
+                "agenda_tension": 4
+              }
+            },
+            "federal.war_risk": 3,
+            "HR.interethnic_tension": 3,
+            "flags_add": [
+              "talked_kadijevic_late",
+              "jna_mobilization_alert",
+              "to_inventory_push",
+              "dialogue_kadijevic_disarm"
+            ]
+          }
+        },
+        {
+          "id": "serbia_again",
+          "label": "Pitaj može li JNA „sačuvati Jugoslaviju“ s Beogradom.",
+          "next": "serbia",
+          "effects": {
+            "desk_add": {
+              "jna": {
+                "loyalty": -5,
+                "agenda_tension": 8
+              }
+            },
+            "federal.jna_obedience_to_civilian": -6,
+            "flags_add": [
+              "talked_kadijevic_late",
+              "jna_sides_with_serbia",
+              "dialogue_kadijevic_serbia_late",
+              "player_used_jna_threat"
+            ]
+          }
+        }
+      ]
+    },
+    "quorum": {
+      "text": "„Dobro. Onda Pakrac i ožujak u Beogradu — ako dođu — ne smiju biti izgovor za samostalni štab. Predsjedništvo glasá.“",
+      "choices": [
+        {
+          "id": "end_q",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {
+            "flags_add": [
+              "presidency_mediation_active"
+            ],
+            "federal.presidency_cohesion": 2
+          }
+        }
+      ]
+    },
+    "disarm": {
+      "text": "Naredba ide. TO inventura postaje politička činjenica. Ratni rizik raste — još bez fronte.",
+      "choices": [
+        {
+          "id": "end_d",
+          "label": "Zatvori.",
+          "next": null,
+          "effects": {
+            "SI.federal_trust": -3,
+            "HR.federal_trust": -3
+          }
+        }
+      ]
+    },
+    "serbia": {
+      "text": "Isti šapat kao lani — samo bliže svibnju. Dosje ponovno bilježi političku prijetnju.",
+      "choices": [
+        {
+          "id": "end_s",
+          "label": "Izađi.",
+          "next": null,
+          "effects": {
+            "federal.legitimacy": -4,
+            "federal.war_risk": 5,
+            "SI.secession_readiness": 3,
+            "HR.secession_readiness": 3
+          }
+        }
+      ]
+    }
+  }
+}

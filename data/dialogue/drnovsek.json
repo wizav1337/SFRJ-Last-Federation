@@ -14,10 +14,18 @@
           "label": "Pozovi Sloveniju da ostane za stolom — i poslije Kongresa.",
           "next": "invite",
           "effects": {
-            "desk_add": { "presidency": { "loyalty": 4 } },
+            "desk_add": {
+              "presidency": {
+                "loyalty": 4
+              }
+            },
             "SI.federal_trust": 6,
             "SI.secession_readiness": -3,
-            "flags_add": ["talked_drnovsek", "slovenia_invited_back", "dialogue_drnovsek_invite"]
+            "flags_add": [
+              "talked_drnovsek",
+              "slovenia_invited_back",
+              "dialogue_drnovsek_invite"
+            ]
           }
         },
         {
@@ -25,10 +33,17 @@
           "label": "Prisili postupak: Savez prije republike.",
           "next": "pressure",
           "effects": {
-            "desk_add": { "presidency": { "agenda_tension": 6 } },
+            "desk_add": {
+              "presidency": {
+                "agenda_tension": 6
+              }
+            },
             "SI.federal_trust": -6,
             "SI.secession_readiness": 5,
-            "flags_add": ["talked_drnovsek", "dialogue_drnovsek_pressure"]
+            "flags_add": [
+              "talked_drnovsek",
+              "dialogue_drnovsek_pressure"
+            ]
           }
         },
         {
@@ -36,7 +51,9 @@
           "label": "Ostavi rotaciju kalendaru. Bez novih uvjeta.",
           "next": "neutral",
           "effects": {
-            "flags_add": ["talked_drnovsek"]
+            "flags_add": [
+              "talked_drnovsek"
+            ]
           }
         }
       ]
@@ -46,8 +63,8 @@
       "choices": [
         {
           "id": "end_inv",
-          "label": "Zapiši poziv.",
-          "next": null,
+          "label": "Zapiši poziv — i pitaj za izbore.",
+          "next": "invite_elect",
           "effects": {
             "federal.presidency_cohesion": 2
           }
@@ -75,6 +92,34 @@
           "label": "Zatvori.",
           "next": null,
           "effects": {}
+        }
+      ]
+    },
+    "invite_elect": {
+      "text": "„Ako Savez pošalje promatrače umjesto tenkova, DEMOS ili ZKS–SDP — tko god pobijedi — još može govoriti o Savezu. Kučan nije zapovjednik JNA. Zapamtite to.“",
+      "choices": [
+        {
+          "id": "observers",
+          "label": "Najavi savezne promatrače na slovenskim izborima.",
+          "next": null,
+          "effects": {
+            "flags_add": [
+              "federal_observers_si",
+              "dialogue_drnovsek_observers"
+            ],
+            "SI.federal_trust": 3,
+            "federal.legitimacy": 2
+          }
+        },
+        {
+          "id": "no_obs",
+          "label": "Ostavi izbore republici.",
+          "next": null,
+          "effects": {
+            "flags_add": [
+              "dialogue_drnovsek_observers"
+            ]
+          }
         }
       ]
     }

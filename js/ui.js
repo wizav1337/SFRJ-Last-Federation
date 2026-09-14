@@ -23,6 +23,7 @@ import {
   actionsForDesk,
   deskCap,
   deskStatusLabel,
+  deskStatusChips,
 } from "./desks.js";
 import {
   listDialogues,
@@ -90,10 +91,12 @@ export function showEncyclopedia(game) {
     <h2>${t("ency.organs")}</h2>
     <ul>${agencies}</ul>
     <h2>${t("ency.desks")}</h2>
-    <ul>${(game.catalogs.desks || []).map((d) => `<li><strong>${d.name_hr || d.name}</strong> — ${d.briefing}</li>`).join("")}</ul>
+    <p>${t("ency.desksBody")}</p>
+    <ul>${(game.catalogs.desks || []).map((d) => `<li><strong>${d.name_hr || d.name}</strong> (${(d.postures || []).join(" / ")}) — ${d.briefing}</li>`).join("")}</ul>
     <h2>${t("ency.dialogue")}</h2>
     <p>${t("ency.dialogueBody")}</p>
-    <ul>${(game.catalogs.dialogues || []).map((d) => `<li><strong>${d.speaker}</strong> — ${d.title}</li>`).join("")}</ul>
+    <ul>${(game.catalogs.dialogues || []).map((d) => `<li><strong>${d.speaker}</strong> — ${d.title}${d.available_from ? " · od " + d.available_from : ""}</li>`).join("")}</ul>
+    <p class="const-note">${t("ency.electionCoupling")}</p>
     <div class="modal-actions">
       <button class="btn primary" id="ency-back">${t("ency.back")}</button>
     </div>
@@ -235,6 +238,15 @@ export function renderAgencies(game) {
   const cap = reformCap(game.state);
   const dLeft = game.state.desk_actions ?? 0;
   const dCap = deskCap(game.state);
+  const chips = deskStatusChips(game.state, game.catalogs)
+    .map(
+      (c) =>
+        `<button type="button" class="desk-chip tone-${c.tone}" data-desk-chip="${c.id}" title="${c.name}: ${c.label}">
+          <span class="chip-id">${c.name}</span>
+          <span class="chip-posture">${c.label}</span>
+        </button>`
+    )
+    .join("");
   $("agency-strip").innerHTML =
     `<button class="agency reform-btn" data-reform="1">
         <div class="aid">${t("reform.kicker")}</div>
@@ -251,6 +263,7 @@ export function renderAgencies(game) {
         <div class="aname">${t("dialogue.hub")}</div>
         <div class="status-pip active">${t("dialogue.hubPip")}</div>
       </button>` +
+    `<div class="desk-chip-row" aria-label="${t("desk.chipsAria")}">${chips}</div>` +
     list
       .map(
         (a) => `
@@ -264,6 +277,9 @@ export function renderAgencies(game) {
   $("agency-strip").querySelector("[data-reform]")?.addEventListener("click", () => showReformDesk(game));
   $("agency-strip").querySelector("[data-desks]")?.addEventListener("click", () => showDeskHub(game));
   $("agency-strip").querySelector("[data-chat]")?.addEventListener("click", () => showDialogueHub(game));
+  $("agency-strip").querySelectorAll("[data-desk-chip]").forEach((btn) => {
+    btn.addEventListener("click", () => showDeskHub(game, btn.getAttribute("data-desk-chip")));
+  });
   $("agency-strip").querySelectorAll("[data-agency]").forEach((btn) => {
     btn.addEventListener("click", () => openAgency(game, btn.getAttribute("data-agency")));
   });

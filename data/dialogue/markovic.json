@@ -84,7 +84,7 @@
         {
           "id": "end_teeth",
           "label": "Zapiši mandat u dnevnik Predsjedništva.",
-          "next": null,
+          "next": "teeth_imf",
           "effects": {
             "federal.legitimacy": 2,
             "flags_add": [
@@ -105,7 +105,7 @@
         {
           "id": "end_starve",
           "label": "Zatvori vrata.",
-          "next": null,
+          "next": "starve_tail",
           "effects": {
             "federal.reform_momentum": -3
           }
@@ -120,6 +120,77 @@
           "label": "Zahvali i izađi.",
           "next": null,
           "effects": {}
+        }
+      ]
+    },
+    "teeth_imf": {
+      "text": "„Ako stand-by padne, dinar pada s njim. NBJ mora držati rezervu; republikanske banke ne smiju igrati blagajnu predizborne kampanje. Tražim da Predsjedništvo to čuje — ne da ga potpiše kao rat.“",
+      "choices": [
+        {
+          "id": "back_nby",
+          "label": "Potvrdi tvrdi dinar i rezervu NBJ-a.",
+          "next": null,
+          "effects": {
+            "desk_set": {
+              "nby": {
+                "posture": "tight"
+              }
+            },
+            "desk_add": {
+              "nby": {
+                "loyalty": 4,
+                "capacity": 3
+              },
+              "finance": {
+                "loyalty": 2
+              }
+            },
+            "federal.hard_currency": 3,
+            "federal.inflation": -2,
+            "flags_add": [
+              "nby_tight_dinar",
+              "dialogue_markovic_nby",
+              "markovic_dinar_program"
+            ]
+          }
+        },
+        {
+          "id": "soft_nby",
+          "label": "Ostavi NBJ da sama piše cirkulare.",
+          "next": null,
+          "effects": {
+            "desk_add": {
+              "nby": {
+                "agenda_tension": 3
+              }
+            },
+            "federal.reform_momentum": 1,
+            "flags_add": [
+              "dialogue_markovic_nby_soft"
+            ]
+          }
+        }
+      ]
+    },
+    "starve_tail": {
+      "text": "Na hodniku netko šapuće da će SIV i dalje potpisivati carine i fondove — ali bez zamaha. Republikanski kabineti to čuju kao signal.",
+      "choices": [
+        {
+          "id": "starve_done",
+          "label": "Zapiši u dosje: SIV izgladnjen.",
+          "next": null,
+          "effects": {
+            "SI.federal_trust": -2,
+            "HR.federal_trust": -2,
+            "desk_add": {
+              "siv": {
+                "loyalty": -2
+              }
+            },
+            "flags_add": [
+              "dialogue_markovic_starve_tail"
+            ]
+          }
         }
       ]
     }

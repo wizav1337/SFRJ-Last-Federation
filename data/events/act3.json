@@ -3,6 +3,70 @@
   "title": "Ustavi i balvani",
   "events": [
     {
+      "id": "federal_act_ignored",
+      "date": "1990-07-02",
+      "act": 3,
+      "desk": "PRET",
+      "priority": "crisis",
+      "spawn_only": true,
+      "title": "Republika je odbila",
+      "location": "Savezni spis / republikanski glavni grad",
+      "briefing": "Republika nije izvršila posljednji savezni akt. Službeni list nije garnizon. Možete pregovarati, zanemariti, pritisnuti preko JNA, ili kupiti spis. Ovo nije bitka. To je pitanje opisuje li sljedeća rečenica u Službenom listu još državu.",
+      "constitutional_note": "Nepoštovanje republikanska je politička činjenica. Pritisak JNA savezna je vojna činjenica. Ne miješajte ih u zapisniku.",
+      "documents": [
+        "1974_federation"
+      ],
+      "choices": [
+        {
+          "id": "negotiate",
+          "label": "Pregovaraj. Pretvori akt u protokol koji će republika parafirati.",
+          "legal": "political",
+          "effects": {
+            "NC.secession_readiness": -4,
+            "NC.federal_trust": 6,
+            "federal.legitimacy": 2,
+            "federal.presidency_cohesion": 2
+          }
+        },
+        {
+          "id": "ignore_refusal",
+          "label": "Zanemari odbijanje. Zadrži Službeni list. Ne šalji drugu naredbu.",
+          "legal": "siv",
+          "effects": {
+            "federal.siv_authority": -4,
+            "federal.legitimacy": -3,
+            "NC.secession_readiness": 3
+          }
+        },
+        {
+          "id": "jna_pressure",
+          "label": "Pritisak JNA. Podsjetnik iz vojarne. Nije operacija.",
+          "legal": "emergency",
+          "effects": {
+            "federal.war_risk": 8,
+            "NC.federal_trust": -10,
+            "NC.secession_readiness": 6,
+            "federal.legitimacy": -6,
+            "flags_add": [
+              "player_used_jna_threat"
+            ]
+          }
+        },
+        {
+          "id": "buy_off",
+          "label": "Kupi spis. Transferi, tvrda valuta, tiha stavka u proračunu.",
+          "legal": "siv",
+          "effects": {
+            "federal.federal_budget": -8,
+            "federal.hard_currency": -4,
+            "NC.secession_readiness": -3,
+            "NC.living_standard": 3,
+            "NC.federal_trust": 4
+          }
+        }
+      ]
+    },
+    {
       "id": "serbia_referendum",
       "date": "1990-07-02",
       "act": 3,
@@ -257,6 +321,110 @@
             "HR.planned_move": "knin_roadblocks",
             "flags_add": [
               "krajina_log_revolution"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_to_after_logs",
+      "date": "1990-08-20",
+      "act": 3,
+      "desk": "PRET",
+      "priority": "regional",
+      "title": "TO i balvani: tko drži skladišta",
+      "location": "Knin / Zagreb / Beograd — mirnodopski kanal",
+      "briefing": "Balvani stoje. TO u Hrvatskoj više nije apstrakcija. Savezni šalter može gurnuti inventuru, koordinirati s JNA ili priznati republikanski držaj — bez racija kao pobjede.",
+      "constitutional_note": "Nema Desetodnevnog rata. Balvan-revolucija ostaje politička činjenica, ne fronta.",
+      "requires": {
+        "flags": [
+          "krajina_log_revolution"
+        ]
+      },
+      "documents": [],
+      "choices": [
+        {
+          "id": "soft_coord",
+          "label": "Koordiniraj TO i meku liniju SSUP.",
+          "legal": "presidency_decree",
+          "effects": {
+            "desk_set": {
+              "to": {
+                "posture": "coordinate"
+              },
+              "ssup": {
+                "posture": "soft"
+              }
+            },
+            "desk_add": {
+              "to": {
+                "loyalty": 3
+              },
+              "ssup": {
+                "loyalty": 3
+              }
+            },
+            "HR.interethnic_tension": -3,
+            "federal.war_risk": -2,
+            "flags_add": [
+              "to_coordinate_posture",
+              "ssup_soft_line",
+              "desk_event_to_seen"
+            ],
+            "flags_remove": [
+              "ssup_hard_line"
+            ]
+          }
+        },
+        {
+          "id": "hard_inv",
+          "label": "Inventura TO + tvrđi SSUP na stanice.",
+          "legal": "presidency_decree",
+          "effects": {
+            "desk_set": {
+              "to": {
+                "posture": "inventory"
+              },
+              "ssup": {
+                "posture": "hard"
+              }
+            },
+            "desk_add": {
+              "to": {
+                "agenda_tension": 6
+              },
+              "ssup": {
+                "agenda_tension": 6
+              }
+            },
+            "HR.interethnic_tension": 6,
+            "HR.federal_trust": -6,
+            "federal.war_risk": 5,
+            "flags_add": [
+              "to_inventory_push",
+              "to_inventory_ordered",
+              "ssup_hard_line",
+              "desk_event_to_seen"
+            ],
+            "flags_remove": [
+              "ssup_soft_line"
+            ]
+          }
+        },
+        {
+          "id": "leave_rep",
+          "label": "Ostavi TO republici. Promatrači, ne popis.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "to": {
+                "posture": "republic_hold"
+              }
+            },
+            "HR.to_control": 5,
+            "flags_add": [
+              "to_republic_hold",
+              "desk_event_to_seen"
             ]
           }
         }
@@ -686,65 +854,115 @@
       ]
     },
     {
-      "id": "federal_act_ignored",
-      "date": "1990-07-02",
+      "id": "desk_finance_customs",
+      "date": "1990-10-25",
       "act": 3,
-      "desk": "PRET",
-      "priority": "crisis",
-      "spawn_only": true,
-      "title": "Republika je odbila",
-      "location": "Savezni spis / republikanski glavni grad",
-      "briefing": "Republika nije izvršila posljednji savezni akt. Službeni list nije garnizon. Možete pregovarati, zanemariti, pritisnuti preko JNA, ili kupiti spis. Ovo nije bitka. To je pitanje opisuje li sljedeća rečenica u Službenom listu još državu.",
-      "constitutional_note": "Nepoštovanje republikanska je politička činjenica. Pritisak JNA savezna je vojna činjenica. Ne miješajte ih u zapisniku.",
-      "documents": [
-        "1974_federation"
-      ],
+      "desk": "SIV",
+      "priority": "regional",
+      "title": "Financije: carine ili transferi",
+      "location": "Savezni sekretarijat za financije",
+      "briefing": "Carinski rat guši trgovinu. Šalter Financija može smrznuti transfere, otvoriti fondove ili uskladiti knjige s MMF-om — ako stand-by još drži. Nije fronta; jest knjiga.",
+      "constitutional_note": "Marković = predsjednik SIV-a. Carine nisu rat.",
+      "requires": {
+        "flags": [
+          "customs_war_active"
+        ]
+      },
+      "documents": [],
       "choices": [
         {
-          "id": "negotiate",
-          "label": "Pregovaraj. Pretvori akt u protokol koji će republika parafirati.",
-          "legal": "political",
+          "id": "open",
+          "label": "Otvori transferi i koridore. Carine u dosjeu.",
+          "legal": "assembly_statute",
           "effects": {
-            "NC.secession_readiness": -4,
-            "NC.federal_trust": 6,
-            "federal.legitimacy": 2,
-            "federal.presidency_cohesion": 2
-          }
-        },
-        {
-          "id": "ignore_refusal",
-          "label": "Zanemari odbijanje. Zadrži Službeni list. Ne šalji drugu naredbu.",
-          "legal": "siv",
-          "effects": {
-            "federal.siv_authority": -4,
-            "federal.legitimacy": -3,
-            "NC.secession_readiness": 3
-          }
-        },
-        {
-          "id": "jna_pressure",
-          "label": "Pritisak JNA. Podsjetnik iz vojarne. Nije operacija.",
-          "legal": "emergency",
-          "effects": {
-            "federal.war_risk": 8,
-            "NC.federal_trust": -10,
-            "NC.secession_readiness": 6,
-            "federal.legitimacy": -6,
+            "desk_set": {
+              "finance": {
+                "posture": "open"
+              },
+              "siv": {
+                "posture": "stimulus"
+              }
+            },
+            "desk_add": {
+              "finance": {
+                "loyalty": 3
+              },
+              "siv": {
+                "loyalty": 2
+              }
+            },
+            "federal.inter_republic_trade": 5,
             "flags_add": [
-              "player_used_jna_threat"
+              "finance_transfers_open",
+              "customs_war_resolved",
+              "desk_event_finance_customs_seen"
+            ],
+            "flags_remove": [
+              "finance_transfer_freeze",
+              "customs_war_active"
             ]
           }
         },
         {
-          "id": "buy_off",
-          "label": "Kupi spis. Transferi, tvrda valuta, tiha stavka u proračunu.",
-          "legal": "siv",
+          "id": "freeze",
+          "label": "Smrzni transferi onima koji ne plaćaju.",
+          "legal": "political",
           "effects": {
-            "federal.federal_budget": -8,
-            "federal.hard_currency": -4,
-            "NC.secession_readiness": -3,
-            "NC.living_standard": 3,
-            "NC.federal_trust": 4
+            "desk_set": {
+              "finance": {
+                "posture": "freeze"
+              }
+            },
+            "desk_add": {
+              "finance": {
+                "agenda_tension": 6
+              }
+            },
+            "federal.federal_budget": 4,
+            "SI.federal_trust": -5,
+            "HR.federal_trust": -5,
+            "flags_add": [
+              "finance_transfer_freeze",
+              "desk_event_finance_customs_seen"
+            ],
+            "flags_remove": [
+              "finance_transfers_open"
+            ]
+          }
+        },
+        {
+          "id": "imf",
+          "label": "Uskladi knjige sa stand-byjem (ako aktivan).",
+          "legal": "political",
+          "requires": {
+            "flags": [
+              "imf_standby_active"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "finance": {
+                "posture": "target"
+              },
+              "nby": {
+                "posture": "tight"
+              }
+            },
+            "desk_add": {
+              "finance": {
+                "capacity": 4
+              },
+              "nby": {
+                "capacity": 3
+              }
+            },
+            "federal.imf_pressure": -3,
+            "federal.hard_currency": 3,
+            "flags_add": [
+              "finance_imf_aligned",
+              "nby_tight_dinar",
+              "desk_event_finance_customs_seen"
+            ]
           }
         }
       ]

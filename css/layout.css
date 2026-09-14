@@ -914,3 +914,50 @@
 .dialogue-modal .event-choices {
   margin-top: 8px;
 }
+
+
+/* Pass 2 — desk status chips on agency strip */
+.desk-chip-row {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 4px;
+  align-items: stretch;
+  flex: 0 0 auto;
+  max-width: 420px;
+  overflow-x: auto;
+  padding: 0 2px;
+}
+.desk-chip {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 44px;
+  max-width: 56px;
+  padding: 4px 5px;
+  border: 1px solid rgba(196, 163, 90, 0.35);
+  background: #241c14;
+  color: var(--cream);
+  cursor: pointer;
+  text-align: left;
+  line-height: 1.15;
+}
+.desk-chip:hover { border-color: var(--gold); background: #32261a; }
+.desk-chip .chip-id {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.desk-chip .chip-posture {
+  font-size: 9px;
+  color: var(--paper-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.desk-chip.tone-good { border-color: rgba(70, 140, 120, 0.55); }
+.desk-chip.tone-good .chip-posture { color: #8fc9b0; }
+.desk-chip.tone-warn { border-color: rgba(162, 75, 46, 0.65); }
+.desk-chip.tone-warn .chip-posture { color: #d4a090; }
+.desk-chip.tone-neutral .chip-posture { color: #b8a888; }

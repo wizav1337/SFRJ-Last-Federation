@@ -92,8 +92,8 @@
       "choices": [
         {
           "id": "end_seat",
-          "label": "Zapiši.",
-          "next": null,
+          "label": "Zapiši — i pitaj za Sabor i JNA.",
+          "next": "seat_late",
           "effects": {
             "flags_add": [
               "presidency_quorum_guard"
@@ -124,6 +124,47 @@
           "next": null,
           "effects": {
             "charter_signatures_min": 1
+          }
+        }
+      ]
+    },
+    "seat_late": {
+      "text": "„Ako JNA digne pripravnost kao odgovor na HDZ, Zagreb će to čuti kao ultimatum. Ako SSUP ide meko nakon balvana, još ima prostora za stol. Ja mogu sjediti — ali ne mogu sam držati federaciju.“",
+      "choices": [
+        {
+          "id": "seat_soft",
+          "label": "Obveži meku liniju SSUP i garnizon JNA.",
+          "next": null,
+          "effects": {
+            "desk_set": {
+              "ssup": {
+                "posture": "soft"
+              },
+              "jna": {
+                "posture": "garrison"
+              }
+            },
+            "flags_add": [
+              "ssup_soft_line",
+              "jna_garrison_posture",
+              "dialogue_mesic_late"
+            ],
+            "flags_remove": [
+              "ssup_hard_line",
+              "jna_mobilization_alert"
+            ],
+            "HR.federal_trust": 3,
+            "federal.war_risk": -2
+          }
+        },
+        {
+          "id": "seat_only",
+          "label": "Samo sjedenje. Bez novih naredbi.",
+          "next": null,
+          "effects": {
+            "flags_add": [
+              "dialogue_mesic_late"
+            ]
           }
         }
       ]

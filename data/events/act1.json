@@ -488,6 +488,95 @@
       ]
     },
     {
+      "id": "desk_nby_dinar_watch",
+      "date": "1990-03-08",
+      "act": 1,
+      "desk": "SIV",
+      "priority": "regional",
+      "title": "NBJ: tvrdi dinar ili labavi kredit",
+      "location": "Narodna banka Jugoslavije · Beograd",
+      "briefing": "Nakon stand-byja, NBJ šalje cirkular Predsjedništvu i SIV-u: rezerve, kamate, republikanske banke. Marković je predsjednik SIV-a, ne predsjednik Jugoslavije — ali dinar je još savezni jezik. Šalter NBJ-a (ako ste ga dirali) već vuče inflaciju; ova kartica to čini izborom.",
+      "constitutional_note": "NBJ usklađuje republikanske banke; ne zamjenjuje SIV. Mirnodopski: nema raspada banke kao ratne mehanike.",
+      "documents": [],
+      "choices": [
+        {
+          "id": "tight",
+          "label": "Tvrdi dinar: rezerve središnje, kamate strože.",
+          "legal": "assembly_statute",
+          "effects": {
+            "desk_set": {
+              "nby": {
+                "posture": "tight"
+              }
+            },
+            "desk_add": {
+              "nby": {
+                "loyalty": 3,
+                "capacity": 4
+              },
+              "finance": {
+                "loyalty": 2
+              }
+            },
+            "federal.inflation": -3,
+            "federal.hard_currency": 2,
+            "federal.reform_momentum": 2,
+            "flags_add": [
+              "nby_tight_dinar",
+              "markovic_dinar_program",
+              "desk_event_nby_seen"
+            ],
+            "flags_remove": [
+              "nby_loose_credit",
+              "nby_fragment_risk"
+            ]
+          }
+        },
+        {
+          "id": "loose",
+          "label": "Labaviji kredit republikama — rizik inflacije.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "nby": {
+                "posture": "loose"
+              }
+            },
+            "desk_add": {
+              "nby": {
+                "loyalty": 4
+              }
+            },
+            "federal.inflation": 3,
+            "SI.living_standard": 2,
+            "HR.living_standard": 2,
+            "flags_add": [
+              "nby_loose_credit",
+              "desk_event_nby_seen"
+            ],
+            "flags_remove": [
+              "nby_tight_dinar"
+            ]
+          }
+        },
+        {
+          "id": "defer",
+          "label": "Odgodi. Neka NBJ sama piše cirkulare.",
+          "legal": "political",
+          "effects": {
+            "desk_add": {
+              "nby": {
+                "agenda_tension": 2
+              }
+            },
+            "flags_add": [
+              "desk_event_nby_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_siv_stance",
       "date": "1990-03-12",
       "act": 1,

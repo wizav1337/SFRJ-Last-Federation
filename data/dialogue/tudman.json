@@ -1,0 +1,158 @@
+{
+  "id": "tudman",
+  "speaker": "Franjo Tuđman",
+  "title": "Predsjednik Predsjedništva SR Hrvatske (nakon HDZ-a)",
+  "desk": "presidency",
+  "available_from": "1990-05-06",
+  "unlock": {
+    "flags": [
+      "hdz_croatia"
+    ]
+  },
+  "nodes": {
+    "start": {
+      "text": "Tuđman govori kao da je Sabor već država, a Savez još adresa. „HDZ nije CK. Ako Savez šalje tvrdi SSUP na Knin i Pakrac, Zagreb će odgovoriti suverenošću. Ako medira, još ima stol. Ja ne zapovijedam JNA — ali čujem kad Beograd prijeti.“",
+      "choices": [
+        {
+          "id": "mediate_hr",
+          "label": "Ponudi medijaciju Predsjedništva — bez JNA prijetnje.",
+          "next": "mediate",
+          "effects": {
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              },
+              "ssup": {
+                "posture": "soft"
+              }
+            },
+            "desk_add": {
+              "presidency": {
+                "loyalty": 3
+              },
+              "ssup": {
+                "loyalty": 2
+              }
+            },
+            "HR.federal_trust": 5,
+            "HR.secession_readiness": -3,
+            "flags_add": [
+              "talked_tudman",
+              "presidency_mediation_active",
+              "ssup_soft_line",
+              "dialogue_tudman_mediate"
+            ],
+            "flags_remove": [
+              "ssup_hard_line",
+              "presidency_hardline"
+            ]
+          }
+        },
+        {
+          "id": "sovereignty_ack",
+          "label": "Priznaj da Hrvatska piše suverenost — ali ostaje u institucijama.",
+          "next": "sov",
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "agenda_tension": 4
+              }
+            },
+            "HR.federal_trust": 2,
+            "HR.secession_readiness": 2,
+            "flags_add": [
+              "talked_tudman",
+              "dialogue_tudman_sov",
+              "confederal_talks_open"
+            ]
+          }
+        },
+        {
+          "id": "hard_warn",
+          "label": "Upozori da neregularne formacije neće biti trpljene.",
+          "next": "hard",
+          "effects": {
+            "desk_set": {
+              "ssup": {
+                "posture": "hard"
+              },
+              "jna": {
+                "posture": "alert"
+              }
+            },
+            "desk_add": {
+              "ssup": {
+                "agenda_tension": 6
+              },
+              "jna": {
+                "agenda_tension": 4
+              }
+            },
+            "HR.federal_trust": -6,
+            "HR.interethnic_tension": 5,
+            "HR.secession_readiness": 5,
+            "federal.war_risk": 4,
+            "flags_add": [
+              "talked_tudman",
+              "ssup_hard_line",
+              "jna_mobilization_alert",
+              "dialogue_tudman_hard",
+              "player_used_jna_threat"
+            ],
+            "flags_remove": [
+              "ssup_soft_line"
+            ]
+          }
+        }
+      ]
+    },
+    "mediate": {
+      "text": "„Meka linija nije kapitulacija. Balvani su politička činjenica; racije bi ih učinile grobljem. Držite SSUP na promatračima — i Mesića u igri za rotaciju.“",
+      "choices": [
+        {
+          "id": "end_med",
+          "label": "Zapiši: medijacija + meka linija.",
+          "next": null,
+          "effects": {
+            "flags_add": [
+              "dialogue_mesic_seat",
+              "presidency_quorum_guard"
+            ],
+            "federal.war_risk": -2
+          }
+        }
+      ]
+    },
+    "sov": {
+      "text": "„Suverenost nije lipanjsko proglašenje. To je jezik Sabora dok Savez još postoji. Ako otvorite konfederalni stol, Zagreb može sjediti — pod uvjetom da JNA ne drži govor.“",
+      "choices": [
+        {
+          "id": "end_sov",
+          "label": "Zapiši konfederalni poziv.",
+          "next": null,
+          "effects": {
+            "flags_add": [
+              "slovenia_invited_back"
+            ],
+            "SI.federal_trust": 2,
+            "federal.legitimacy": 2
+          }
+        }
+      ]
+    },
+    "hard": {
+      "text": "Ne treba mu prijevod. Prijetnja je upisana. Dosje bilježi player_used_jna_threat — i kraći put prema E5.",
+      "choices": [
+        {
+          "id": "end_hard",
+          "label": "Zatvori.",
+          "next": null,
+          "effects": {
+            "federal.legitimacy": -4,
+            "federal.presidency_cohesion": -3
+          }
+        }
+      ]
+    }
+  }
+}

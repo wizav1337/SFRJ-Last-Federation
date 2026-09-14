@@ -115,3 +115,39 @@ Nova kartica:
 | `desk_presidency_corridor` | 1991-01-18 | Medijacija/kvorum; E3 pravilo ponovljeno |
 
 E3 pravilo **nije** dirano. `player_used_jna_threat` na razgovoru s Kadijevićem (opcija nagibanja Beogradu) ostaje namjerno — to je politička prijetnja, ne govor na mitingu.
+
+
+---
+
+## Dodatak — Pass 2 `expand/pass2-desks-depth`
+
+Šalteri **TO** (Teritorijalna obrana) i **NBJ** (Narodna banka Jugoslavije); dublji / kasni razgovori; Kučan i Tuđman samo uz izborne zastavice; izborna gravitacija čita šaltere i dijalog; nove kartice činova 2–5; čipovi postave na traci agencija; `save_schema` 2.
+
+### Nova / proširena kartica
+
+| Spis | Datum | Napomena |
+|---|---|---|
+| `desk_nby_dinar_watch` | 1990-03-08 | NBJ tvrdi/labavi dinar; Marković = predsjednik **SIV-a** |
+| `desk_to_after_inventory` | 1990-05-30 | TO koordinacija / inventura / republikanski držaj |
+| `desk_to_after_logs` | 1990-08-20 | Zahtijeva `krajina_log_revolution`; meka/tvrda uz TO |
+| `desk_finance_customs` | 1990-10-25 | Zahtijeva `customs_war_active`; transferi / MMF |
+| `desk_ssp_before_pleb` | 1990-12-18 | SSP prije plebiscita; nota ≠ priznanje |
+| `desk_nby_hard_currency` | 1991-02-12 | Rezerve pred svibanj; nema raspada banke kao rata |
+| `desk_to_pakrac` | 1991-03-05 | Zahtijeva `pakrac_standoff`; meka linija može `pakrac_defused` |
+
+### Razgovori
+
+- Produbljeni: Marković (NBJ krak), Kadijević (TO / SSUP), Jović (konfederalni), Mesić (kasni), Drnovšek (promatrači)
+- Novi: `markovic_late` (od 1990-09-01), `kadijevic_late` (od 1991-01-01), `kucan` (nakon SI izbora), `tudman` (nakon HDZ-a)
+- `player_used_jna_threat` na tvrdim granama s Kadijevićem / Tuđmanom ostaje namjerno — politička prijetnja, ne govor na mitingu
+
+### Pravila koja nisu dirana
+
+- E3: otvorena povelja + Predsjedništvo koje se može sastati; sjedenje Mesića ≠ blokada
+- Nema čina VI; nema lipanjskog rata; Izetbegović–Gligorov nije na travanjskoj kartici
+- ID-ovi i zastavice engleski; UI hrvatski
+- `to_inventory_ordered` i dalje razdvaja `to_inventory_followup` / `barracks_quiet`
+
+### Ekonomija pažnje
+
+1–2 akcije šaltera mjesečno za osam šaltera; soft-block iste postave; reforme ostaju odvojeni bazen (2–3). Nema trivialnog spama.
