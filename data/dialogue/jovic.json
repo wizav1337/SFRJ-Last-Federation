@@ -206,6 +206,84 @@
           }
         }
       ]
+    },
+    "revisit_skj": {
+      "text": "Jović gleda pečat ostatka SKJ-a. „Ako je meka savezna linija i stol otvoren, Srbija može sjesti. Ako je tvrda jedinstvena retorika, Predsjedništvo puca. Ako su ostaci predali težinu SIV-u — Marković nosi knjige, ja nosim postupak. Jović nije Milošević. Rotacija je postupak.“",
+      "choices": [
+        {
+          "id": "align_soft_skj",
+          "label": "Veži postupak uz meku SKJ liniju i kvorum.",
+          "next": null,
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "loyalty": 3
+              },
+              "skj": {
+                "loyalty": 2
+              }
+            },
+            "federal.presidency_cohesion": 4,
+            "federal.skj_unity": 2,
+            "flags_add": [
+              "dialogue_jovic_skj",
+              "presidency_quorum_guard",
+              "presidency_mediation_active",
+              "confederal_talks_open"
+            ],
+            "flags_remove": [
+              "presidency_deadlock"
+            ],
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            }
+          }
+        },
+        {
+          "id": "reject_skj_hard",
+          "label": "Odbi tvrdu SKJ retoriku — drži Predsjedništvo iznad stranke.",
+          "next": null,
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "capacity": 3
+              },
+              "skj": {
+                "agenda_tension": 4
+              }
+            },
+            "federal.presidency_cohesion": 2,
+            "federal.skj_unity": -3,
+            "flags_add": [
+              "dialogue_jovic_skj",
+              "presidency_quorum_guard"
+            ],
+            "flags_remove": [
+              "skj_hard_unity"
+            ]
+          }
+        },
+        {
+          "id": "serbia_over_skj",
+          "label": "Neka Srbija drži težinu — SKJ je ostatak.",
+          "next": null,
+          "effects": {
+            "federal.presidency_cohesion": -3,
+            "RS.elite_cohesion": 3,
+            "flags_add": [
+              "dialogue_jovic_skj",
+              "presidency_hardline"
+            ],
+            "desk_set": {
+              "presidency": {
+                "posture": "hardline"
+              }
+            }
+          }
+        }
+      ]
     }
   },
   "entries": [
@@ -226,6 +304,23 @@
           "dialogue_jovic_bind",
           "dialogue_jovic_conf",
           "talked_jovic"
+        ]
+      }
+    },
+    {
+      "id": "revisit_skj",
+      "node": "revisit_skj",
+      "once": true,
+      "priority": 3,
+      "require_done": true,
+      "available_from": "1990-11-01",
+      "unlock": {
+        "flags_any": [
+          "skj_soft_federation",
+          "skj_hard_unity",
+          "skj_cedes_to_siv",
+          "skj_dissolved",
+          "desk_event_skj_congress_seen"
         ]
       }
     }

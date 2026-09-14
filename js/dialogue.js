@@ -29,6 +29,9 @@ function officeHolderOk(def, state) {
   if (def.id === "drnovsek" && (state.flags.presidency_rotation_jovic || clock >= "1990-05-15")) return false;
   if (def.id === "markovic_late" && !state.flags.talked_markovic) return false;
   if (def.id === "kadijevic_late" && !state.flags.talked_kadijevic) return false;
+  if (def.id === "racan" && (!state.flags.croatia_election_held || state.flags.hdz_croatia)) return false;
+  if (def.id === "bogicevic" && !(state.units?.BA?.election_held || state.flags.sda_sds_hdz_bosnia || (state.federal.clock || "") >= "1990-12-03")) return false;
+  if (def.id === "tupurkovski" && !(state.units?.MK?.election_held || (state.federal.clock || "") >= "1990-12-01")) return false;
   return true;
 }
 
@@ -97,6 +100,9 @@ export function isDialogueAvailable(def, state) {
   }
   if (def.id === "markovic_late" && !state.flags.talked_markovic) return false;
   if (def.id === "kadijevic_late" && !state.flags.talked_kadijevic) return false;
+  if (def.id === "racan" && (!state.flags.croatia_election_held || state.flags.hdz_croatia)) return false;
+  if (def.id === "bogicevic" && !(state.units?.BA?.election_held || state.flags.sda_sds_hdz_bosnia || (state.federal.clock || "") >= "1990-12-03")) return false;
+  if (def.id === "tupurkovski" && !(state.units?.MK?.election_held || (state.federal.clock || "") >= "1990-12-01")) return false;
   return availableEntries(def, state).length > 0;
 }
 

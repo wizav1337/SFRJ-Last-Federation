@@ -229,3 +229,41 @@ Tvrda postava (Predsjedništvo / JNA / SSUP / pravosuđe / inventura TO) uz `con
 - Nema čina VI; nema lipanjskog rata; Izetbegović–Gligorov nije na travanjskoj kartici
 - Marković = predsjednik **SIV-a**; Drnovšek predsjedatelj do 15. V 1990.; Jović nije Milošević
 - ID-ovi i zastavice engleski; UI hrvatski
+
+
+---
+
+## Dodatak — Pass 5 `expand/pass5-skj-voices`
+
+Šalter **Ostatak SKJ / savezni CK**; glasovi republika (Bogićević, Tupurkovski) i Račan (ako HDZ nije pobijedio); Jović revisit koji čita zastavice SKJ; kartice čina I–V; `save_schema` 5; smoke proširen.
+
+### Nova / proširena kartica
+
+| Spis | Datum | Napomena |
+|---|---|---|
+| `desk_skj_after_congress` | 1990-02-05 | Ostatak SKJ nakon Kongresa; meka/tvrda/SIV/raspuštanje; **nema** restauracije monopola |
+| `desk_skj_election_season` | 1990-04-10 | SKJ pred proljetnim listićima |
+| `desk_ssp_ec_track` | 1990-08-28 | SSP kolosijek EEZ — nota, **ne** priznanje |
+| `republic_voice_bih` | 1990-12-10 | Glas BiH; medijacija/kvorum/blok; **nije** Izetbegović–Gligorov |
+| `republic_voice_mk` | 1990-12-12 | Glas Makedonije; konfederalni/EEZ; **nije** I–G papir |
+| `desk_skj_spring91` | 1991-02-20 | SKJ u proljeće 1991.; bez čina VI |
+| `confederal_skj_memo` | 1991-03-18 | SKJ meka + otvoreni stol; **nije** Izetbegović–Gligorov |
+| `desk_attention_may` | 1991-05-08 | Pažnja pred 15. V; soft-lock rizik |
+
+### Razgovori
+
+- `bogicevic.json` — BiH stolac; medijacija / kvorum / blok
+- `tupurkovski.json` — MK stolac; konfederalni / EEZ promatrači (**nikad** I–G papir)
+- `racan.json` — samo ako `croatia_election_held` i **nije** `hdz_croatia`
+- Jović: `revisit_skj` (čita `skj_soft_federation` / tvrdo / SIV / raspuštanje)
+
+### Šalter SKJ
+
+Akcije: `soft_federal_line` → `skj_soft_federation`; `hard_unity_rhetoric` → `skj_hard_unity`; `cede_to_siv` → `skj_cedes_to_siv` (pojačava SIV); `dissolve_quietly` → `skj_dissolved` + `skj_renounced_monopoly` (**ne** vraća monopol / `skj_leading_role`).
+
+### Pravila koja nisu dirana
+
+- E3: otvorena povelja (≥4) + Predsjedništvo koje se može sastati; sjedenje Mesića ≠ blokada; blokada isključuje E3
+- Nema čina VI; nema lipanjskog rata; Izetbegović–Gligorov **nije** na travanjskoj kartici niti na SKJ memorandumu
+- Marković = predsjednik **SIV-a**; Jović ≠ Milošević
+- ID-ovi i zastavice engleski; UI hrvatski (ijekavica)

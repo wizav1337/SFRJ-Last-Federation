@@ -234,6 +234,17 @@ function pathNotes(state) {
   if (state.flags.ssup_observe_line) notes.push(t("path.ssupObserve"));
   if (state.flags.dialogue_kucan_charter) notes.push(t("path.kucanCharter"));
   if (state.flags.confederal_stack_memo) notes.push(t("path.confStack"));
+  if (state.flags.skj_soft_federation) notes.push(t("path.skjSoft"));
+  else if (state.flags.skj_hard_unity) notes.push(t("path.skjHard"));
+  else if (state.flags.skj_cedes_to_siv) notes.push(t("path.skjCede"));
+  else if (state.flags.skj_dissolved) notes.push(t("path.skjDissolved"));
+  if (state.flags.confederal_skj_memo) notes.push(t("path.skjMemo"));
+  if (state.flags.talked_bogicevic) notes.push(t("path.talkBogicevic"));
+  if (state.flags.talked_tupurkovski) notes.push(t("path.talkTupurkovski"));
+  if (state.flags.talked_racan) notes.push(t("path.talkRacan"));
+  if (state.flags.dialogue_jovic_skj) notes.push(t("path.jovicSkj"));
+  if (state.flags.republic_voice_bih_seen) notes.push(t("path.voiceBih"));
+  if (state.flags.republic_voice_mk_seen) notes.push(t("path.voiceMk"));
   const stack = confederalStackDepth(state);
   if (stack >= 3) notes.push(t("path.stackDepth", { n: stack }));
   return notes;

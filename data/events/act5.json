@@ -346,6 +346,98 @@
       ]
     },
     {
+      "id": "desk_skj_spring91",
+      "date": "1991-02-20",
+      "act": 5,
+      "desk": "SKJ",
+      "priority": "federal",
+      "title": "Ostatak SKJ u proljeće 1991.",
+      "location": "Beograd — pečat saveznog CK",
+      "briefing": "Prije Pakraca i ožujskog Beograda ostaci SKJ-a još mogu birati: meka savezna linija uz otvorene razgovore, tvrda jedinstvena retorika, predaja SIV-u, ili tiho gašenje. Nema restauracije monopola. Nema čina VI.",
+      "constitutional_note": "Slice A završava 15. svibnja 1991. Lipanj i rat nisu u buildu.",
+      "documents": [
+        "skj_statute"
+      ],
+      "requires": {
+        "flags_any": [
+          "skj_soft_federation",
+          "skj_hard_unity",
+          "skj_cedes_to_siv",
+          "skj_dissolved",
+          "skj_split",
+          "desk_event_skj_congress_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "soft_spring",
+          "label": "Meka linija uz konfederalni jezik (bez I–G papira).",
+          "legal": "party",
+          "effects": {
+            "desk_set": {
+              "skj": {
+                "posture": "soft_federal"
+              }
+            },
+            "desk_add": {
+              "skj": {
+                "loyalty": 3
+              }
+            },
+            "federal.skj_unity": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "skj_soft_federation",
+              "confederal_talks_open",
+              "desk_event_skj_spring_seen"
+            ]
+          }
+        },
+        {
+          "id": "hard_spring",
+          "label": "Tvrda jedinstvena retorika u proljeće.",
+          "legal": "party",
+          "effects": {
+            "desk_set": {
+              "skj": {
+                "posture": "hard_unity"
+              }
+            },
+            "desk_add": {
+              "skj": {
+                "agenda_tension": 5
+              }
+            },
+            "federal.war_risk": 2,
+            "SI.secession_readiness": 2,
+            "flags_add": [
+              "skj_hard_unity",
+              "desk_event_skj_spring_seen"
+            ]
+          }
+        },
+        {
+          "id": "dissolve_spring",
+          "label": "Tiho ugasi pečat. Monopol se ne vraća.",
+          "legal": "party",
+          "effects": {
+            "desk_set": {
+              "skj": {
+                "posture": "dissolved"
+              }
+            },
+            "federal.skj_unity": -8,
+            "federal.skj_leading_role": false,
+            "flags_add": [
+              "skj_dissolved",
+              "skj_renounced_monopoly",
+              "desk_event_skj_spring_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "pakrac_incident",
       "date": "1991-03-02",
       "act": 5,
@@ -629,6 +721,75 @@
                 "support": -6
               }
             }
+          }
+        }
+      ]
+    },
+    {
+      "id": "confederal_skj_memo",
+      "date": "1991-03-18",
+      "act": 5,
+      "desk": "SKJ",
+      "priority": "federal",
+      "title": "Memorandum: SKJ meka linija i otvoreni stol",
+      "location": "Beograd — ostatak CK / Predsjedništvo",
+      "briefing": "Ako je SKJ na mekoj saveznoj liniji i konfederalni stol otvoren, ostaci mogu potpisati memorandum koji jača stog E3 — bez Izetbegović–Gligorov papira (lipanj, van odsječka). Ovo je savezni jezik, ne priznanje i ne rat.",
+      "constitutional_note": "E3: otvorena povelja (≥4) + Predsjedništvo koje se može sastati; sjedenje Mesića ≠ blokada. Izetbegović–Gligorov nije na ovoj kartici niti na travanjskom nacrtu.",
+      "documents": [
+        "1974_federation"
+      ],
+      "requires": {
+        "flags": [
+          "skj_soft_federation",
+          "confederal_talks_open"
+        ],
+        "flags_not": [
+          "presidency_deadlock"
+        ]
+      },
+      "choices": [
+        {
+          "id": "sign_memo",
+          "label": "Potpiši memorandum. Pojačaj konfederalni stog.",
+          "legal": "party",
+          "effects": {
+            "charter_signatures_add": 1,
+            "federal.presidency_cohesion": 3,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -2,
+            "flags_add": [
+              "confederal_skj_memo",
+              "confederal_stack_memo",
+              "desk_event_skj_memo_seen"
+            ]
+          }
+        },
+        {
+          "id": "defer_memo",
+          "label": "Odgodi. Čekaj travanjski nacrt (Kučan/Marković, ne I–G).",
+          "legal": "political",
+          "effects": {
+            "federal.presidency_cohesion": 1,
+            "flags_add": [
+              "desk_event_skj_memo_seen"
+            ]
+          }
+        },
+        {
+          "id": "reject_memo",
+          "label": "Odbij. Stranka više ne piše stol.",
+          "legal": "party",
+          "effects": {
+            "desk_set": {
+              "skj": {
+                "posture": "dissolved"
+              }
+            },
+            "federal.skj_unity": -4,
+            "flags_add": [
+              "skj_dissolved",
+              "desk_event_skj_memo_seen"
+            ]
           }
         }
       ]
@@ -1084,6 +1245,111 @@
             "flags_add": [
               "finance_transfer_freeze",
               "desk_event_fer_may_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_attention_may",
+      "date": "1991-05-08",
+      "act": 5,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Pažnja pred 15. svibnja",
+      "location": "Beograd — savezni šalteri",
+      "briefing": "Tjedan prije rotacije pažnja je oskudna: šalteri i reforme dijele isti bazen. Možete gurati medijaciju Predsjedništva, meku SKJ liniju uz otvoreni stol, ili tvrdu pripravnost koja diže soft-lock ako je konfederalni stol otvoren. Nema lipanjskog rata. E3 pravilo stoji.",
+      "constitutional_note": "E3 zahtijeva otvorenu konfederalnu povelju i Predsjedništvo koje se još može sastati; sjedenje Mesića drži stolac ispunjenim, blokada je zastoj i isključuje E3.",
+      "documents": [
+        "1974_presidency"
+      ],
+      "requires": {
+        "flags_any": [
+          "confederal_talks_open",
+          "skj_soft_federation",
+          "presidency_mediation_active",
+          "multiparty_wave"
+        ]
+      },
+      "choices": [
+        {
+          "id": "attention_mediate",
+          "label": "Uloži pažnju u medijaciju i kvorum.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            },
+            "desk_add": {
+              "presidency": {
+                "loyalty": 3,
+                "agenda_tension": -4
+              }
+            },
+            "federal.presidency_cohesion": 4,
+            "federal.war_risk": -2,
+            "flags_add": [
+              "presidency_mediation_active",
+              "presidency_quorum_guard",
+              "desk_event_attention_may_seen"
+            ],
+            "flags_remove": [
+              "presidency_deadlock"
+            ]
+          }
+        },
+        {
+          "id": "attention_skj_soft",
+          "label": "Uloži pažnju u meku SKJ liniju uz otvoreni stol.",
+          "legal": "party",
+          "effects": {
+            "desk_set": {
+              "skj": {
+                "posture": "soft_federal"
+              }
+            },
+            "desk_add": {
+              "skj": {
+                "loyalty": 2
+              }
+            },
+            "federal.skj_unity": 2,
+            "flags_add": [
+              "skj_soft_federation",
+              "confederal_talks_open",
+              "desk_event_attention_may_seen"
+            ]
+          }
+        },
+        {
+          "id": "attention_hard",
+          "label": "Tvrda pripravnost — rizik soft-locka ako je stol otvoren.",
+          "legal": "presidency_decree",
+          "effects": {
+            "desk_set": {
+              "jna": {
+                "posture": "alert"
+              },
+              "presidency": {
+                "posture": "hardline"
+              }
+            },
+            "desk_add": {
+              "jna": {
+                "agenda_tension": 4
+              },
+              "presidency": {
+                "agenda_tension": 4
+              }
+            },
+            "federal.war_risk": 3,
+            "flags_add": [
+              "jna_mobilization_alert",
+              "presidency_hardline",
+              "desk_conflict_soft_lock",
+              "desk_event_attention_may_seen"
             ]
           }
         }

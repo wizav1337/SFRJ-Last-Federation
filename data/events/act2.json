@@ -3,6 +3,101 @@
   "title": "Prvi izbori",
   "events": [
     {
+      "id": "desk_skj_election_season",
+      "date": "1990-04-10",
+      "act": 2,
+      "desk": "SKJ",
+      "priority": "federal",
+      "title": "SKJ pred proljetnim listićima",
+      "location": "Beograd / Zagreb / Ljubljana — ostatak saveznog CK",
+      "briefing": "Prije slovenskih i hrvatskih izbora ostaci SKJ-a još mogu govoriti — ili šutjeti. Meka linija drži savezni jezik bez pretvaranja da je monopol živ; tvrda retorika plaši sjeverozapad; predaja SIV-u daje Markoviću prostor; raspuštanje zatvara pečat. Nema bitke. Marković ostaje predsjednik SIV-a.",
+      "constitutional_note": "Višestranački listići nisu Kongres. SKJ više ne popunjava Sabore automatski.",
+      "documents": [
+        "skj_statute"
+      ],
+      "requires": {
+        "flags_any": [
+          "multiparty_wave",
+          "skj_split",
+          "skj_renounced_monopoly",
+          "desk_event_skj_congress_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "soft_campaign",
+          "label": "Meka savezna kampanja: jezik, ne komanda.",
+          "legal": "party",
+          "effects": {
+            "desk_set": {
+              "skj": {
+                "posture": "soft_federal"
+              }
+            },
+            "desk_add": {
+              "skj": {
+                "loyalty": 3
+              }
+            },
+            "federal.skj_unity": 2,
+            "SI.federal_trust": 2,
+            "HR.federal_trust": 2,
+            "flags_add": [
+              "skj_soft_federation",
+              "desk_event_skj_election_seen"
+            ]
+          }
+        },
+        {
+          "id": "hard_campaign",
+          "label": "Tvrda jedinstvena retorika pred biralištima.",
+          "legal": "party",
+          "effects": {
+            "desk_set": {
+              "skj": {
+                "posture": "hard_unity"
+              }
+            },
+            "desk_add": {
+              "skj": {
+                "agenda_tension": 5
+              }
+            },
+            "SI.secession_readiness": 3,
+            "HR.secession_readiness": 2,
+            "flags_add": [
+              "skj_hard_unity",
+              "desk_event_skj_election_seen"
+            ]
+          }
+        },
+        {
+          "id": "back_siv",
+          "label": "Pusti SIV i Markovića da nose reformu pred birače.",
+          "legal": "party",
+          "effects": {
+            "desk_set": {
+              "skj": {
+                "posture": "cede_siv"
+              }
+            },
+            "desk_add": {
+              "siv": {
+                "loyalty": 3,
+                "capacity": 2
+              }
+            },
+            "federal.siv_authority": 3,
+            "federal.reform_momentum": 2,
+            "flags_add": [
+              "skj_cedes_to_siv",
+              "desk_event_skj_election_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_ssup_election_season",
       "date": "1990-04-18",
       "act": 2,

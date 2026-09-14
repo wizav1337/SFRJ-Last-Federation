@@ -1,0 +1,126 @@
+{
+  "id": "tupurkovski",
+  "speaker": "Vasil Tupurkovski",
+  "title": "Član Predsjedništva (SR Makedonija)",
+  "desk": "presidency",
+  "available_from": "1990-12-01",
+  "unlock": {},
+  "nodes": {
+    "start": {
+      "text": "Tupurkovski sjedi ravno. „Skopje traži jednakost republika. Konfederalni jezik može držati stol. EEZ promatrači — nota, ne priznanje. I zapamtite: ovo nije Izetbegović–Gligorov. Taj papir je lipanj. Mi smo još u Slice A.“",
+      "choices": [
+        {
+          "id": "confederal",
+          "label": "Otvori konfederalni stol s jednakim republikama.",
+          "next": "conf",
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "loyalty": 3
+              }
+            },
+            "federal.legitimacy": 2,
+            "MK.federal_trust": 5,
+            "charter_signatures_min": 1,
+            "flags_add": [
+              "talked_tupurkovski",
+              "dialogue_tupurkovski_conf",
+              "confederal_talks_open",
+              "slovenia_invited_back"
+            ],
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            }
+          }
+        },
+        {
+          "id": "ec_obs",
+          "label": "Pozovi EEZ promatrače (bez priznanja).",
+          "next": "ec",
+          "effects": {
+            "desk_add": {
+              "ssp": {
+                "capacity": 3
+              }
+            },
+            "federal.international_standing": 4,
+            "MK.federal_trust": 3,
+            "flags_add": [
+              "talked_tupurkovski",
+              "dialogue_tupurkovski_ec",
+              "ssp_ec_track",
+              "ec_troika_watching"
+            ],
+            "desk_set": {
+              "ssp": {
+                "posture": "ec_track"
+              }
+            }
+          }
+        },
+        {
+          "id": "quiet",
+          "label": "Tiha jednakost. Bez novog jezika.",
+          "next": "quiet",
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "capacity": 2
+              }
+            },
+            "MK.federal_trust": 2,
+            "flags_add": [
+              "talked_tupurkovski",
+              "dialogue_tupurkovski_quiet"
+            ]
+          }
+        }
+      ]
+    },
+    "conf": {
+      "text": "„Dobro. Stol nije kapitulacija ako Predsjedništvo još sjedi. E3 traži povelju i organ — ne zastoj.“",
+      "choices": [
+        {
+          "id": "end_conf",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {
+            "federal.war_risk": -1
+          }
+        }
+      ]
+    },
+    "ec": {
+      "text": "„Nota EEZ-a nije priznanje. To je oči. SIV i SSP mogu nositi jezik — Marković ostaje predsjednik SIV-a.“",
+      "choices": [
+        {
+          "id": "end_ec",
+          "label": "Zatvori.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "quiet": {
+      "text": "Skopje čuje da je jednakost barem izgovorena. Kalendar ostaje savezni — još.",
+      "choices": [
+        {
+          "id": "end_quiet",
+          "label": "Izađi.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    }
+  },
+  "entries": [
+    {
+      "id": "start",
+      "node": "start",
+      "once": true,
+      "available_from": "1990-12-01"
+    }
+  ]
+}

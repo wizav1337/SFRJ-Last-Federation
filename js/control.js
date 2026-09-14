@@ -64,6 +64,13 @@ function rawControl(state, id) {
   if ((state.desks?.siv?.loyalty || 0) < 35) n -= 1;
   if ((state.desks?.nby?.loyalty || 0) >= 60 && state.flags.nby_tight_dinar) n += 1;
   if ((state.desks?.to?.agenda_tension || 0) >= 65) n -= 1;
+  if (state.flags.skj_soft_federation) n += 1;
+  if (state.flags.skj_hard_unity) n -= 2;
+  if (state.flags.skj_cedes_to_siv) n += 1;
+  if (state.flags.skj_dissolved) n -= 0.5;
+  if (state.flags.dialogue_bogicevic_mediate && id === "BA") n += 2;
+  if (state.flags.dialogue_tupurkovski_conf && id === "MK") n += 2;
+  if (state.flags.talked_racan && id === "HR") n += 2;
   return n;
 }
 

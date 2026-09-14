@@ -1,0 +1,155 @@
+{
+  "id": "racan",
+  "speaker": "Ivica Račan",
+  "title": "SKH–SDP (ako HDZ nije pobijedio)",
+  "desk": "SKJ",
+  "unlock": {
+    "flags": [
+      "croatia_election_held"
+    ],
+    "flags_not": [
+      "hdz_croatia"
+    ]
+  },
+  "nodes": {
+    "start": {
+      "text": "Račan ne slavi. „Hrvatska nije pala u HDZ — ali Savez više nije monopol. Možemo gurati meku saveznu liniju, predati težinu Markovićevu SIV-u, ili tiho ugasiti pečat. Monopol se ne vraća. Jović nije Milošević; Marković nije predsjednik Jugoslavije.“",
+      "choices": [
+        {
+          "id": "soft_skj",
+          "label": "Meka savezna linija ostatka SKJ/SKH.",
+          "next": "soft",
+          "effects": {
+            "desk_set": {
+              "skj": {
+                "posture": "soft_federal"
+              }
+            },
+            "desk_add": {
+              "skj": {
+                "loyalty": 5,
+                "agenda_tension": -4
+              }
+            },
+            "federal.skj_unity": 4,
+            "HR.federal_trust": 5,
+            "HR.secession_readiness": -3,
+            "flags_add": [
+              "talked_racan",
+              "dialogue_racan_soft",
+              "skj_soft_federation"
+            ]
+          }
+        },
+        {
+          "id": "cede_siv",
+          "label": "Predaj težinu SIV-u i Markoviću.",
+          "next": "cede",
+          "effects": {
+            "desk_set": {
+              "skj": {
+                "posture": "cede_siv"
+              }
+            },
+            "desk_add": {
+              "skj": {
+                "loyalty": -2
+              },
+              "siv": {
+                "loyalty": 5,
+                "capacity": 3
+              }
+            },
+            "federal.siv_authority": 5,
+            "federal.reform_momentum": 3,
+            "HR.federal_trust": 3,
+            "flags_add": [
+              "talked_racan",
+              "dialogue_racan_cede",
+              "skj_cedes_to_siv",
+              "markovic_mandate_strong"
+            ]
+          }
+        },
+        {
+          "id": "dissolve",
+          "label": "Tiho ugasi pečat. Bez monopola nazad.",
+          "next": "dissolve",
+          "effects": {
+            "desk_set": {
+              "skj": {
+                "posture": "dissolved"
+              }
+            },
+            "desk_add": {
+              "skj": {
+                "capacity": -6
+              }
+            },
+            "federal.skj_unity": -10,
+            "federal.skj_leading_role": false,
+            "federal.reform_momentum": 2,
+            "flags_add": [
+              "talked_racan",
+              "dialogue_racan_dissolve",
+              "skj_dissolved",
+              "skj_renounced_monopoly"
+            ]
+          }
+        }
+      ]
+    },
+    "soft": {
+      "text": "„Savezni jezik bez zapovijedi. Ako Bogićević i Tupurkovski drže kvorum, još ima stola.“",
+      "choices": [
+        {
+          "id": "end_soft",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {
+            "flags_add": [
+              "confederal_talks_open"
+            ]
+          }
+        }
+      ]
+    },
+    "cede": {
+      "text": "SIV dobiva prostor. SKJ šuti — namjerno.",
+      "choices": [
+        {
+          "id": "end_cede",
+          "label": "Zatvori.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "dissolve": {
+      "text": "Pečat tone. Monopol se ne vraća. Reformski zamah raste za cijenu jedinstva SKJ-a.",
+      "choices": [
+        {
+          "id": "end_dissolve",
+          "label": "Izađi.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    }
+  },
+  "entries": [
+    {
+      "id": "start",
+      "node": "start",
+      "once": true,
+      "unlock": {
+        "flags": [
+          "croatia_election_held"
+        ],
+        "flags_not": [
+          "hdz_croatia"
+        ]
+      }
+    }
+  ]
+}
