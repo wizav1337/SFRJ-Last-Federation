@@ -1,0 +1,346 @@
+{
+  "act": 4,
+  "title": "Ostali glasuju",
+  "events": [
+    {
+      "id": "macedonia_election",
+      "date": "1990-11-11",
+      "act": 4,
+      "desk": "REPUBLIKE",
+      "priority": "mandatory",
+      "title": "Skoplje broji bez većinskog naroda",
+      "location": "SR Makedonija — skupština, prvi krug 11. studenoga / drugi 25. studenoga 1990.",
+      "briefing": "Makedonija glasuje kao oprezna republika. SKM–PDP (Savez komunista Makedonije) hoće ravnopravan status unutar federacije koja do proljeća možda neće postojati. VMRO–DPMNE hoće nacionalnu stranku. Albanski PDP uzet će blok primijetili vi to ili ne. Ne možete glasovati. Možete poslati Markovićevo ime, uskratiti zbroj, ili tretirati Skoplje kao partnera osmorice.",
+      "constitutional_note": "Republikanska skupština izabrana po republikanskom zakonu savezna je samo u sjedalima koja još šalje u Vijeće. Jezik ravnopravne republike nije otcjepljenje. To je cijena.",
+      "documents": ["1974_federation"],
+      "election": { "unit": "MK", "gravity": "split" },
+      "choices": [
+        {
+          "id": "observe_mk",
+          "label": "Promatraj. Tretiraj zbroj kao republikansku činjenicu.",
+          "legal": "constitutional",
+          "effects": {
+            "federal.legitimacy": 2,
+            "MK.federal_trust": 4
+          }
+        },
+        {
+          "id": "equal_status",
+          "label": "Obećaj jezik ravnopravne republike u svakom preostalom saveznom statutu.",
+          "legal": "political",
+          "effects": {
+            "MK.federal_trust": 8,
+            "MK.secession_readiness": -3,
+            "RS.elite_cohesion": -3,
+            "federal.presidency_cohesion": 2
+          }
+        },
+        {
+          "id": "reform_forces_mk",
+          "label": "Stavi Markovićeve Reformske snage na makedonske liste.",
+          "legal": "party",
+          "requires": { "flags": ["markovic_dinar_program"] },
+          "effects": {
+            "federal.reform_momentum": 4,
+            "MK.yugoslav_identity": 4,
+            "MK.skj_hold": -3,
+            "parties": { "arsj": { "support": 5 } }
+          }
+        },
+        {
+          "id": "starve_mk",
+          "label": "Uskrati saveznu nazočnost. Neka Skoplje nauči knjigu.",
+          "legal": "siv",
+          "effects": {
+            "MK.federal_trust": -8,
+            "MK.secession_readiness": 5,
+            "federal.federal_budget": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "bosnia_election",
+      "date": "1990-12-02",
+      "act": 4,
+      "desk": "REPUBLIKE",
+      "priority": "mandatory",
+      "title": "Sarajevo nije jedno biračko tijelo",
+      "location": "SR Bosna i Hercegovina — skupština, 18. studenoga / 2. prosinca 1990.",
+      "briefing": "Tri nacionalne stranke organiziraju se cijelu godinu. SDA (Stranka demokratske akcije), SDS BiH, HDZ BiH. SK BiH još ima zgrade i sjećanje na republiku koja je bila zaklon. Neće biti jedne pobjedničke kartice Bosne. Bit će aritmetika četvero: tri narodne liste plus SK BiH. Knin, ako balvani još sjede, već je lekcija koju SDS može citirati. Ne možete glasovati. Možete samo odlučiti izgleda li Beograd kao zaklon, policajac ili glasina.",
+      "constitutional_note": "Tro-narodna republika i dalje je jedno republikansko sjedalo u Predsjedništvu. Tretirati zbroj kao tri države konfederalna je odluka, ne izborna.",
+      "documents": ["1974_federation"],
+      "election": { "unit": "BA", "kind": "three_nation", "gravity": "opposition" },
+      "choices": [
+        {
+          "id": "shelter",
+          "label": "Ponudi Jugoslaviju kao zaklon koji drži republiku cijelom.",
+          "legal": "political",
+          "effects": {
+            "BA.yugoslav_identity": 6,
+            "BA.federal_trust": 5,
+            "BA.skj_hold": 4,
+            "federal.legitimacy": 2
+          }
+        },
+        {
+          "id": "observe_ba",
+          "label": "Promatraj. Ne tumači narode kao republike.",
+          "legal": "constitutional",
+          "effects": {
+            "federal.legitimacy": 2,
+            "BA.interethnic_tension": 2
+          }
+        },
+        {
+          "id": "ssup_sarajevo",
+          "label": "SSUP spisi o nacionalnim strankama. Tiho, i čitat će se kao strana.",
+          "legal": "extra_constitutional",
+          "effects": {
+            "federal.legitimacy": -7,
+            "BA.interethnic_tension": 8,
+            "BA.skj_hold": 3,
+            "BA.federal_trust": -8
+          }
+        },
+        {
+          "id": "read_knin",
+          "label": "Reci u javnosti da Knin nije model za Bosnu.",
+          "legal": "political",
+          "requires": { "flags": ["krajina_log_revolution"] },
+          "effects": {
+            "BA.interethnic_tension": 4,
+            "HR.federal_trust": -3,
+            "BA.federal_trust": 3
+          }
+        },
+        {
+          "id": "hdz_not_a_state",
+          "label": "Reci HDZ-u BiH da zagrebački Sabor nije treća bosanska republika.",
+          "legal": "political",
+          "requires": { "flags": ["hdz_croatia"] },
+          "effects": {
+            "BA.interethnic_tension": 3,
+            "HR.federal_trust": -2,
+            "BA.federal_trust": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "serbia_montenegro_election",
+      "date": "1990-12-09",
+      "act": 4,
+      "desk": "REPUBLIKE",
+      "priority": "mandatory",
+      "title": "Dvije skupštine, jedan takt",
+      "location": "SR Srbija / SR Crna Gora — skupštinski izbori, 9. / 23. prosinca 1990.",
+      "briefing": "Srbija i Crna Gora glasuju istim zimskim taktom. Ovo su prvi višestranački izbori u Srbiji — nisu se dogodili u proljeće. SPS je Savez s novim zaglavljem ako je ustavni trag iz rujna držao. SK CG još se zove Savezom. SPO i građanske liste postoje. Nisu vrijeme osim ako ste godinu potrošili da to postanu. Ne možete glasovati. Nasljedničko držanje ovdje način je na koji krnja država uči zvati se federacijom. Milošević ostaje Srbija, ne automatski Predsjedništvo.",
+      "constitutional_note": "Dvije republikanske skupštine. Jedno savezno Predsjedništvo koje još ima osam stolica. Većina u Beogradu ne umirovljuje slovensko sjedalo. Sjedala Vojvodine i Kosova, ako niste rekli drugačije, glasaju sa srpskom mašinom.",
+      "documents": ["1974_federation", "1974_presidency"],
+      "election": { "kind": "combined", "units": ["RS", "ME"], "gravity": "successor" },
+      "choices": [
+        {
+          "id": "observe_rsme",
+          "label": "Promatraj oba zbroja. Ne vodi kampanju kao federacija.",
+          "legal": "constitutional",
+          "effects": {
+            "federal.legitimacy": 2
+          }
+        },
+        {
+          "id": "mark_constitution",
+          "label": "Podsjeti Srbiju da novi ustav nije savezni statut.",
+          "legal": "political",
+          "requires": { "flags": ["serbia_new_constitution"] },
+          "effects": {
+            "RS.elite_cohesion": -4,
+            "federal.legitimacy": 3,
+            "XK.federal_trust": 3,
+            "RS.federal_trust": -4
+          }
+        },
+        {
+          "id": "fund_civic",
+          "label": "Tihi novac za građanske liste. Nazovi to informacijom.",
+          "legal": "siv",
+          "effects": {
+            "federal.federal_budget": -5,
+            "RS.skj_hold": -4,
+            "RS.media_pluralism": 6,
+            "federal.legitimacy": -3
+          }
+        },
+        {
+          "id": "accept_successor",
+          "label": "Prihvati nasljedničko držanje kao kontinuitet saveznog imena.",
+          "legal": "political",
+          "effects": {
+            "RS.elite_cohesion": 5,
+            "ME.skj_hold": 3,
+            "SI.federal_trust": -6,
+            "HR.federal_trust": -5,
+            "federal.presidency_cohesion": -4
+          }
+        }
+      ]
+    },
+    {
+      "id": "slovenia_plebiscite",
+      "date": "1990-12-23",
+      "act": 4,
+      "desk": "PRET",
+      "priority": "mandatory",
+      "title": "Da, datirano",
+      "location": "SR Slovenija — savjetodavni plebiscit o neovisnosti, 23. prosinca 1990.",
+      "briefing": "Ovo nije skupština. To je pitanje: treba li Slovenija postati neovisna država? DEMOS, ako još drži skupštinu, već zna svoj odgovor. Ne možete glasovati. Možete samo imenovati zbroj: savjetodavni, konfederalni papir, šutnja, ili dekret Predsjedništva. JNA nije izbor na ovom spisu. Proglašenje neovisnosti nije 23. prosinca. Lipanj 1991. još je proglašenje do kojeg niste stigli. Datirani da uvod je, ne secesija.",
+      "constitutional_note": "Republikanski plebiscit nije otcjepljenje dok nema proglašenja i granice. Tretirati ga kao savjetodavni drži jezik iz 1974. živim. Tretirati ga kao ništav dekret je. Tretirati ga kao bitku druga je igra. Slovenija 23. prosinca ne odlazi iz saveznih institucija.",
+      "documents": ["1974_federation", "1974_presidency"],
+      "election": { "unit": "SI", "kind": "plebiscite" },
+      "choices": [
+        {
+          "id": "consultative",
+          "label": "Priznaj glasovanje kao savjetodavno. To nije proglašenje.",
+          "legal": "constitutional",
+          "effects": {
+            "federal.legitimacy": 4,
+            "SI.federal_trust": 6,
+            "SI.secession_readiness": 2,
+            "HR.secession_readiness": 3
+          }
+        },
+        {
+          "id": "open_talks",
+          "label": "Otvori konfederalne razgovore. Stavi da na stol s osam stolica.",
+          "legal": "political",
+          "effects": {
+            "SI.federal_trust": 8,
+            "HR.federal_trust": 4,
+            "RS.elite_cohesion": -6,
+            "federal.presidency_cohesion": 3,
+            "flags_add": ["confederal_talks_open"]
+          }
+        },
+        {
+          "id": "ignore_plebiscite",
+          "label": "Zanemari zbroj. Savezni zakon ostaje savezni zakon.",
+          "legal": "siv",
+          "effects": {
+            "SI.federal_trust": -10,
+            "SI.secession_readiness": 8,
+            "HR.secession_readiness": 4,
+            "federal.siv_authority": -4
+          }
+        },
+        {
+          "id": "decree_void",
+          "label": "Dekret Predsjedništva: plebiscit nema saveznog pravnog učinka.",
+          "legal": "presidency_decree",
+          "noncompliance_chance": 0.55,
+          "noncompliance_unit": "SI",
+          "effects": {
+            "federal.legitimacy": -4,
+            "SI.federal_trust": -8,
+            "SI.secession_readiness": 6,
+            "federal.presidency_cohesion": -4
+          }
+        },
+        {
+          "id": "ack_demos_mandate",
+          "label": "Priznaj skupštinu DEMOS-a kao tijelo koje je postavilo pitanje.",
+          "legal": "political",
+          "requires": { "flags": ["demos_slovenia"] },
+          "effects": {
+            "SI.federal_trust": 5,
+            "federal.legitimacy": 2,
+            "HR.secession_readiness": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "markovic_reform_forces",
+      "date": "1990-12-26",
+      "act": 4,
+      "desk": "SIV",
+      "priority": "mandatory",
+      "title": "Savezna lista u godini republikanskih strojeva",
+      "location": "SIV / Savez reformskih snaga Jugoslavije",
+      "briefing": "Ante Marković još je predsjednik SIV-a. Ima program i ime koje se bolje mjeri od bilo kojeg preostalog Saveza. Savez reformskih snaga Jugoslavije (SRSJ) hoće biti savezna lista. Republikanski strojevi već su pojeli godinu. Možete dopustiti listu, gladovati je, ili napisati da je prekasno. Ako ste od JNA napravili rečenicu, još je kasnije. Ako ste se odrekli vodeće uloge, ovo nije obnova monopola. Ako niste, ovo je rupa u njemu.",
+      "constitutional_note": "Savezna stranka nije savezni organ. Dopustiti je pluralizam. Gladovati je kadrovska politika. Ništa od toga ne rekonstruira vodeću ulogu SKJ-a. Republikanski savezi nisu komanda svih Sabora.",
+      "documents": ["1974_siv", "1974_art_leading_role"],
+      "choices": [
+        {
+          "id": "allow_list",
+          "label": "Dopusti Savez kao saveznu listu. Daj mu Službeni list i stavku u proračunu.",
+          "legal": "party",
+          "requires": { "flags": ["skj_renounced_monopoly"] },
+          "effects": {
+            "federal.reform_momentum": 8,
+            "federal.siv_authority": 4,
+            "SI.yugoslav_identity": 3,
+            "MK.yugoslav_identity": 3,
+            "parties": { "arsj": { "support": 12 } },
+            "MK.planned_move": "bargain_equal_republic_status"
+          }
+        },
+        {
+          "id": "allow_anyway",
+          "label": "Dopusti listu i bez formalnog kraja vodeće uloge. Ostaci SKJ-a to neće voljeti.",
+          "legal": "party",
+          "effects": {
+            "federal.reform_momentum": 5,
+            "federal.skj_unity": -6,
+            "parties": { "arsj": { "support": 8 } }
+          }
+        },
+        {
+          "id": "dinar_is_the_list",
+          "label": "Program dinara jest lista. Financiraj SRSJ kao gospodarski kontinuitet.",
+          "legal": "siv",
+          "requires": { "flags": ["markovic_dinar_program"] },
+          "effects": {
+            "federal.reform_momentum": 6,
+            "federal.federal_budget": -4,
+            "SI.living_standard": 2,
+            "MK.living_standard": 2,
+            "parties": { "arsj": { "support": 10 } }
+          }
+        },
+        {
+          "id": "starve_list",
+          "label": "Gladuj je. Hvali Markovića. Zadrži strojeve.",
+          "legal": "siv",
+          "effects": {
+            "federal.siv_authority": -6,
+            "federal.reform_momentum": -4,
+            "RS.skj_hold": 3,
+            "parties": { "arsj": { "support": 2 } }
+          }
+        },
+        {
+          "id": "too_late",
+          "label": "Napiši da je prekasno. Godina je već izglasana u komadima.",
+          "legal": "political",
+          "effects": {
+            "federal.reform_momentum": -6,
+            "federal.international_standing": -3,
+            "SI.secession_readiness": 3,
+            "HR.secession_readiness": 2
+          }
+        },
+        {
+          "id": "army_already_spoke",
+          "label": "Vojska je već govorila. Savezna lista pamflet je.",
+          "legal": "political",
+          "requires": { "flags": ["player_used_jna_threat"] },
+          "effects": {
+            "federal.reform_momentum": -8,
+            "federal.siv_authority": -4,
+            "SI.federal_trust": -4
+          }
+        }
+      ]
+    }
+  ]
+}

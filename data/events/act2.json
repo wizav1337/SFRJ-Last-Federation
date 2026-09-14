@@ -1,0 +1,378 @@
+{
+  "act": 2,
+  "title": "Prvi izbori",
+  "events": [
+    {
+      "id": "slovenia_election",
+      "date": "1990-04-22",
+      "act": 2,
+      "desk": "REPUBLIKE",
+      "priority": "mandatory",
+      "title": "Listići u Sloveniji",
+      "location": "Ljubljana — skupština, drugi krug; Kučanov drugi krug",
+      "briefing": "Federacija ne glasuje. Slovenija glasuje. DEMOS (Demokratična opozicija Slovenije) ima ulicu i građanske liste. Milan Kučan ima sjećanje republike na reformiranog komunista koji nije slao tenkove. Možete pustiti novac, uskratiti, poslati Markovićevo ime, ili gurnuti SSUP u brojanje. Ne možete staviti križić. DEMOS još ne vlada — to je noćas pitanje.",
+      "constitutional_note": "Republikanske skupštine nisu savezni organi. Savezna sredstva i savezna policija jesu. Kupiti prvo drugim izvan je zakona čak i kad je tiho. Kučan, ako pobijedi, predsjednik je republike. Ne zapovijeda JNA.",
+      "documents": ["1974_federation"],
+      "election": { "unit": "SI", "races": ["assembly", "presidency"], "gravity": "opposition" },
+      "choices": [
+        {
+          "id": "release_funds",
+          "label": "Pusti savezne transfere. Neka životni standard govori za centar.",
+          "legal": "siv",
+          "effects": {
+            "federal.federal_budget": -6,
+            "SI.living_standard": 5,
+            "SI.federal_trust": 6,
+            "SI.skj_hold": 2
+          }
+        },
+        {
+          "id": "withhold",
+          "label": "Uskrati. Kazni odlazak u knjizi.",
+          "legal": "siv",
+          "effects": {
+            "SI.federal_trust": -10,
+            "SI.nationalist_heat": 6,
+            "SI.secession_readiness": 5,
+            "federal.siv_authority": 2
+          }
+        },
+        {
+          "id": "reformer_ticket",
+          "label": "Neka ZKS–SDP ide kao republikanski reformisti, ne kao savezni SKJ. (Savez je već ostaci.)",
+          "legal": "party",
+          "effects": {
+            "SI.skj_hold": 7,
+            "SI.nationalist_heat": -3,
+            "federal.skj_unity": -4
+          }
+        },
+        {
+          "id": "ssup_sdb",
+          "label": "Stavi SSUP/SDB na popise. Tihi pritisak. Tihi rizik.",
+          "legal": "extra_constitutional",
+          "effects": {
+            "federal.legitimacy": -8,
+            "SI.skj_hold": 4,
+            "SI.media_pluralism": -8,
+            "SI.opposition_org": 10,
+            "SI.nationalist_heat": 6,
+            "federal.sdb_control": -4
+          }
+        }
+      ]
+    },
+    {
+      "id": "croatia_election",
+      "date": "1990-05-06",
+      "act": 2,
+      "desk": "REPUBLIKE",
+      "priority": "mandatory",
+      "title": "Hrvatska, drugi krug",
+      "location": "Zagreb — Sabor, dvokružna većina (22.–23. travnja / 6.–7. svibnja)",
+      "briefing": "Drugi krug je stroj većine. HDZ (Hrvatska demokratska zajednica) građen je za to. SKH–SDP (Savez komunista Hrvatske – Stranka demokratskih promjena) građen je za stranku koja više ne postoji kao savezna činjenica. Krajinski Srbi gledaju zbroj kao da je granica. Još ne možete glasovati. Možete samo odlučiti izgleda li Beograd kao blagajnik, policajac ili gledatelj. Tuđman nije vlada dok Sabor ne izabere.",
+      "constitutional_note": "Republikanska skupština izabrana po republikanskom zakonu zakonita je čak i kad njezina većina mrzi federaciju. Nezakonitost počinje kad odbijete tretirati je kao skupštinu. U Hrvatskoj to nije parlament — to je Sabor.",
+      "documents": ["1974_federation"],
+      "election": { "unit": "HR", "races": ["assembly"], "gravity": "opposition" },
+      "choices": [
+        {
+          "id": "observe",
+          "label": "Promatraj. Objavi saveznu izjavu da je zakon poštovan.",
+          "legal": "constitutional",
+          "effects": {
+            "federal.legitimacy": 3,
+            "HR.federal_trust": 4
+          }
+        },
+        {
+          "id": "fund_skh",
+          "label": "Tihi novac za SKH–SDP. Nazovi to informacijom.",
+          "legal": "siv",
+          "effects": {
+            "federal.federal_budget": -5,
+            "HR.skj_hold": 6,
+            "HR.federal_trust": -4,
+            "federal.legitimacy": -3
+          }
+        },
+        {
+          "id": "reform_forces_hr",
+          "label": "Pošalji Markovićeve Reformske snage na hrvatske liste.",
+          "legal": "party",
+          "effects": {
+            "federal.reform_momentum": 4,
+            "HR.skj_hold": -2,
+            "HR.yugoslav_identity": 3,
+            "parties": { "arsj": { "support": 6 } }
+          }
+        },
+        {
+          "id": "ssup_zagreb",
+          "label": "SSUP spisi o novcu HDZ-a. Procuri što možeš.",
+          "legal": "extra_constitutional",
+          "effects": {
+            "federal.legitimacy": -7,
+            "HR.nationalist_heat": 8,
+            "HR.opposition_org": 6,
+            "HR.skj_hold": 3,
+            "HR.secession_readiness": 4
+          }
+        }
+      ]
+    },
+    {
+      "id": "presidency_rotation",
+      "date": "1990-05-15",
+      "act": 2,
+      "desk": "PRET",
+      "priority": "mandatory",
+      "title": "Stolac rotira",
+      "location": "Predsjedništvo SFRJ — Novi Beograd",
+      "briefing": "Godina Janeza Drnovšeka je gotova. Rotacija iz 1974. daje čekić Borisavu Joviću, srpskom članu. Stolac nije predsjednik republike i nije Milošević. To je čekić u sobi od osam. Kako večeras tretirate čekić govori svakom glavnom gradu postoji li kolektiv još.",
+      "constitutional_note": "Predsjedništvo je kolektivno. Rotacija je zakonska. Blokirati je ustavna činjenica, ne smetnja u rasporedu.",
+      "documents": ["1974_presidency"],
+      "choices": [
+        {
+          "id": "accept_jovic",
+          "label": "Prihvati rotaciju. Jović uzima stolac. Osmero još sjedi.",
+          "legal": "constitutional",
+          "effects": {
+            "federal.legitimacy": 4,
+            "federal.presidency_cohesion": -4,
+            "RS.elite_cohesion": 5,
+            "SI.federal_trust": -3,
+            "flags_add": ["presidency_rotation_jovic"]
+          }
+        },
+        {
+          "id": "bind_procedures",
+          "label": "Prihvati Jovića. Veži ga večeras pismeno na kolektivni postupak.",
+          "legal": "presidency_decree",
+          "effects": {
+            "federal.presidency_cohesion": 6,
+            "federal.legitimacy": 2,
+            "RS.elite_cohesion": -6,
+            "federal.jna_obedience_to_civilian": 3,
+            "flags_add": ["presidency_rotation_jovic"]
+          }
+        },
+        {
+          "id": "delay_rotation",
+          "label": "Odgodi rotaciju. Izmisli postupovni spor.",
+          "legal": "extra_constitutional",
+          "effects": {
+            "federal.legitimacy": -10,
+            "federal.presidency_cohesion": -12,
+            "RS.nationalist_heat": 8,
+            "SI.federal_trust": 4,
+            "flags_add": ["presidency_deadlock"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "hdz_government",
+      "date": "1990-05-25",
+      "act": 2,
+      "desk": "SIV",
+      "priority": "mandatory",
+      "title": "Vlada u Zagrebu koju federacija nije imenovala",
+      "location": "Sabor / dopisivanje sa SIV-om",
+      "briefing": "HDZ drži Sabor. Tuđman će govoriti suverenost kao upravu. Savezni kadarski odjel više nema hrvatsku vladu. Disciplinirati hrvatski CK nema smisla — taj savez više nije vlada. Tekst iz 1974. kaže da republikanske vlade postoje. Ne kaže da vas moraju voljeti.",
+      "constitutional_note": "Savezna zakonitost nije veto republikanskog izbora. To je tvrdnja o nadležnosti: vojska, valuta, granice, i ostalo. Raspravljajte nadležnost. Ne tvrдите da je Zagreb izmišljen.",
+      "documents": ["1974_federation", "1974_siv"],
+      "requires": { "flags": ["hdz_croatia"] },
+      "choices": [
+        {
+          "id": "recognize_1974",
+          "label": "Priznaj kabinet kao republikansku vladu po karti nadležnosti iz 1974.",
+          "legal": "constitutional",
+          "effects": {
+            "federal.legitimacy": 5,
+            "HR.federal_trust": 8,
+            "HR.secession_readiness": 3,
+            "federal.siv_authority": -2
+          }
+        },
+        {
+          "id": "const_court",
+          "label": "Pošalji jezik suverenosti Ustavnom sudu. Odgoda zakonom.",
+          "legal": "constitutional",
+          "effects": {
+            "federal.assembly_function": 3,
+            "HR.federal_trust": -6,
+            "HR.nationalist_heat": 5,
+            "federal.legitimacy": 2
+          }
+        },
+        {
+          "id": "negotiate_language",
+          "label": "Otvori razgovore o jeziku suverenosti. Kupi mjesece, ne odanost.",
+          "legal": "political",
+          "effects": {
+            "federal.presidency_cohesion": 3,
+            "HR.secession_readiness": -2,
+            "SI.federal_trust": 3,
+            "flags_add": ["confederal_talks_open"]
+          }
+        },
+        {
+          "id": "jna_pressure",
+          "label": "Pritisak JNA. Podsjetnik iz vojarne nije razgovor.",
+          "legal": "emergency",
+          "effects": {
+            "federal.legitimacy": -10,
+            "HR.federal_trust": -14,
+            "HR.secession_readiness": 10,
+            "federal.war_risk": 8,
+            "SI.federal_trust": -8,
+            "flags_add": ["player_used_jna_threat"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "skh_cabinet",
+      "date": "1990-05-25",
+      "act": 2,
+      "desk": "SIV",
+      "priority": "mandatory",
+      "title": "SKH–SDP drži Sabor",
+      "location": "Sabor / dopisivanje sa SIV-om",
+      "briefing": "HDZ nije uzeo Sabor. SKH–SDP drži vladu koju federacija nije imenovala, ali koja još govori jezikom Saveza. To nije Tuđmanova administracija. I dalje je republikanska vlada po karti iz 1974. Ne pretvarajte se da disciplinirate CK kao da je 1988.",
+      "constitutional_note": "Savezna zakonitost nije veto republikanskog izbora. Kabinet SKH–SDP-a i dalje je republikanska vlada. Nadležnost ostaje vojska, valuta, granice.",
+      "documents": ["1974_federation", "1974_siv"],
+      "requires": { "flags": ["croatia_election_held"], "flags_not": ["hdz_croatia"] },
+      "choices": [
+        {
+          "id": "recognize_skh",
+          "label": "Priznaj kabinet SKH–SDP-a kao republikansku vladu po karti iz 1974.",
+          "legal": "constitutional",
+          "effects": {
+            "federal.legitimacy": 4,
+            "HR.federal_trust": 6,
+            "federal.siv_authority": 2
+          }
+        },
+        {
+          "id": "treat_as_remnant",
+          "label": "Tretiraj ih kao republikanski ostatak Saveza, ne kao saveznu komandu Sabora.",
+          "legal": "party",
+          "effects": {
+            "federal.skj_unity": -4,
+            "HR.skj_hold": 3,
+            "HR.federal_trust": 2
+          }
+        },
+        {
+          "id": "negotiate_skh",
+          "label": "Otvori razgovore o nadležnosti. Kupi mjesece.",
+          "legal": "political",
+          "effects": {
+            "federal.presidency_cohesion": 3,
+            "HR.secession_readiness": -2,
+            "flags_add": ["confederal_talks_open"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "to_inventory_followup",
+      "date": "1990-05-28",
+      "act": 2,
+      "desk": "PRET",
+      "priority": "mandatory",
+      "title": "Popis je još komad papira",
+      "location": "SSNO / republikanski stožeri TO",
+      "briefing": "Naredili ste savezni popis zaliha Teritorijalne obrane. Slovenija tretira naredbu kao razoružanje buduće države. Hrvatska nije odlučila hoće li predati ili sakriti. Stožer JNA hoće ključeve, ne zapisnike. Druga naredba čitat će se onako kako je prva mislila.",
+      "constitutional_note": "Općenarodna obrana podijelila je ključeve. Ponavljanje naredbe ne ujedinjuje ih. Zapovijed Predsjedništva nad oružanim snagama nije isto što i posjed republikanskih skladišta.",
+      "documents": ["all_peoples_defence", "1974_presidency"],
+      "requires": { "flags": ["to_inventory_ordered"] },
+      "choices": [
+        {
+          "id": "enforce_si",
+          "label": "Provedi popis u Sloveniji ovog mjeseca. SSNO u skladištima.",
+          "legal": "presidency_decree",
+          "effects": {
+            "SI.to_control": -18,
+            "SI.federal_trust": -14,
+            "SI.secession_readiness": 10,
+            "federal.jna_cohesion": 5,
+            "federal.war_risk": 7,
+            "flags_add": ["to_disarmed_slovenia"]
+          }
+        },
+        {
+          "id": "pause_order",
+          "label": "Stani. Pretvori popis u mješovito povjerenstvo s republikanskim potpisima.",
+          "legal": "constitutional",
+          "effects": {
+            "federal.legitimacy": 3,
+            "federal.jna_obedience_to_civilian": 2,
+            "SI.federal_trust": 4,
+            "HR.to_control": 2
+          }
+        },
+        {
+          "id": "jna_only",
+          "label": "Ostavi TO. Prebroji vojarne JNA i proglasi gotovo.",
+          "legal": "political",
+          "effects": {
+            "federal.jna_cohesion": -6,
+            "SI.to_control": 4,
+            "HR.to_control": 4,
+            "federal.war_risk": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "barracks_quiet",
+      "date": "1990-05-28",
+      "act": 2,
+      "desk": "PRET",
+      "priority": "regional",
+      "title": "Vojarne, ne skladišta",
+      "location": "SSNO / garnizoni JNA",
+      "briefing": "U proljeće niste naredili savezni popis Teritorijalne obrane. Stožer JNA i dalje hoće sliku tko što drži prije ljeta. Prihvatit će popis vojarni. Neće prihvatiti da je pitanje nepristojno. Ovaj spis postoji samo zato što naredba o popisu nije pala.",
+      "constitutional_note": "Popis vojarni savezno je vlasništvo. Skladišta TO argument su koji ste odbili pokrenuti. Pokrenuti ga sada, nakon listića, glasnije je.",
+      "documents": ["all_peoples_defence"],
+      "requires": { "flags_not": ["to_inventory_ordered"] },
+      "choices": [
+        {
+          "id": "joint_commission",
+          "label": "Mješovito povjerenstvo. Časnici JNA i republikanske TO u istoj sobi, bez oduzimanja.",
+          "legal": "constitutional",
+          "effects": {
+            "federal.legitimacy": 3,
+            "federal.jna_cohesion": 2,
+            "SI.federal_trust": 3,
+            "HR.federal_trust": 2
+          }
+        },
+        {
+          "id": "leave_alone",
+          "label": "Ostavi TO na miru. Napiši da je vojska dovoljna.",
+          "legal": "political",
+          "effects": {
+            "federal.jna_cohesion": -7,
+            "SI.to_control": 5,
+            "HR.to_control": 5
+          }
+        },
+        {
+          "id": "quiet_redeploy",
+          "label": "Tiho prerasporedi JNA prema skladištima koja ne imenuješ.",
+          "legal": "presidency_decree",
+          "effects": {
+            "SI.federal_trust": -6,
+            "HR.federal_trust": -5,
+            "federal.war_risk": 4,
+            "SI.jna_presence": 6,
+            "HR.jna_presence": 5
+          }
+        }
+      ]
+    }
+  ]
+}

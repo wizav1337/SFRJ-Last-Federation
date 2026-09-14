@@ -1,0 +1,22 @@
+{
+  "parties": [
+    {"id": "zks_sdp", "unit": "SI", "name": "ZKS–SDP", "full": "Zveza komunistov Slovenije – Stranka demokratične prenove", "leader": "Milan Kučan", "ideology": ["reform_communist", "slovene_autonomy"], "support": 32, "in_government": true, "agenda": "reform_and_confederation"},
+    {"id": "demos", "unit": "SI", "name": "DEMOS", "full": "Demokratična opozicija Slovenije", "leader": "Jože Pučnik", "ideology": ["democratic", "statehood"], "support": 40, "in_government": false, "agenda": "elections_then_sovereignty"},
+    {"id": "zsms", "unit": "SI", "name": "ZSMS–Liberalna stranka", "full": "Zveza socialistične mladine Slovenije", "leader": "Jožef Školč", "ideology": ["liberal", "youth"], "support": 14, "in_government": false, "agenda": "pluralism"},
+    {"id": "skh_sdp", "unit": "HR", "name": "SKH–SDP", "full": "Savez komunista Hrvatske – Stranka demokratskih promjena", "leader": "Ivica Račan", "ideology": ["reform_communist"], "support": 28, "in_government": true, "agenda": "survive_elections"},
+    {"id": "hdz", "unit": "HR", "name": "HDZ", "full": "Hrvatska demokratska zajednica", "leader": "Franjo Tuđman", "ideology": ["national", "statehood"], "support": 36, "in_government": false, "agenda": "sovereignty_program"},
+    {"id": "sds_hr", "unit": "HR", "name": "SDS", "full": "Srpska demokratska stranka", "leader": "Jovan Rašković", "ideology": ["serb_national", "autonomy"], "support": 8, "in_government": false, "agenda": "serb_autonomy_in_croatia"},
+    {"id": "skbih", "unit": "BA", "name": "SK BiH–SDP", "full": "Savez komunista BiH", "leader": "Nijaz Duraković", "ideology": ["reform_communist", "yugoslav"], "support": 30, "in_government": true, "agenda": "keep_republic_whole"},
+    {"id": "sda", "unit": "BA", "name": "SDA", "full": "Stranka demokratske akcije", "leader": "Alija Izetbegović", "ideology": ["bosniak_national"], "support": 18, "in_government": false, "agenda": "muslim_political_subject"},
+    {"id": "sds_ba", "unit": "BA", "name": "SDS BiH", "full": "Srpska demokratska stranka BiH", "leader": "Radovan Karadžić", "ideology": ["serb_national"], "support": 16, "in_government": false, "agenda": "serb_veto_in_bih"},
+    {"id": "hdz_ba", "unit": "BA", "name": "HDZ BiH", "full": "Hrvatska demokratska zajednica BiH", "leader": "Stjepan Kljuić", "ideology": ["croat_national"], "support": 12, "in_government": false, "agenda": "croat_equality_in_bih"},
+    {"id": "sps", "unit": "RS", "name": "SPS / put SKS", "full": "Socijalistička partija Srbije (u osnivanju)", "leader": "Slobodan Milošević", "ideology": ["successor_communist", "serb_national"], "support": 55, "in_government": true, "agenda": "new_constitution_then_elections"},
+    {"id": "spo", "unit": "RS", "name": "SPO", "full": "Srpski pokret obnove", "leader": "Vuk Drašković", "ideology": ["national", "anti_communist"], "support": 16, "in_government": false, "agenda": "opposition_nationalism"},
+    {"id": "ds", "unit": "RS", "name": "DS", "full": "Demokratska stranka", "leader": "Dragoljub Mićunović", "ideology": ["liberal_democratic"], "support": 8, "in_government": false, "agenda": "civic_serbia"},
+    {"id": "skcg", "unit": "ME", "name": "SK CG", "full": "Savez komunista Crne Gore", "leader": "Momir Bulatović", "ideology": ["successor_communist"], "support": 62, "in_government": true, "agenda": "align_with_serbia_keep_skj"},
+    {"id": "skm", "unit": "MK", "name": "SKM–PDP", "full": "Savez komunista Makedonije", "leader": "Petar Gošev", "ideology": ["reform_communist"], "support": 42, "in_government": true, "agenda": "equal_republic_bargain"},
+    {"id": "vmro", "unit": "MK", "name": "VMRO–DPMNE", "full": "VMRO–DPMNE", "leader": "Ljubčo Georgievski", "ideology": ["macedonian_national"], "support": 18, "in_government": false, "agenda": "national_party_build"},
+    {"id": "skj", "unit": "FED", "name": "SKJ", "full": "Savez komunista Jugoslavije", "leader": "kolektiv / u raspadu", "ideology": ["yugoslav_communist"], "support": 35, "in_government": true, "agenda": "survive_congress"},
+    {"id": "arsj", "unit": "FED", "name": "SRSJ (u osnivanju)", "full": "Savez reformskih snaga Jugoslavije", "leader": "Ante Marković", "ideology": ["reform", "yugoslav_market"], "support": 0, "in_government": false, "agenda": "federal_reform_party"}
+  ]
+}

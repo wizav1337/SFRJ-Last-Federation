@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1280, initial-scale=1" />
+  <title>SFRJ 1990: Posljednja federacija</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+</head>
+<body>
+  <div id="app">
+    <section id="screen-boot" class="screen screen-title">
+      <div class="title-card">
+        <p class="kicker">Otvaranje arhiva</p>
+        <h1>SFRJ 1990</h1>
+        <p class="subtitle">Učitavam jedinice, stranke, organe i događaje.</p>
+      </div>
+    </section>
+
+    <section id="screen-title" class="screen screen-title hidden">
+      <div class="title-card">
+        <p class="kicker">Službeni list · 20. siječnja 1990.</p>
+        <h1>SFRJ 1990</h1>
+        <p class="subtitle">Posljednja federacija</p>
+        <p class="pitch">
+          Sjedite na cijelom saveznom zapovjednom sloju Jugoslavije —
+          Predsjedništvu, SIV-u, ostatcima SKJ-a, JNA, sekretarijatima — dok šest
+          republika i dvije pokrajine ulaze u prvu višestranačku godinu.
+          Svaki izbor ili veže ograničenu federaciju, kuje krnju SRJ,
+          piše konfederaciju, ili pušta kartu u neovisne demokracije (ili u rat).
+        </p>
+        <div class="title-actions">
+          <button class="btn primary" id="btn-new">Nova igra</button>
+          <button class="btn" id="btn-continue" disabled>Nastavi</button>
+          <button class="btn" id="btn-ency">Leksikon</button>
+        </div>
+        <p class="disclaimer">
+          Ovo je kontrafaktički stroj. Stvarne poginule 1991.–95. nisu rezultat.
+          Imena ureda su povijesna. Igrač je savezni centar, ne lutkar.
+        </p>
+      </div>
+    </section>
+
+    <section id="screen-encyclopedia" class="screen screen-encyclopedia hidden">
+      <div class="ency-card" id="ency-body"></div>
+    </section>
+
+    <section id="screen-main" class="screen screen-main hidden">
+      <header id="topbar"></header>
+      <div id="map-wrap">
+        <div id="map-stage"></div>
+        <div class="map-legend">
+          Savezno povjerenje
+          <div class="legend-scale" aria-hidden="true"></div>
+          Spremnost na otcjepljenje
+        </div>
+        <div class="map-tip" id="map-tip"></div>
+      </div>
+      <aside id="inspector"></aside>
+      <nav id="agency-strip" aria-label="Federal organs"></nav>
+      <footer id="event-panel"></footer>
+    </section>
+  </div>
+  <div id="modal-root" role="dialog" aria-modal="true"></div>
+  <script type="module" src="js/boot.js"></script>
+</body>
+</html>

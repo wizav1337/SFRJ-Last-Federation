@@ -1,0 +1,412 @@
+{
+  "act": 5,
+  "title": "Rotirajući stolac",
+  "events": [
+    {
+      "id": "governments_vs_siv",
+      "date": "1991-01-07",
+      "act": 5,
+      "desk": "SIV",
+      "priority": "mandatory",
+      "title": "Kabineti koji više ne prepisuju SIV",
+      "location": "Zgrada SIV-a, Novi Beograd / republikanski glavni gradovi",
+      "briefing": "Ante Marković još je predsjednik SIV-a. Nije postao „predsjednik Jugoslavije“. Republikanski kabineti izabrani lani — tko god pobijedio: DEMOS ako drži Ljubljanu, HDZ ako drži Sabor, SPS ako drži Beograd, SK CG, SKM, i bosanske stranke — više ne tretiraju savezni spis kao svoj. Ne pišite da DEMOS već vlada ako izbor nije pao tako. SIV ima program i sve tanju knjigu. Možete inzistirati na saveznoj nadležnosti, poslati Markovića na turneju glavnih gradova, ili napisati da je kabinet osam republika već fikcija.",
+      "constitutional_note": "SIV izvršava savezni zakon. Ne imenuje republikanske ministre. Republika koja ignorira savezni statut u nepoštovanju je. Republika koja jednostavno zakonodavstvuje pokraj vas rabi preostalu nadležnost iz 1974. dok to ne imenujete drugačije.",
+      "documents": ["1974_siv", "1974_federation"],
+      "choices": [
+        {
+          "id": "insist_competence",
+          "label": "Inzistiraj: valuta, vojska, granice ostaju savezne. Objavi popis.",
+          "legal": "constitutional",
+          "noncompliance_chance": 0.4,
+          "noncompliance_unit": "SI",
+          "effects": {
+            "federal.siv_authority": 4,
+            "federal.legitimacy": 3,
+            "SI.federal_trust": -4,
+            "HR.federal_trust": -4,
+            "SI.planned_move": "govern_beside_siv",
+            "HR.planned_move": "govern_beside_siv"
+          }
+        },
+        {
+          "id": "markovic_tour",
+          "label": "Pošalji Markovića u glavne gradove. Prodaj dinar i jedinstveno tržište.",
+          "legal": "siv",
+          "requires": { "flags": ["markovic_dinar_program"] },
+          "effects": {
+            "federal.reform_momentum": 5,
+            "federal.siv_authority": 3,
+            "MK.federal_trust": 4,
+            "BA.federal_trust": 3,
+            "SI.federal_trust": 2,
+            "parties": { "arsj": { "support": 4 } }
+          }
+        },
+        {
+          "id": "let_republics",
+          "label": "Neka republike vode većinu stvari. Zadrži vojsku, dinar i ime.",
+          "legal": "political",
+          "effects": {
+            "federal.siv_authority": -8,
+            "SI.federal_trust": 6,
+            "HR.federal_trust": 5,
+            "MK.federal_trust": 4,
+            "federal.legitimacy": -2,
+            "SI.planned_move": "govern_beside_siv",
+            "HR.planned_move": "govern_beside_siv",
+            "flags_add": ["confederal_talks_open"]
+          }
+        },
+        {
+          "id": "starve_siv",
+          "label": "Gladuj SIV u odboru. Hvali Markovića. Zadrži republikanske strojeve. (SKJ više ne zapovijeda Saborima.)",
+          "legal": "political",
+          "effects": {
+            "federal.siv_authority": -10,
+            "federal.reform_momentum": -5,
+            "RS.skj_hold": 3,
+            "SI.federal_trust": -5
+          }
+        }
+      ]
+    },
+    {
+      "id": "disarm_paramilitaries",
+      "date": "1991-01-09",
+      "act": 5,
+      "desk": "PRET",
+      "priority": "mandatory",
+      "title": "Naredba o razoružanju formacija koje nisu JNA",
+      "location": "Predsjedništvo SFRJ — 9. siječnja 1991.",
+      "briefing": "Od Predsjedništva se traži da naredi razoružanje paravojnih formacija i recentralizaciju onoga što se još zove Teritorijalna obrana. Slovenija to čita kao lanjski popis s novim datumom. Hrvatska to čita kao Knin unatrag, ili kao Knin potvrđen. Naredba je zakonita ako postoji pet sjedala. Izvršenje drugi je spis. Ovo nije ratna naredba. To je spis koji se možda neće izvršiti.",
+      "constitutional_note": "Predsjedništvo zapovijeda oružanim snagama. TO je utkana u republike. Naredba koju republike ne izvrše nepoštovanje je, još ne fronta.",
+      "documents": ["1974_presidency", "all_peoples_defence"],
+      "choices": [
+        {
+          "id": "order_all",
+          "label": "Naredi svim republikama razoružanje neregularnih formacija i popis TO ovog mjeseca.",
+          "legal": "presidency_decree",
+          "noncompliance_chance": 0.58,
+          "noncompliance_units": ["SI", "HR"],
+          "effects": {
+            "federal.legitimacy": 2,
+            "federal.jna_cohesion": 4,
+            "federal.war_risk": 5,
+            "SI.to_control": -8,
+            "HR.to_control": -8,
+            "SI.federal_trust": -8,
+            "HR.federal_trust": -8,
+            "SI.planned_move": "refuse_or_file_the_disarm_order",
+            "HR.planned_move": "refuse_or_file_the_disarm_order"
+          }
+        },
+        {
+          "id": "order_from_inventory",
+          "label": "Upotrijebi proljetni popis iz 1990. Imenuj skladišta već na listi.",
+          "legal": "presidency_decree",
+          "requires": { "flags": ["to_inventory_ordered"] },
+          "noncompliance_chance": 0.5,
+          "noncompliance_units": ["SI", "HR"],
+          "effects": {
+            "federal.jna_cohesion": 3,
+            "SI.to_control": -10,
+            "HR.to_control": -6,
+            "SI.federal_trust": -6,
+            "HR.federal_trust": -5,
+            "federal.war_risk": 4,
+            "SI.planned_move": "refuse_or_file_the_disarm_order"
+          }
+        },
+        {
+          "id": "knin_first",
+          "label": "Imenuj Knin u naredbi. Prvo formacije na balvanima.",
+          "legal": "presidency_decree",
+          "requires": { "flags": ["krajina_log_revolution"] },
+          "noncompliance_chance": 0.45,
+          "noncompliance_unit": "HR",
+          "effects": {
+            "HR.interethnic_tension": 6,
+            "HR.federal_trust": -6,
+            "HR.minority_fear": 4,
+            "federal.war_risk": 5,
+            "HR.planned_move": "knin_roadblocks"
+          }
+        },
+        {
+          "id": "do_not_order",
+          "label": "Ne naređuj. Napiši da su vojarne JNA dovoljne.",
+          "legal": "political",
+          "effects": {
+            "federal.jna_cohesion": -8,
+            "SI.to_control": 4,
+            "HR.to_control": 4,
+            "federal.legitimacy": -2
+          }
+        }
+      ]
+    },
+    {
+      "id": "confederal_draft",
+      "date": "1991-04-03",
+      "act": 5,
+      "desk": "PRET",
+      "priority": "mandatory",
+      "title": "Papir s osam stolica i izlaznom klauzulom",
+      "location": "Savezni razgovori — raniji nacrt Kučan/Marković, proljeće 1991.",
+      "briefing": "Na stolu je konfederalni nacrt: asimetrična unija, preostala suverenost, duh bosanskog veta, slovenska izlazna klauzula. To je ranija ponuda Kučana i Markovića, ne papir Izetbegović–Gligorov. Taj je imenovani tekst povijesno lipanj 1991. i nije na ovoj kartici. Potpis nije otcjepljenje. Odbijanje nije obnova 1974. Srbija može potpisati krnju umjesto toga. Trebate četiri podrazumijevana potpisa ako ovo ima biti unija ikakve vrste. Slovenija u travnju još sjedi u saveznim institucijama; prosinac je bio savjetodavni. Ako ste je već napisali kao otišlu, ne brojite je dok je ne pozovete natrag.",
+      "constitutional_note": "Konfederalna povelja nije Ustav iz 1974. To je sljednički instrument. Predsjedništvo može preporučiti. Vijeće, ako još sjedi, moralo bi pokopati 1974. da je donese.",
+      "documents": ["1974_federation", "1974_presidency"],
+      "choices": [
+        {
+          "id": "sign_four",
+          "label": "Goni povelju četiriju potpisa: Slovenija, Hrvatska, BiH, Makedonija. Ostavi vrata otvorena.",
+          "legal": "political",
+          "effects": {
+            "charter_signatures": 4,
+            "SI.federal_trust": 6,
+            "HR.federal_trust": 5,
+            "BA.federal_trust": 6,
+            "MK.federal_trust": 6,
+            "RS.elite_cohesion": -8,
+            "federal.presidency_cohesion": 3,
+            "SI.planned_move": "confederal_exit_clause",
+            "HR.planned_move": "confederal_residual_sovereignty",
+            "BA.planned_move": "confederal_veto_structure",
+            "MK.planned_move": "confederal_equal_republic",
+            "flags_add": ["confederal_talks_open", "slovenia_invited_back"]
+          }
+        },
+        {
+          "id": "sign_six",
+          "label": "Goni šest. Pozovi Crnu Goru. Sjedala SAP-a nisu prazna: glasaju sa srpskom mašinom.",
+          "legal": "political",
+          "effects": {
+            "charter_signatures": 6,
+            "ME.federal_trust": 4,
+            "ME.elite_cohesion": -6,
+            "RS.nationalist_heat": 6,
+            "federal.presidency_cohesion": 2,
+            "flags_add": ["confederal_talks_open", "slovenia_invited_back"]
+          }
+        },
+        {
+          "id": "serbia_refuses",
+          "label": "Zabilježi srpsko odbijanje. Zadrži papir među onima koji će parafirati.",
+          "legal": "political",
+          "requires": { "flags": ["serbia_new_constitution"] },
+          "effects": {
+            "charter_signatures": 4,
+            "RS.federal_trust": -6,
+            "SI.federal_trust": 4,
+            "flags_add": ["confederal_talks_open", "slovenia_invited_back"]
+          }
+        },
+        {
+          "id": "reject_charter",
+          "label": "Odbaci nacrt. 1974. ostaje dok ne prestane.",
+          "legal": "constitutional",
+          "effects": {
+            "charter_signatures": 0,
+            "federal.legitimacy": 2,
+            "SI.secession_readiness": 5,
+            "HR.secession_readiness": 4,
+            "MK.secession_readiness": 3
+          }
+        },
+        {
+          "id": "plebiscite_is_the_clause",
+          "label": "Upiši slovenski plebiscit u nacrt kao izlaznu klauzulu već izglasanu. To je poziv da ostane za stolom.",
+          "legal": "political",
+          "requires": { "flags": ["slovenia_plebiscite_yes"] },
+          "effects": {
+            "charter_signatures": 4,
+            "SI.federal_trust": 8,
+            "HR.secession_readiness": 4,
+            "flags_add": ["confederal_talks_open", "slovenia_invited_back"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "mesic_rotation",
+      "date": "1991-05-15",
+      "act": 5,
+      "desk": "PRET",
+      "priority": "mandatory",
+      "title": "Hrvatsko sjedalo i čekić",
+      "location": "Predsjedništvo SFRJ — 15. svibnja 1991.",
+      "briefing": "Jovićeva godina je gotova. Kalendar daje stolac hrvatskom članu. Ako HDZ drži Zagreb, taj član je Stjepan Mesić. Dužan je uzeti stolac danas. Povijesno ga je srpski blok spriječio; sjedio je tek kasnije. Izbor je: sjediti ga ili blokirati. Ne postaje automatski predsjedatelj Predsjedništva 15. svibnja. Srpski blok može odbiti priznati ga. Pet sjedala može zaustaviti odluku. Ne mogu zakonito otkazati kalendar. Blokada je zastoj, ne drugi ustav. Sjedala Vojvodine i Kosova glasaju sa srpskom mašinom osim ako ste rekli drugačije.",
+      "constitutional_note": "Predsjedništvo je kolektivno. Rotacija je zakonska. Blok od četiri pokrajine-i-republike koji glasuje kao jedan i dalje je četiri. Pet treba za odluku. Četiri koji odbiju sjediti stolac proizvode paralizu. E3 zahtijeva otvorenu povelju i Predsjedništvo koje se još može sastati: sjedenje Mesića drži stolac ispunjenim; blokada je zastoj i isključuje E3.",
+      "documents": ["1974_presidency"],
+      "requires": { "flags": ["hdz_croatia"] },
+      "choices": [
+        {
+          "id": "seat_mesic",
+          "label": "Sjedi Mesića. Kalendar je zakon. Čekić se miče. (To je kontrafaktično; povijesno je bio blokiran.)",
+          "legal": "constitutional",
+          "effects": {
+            "presidency": { "HR": true, "SI": true, "BA": true, "MK": true, "RS": false, "ME": false, "VO": false, "XK": false },
+            "federal.legitimacy": 5,
+            "federal.presidency_cohesion": -6,
+            "HR.federal_trust": 8,
+            "SI.federal_trust": 4,
+            "RS.elite_cohesion": -8,
+            "flags_add": ["mesic_seated"],
+            "HR.planned_move": "mesic_holds_the_gavel"
+          }
+        },
+        {
+          "id": "block_mesic",
+          "label": "Dopusti srpskom bloku da ga blokira. Zabilježi zastoj u zapisniku.",
+          "legal": "political",
+          "effects": {
+            "presidency": { "HR": false, "SI": false, "MK": false, "RS": true, "ME": true, "VO": true, "XK": true, "BA": true },
+            "federal.presidency_cohesion": -16,
+            "federal.assembly_function": -12,
+            "federal.legitimacy": -8,
+            "HR.secession_readiness": 8,
+            "SI.secession_readiness": 4,
+            "RS.elite_cohesion": 6,
+            "flags_add": ["presidency_deadlock"],
+            "HR.planned_move": "blocked_chair_is_a_republic"
+          }
+        },
+        {
+          "id": "bargain_mesic",
+          "label": "Sjedi ga uz pisane kolektivne postupke. Pet i dalje mora postojati.",
+          "legal": "presidency_decree",
+          "effects": {
+            "presidency": { "HR": true, "SI": true, "BA": true, "MK": true, "ME": true, "RS": false, "VO": false, "XK": false },
+            "federal.presidency_cohesion": 4,
+            "federal.legitimacy": 3,
+            "RS.elite_cohesion": -4,
+            "flags_add": ["mesic_seated"],
+            "HR.planned_move": "mesic_holds_the_gavel"
+          }
+        },
+        {
+          "id": "jna_on_the_chair",
+          "label": "Neka SSNO natukne da vojska preferira stolac koji se može sastati.",
+          "legal": "emergency",
+          "requires": { "flags": ["player_used_jna_threat"] },
+          "effects": {
+            "federal.war_risk": 6,
+            "federal.legitimacy": -6,
+            "HR.federal_trust": -10,
+            "SI.federal_trust": -8,
+            "flags_add": ["presidency_deadlock", "player_used_jna_threat"],
+            "HR.planned_move": "blocked_chair_is_a_republic"
+          }
+        }
+      ]
+    },
+    {
+      "id": "croatian_chair_skh",
+      "date": "1991-05-15",
+      "act": 5,
+      "desk": "PRET",
+      "priority": "mandatory",
+      "title": "Hrvatsko sjedalo bez HDZ-a",
+      "location": "Predsjedništvo SFRJ — 15. svibnja 1991.",
+      "briefing": "Jovićeva godina je gotova. Kalendar daje stolac hrvatskom članu. HDZ ne drži Zagreb, pa taj član nije Stjepan Mesić. I dalje je dužan uzeti stolac danas. Srpski blok može odbiti priznati rotaciju. Izbor je isti: sjediti hrvatskog člana ili blokirati kalendar. Ne postaje automatski predsjedatelj.",
+      "constitutional_note": "Rotacija je zakonska bez obzira tko drži Sabor. Blokada je zastoj. E3 zahtijeva Predsjedništvo koje se još može sastati.",
+      "documents": ["1974_presidency"],
+      "requires": { "flags_not": ["hdz_croatia"] },
+      "choices": [
+        {
+          "id": "seat_croat",
+          "label": "Sjedi hrvatskog člana. Kalendar je zakon.",
+          "legal": "constitutional",
+          "effects": {
+            "presidency": { "HR": true, "SI": true, "BA": true, "MK": true, "RS": false, "ME": false, "VO": false, "XK": false },
+            "federal.legitimacy": 4,
+            "federal.presidency_cohesion": -4,
+            "HR.federal_trust": 6,
+            "flags_add": ["croatian_chair_seated"],
+            "HR.planned_move": "mesic_holds_the_gavel"
+          }
+        },
+        {
+          "id": "block_croat",
+          "label": "Dopusti srpskom bloku da blokira rotaciju. Zabilježi zastoj.",
+          "legal": "political",
+          "effects": {
+            "presidency": { "HR": false, "SI": false, "MK": false, "RS": true, "ME": true, "VO": true, "XK": true, "BA": true },
+            "federal.presidency_cohesion": -16,
+            "federal.assembly_function": -12,
+            "federal.legitimacy": -8,
+            "HR.secession_readiness": 6,
+            "flags_add": ["presidency_deadlock"],
+            "HR.planned_move": "blocked_chair_is_a_republic"
+          }
+        },
+        {
+          "id": "bargain_croat",
+          "label": "Sjedi ga uz pisane kolektivne postupke. Pet i dalje mora postojati.",
+          "legal": "presidency_decree",
+          "effects": {
+            "presidency": { "HR": true, "SI": true, "BA": true, "MK": true, "ME": true, "RS": false, "VO": false, "XK": false },
+            "federal.presidency_cohesion": 4,
+            "federal.legitimacy": 3,
+            "flags_add": ["croatian_chair_seated"],
+            "HR.planned_move": "mesic_holds_the_gavel"
+          }
+        }
+      ]
+    },
+    {
+      "id": "slice_close",
+      "date": "1991-05-15",
+      "act": 5,
+      "desk": "PRET",
+      "priority": "regional",
+      "title": "15. svibnja 1991. — spis se zatvara",
+      "location": "Predsjedništvo SFRJ / Službeni list",
+      "briefing": "Okomiti odsječak A završava večeras. Lipanj je druga zemlja: proglašenja, Brijuni i ratovi koje ovaj stroj neće glumiti. Što predajete u zapisnik nije propovijed. To je koja Jugoslavija, ako ikakva, još postoji na papiru. Datum je 15. svibnja 1991. U ovom spisu nema Desetodnevnog rata. Ima lokot.",
+      "constitutional_note": "Svršeci su uvjeti, ne morali. Ograničena federacija, krnji kontinuitet, konfederacija i trag mirnog rastanka sve su pravni ishodi. Slom je neuspjelo zadržavanje, ne strategija.",
+      "documents": ["1974_federation", "1974_presidency"],
+      "choices": [
+        {
+          "id": "file_federation",
+          "label": "Predaj da ograničena federacija još postoji u pravu.",
+          "legal": "constitutional",
+          "effects": {
+            "federal.legitimacy": 3,
+            "flags_add": ["slice_filed_federation"]
+          }
+        },
+        {
+          "id": "file_rump",
+          "label": "Predaj kontinuitet imena, mjesta u UN-u i vojske među onima koji ostaju.",
+          "legal": "political",
+          "effects": {
+            "federal.jna_cohesion": 3,
+            "RS.elite_cohesion": 4,
+            "flags_add": ["slice_filed_rump"]
+          }
+        },
+        {
+          "id": "file_confederal",
+          "label": "Predaj konfederalni papir kao sljednički instrument.",
+          "legal": "political",
+          "requires": { "flags": ["confederal_talks_open"] },
+          "effects": {
+            "federal.presidency_cohesion": 2,
+            "flags_add": ["slice_filed_confederal"]
+          }
+        },
+        {
+          "id": "file_separation",
+          "label": "Predaj trag mirnog rastanka. Lipanj će se još morati pisati drugdje.",
+          "legal": "political",
+          "requires": { "flags": ["slovenia_plebiscite_yes"] },
+          "effects": {
+            "federal.war_risk": -2,
+            "flags_add": ["slice_filed_separation"]
+          }
+        }
+      ]
+    }
+  ]
+}

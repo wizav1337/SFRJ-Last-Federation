@@ -1,0 +1,46 @@
+{
+  "documents": [
+    {
+      "id": "1974_art_leading_role",
+      "title": "Ustav iz 1974. — vodeća uloga (parafraza)",
+      "kind": "constitutional",
+      "text": "Sustav iz 1974. opisuje SKJ kao vodeću idejno-političku snagu radničke klase i svih radnih ljudi. To nije ministarstvo. To je organizacija koja popunjava ministarstva, skupštine i Predsjedništvo. Ukloniti tu ulogu nije prekidač. To je izmjena političkog sustava, i republike će to čitati kao dopuštenje ili kao slom."
+    },
+    {
+      "id": "skj_statute",
+      "title": "Statut SKJ — demokratski centralizam (parafraza)",
+      "kind": "party",
+      "text": "Republikanski savezi organizacije su SKJ-a, ne suverene stranke. Odlazak nema statutarni postupak koji drži Savez jugoslavenskim. Nastaviti kongres bez republike odluka je zadržati ime i izgubiti kartu. Nakon odlaska ostaju ostaci i republikanski savezi, ne komanda svih Sabora."
+    },
+    {
+      "id": "1974_presidency",
+      "title": "Ustav iz 1974. — Predsjedništvo SFRJ (parafraza)",
+      "kind": "constitutional",
+      "text": "Nakon Tita Predsjedništvo je kolektivni šef države: po jedan član iz svake republike i autonomne pokrajine. Zapovijeda oružanim snagama, predstavlja federaciju i treba arbitirati među republikama. Savezni akt koji treba odobrenje Predsjedništva zahtijeva pet od osam glasova, osim ako se rabi izvanredni jezik — a izvanredni jezik i sam je politička činjenica. Sjedala SAP Vojvodine i SAP Kosova postoje; do 1990. glasaju sa srpskom mašinom osim ako igrač kaže drugačije."
+    },
+    {
+      "id": "1974_siv",
+      "title": "Ustav iz 1974. — SIV (parafraza)",
+      "kind": "constitutional",
+      "text": "Savezno izvršno vijeće izvršava savezni zakon. Ne regrutira republikanske proračune memorandumom. Konvertibilnost, jedinstveno tržište i savezni porezi zahtijevaju akte Skupštine i, 1990., republikanski pristanak koji možda ne postoji. Predsjednik SIV-a nije predsjednik Jugoslavije."
+    },
+    {
+      "id": "all_peoples_defence",
+      "title": "Doktrina općenarodne obrane (parafraza)",
+      "kind": "doctrine",
+      "text": "JNA je savezna vojska. Teritorijalna obrana utkana je u republike. Predsjedništvo zapovijeda oružanim snagama; zalihe i kadar TO sjede u republikanskim strukturama. Iznenadni savezni popis čitat će se kao razoružanje buduće države čak i kad je predan kao higijena."
+    },
+    {
+      "id": "1974_federation",
+      "title": "Ustav iz 1974. — federacija (parafraza)",
+      "kind": "constitutional",
+      "text": "SFRJ definirana je kao savezna država, državna zajednica dobrovoljno ujedinjenih naroda i njihovih socijalističkih republika, te dviju autonomnih pokrajina unutar Srbije. Dobrovoljna unija i osnivačka je rečenica i napunjeno oružje 1990."
+    },
+    {
+      "id": "1974_provinces",
+      "title": "Ustav iz 1974. — autonomne pokrajine (parafraza)",
+      "kind": "constitutional",
+      "text": "Vojvodina i Kosovo sjede u Predsjedništvu i u Vijeću republika i pokrajina kao savezne jedinice, ostajući unutar SR Srbije. Autonomija je već prerezana 1989.; sjedala ostaju, ali nisu netaknuti status iz 1974. Republikanske izmjene koje prazne taj status nisu lokalno spremanje kuće. To je izmjena aritmetike osam iz 1974."
+    }
+  ]
+}

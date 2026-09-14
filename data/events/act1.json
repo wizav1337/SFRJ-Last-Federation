@@ -1,0 +1,271 @@
+{
+  "act": 1,
+  "title": "Stranka se lomi",
+  "events": [
+    {
+      "id": "skj_congress_opens",
+      "date": "1990-01-20",
+      "act": 1,
+      "desk": "SKJ",
+      "priority": "mandatory",
+      "title": "Otvara se 14. izvanredni kongres",
+      "location": "Sava centar, Beograd — 20.–22. siječnja 1990.",
+      "briefing": "Savez komunista Jugoslavije (SKJ) još tvrdi vodeću ulogu upisanu u sustav iz 1974. Slovenski delegati stigli su s programom: pretvoriti SKJ u savez neovisnih republikanskih saveza. Srpski i crnogorski delegati stigli su s suprotnim programom: jedan centar, jedna linija, nikakva konfederalna stranka. Dvorana već miriše na sprovod koji nije objavljen.",
+      "constitutional_note": "SKJ nije državni organ. To je organizacija koja popunjava svaki državni organ. Tretirati ovo kao „samo stranački kongres“ već je politički izbor.",
+      "documents": ["1974_art_leading_role", "skj_statute"],
+      "image": "sava_centar",
+      "choices": [
+        {
+          "id": "open_floor",
+          "label": "Neka svaki republikanski savez govori bez unaprijed skuhane većine.",
+          "legal": "party",
+          "effects": {
+            "federal.skj_unity": -8,
+            "federal.legitimacy": 2,
+            "SI.federal_trust": 6,
+            "RS.elite_cohesion": -4
+          }
+        },
+        {
+          "id": "script_majority",
+          "label": "Upotrijebi pripremljenu većinu. Slovenske amandmane sruši brzo.",
+          "legal": "party",
+          "effects": {
+            "federal.skj_unity": -6,
+            "SI.federal_trust": -10,
+            "SI.secession_readiness": 8,
+            "RS.skj_hold": 5,
+            "flags_add": ["congress_stacked"]
+          }
+        },
+        {
+          "id": "adjourn_first_night",
+          "label": "Odgodi. Večeras u kulisi iznudi nacrt kompromisnog statuta.",
+          "legal": "party",
+          "effects": {
+            "federal.presidency_cohesion": 4,
+            "federal.skj_unity": -2,
+            "flags_add": ["congress_compromise_attempt"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "skj_congress_walkout",
+      "date": "1990-01-22",
+      "act": 1,
+      "desk": "SKJ",
+      "priority": "mandatory",
+      "title": "Slovenska delegacija ustaje",
+      "location": "Sava centar, Beograd",
+      "briefing": "Nadglasani u pitanju konfederalne stranke, slovenski delegati skupljaju papire. Kamere su već u hodniku. Ivica Račan gleda vrata. Ako odu a vi nastavite, SKJ prestaje biti jugoslavenski u svemu osim zaglavlja. Ono što ostane nisu Sabori pod jednom komandom — to su ostaci i republikanski savezi.",
+      "constitutional_note": "Nema ustavnog članka koji zabranjuje republikanskom savezu da napusti stranački kongres. Nema ni članka koji zamjenjuje SKJ kad prestane postojati kao savezna činjenica.",
+      "documents": ["1974_art_leading_role", "skj_statute"],
+      "image": "sava_centar",
+      "choices": [
+        {
+          "id": "let_them_go",
+          "label": "Pusti ih. Odgodi Kongres. Ne pretvaraj se da je dvorana još Jugoslavija.",
+          "legal": "party",
+          "effects": {
+            "federal.skj_unity": -30,
+            "federal.legitimacy": -5,
+            "SI.federal_trust": 8,
+            "SI.secession_readiness": 6,
+            "HR.nationalist_heat": 4,
+            "flags_add": ["skj_split", "slovenia_walkout"]
+          }
+        },
+        {
+          "id": "condemn",
+          "label": "Osudi odlazak i nastavi bez Slovenije.",
+          "legal": "party",
+          "effects": {
+            "federal.skj_unity": -22,
+            "SI.federal_trust": -15,
+            "SI.secession_readiness": 12,
+            "RS.skj_hold": 6,
+            "ME.skj_hold": 4,
+            "flags_add": ["skj_split", "slovenia_walkout", "congress_continued_without_SI"]
+          }
+        },
+        {
+          "id": "confederal_party",
+          "label": "Poništi glasovanje večeras. Prihvati konfederaciju republikanskih saveza.",
+          "legal": "party",
+          "requires": { "federal.presidency_cohesion": 40 },
+          "effects": {
+            "federal.skj_unity": -10,
+            "SI.federal_trust": 12,
+            "RS.elite_cohesion": -10,
+            "RS.nationalist_heat": 6,
+            "flags_add": ["skj_confederated", "skj_split"]
+          }
+        },
+        {
+          "id": "hard_discipline",
+          "label": "Pozovi disciplinu. Objavi da će se slovenski CK rekonstruirati.",
+          "legal": "extra_constitutional",
+          "effects": {
+            "federal.legitimacy": -12,
+            "federal.skj_unity": -40,
+            "SI.secession_readiness": 20,
+            "SI.nationalist_heat": 15,
+            "federal.jna_obedience_to_civilian": -5,
+            "flags_add": ["skj_split", "slovenia_walkout", "player_used_purge"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "renounce_leading_role",
+      "date": "1990-01-23",
+      "act": 1,
+      "desk": "SKJ",
+      "priority": "mandatory",
+      "title": "Vodeća uloga",
+      "location": "Savezni stranački uredi / hodnik Skupštine",
+      "briefing": "I nakon odlaska netko mora reći tvrdi li ono što je ostalo od SKJ-a još ustavno ukrašenu vodeću ulogu u društvu. Odricanje otvara višestranački zakon. Zadržavanje znači da ćete prve izbore voditi kao monopolist u godini u kojoj monopol umire u svakom glavnom gradu osim vašeg. Ako se odreknete, kasniji spisi ne smiju pretpostavljati pravni monopol.",
+      "constitutional_note": "Vodeća uloga je jezik političkog sustava, ne sekretarijat. Ukloniti je treba stranačka odluka plus savezni i republikanski statuti ako želite da bude stvarna.",
+      "documents": ["1974_art_leading_role", "1974_federation"],
+      "choices": [
+        {
+          "id": "renounce",
+          "label": "Odrekni se monopola. Predloži savezni zakon o političkom pluralizmu.",
+          "legal": "party",
+          "effects": {
+            "federal.skj_leading_role": 0,
+            "federal.legitimacy": 6,
+            "federal.reform_momentum": 8,
+            "SI.federal_trust": 8,
+            "HR.opposition_org": 8,
+            "RS.elite_cohesion": -6,
+            "flags_add": ["skj_renounced_monopoly"]
+          }
+        },
+        {
+          "id": "delay",
+          "label": "Odgodi. Neka svaka republika prvo napiše vlastiti zakon.",
+          "legal": "party",
+          "effects": {
+            "federal.assembly_function": -6,
+            "SI.secession_readiness": 5,
+            "HR.secession_readiness": 4,
+            "federal.siv_authority": -4
+          }
+        },
+        {
+          "id": "keep_role",
+          "label": "Zadrži vodeću ulogu. Pluralizam može čekati dok federacija ne bude stabilna.",
+          "legal": "party",
+          "effects": {
+            "federal.legitimacy": -8,
+            "federal.international_standing": -6,
+            "SI.secession_readiness": 10,
+            "HR.nationalist_heat": 8,
+            "RS.skj_hold": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": "markovic_mandate",
+      "date": "1990-02-12",
+      "act": 1,
+      "desk": "SIV",
+      "priority": "mandatory",
+      "title": "Marković hoće mandat koji postoji",
+      "location": "Zgrada SIV-a, Novi Beograd",
+      "briefing": "Ante Marković je predsjednik Saveznog izvršnog vijeća, ne „predsjednik Jugoslavije“. Može liberalizirati dinar na papiru i ipak izgubiti zemlju republikanskim strojevima. Traži od Predsjedništva i od onoga što je ostalo od SKJ-a savezni gospodarski program sa zubima: konvertibilnost, rezove republikanske potrošnje, jedinstveno tržište, i saveznu stranku poslije ako je stara mrtva.",
+      "constitutional_note": "SIV izvršava savezni zakon. Ne može regrutirati republikanske proračune bez akata Skupštine i, u praksi, republikanskog pristanka.",
+      "documents": ["1974_siv"],
+      "choices": [
+        {
+          "id": "full_package",
+          "label": "Daj mu paket. Stavi legitimnost na dinar i tržište.",
+          "legal": "assembly_statute",
+          "effects": {
+            "federal.reform_momentum": 16,
+            "federal.siv_authority": 10,
+            "federal.hard_currency": 8,
+            "federal.inflation": -6,
+            "RS.federal_trust": -6,
+            "SI.living_standard": 3,
+            "flags_add": ["markovic_dinar_program"]
+          }
+        },
+        {
+          "id": "half",
+          "label": "Odobri konvertibilnost. Ne diraj republikansku potrošnju.",
+          "legal": "siv",
+          "effects": {
+            "federal.reform_momentum": 6,
+            "federal.inflation": -2,
+            "federal.siv_authority": 2
+          }
+        },
+        {
+          "id": "clip_wings",
+          "label": "Hvali ga u javnosti. Gladuj ga u odboru. (To više nije komanda svih Sabora.)",
+          "legal": "party",
+          "effects": {
+            "federal.siv_authority": -10,
+            "federal.reform_momentum": -6,
+            "RS.skj_hold": 4,
+            "SI.federal_trust": -8
+          }
+        }
+      ]
+    },
+    {
+      "id": "to_inventory",
+      "date": "1990-03-15",
+      "act": 1,
+      "desk": "PRET",
+      "priority": "mandatory",
+      "title": "Tko drži ključeve Teritorijalne obrane",
+      "location": "SSNO / vijećnica Predsjedništva",
+      "briefing": "Stožer JNA hoće oružje republikanske Teritorijalne obrane (TO) pod savezni popis prije nego itko održi višestranačke izbore. Slovenija to čita kao razoružanje buduće države. Srbija to čita kao higijenu. Hrvatska još nije odlučila je li republika ili stožer.",
+      "constitutional_note": "Doktrina općenarodne obrane podijelila je nadležnost. Predsjedništvo zapovijeda oružanim snagama; TO je utkana u republike. Iznenadna recentralizacija čitat će se kao puč čak i kad je dopis.",
+      "documents": ["all_peoples_defence", "1974_presidency"],
+      "choices": [
+        {
+          "id": "inventory_all",
+          "label": "Naredi savezni popis u svakoj republici ovog mjeseca.",
+          "legal": "presidency_decree",
+          "effects": {
+            "federal.jna_cohesion": 6,
+            "SI.federal_trust": -12,
+            "SI.to_control": -15,
+            "HR.federal_trust": -8,
+            "HR.to_control": -10,
+            "federal.war_risk": 6,
+            "flags_add": ["to_inventory_ordered"]
+          }
+        },
+        {
+          "id": "inventory_talks",
+          "label": "Otvori razgovore. Popisuj samo gdje republikansko predsjedništvo pristane.",
+          "legal": "constitutional",
+          "effects": {
+            "federal.legitimacy": 3,
+            "federal.jna_obedience_to_civilian": 2,
+            "SI.to_control": 4,
+            "HR.to_control": 3
+          }
+        },
+        {
+          "id": "leave_to",
+          "label": "Ostavi TO na miru. Vojarne JNA su dovoljne.",
+          "legal": "political",
+          "effects": {
+            "federal.jna_cohesion": -8,
+            "SI.to_control": 6,
+            "HR.to_control": 6,
+            "federal.war_risk": 4
+          }
+        }
+      ]
+    }
+  ]
+}
