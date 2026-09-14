@@ -1,0 +1,127 @@
+{
+  "id": "markovic",
+  "speaker": "Ante Marković",
+  "title": "Predsjednik SIV-a",
+  "desk": "siv",
+  "unlock": {},
+  "nodes": {
+    "start": {
+      "text": "Marković sjedi iza papira, ne iza krune. „Dinar i tržište još drže knjigu. Republike žele potpis bez računa. Što želite od SIV-a — zube, ili samo pečat?“",
+      "choices": [
+        {
+          "id": "give_teeth",
+          "label": "Dajte SIV-u zube: mandat, ne pamflet.",
+          "next": "teeth",
+          "effects": {
+            "desk_add": {
+              "siv": {
+                "loyalty": 6,
+                "capacity": 4,
+                "agenda_tension": -2
+              }
+            },
+            "federal.siv_authority": 5,
+            "federal.reform_momentum": 4,
+            "flags_add": [
+              "talked_markovic",
+              "markovic_mandate_strong",
+              "dialogue_markovic_teeth"
+            ],
+            "flags_remove": [
+              "markovic_starved"
+            ],
+            "desk_set": {
+              "siv": {
+                "posture": "stimulus"
+              }
+            }
+          }
+        },
+        {
+          "id": "praise_starve",
+          "label": "Hvalite ga u javnosti. Gladujte ga u odboru.",
+          "next": "starved",
+          "effects": {
+            "desk_add": {
+              "siv": {
+                "loyalty": -8,
+                "agenda_tension": 10
+              }
+            },
+            "federal.siv_authority": -6,
+            "federal.legitimacy": -3,
+            "flags_add": [
+              "talked_markovic",
+              "markovic_starved",
+              "dialogue_markovic_starve"
+            ],
+            "flags_remove": [
+              "markovic_mandate_strong"
+            ]
+          }
+        },
+        {
+          "id": "listen",
+          "label": "Samo slušajte. Ne obećavajte ništa.",
+          "next": "listen",
+          "effects": {
+            "desk_add": {
+              "siv": {
+                "loyalty": 2
+              }
+            },
+            "federal.presidency_cohesion": 1,
+            "flags_add": [
+              "talked_markovic"
+            ]
+          }
+        }
+      ]
+    },
+    "teeth": {
+      "text": "„Dobro. Onda stand-by nije ukras. Transferi idu preko savezne knjige, ne preko republikanskih predizbornih blagajni. Ako me republikanski kabineti izgladne, ostat ćete s pečatom bez tinte.“",
+      "choices": [
+        {
+          "id": "end_teeth",
+          "label": "Zapiši mandat u dnevnik Predsjedništva.",
+          "next": null,
+          "effects": {
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "siv_stimulus_stance"
+            ],
+            "desk_set": {
+              "siv": {
+                "posture": "stimulus"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "starved": {
+      "text": "Marković ne diže glas. „Hvala na povjerenju.“ Mapu zatvara. SIV će još potpisivati, ali zamah više neće dolaziti iz ovog ureda.",
+      "choices": [
+        {
+          "id": "end_starve",
+          "label": "Zatvori vrata.",
+          "next": null,
+          "effects": {
+            "federal.reform_momentum": -3
+          }
+        }
+      ]
+    },
+    "listen": {
+      "text": "Govori o inflaciji, o koridorima, o tome da EEZ gleda knjige prije zastava. Ništa novo — ali zapis postoji.",
+      "choices": [
+        {
+          "id": "end_listen",
+          "label": "Zahvali i izađi.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    }
+  }
+}

@@ -150,10 +150,41 @@ export function syncSerbianBloc(state) {
   state.presidency.XK = !!state.presidency.RS;
 }
 
+function applyDeskBlock(state, setBlock, addBlock) {
+  if (!state.desks) state.desks = {};
+  const clampN = (n) => Math.max(0, Math.min(100, Math.round(Number(n))));
+  if (setBlock) {
+    for (const [id, patch] of Object.entries(setBlock)) {
+      if (!state.desks[id]) state.desks[id] = { id, loyalty: 50, capacity: 50, agenda_tension: 40, posture: "default" };
+      Object.assign(state.desks[id], patch);
+    }
+  }
+  if (addBlock) {
+    for (const [id, patch] of Object.entries(addBlock)) {
+      if (!state.desks[id]) state.desks[id] = { id, loyalty: 50, capacity: 50, agenda_tension: 40, posture: "default" };
+      const d = state.desks[id];
+      for (const [k, v] of Object.entries(patch)) {
+        if (typeof d[k] === "number") d[k] = clampN(d[k] + Number(v));
+        else d[k] = v;
+      }
+    }
+  }
+}
+
 export function applyEffects(state, effects) {
   if (!effects) return [];
   const applied = [];
   for (const [key, value] of Object.entries(effects)) {
+    if (key === "desk_set") {
+      applyDeskBlock(state, value, null);
+      applied.push("desks set");
+      continue;
+    }
+    if (key === "desk_add") {
+      applyDeskBlock(state, null, value);
+      applied.push("desks add");
+      continue;
+    }
     if (key === "flags_add") {
       for (const f of value) {
         state.flags[f] = true;

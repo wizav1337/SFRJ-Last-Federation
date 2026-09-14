@@ -19,6 +19,7 @@ export function isOutsideControl(state, id) {
   }
   if (u.jna_threatened) return true;
   if (id === "HR" && state.flags.pakrac_standoff && (u.interethnic_tension || 0) >= 70) return true;
+  if (id === "HR" && state.flags.ssup_hard_line && (u.interethnic_tension || 0) >= 75) return true;
   return false;
 }
 
@@ -38,6 +39,19 @@ function rawControl(state, id) {
   if (state.flags.customs_war_active) n -= 4;
   if (state.flags.imf_standby_active && state.flags.markovic_dinar_program) n += 2;
   if (state.flags.ec_troika_watching) n += 1;
+  // Desk / dialogue posture coupling (see js/desks.js header)
+  if (state.flags.jna_garrison_posture) n += 2;
+  if (state.flags.jna_mobilization_alert) n -= 2;
+  if (state.flags.siv_stimulus_stance || state.flags.markovic_mandate_strong) n += 1;
+  if (state.flags.siv_austerity_stance) n -= 1;
+  if (state.flags.presidency_mediation_active) n += 2;
+  if (state.flags.presidency_hardline) n -= 2;
+  if (state.flags.finance_transfer_freeze) n -= 2;
+  if (state.flags.finance_transfers_open) n += 1;
+  if (state.flags.ssup_hard_line) n -= 2;
+  if (state.flags.ssup_soft_line) n += 1;
+  if ((state.desks?.presidency?.loyalty || 0) >= 60) n += 1;
+  if ((state.desks?.siv?.loyalty || 0) < 35) n -= 1;
   return n;
 }
 

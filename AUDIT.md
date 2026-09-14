@@ -97,3 +97,21 @@ Nova mirnodopska kartica / logika (sve prije lipnja 1991.; nema čina VI):
 E3 pravilo **nije** dirano: otvorena povelja + Predsjedništvo koje se može sastati; sjedenje Mesića ≠ blokada.
 
 Simulacija: mjesečni drift sada uključuje trgovinu, MMF, carine, Pakrac/ožujak kao pokretače; mjesečni briefing pokazuje delte. Završni spis dodaje put, near-miss i brojke. Izetbegović–Gligorov i dalje **nije** na travanjskoj kartici.
+
+
+---
+
+## Dodatak — Pass 1 `expand/departments-dialogue`
+
+Šalteri institucija (JNA, SIV, Predsjedništvo, SSUP, SSP, Financije) i razgranati razgovori (Marković, Kadijević, Drnovšek, Jović, Mesić). Sve mirnodopski; nema čina VI; nema rata kao mehanike pobjede.
+
+Nova kartica:
+
+| Spis | Datum | Napomena |
+|---|---|---|
+| `desk_jna_readiness` | 1990-02-25 | Postava JNA; SSNO memo; nema fronte |
+| `desk_siv_stance` | 1990-03-12 | Marković = predsjednik **SIV-a**; štednja/poticaj/knjige |
+| `desk_ssup_after_logs` | 1990-08-25 | Nakon balvana; meka/tvrda linija SSUP |
+| `desk_presidency_corridor` | 1991-01-18 | Medijacija/kvorum; E3 pravilo ponovljeno |
+
+E3 pravilo **nije** dirano. `player_used_jna_threat` na razgovoru s Kadijevićem (opcija nagibanja Beogradu) ostaje namjerno — to je politička prijetnja, ne govor na mitingu.

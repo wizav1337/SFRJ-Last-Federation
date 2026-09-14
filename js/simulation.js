@@ -1,5 +1,6 @@
 import { UNIT_IDS, clamp, monthIndex } from "./state.js";
 import { recomputeFederalControl } from "./control.js";
+import { applyDeskMonthlyPosture } from "./desks.js";
 
 function unit(state, id) {
   return state.units[id];
@@ -18,6 +19,10 @@ export function recomputeWarRisk(state) {
   if (state.flags.pakrac_standoff) w += 7;
   if (state.flags.belgrade_march_tanks) w += 4;
   if (state.flags.customs_war_active) w += 3;
+  if (state.flags.jna_mobilization_alert) w += 3;
+  if (state.flags.jna_garrison_posture) w -= 1;
+  if (state.flags.ssup_hard_line) w += 2;
+  if (state.flags.presidency_mediation_active) w -= 1;
   if (state.flags.confederal_talks_open && state.federal.war_risk < 60) w -= 2;
   if (state.flags.markovic_mandate_strong) w -= 1;
   state.federal.war_risk = clamp(w);
@@ -77,6 +82,14 @@ export function buildMonthlyReport(state, before, months) {
   if (state.flags.confederal_talks_open) drivers.push("konfederalni stol još je otvoren");
   if (state.flags.imf_standby_active) drivers.push("stand-by s MMF-om pritišće proračun");
   if ((state.federal.imf_pressure || 0) >= 60) drivers.push("pritisak MMF-a je visok");
+  if (state.desks?.jna?.posture === "alert") drivers.push("JNA u pripravnosti (šalter vojske)");
+  if (state.desks?.jna?.posture === "garrison") drivers.push("JNA u garnizonskoj postavi");
+  if (state.desks?.siv?.posture === "austerity") drivers.push("SIV u štednji");
+  if (state.desks?.siv?.posture === "stimulus") drivers.push("SIV u poticaju");
+  if (state.desks?.presidency?.posture === "mediate") drivers.push("Predsjedništvo medira");
+  if (state.desks?.presidency?.posture === "hardline") drivers.push("Predsjedništvo na tvrdoj liniji");
+  if (state.flags.ssup_hard_line) drivers.push("SSUP na tvrdoj liniji");
+  if (state.flags.ssp_ec_track) drivers.push("SSP na kolosijeku EEZ");
 
   return {
     months: months || 1,
@@ -152,6 +165,9 @@ export function monthlyDrift(state, scale = 1) {
   f.jna_cohesion = clamp(
     f.jna_cohesion - secessionAvg * 0.02 * scale - (state.flags.player_used_jna_threat ? 2 * scale : 0)
   );
+
+  // Department posture (desks.js) — JNA/SIV/Predsjedništvo/SSUP/SSP/Finance
+  applyDeskMonthlyPosture(state, scale);
 
   // Agency soft decay: weakened organs sap authority
   const weakened = (state.agencies || []).filter((a) => a.status === "weakened").length;

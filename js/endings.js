@@ -207,6 +207,13 @@ function pathNotes(state) {
   if (state.flags.markovic_mandate_strong) notes.push(t("path.markovic"));
   if (state.flags.mesic_seated) notes.push(t("path.mesic"));
   if (state.flags.presidency_deadlock) notes.push(t("path.block"));
+  if (state.flags.jna_mobilization_alert) notes.push(t("path.deskJnaAlert"));
+  else if (state.flags.jna_garrison_posture) notes.push(t("path.deskJnaGarrison"));
+  if (state.flags.siv_stimulus_stance || state.flags.dialogue_markovic_teeth) notes.push(t("path.deskSivStimulus"));
+  if (state.flags.presidency_mediation_active) notes.push(t("path.deskMediation"));
+  if (state.flags.presidency_hardline) notes.push(t("path.deskHardline"));
+  if (state.flags.talked_kadijevic) notes.push(t("path.talkKadijevic"));
+  if (state.flags.talked_markovic) notes.push(t("path.talkMarkovic"));
   return notes;
 }
 

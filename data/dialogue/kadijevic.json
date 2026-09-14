@@ -1,0 +1,147 @@
+{
+  "id": "kadijevic",
+  "speaker": "Veljko Kadijević",
+  "title": "Savezni sekretar za narodnu obranu",
+  "desk": "jna",
+  "unlock": {},
+  "nodes": {
+    "start": {
+      "text": "Kadijević ne priča o bitkama. Priča o skladištima, TO i o tome tko još potpisuje naredbe. „Armija nije stranka. Ali armija nije ni ukras Predsjedništva koje se ne može sastati. Što tražite?“",
+      "choices": [
+        {
+          "id": "civilian",
+          "label": "Civilni lanac: Predsjedništvo iznad štaba. Bez prijetnji.",
+          "next": "civilian",
+          "effects": {
+            "desk_add": {
+              "jna": {
+                "loyalty": 5,
+                "agenda_tension": -4
+              }
+            },
+            "federal.jna_obedience_to_civilian": 6,
+            "federal.war_risk": -2,
+            "flags_add": [
+              "talked_kadijevic",
+              "jna_civilian_chain",
+              "dialogue_kadijevic_civilian"
+            ],
+            "flags_remove": [
+              "jna_mobilization_alert",
+              "jna_political_weight"
+            ],
+            "desk_set": {
+              "jna": {
+                "posture": "garrison"
+              }
+            }
+          }
+        },
+        {
+          "id": "alert",
+          "label": "Podignite pripravnost. Kasarne budne, ulice mirne — za sada.",
+          "next": "alert",
+          "effects": {
+            "desk_set": {
+              "jna": {
+                "posture": "alert"
+              }
+            },
+            "desk_add": {
+              "jna": {
+                "capacity": 5,
+                "agenda_tension": 6
+              }
+            },
+            "federal.jna_cohesion": 3,
+            "federal.war_risk": 5,
+            "flags_add": [
+              "talked_kadijevic",
+              "jna_mobilization_alert",
+              "dialogue_kadijevic_alert"
+            ]
+          }
+        },
+        {
+          "id": "serbia_lean",
+          "label": "Nagovijestite da Beograd bolje čuva Jugoslaviju od Ljubljane.",
+          "next": "serbia",
+          "effects": {
+            "desk_add": {
+              "jna": {
+                "loyalty": -6,
+                "agenda_tension": 10
+              }
+            },
+            "federal.jna_obedience_to_civilian": -8,
+            "RS.federal_trust": 4,
+            "SI.federal_trust": -6,
+            "flags_add": [
+              "talked_kadijevic",
+              "jna_sides_with_serbia",
+              "dialogue_kadijevic_serbia",
+              "player_used_jna_threat"
+            ]
+          }
+        }
+      ]
+    },
+    "civilian": {
+      "text": "„Može. Ali onda Predsjedništvo mora glasati. Pet od osam. Bez pet, štaba neće igrati kazalište.“",
+      "choices": [
+        {
+          "id": "end_civ",
+          "label": "Prihvati uvjet kvoruma.",
+          "next": null,
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "loyalty": 3
+              }
+            },
+            "flags_add": [
+              "presidency_quorum_guard",
+              "jna_garrison_posture"
+            ],
+            "desk_set": {
+              "jna": {
+                "posture": "garrison"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "alert": {
+      "text": "Naredba o pripravnosti ide tiho. Nema tenkova na trgu — još. Ali ratni rizik više nije samo riječ u briefingima.",
+      "choices": [
+        {
+          "id": "end_alert",
+          "label": "Zapiši postavu: pripravnost.",
+          "next": null,
+          "effects": {
+            "desk_set": {
+              "jna": {
+                "posture": "alert"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "serbia": {
+      "text": "Ne kaže „da“. Kaže „razumijem situaciju“. To je dovoljno da se u Ljubljani i Zagrebu čuje kao prijetnja — i da se zastavica player_used_jna_threat upiše u dosje.",
+      "choices": [
+        {
+          "id": "end_serbia",
+          "label": "Zatvori razgovor.",
+          "next": null,
+          "effects": {
+            "federal.legitimacy": -5,
+            "federal.war_risk": 4
+          }
+        }
+      ]
+    }
+  }
+}

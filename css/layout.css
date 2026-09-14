@@ -861,3 +861,56 @@
 #topbar .meter {
   min-width: 72px;
 }
+
+
+/* ---------- Department desks + dialogue (Pass 1) ---------- */
+
+.agency.desk-hub-btn .aid,
+.agency.chat-hub-btn .aid {
+  color: var(--gold-bright, #e0c07a);
+}
+
+.desk-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 16px;
+  margin: 12px 0 8px;
+}
+.desk-stat span {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8a7340;
+  font-family: var(--mono);
+}
+.desk-stat b {
+  font-family: var(--mono);
+  font-size: 16px;
+}
+.desk-stat .stat-bar {
+  height: 4px;
+  background: rgba(0,0,0,0.08);
+  margin-top: 4px;
+}
+.desk-stat .stat-bar i {
+  display: block;
+  height: 100%;
+  background: var(--gold, #c4a35a);
+}
+.desk-stat .stat-bar.heat i { background: var(--rust, #a24b2e); }
+.desk-stat.posture { grid-column: 1 / -1; }
+
+.dialogue-text {
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.55;
+  margin: 8px 0 16px;
+}
+.choice.done-chat {
+  opacity: 0.75;
+  border-style: dashed;
+}
+.dialogue-modal .event-choices {
+  margin-top: 8px;
+}

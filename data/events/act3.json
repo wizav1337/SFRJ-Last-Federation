@@ -263,6 +263,90 @@
       ]
     },
     {
+      "id": "desk_ssup_after_logs",
+      "date": "1990-08-25",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "regional",
+      "title": "SSUP nakon balvana",
+      "location": "Beograd / Knin — kanal SSUP–SDB",
+      "briefing": "Balvani još stoje kao politička činjenica. SSUP nudi meku liniju (promatrači) ili tvrdu (pritisak na stanice). Šalter unutarnjih poslova mijenja napetost u HR/BA svakog mjeseca. Nema fronte — ima barikada i izvješća.",
+      "constitutional_note": "Savezni unutarnji poslovi ne zamjenjuju miliciju republike. Tvrda linija podiže ratni rizik bez proglašenja rata.",
+      "requires": {
+        "flags": [
+          "krajina_log_revolution"
+        ]
+      },
+      "documents": [],
+      "choices": [
+        {
+          "id": "soft",
+          "label": "Meka linija: promatrači, izvješća, bez racija.",
+          "legal": "assembly_statute",
+          "effects": {
+            "desk_set": {
+              "ssup": {
+                "posture": "soft"
+              }
+            },
+            "desk_add": {
+              "ssup": {
+                "loyalty": 3,
+                "agenda_tension": -3
+              }
+            },
+            "HR.interethnic_tension": -3,
+            "flags_add": [
+              "ssup_soft_line",
+              "desk_event_ssup_seen"
+            ],
+            "flags_remove": [
+              "ssup_hard_line"
+            ]
+          }
+        },
+        {
+          "id": "hard",
+          "label": "Tvrda linija: savezni pritisak na stanice uz balvane.",
+          "legal": "presidency_decree",
+          "effects": {
+            "desk_set": {
+              "ssup": {
+                "posture": "hard"
+              }
+            },
+            "desk_add": {
+              "ssup": {
+                "agenda_tension": 8
+              }
+            },
+            "HR.interethnic_tension": 5,
+            "HR.federal_trust": -5,
+            "federal.war_risk": 3,
+            "flags_add": [
+              "ssup_hard_line",
+              "desk_event_ssup_seen"
+            ],
+            "flags_remove": [
+              "ssup_soft_line"
+            ]
+          }
+        },
+        {
+          "id": "sdb_only",
+          "label": "Samo SDB na kratkom uzetu. Bez javne linije.",
+          "legal": "political",
+          "effects": {
+            "federal.sdb_control": 4,
+            "flags_add": [
+              "sdb_civilian_leash",
+              "desk_event_ssup_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "sovereignty_texts",
       "date": "1990-09-27",
       "act": 3,
