@@ -701,6 +701,283 @@
           }
         }
       ]
+    },
+    {
+      "id": "to",
+      "agency_id": "to",
+      "name": "TO",
+      "name_hr": "Teritorijalna obrana",
+      "kind": "force",
+      "briefing": "Republikanska teritorijalna obrana: zalihe, inventura i koordinacija sa JNA. Savezna inventura ili republikanski držaj mijenja napetost u SI/HR i put prema naredbi o neregularnim formacijama — bez otvaranja fronte.",
+      "stats": {
+        "loyalty": 48,
+        "capacity": 52,
+        "agenda_tension": 44
+      },
+      "posture_default": "coordinate",
+      "postures": [
+        "coordinate",
+        "inventory",
+        "republic_hold"
+      ],
+      "actions": [
+        {
+          "id": "coordinate_jna",
+          "label": "Koordiniraj TO sa JNA: zajednički popis, ne oduzimanje.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "to": {
+                "posture": "coordinate"
+              }
+            },
+            "desk_add": {
+              "to": {
+                "loyalty": 4,
+                "agenda_tension": -3
+              },
+              "jna": {
+                "loyalty": 2
+              }
+            },
+            "federal.jna_obedience_to_civilian": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "to_coordinate_posture"
+            ],
+            "flags_remove": [
+              "to_republic_hold",
+              "to_inventory_push"
+            ]
+          }
+        },
+        {
+          "id": "push_inventory",
+          "label": "Gurni saveznu inventuru zaliha TO (papir, ne racija).",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_set": {
+              "to": {
+                "posture": "inventory"
+              }
+            },
+            "desk_add": {
+              "to": {
+                "capacity": 5,
+                "agenda_tension": 6
+              }
+            },
+            "SI.federal_trust": -3,
+            "HR.federal_trust": -3,
+            "SI.to_control": -4,
+            "HR.to_control": -4,
+            "federal.war_risk": 2,
+            "flags_add": [
+              "to_inventory_push",
+              "to_inventory_ordered"
+            ],
+            "flags_remove": [
+              "to_republic_hold",
+              "to_coordinate_posture"
+            ]
+          }
+        },
+        {
+          "id": "republic_hold",
+          "label": "Ostavi TO republikama: manje saveznog trenja, više lokalnog držaja.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "to": {
+                "posture": "republic_hold"
+              }
+            },
+            "desk_add": {
+              "to": {
+                "loyalty": -4,
+                "agenda_tension": 4
+              }
+            },
+            "SI.to_control": 5,
+            "HR.to_control": 5,
+            "SI.federal_trust": 2,
+            "HR.federal_trust": 2,
+            "federal.jna_cohesion": -2,
+            "flags_add": [
+              "to_republic_hold"
+            ],
+            "flags_remove": [
+              "to_inventory_push",
+              "to_coordinate_posture"
+            ]
+          }
+        },
+        {
+          "id": "quiet_audit",
+          "label": "Tiha revizija skladišta: kapacitet bez javne naredbe.",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_add": {
+              "to": {
+                "capacity": 4,
+                "loyalty": 2
+              }
+            },
+            "federal.sdb_control": 1,
+            "flags_add": [
+              "to_quiet_audit"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "nby",
+      "agency_id": "nby",
+      "name": "NBJ",
+      "name_hr": "Narodna banka Jugoslavije",
+      "kind": "constitutional",
+      "briefing": "Dinar, rezerve i usklađivanje republikanskih banaka. Tvrdi ili labavi stav NBJ-a vuče inflaciju, tvrdu valutu i težinu Markovićeva programa — ne zamjenjuje SIV, ali drži knjigu.",
+      "stats": {
+        "loyalty": 56,
+        "capacity": 60,
+        "agenda_tension": 36
+      },
+      "posture_default": "tight",
+      "postures": [
+        "tight",
+        "loose",
+        "fragment"
+      ],
+      "actions": [
+        {
+          "id": "tight_dinar",
+          "label": "Tvrdi dinar: rezerve i kamate prije republikanskih blagajni.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "nby": {
+                "posture": "tight"
+              }
+            },
+            "desk_add": {
+              "nby": {
+                "loyalty": 3,
+                "capacity": 3,
+                "agenda_tension": 2
+              },
+              "finance": {
+                "loyalty": 2
+              }
+            },
+            "federal.inflation": -3,
+            "federal.hard_currency": 2,
+            "federal.reform_momentum": 2,
+            "flags_add": [
+              "nby_tight_dinar",
+              "markovic_dinar_program"
+            ],
+            "flags_remove": [
+              "nby_loose_credit",
+              "nby_fragment_risk"
+            ]
+          }
+        },
+        {
+          "id": "loose_credit",
+          "label": "Labaviji kredit: likvidnost republikama, rizik inflacije.",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_set": {
+              "nby": {
+                "posture": "loose"
+              }
+            },
+            "desk_add": {
+              "nby": {
+                "loyalty": 4,
+                "agenda_tension": -2
+              }
+            },
+            "federal.inflation": 4,
+            "federal.inter_republic_trade": 2,
+            "SI.living_standard": 2,
+            "HR.living_standard": 2,
+            "RS.living_standard": 1,
+            "flags_add": [
+              "nby_loose_credit"
+            ],
+            "flags_remove": [
+              "nby_tight_dinar"
+            ]
+          }
+        },
+        {
+          "id": "hold_reserves",
+          "label": "Drži rezerve središnje: ne dijeli tvrdu valutu republikama.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_add": {
+              "nby": {
+                "capacity": 4,
+                "agenda_tension": 5
+              }
+            },
+            "federal.hard_currency": 4,
+            "federal.siv_authority": 2,
+            "SI.federal_trust": -2,
+            "HR.federal_trust": -2,
+            "flags_add": [
+              "nby_reserves_held"
+            ]
+          }
+        },
+        {
+          "id": "warn_fragment",
+          "label": "Upozori na fragmentaciju platnog prometa (bez raspada banke).",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "nby": {
+                "posture": "fragment"
+              }
+            },
+            "desk_add": {
+              "nby": {
+                "agenda_tension": 8,
+                "loyalty": -3
+              }
+            },
+            "federal.inter_republic_trade": -3,
+            "federal.legitimacy": -2,
+            "flags_add": [
+              "nby_fragment_risk"
+            ],
+            "flags_remove": [
+              "nby_tight_dinar"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,154 @@
+{
+  "id": "markovic_late",
+  "speaker": "Ante Marković",
+  "title": "Predsjednik SIV-a — jesenski krug",
+  "desk": "siv",
+  "available_from": "1990-09-01",
+  "unlock": {
+    "flags": [
+      "talked_markovic"
+    ]
+  },
+  "nodes": {
+    "start": {
+      "text": "Marković je stariji za nekoliko carinskih ratova. „Suverenost na papiru, carine na cestama. Ako NBJ pusti fragmentaciju platnog prometa, moj dinar postaje suvenir. Što želite od SIV-a u jesen?“",
+      "choices": [
+        {
+          "id": "break_customs",
+          "label": "Razbij carinski rat knjigovodstvom i transferima.",
+          "next": "customs",
+          "effects": {
+            "desk_set": {
+              "siv": {
+                "posture": "stimulus"
+              },
+              "finance": {
+                "posture": "open"
+              }
+            },
+            "desk_add": {
+              "siv": {
+                "loyalty": 4
+              },
+              "finance": {
+                "loyalty": 3
+              }
+            },
+            "federal.inter_republic_trade": 5,
+            "federal.siv_authority": 3,
+            "flags_add": [
+              "talked_markovic_late",
+              "dialogue_markovic_customs",
+              "finance_transfers_open",
+              "siv_stimulus_stance"
+            ],
+            "flags_remove": [
+              "finance_transfer_freeze",
+              "customs_war_active"
+            ]
+          }
+        },
+        {
+          "id": "imf_line",
+          "label": "Drži liniju MMF-a i tvrdi dinar NBJ-a.",
+          "next": "imf",
+          "effects": {
+            "desk_set": {
+              "nby": {
+                "posture": "tight"
+              },
+              "siv": {
+                "posture": "austerity"
+              }
+            },
+            "desk_add": {
+              "nby": {
+                "capacity": 4
+              },
+              "siv": {
+                "agenda_tension": 3
+              }
+            },
+            "federal.inflation": -3,
+            "federal.imf_pressure": -2,
+            "flags_add": [
+              "talked_markovic_late",
+              "dialogue_markovic_imf",
+              "nby_tight_dinar",
+              "siv_austerity_stance",
+              "finance_imf_aligned"
+            ]
+          }
+        },
+        {
+          "id": "resign_hint",
+          "label": "Pitaj koliko još može držati mandatu bez zuba.",
+          "next": "resign",
+          "effects": {
+            "desk_add": {
+              "siv": {
+                "loyalty": -5,
+                "agenda_tension": 6
+              }
+            },
+            "federal.siv_authority": -4,
+            "flags_add": [
+              "talked_markovic_late",
+              "dialogue_markovic_resign_hint",
+              "markovic_starved"
+            ],
+            "flags_remove": [
+              "markovic_mandate_strong"
+            ]
+          }
+        }
+      ]
+    },
+    "customs": {
+      "text": "„Transferi otvaraju koridore. Carine ih zatvaraju. Ako Predsjedništvo medira, još imamo jedinstveno tržište na papiru — što EEZ čita prije zastava.“",
+      "choices": [
+        {
+          "id": "end_c",
+          "label": "Zapiši: carine u dosjeu, transferi otvoreni.",
+          "next": null,
+          "effects": {
+            "flags_add": [
+              "customs_war_resolved",
+              "ssp_quiet_demarche"
+            ],
+            "federal.international_standing": 2
+          }
+        }
+      ]
+    },
+    "imf": {
+      "text": "„Stand-by nije ukras. Ako republikanske banke odu svojim putem, NBJ upozorava na fragment — ja na prazan pečat.“",
+      "choices": [
+        {
+          "id": "end_i",
+          "label": "Zapiši usklađenje s MMF-om.",
+          "next": null,
+          "effects": {
+            "federal.reform_momentum": 3,
+            "federal.hard_currency": 2
+          }
+        }
+      ]
+    },
+    "resign": {
+      "text": "Ne daje ostavku. Daje tišinu. SIV će potpisivati manje — i to će se vidjeti na izbornoj noći u BA i MK.",
+      "choices": [
+        {
+          "id": "end_r",
+          "label": "Zatvori.",
+          "next": null,
+          "effects": {
+            "federal.reform_momentum": -4,
+            "BA.federal_trust": -2,
+            "MK.federal_trust": -2
+          }
+        }
+      ]
+    }
+  }
+}

@@ -266,6 +266,86 @@
       ]
     },
     {
+      "id": "desk_nby_hard_currency",
+      "date": "1991-02-12",
+      "act": 5,
+      "desk": "SIV",
+      "priority": "regional",
+      "title": "NBJ: rezerve pred svibanj",
+      "location": "Narodna banka Jugoslavije",
+      "briefing": "Zima 1991. Tvrda valuta i platni promet još drže savezni pečat. NBJ može stegnuti dinar, labavo kreditirati ili upozoriti na fragment — bez raspada banke kao pobjede.",
+      "constitutional_note": "Mirnodopski. Lipanj 1991. nije u ovom odsječku.",
+      "documents": [],
+      "choices": [
+        {
+          "id": "hold",
+          "label": "Drži rezerve središnje. Tvrdi dinar.",
+          "legal": "assembly_statute",
+          "effects": {
+            "desk_set": {
+              "nby": {
+                "posture": "tight"
+              }
+            },
+            "desk_add": {
+              "nby": {
+                "capacity": 5,
+                "loyalty": 3
+              }
+            },
+            "federal.hard_currency": 4,
+            "federal.inflation": -2,
+            "flags_add": [
+              "nby_tight_dinar",
+              "nby_reserves_held",
+              "desk_event_nby_seen"
+            ]
+          }
+        },
+        {
+          "id": "warn",
+          "label": "Upozori na fragmentaciju platnog prometa.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "nby": {
+                "posture": "fragment"
+              }
+            },
+            "desk_add": {
+              "nby": {
+                "agenda_tension": 8
+              }
+            },
+            "federal.inter_republic_trade": -4,
+            "federal.legitimacy": -2,
+            "flags_add": [
+              "nby_fragment_risk",
+              "desk_event_nby_seen"
+            ]
+          }
+        },
+        {
+          "id": "loose",
+          "label": "Labaviji kredit pred rotaciju.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "nby": {
+                "posture": "loose"
+              }
+            },
+            "federal.inflation": 3,
+            "RS.living_standard": 2,
+            "flags_add": [
+              "nby_loose_credit",
+              "desk_event_nby_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "pakrac_incident",
       "date": "1991-03-02",
       "act": 5,
@@ -347,6 +427,106 @@
                 "support": 3
               }
             }
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_to_pakrac",
+      "date": "1991-03-05",
+      "act": 5,
+      "desk": "PRET",
+      "priority": "regional",
+      "title": "TO i Pakrac: napetost bez fronte",
+      "location": "Pakrac — savezni kanal",
+      "briefing": "Nakon Pakraca (stanica, barikade, JNA; nitko nije poginuo prema saveznom izvješću), TO i SSUP ponovno dolaze na stol. Možete mekati liniju, gurnuti inventuru ili držati promatrače — bez pretvaranja ožujka u rat.",
+      "constitutional_note": "Pakrac nije lipanjski rat. Briefing ostaje mirnodopski.",
+      "requires": {
+        "flags": [
+          "pakrac_standoff"
+        ]
+      },
+      "documents": [],
+      "choices": [
+        {
+          "id": "defuse",
+          "label": "Meka linija SSUP + koordinacija TO. Smanji napetost.",
+          "legal": "presidency_decree",
+          "effects": {
+            "desk_set": {
+              "ssup": {
+                "posture": "soft"
+              },
+              "to": {
+                "posture": "coordinate"
+              },
+              "jna": {
+                "posture": "garrison"
+              }
+            },
+            "desk_add": {
+              "ssup": {
+                "loyalty": 3
+              },
+              "to": {
+                "loyalty": 3
+              }
+            },
+            "HR.interethnic_tension": -5,
+            "federal.war_risk": -3,
+            "flags_add": [
+              "ssup_soft_line",
+              "to_coordinate_posture",
+              "jna_garrison_posture",
+              "pakrac_defused",
+              "desk_event_to_pakrac_seen"
+            ],
+            "flags_remove": [
+              "ssup_hard_line",
+              "jna_mobilization_alert",
+              "pakrac_standoff"
+            ]
+          }
+        },
+        {
+          "id": "harden",
+          "label": "Tvrđi SSUP i inventura TO.",
+          "legal": "presidency_decree",
+          "effects": {
+            "desk_set": {
+              "ssup": {
+                "posture": "hard"
+              },
+              "to": {
+                "posture": "inventory"
+              }
+            },
+            "HR.interethnic_tension": 6,
+            "HR.federal_trust": -5,
+            "federal.war_risk": 4,
+            "flags_add": [
+              "ssup_hard_line",
+              "to_inventory_push",
+              "desk_event_to_pakrac_seen"
+            ],
+            "flags_remove": [
+              "ssup_soft_line"
+            ]
+          }
+        },
+        {
+          "id": "observe",
+          "label": "Samo promatrači. Bez nove naredbe.",
+          "legal": "political",
+          "effects": {
+            "desk_add": {
+              "ssup": {
+                "capacity": 2
+              }
+            },
+            "flags_add": [
+              "desk_event_to_pakrac_seen"
+            ]
           }
         }
       ]
@@ -559,6 +739,99 @@
       ]
     },
     {
+      "id": "croatian_chair_skh",
+      "date": "1991-05-15",
+      "act": 5,
+      "desk": "PRET",
+      "priority": "mandatory",
+      "title": "Hrvatsko sjedalo bez HDZ-a",
+      "location": "Predsjedništvo SFRJ — 15. svibnja 1991.",
+      "briefing": "Jovićeva godina je gotova. Kalendar daje stolac hrvatskom članu. HDZ ne drži Zagreb, pa taj član nije Stjepan Mesić. I dalje je dužan uzeti stolac danas. Srpski blok može odbiti priznati rotaciju. Izbor je isti: sjediti hrvatskog člana ili blokirati kalendar. Ne postaje automatski predsjedatelj.",
+      "constitutional_note": "Rotacija je zakonska bez obzira tko drži Sabor. Blokada je zastoj. E3 zahtijeva Predsjedništvo koje se još može sastati.",
+      "documents": [
+        "1974_presidency"
+      ],
+      "requires": {
+        "flags_not": [
+          "hdz_croatia"
+        ]
+      },
+      "choices": [
+        {
+          "id": "seat_croat",
+          "label": "Sjedi hrvatskog člana. Kalendar je zakon.",
+          "legal": "constitutional",
+          "effects": {
+            "presidency": {
+              "HR": true,
+              "SI": true,
+              "BA": true,
+              "MK": true,
+              "RS": false,
+              "ME": false,
+              "VO": false,
+              "XK": false
+            },
+            "federal.legitimacy": 4,
+            "federal.presidency_cohesion": -4,
+            "HR.federal_trust": 6,
+            "flags_add": [
+              "croatian_chair_seated"
+            ],
+            "HR.planned_move": "mesic_holds_the_gavel"
+          }
+        },
+        {
+          "id": "block_croat",
+          "label": "Dopusti srpskom bloku da blokira rotaciju. Zabilježi zastoj.",
+          "legal": "political",
+          "effects": {
+            "presidency": {
+              "HR": false,
+              "SI": false,
+              "MK": false,
+              "RS": true,
+              "ME": true,
+              "VO": true,
+              "XK": true,
+              "BA": true
+            },
+            "federal.presidency_cohesion": -16,
+            "federal.assembly_function": -12,
+            "federal.legitimacy": -8,
+            "HR.secession_readiness": 6,
+            "flags_add": [
+              "presidency_deadlock"
+            ],
+            "HR.planned_move": "blocked_chair_is_a_republic"
+          }
+        },
+        {
+          "id": "bargain_croat",
+          "label": "Sjedi ga uz pisane kolektivne postupke. Pet i dalje mora postojati.",
+          "legal": "presidency_decree",
+          "effects": {
+            "presidency": {
+              "HR": true,
+              "SI": true,
+              "BA": true,
+              "MK": true,
+              "ME": true,
+              "RS": false,
+              "VO": false,
+              "XK": false
+            },
+            "federal.presidency_cohesion": 4,
+            "federal.legitimacy": 3,
+            "flags_add": [
+              "croatian_chair_seated"
+            ],
+            "HR.planned_move": "mesic_holds_the_gavel"
+          }
+        }
+      ]
+    },
+    {
       "id": "mesic_rotation",
       "date": "1991-05-15",
       "act": 5,
@@ -673,99 +946,6 @@
               "player_used_jna_threat"
             ],
             "HR.planned_move": "blocked_chair_is_a_republic"
-          }
-        }
-      ]
-    },
-    {
-      "id": "croatian_chair_skh",
-      "date": "1991-05-15",
-      "act": 5,
-      "desk": "PRET",
-      "priority": "mandatory",
-      "title": "Hrvatsko sjedalo bez HDZ-a",
-      "location": "Predsjedništvo SFRJ — 15. svibnja 1991.",
-      "briefing": "Jovićeva godina je gotova. Kalendar daje stolac hrvatskom članu. HDZ ne drži Zagreb, pa taj član nije Stjepan Mesić. I dalje je dužan uzeti stolac danas. Srpski blok može odbiti priznati rotaciju. Izbor je isti: sjediti hrvatskog člana ili blokirati kalendar. Ne postaje automatski predsjedatelj.",
-      "constitutional_note": "Rotacija je zakonska bez obzira tko drži Sabor. Blokada je zastoj. E3 zahtijeva Predsjedništvo koje se još može sastati.",
-      "documents": [
-        "1974_presidency"
-      ],
-      "requires": {
-        "flags_not": [
-          "hdz_croatia"
-        ]
-      },
-      "choices": [
-        {
-          "id": "seat_croat",
-          "label": "Sjedi hrvatskog člana. Kalendar je zakon.",
-          "legal": "constitutional",
-          "effects": {
-            "presidency": {
-              "HR": true,
-              "SI": true,
-              "BA": true,
-              "MK": true,
-              "RS": false,
-              "ME": false,
-              "VO": false,
-              "XK": false
-            },
-            "federal.legitimacy": 4,
-            "federal.presidency_cohesion": -4,
-            "HR.federal_trust": 6,
-            "flags_add": [
-              "croatian_chair_seated"
-            ],
-            "HR.planned_move": "mesic_holds_the_gavel"
-          }
-        },
-        {
-          "id": "block_croat",
-          "label": "Dopusti srpskom bloku da blokira rotaciju. Zabilježi zastoj.",
-          "legal": "political",
-          "effects": {
-            "presidency": {
-              "HR": false,
-              "SI": false,
-              "MK": false,
-              "RS": true,
-              "ME": true,
-              "VO": true,
-              "XK": true,
-              "BA": true
-            },
-            "federal.presidency_cohesion": -16,
-            "federal.assembly_function": -12,
-            "federal.legitimacy": -8,
-            "HR.secession_readiness": 6,
-            "flags_add": [
-              "presidency_deadlock"
-            ],
-            "HR.planned_move": "blocked_chair_is_a_republic"
-          }
-        },
-        {
-          "id": "bargain_croat",
-          "label": "Sjedi ga uz pisane kolektivne postupke. Pet i dalje mora postojati.",
-          "legal": "presidency_decree",
-          "effects": {
-            "presidency": {
-              "HR": true,
-              "SI": true,
-              "BA": true,
-              "MK": true,
-              "ME": true,
-              "RS": false,
-              "VO": false,
-              "XK": false
-            },
-            "federal.presidency_cohesion": 4,
-            "federal.legitimacy": 3,
-            "flags_add": [
-              "croatian_chair_seated"
-            ],
-            "HR.planned_move": "mesic_holds_the_gavel"
           }
         }
       ]

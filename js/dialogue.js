@@ -1,7 +1,10 @@
 /**
  * Branching institutional dialogue — not an LLM.
  * Choices call applyDeskEffects → flags / federal / desks, which feed
- * control.js, simulation.js, and endings.js the same way event cards do.
+ * control.js, simulation.js, elections.js, and endings.js the same way event cards do.
+ *
+ * Pass 2: mid/late Slice A trees (markovic_late, kadijevic_late) + Kučan / Tuđman
+ * when election flags allow. Choices must set flags that weight outcomes.
  */
 import { applyDeskEffects, syncDeskFlagsFromPosture } from "./desks.js";
 import { requiresMet } from "./events.js";
@@ -22,14 +25,19 @@ export function isDialogueAvailable(def, state) {
     const gate = requiresMet(state, def.unlock);
     if (!gate.ok) return false;
   }
-  // Mesic only after HDZ; Drnovsek only before rotation
+  // Historical office holders
   if (def.id === "mesic" && !state.flags.hdz_croatia) return false;
+  if (def.id === "tudman" && !state.flags.hdz_croatia) return false;
+  if (def.id === "kucan" && !state.flags.slovenia_election_held) return false;
   if (def.id === "drnovsek" && (state.flags.presidency_rotation_jovic || clock >= "1990-05-15")) {
     return false;
   }
   if (def.id === "jovic" && clock < "1990-05-01" && !state.flags.presidency_rotation_jovic) {
-    // Available as Serbian member early, but highlight after May
+    // Available as Serbian member early; highlight after May
   }
+  // Late trees require prior talk (also in unlock JSON; belt-and-suspenders)
+  if (def.id === "markovic_late" && !state.flags.talked_markovic) return false;
+  if (def.id === "kadijevic_late" && !state.flags.talked_kadijevic) return false;
   return true;
 }
 
@@ -86,7 +94,6 @@ export function chooseDialogue(state, catalog, choiceId) {
     return { ok: true, done: false, session: state.activeDialogue };
   }
 
-  // End conversation
   if (!state.dialogue_done) state.dialogue_done = [];
   if (!state.dialogue_done.includes(cur.def.id)) state.dialogue_done.push(cur.def.id);
   state.activeDialogue = null;

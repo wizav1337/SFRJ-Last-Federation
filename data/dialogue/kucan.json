@@ -1,0 +1,149 @@
+{
+  "id": "kucan",
+  "speaker": "Milan Kučan",
+  "title": "Predsjednik Predsjedništva SR Slovenije (nakon izbora)",
+  "desk": "presidency",
+  "available_from": "1990-04-22",
+  "unlock": {
+    "flags": [
+      "slovenia_election_held"
+    ]
+  },
+  "nodes": {
+    "start": {
+      "text": "Kučan ne sjedi kao zapovjednik JNA — to kaže odmah. „Republika bira predsjednika republike. Savez bira hoće li još imati stol. Ako inventuru TO gurate kao kaznu, Ljubljana će pisati vlastiti kalendar. Ako pozovete konfederalni jezik, još smo u sobi.“",
+      "choices": [
+        {
+          "id": "invite_conf",
+          "label": "Pozovi Sloveniju na konfederalni stol — bez prijetnje JNA.",
+          "next": "conf",
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "loyalty": 3
+              },
+              "to": {
+                "loyalty": 2
+              }
+            },
+            "SI.federal_trust": 6,
+            "SI.secession_readiness": -4,
+            "flags_add": [
+              "talked_kucan",
+              "confederal_talks_open",
+              "slovenia_invited_back",
+              "dialogue_kucan_conf"
+            ],
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            }
+          }
+        },
+        {
+          "id": "to_respect",
+          "label": "Poštuj republikanski držaj TO; koordiniraj, ne oduzimaj.",
+          "next": "to",
+          "effects": {
+            "desk_set": {
+              "to": {
+                "posture": "republic_hold"
+              }
+            },
+            "desk_add": {
+              "to": {
+                "loyalty": -2,
+                "agenda_tension": 3
+              }
+            },
+            "SI.to_control": 4,
+            "SI.federal_trust": 4,
+            "flags_add": [
+              "talked_kucan",
+              "to_republic_hold",
+              "dialogue_kucan_to"
+            ],
+            "flags_remove": [
+              "to_inventory_push"
+            ]
+          }
+        },
+        {
+          "id": "press_unity",
+          "label": "Podsjeti da Savez još postoji — i da inventura nije rat.",
+          "next": "press",
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "agenda_tension": 5
+              }
+            },
+            "SI.federal_trust": -5,
+            "SI.secession_readiness": 4,
+            "flags_add": [
+              "talked_kucan",
+              "dialogue_kucan_press"
+            ],
+            "desk_set": {
+              "to": {
+                "posture": "inventory"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "conf": {
+      "text": "„Dobro. Ali stol nije priznanje. Tražim da Predsjedništvo ostane organ koji se može sastati — inače je konfederacija prazan papir. E3 to zna.“",
+      "choices": [
+        {
+          "id": "end_conf",
+          "label": "Zapiši poziv i kvorum.",
+          "next": null,
+          "effects": {
+            "flags_add": [
+              "presidency_quorum_guard"
+            ],
+            "federal.presidency_cohesion": 3,
+            "charter_signatures_min": 1
+          }
+        }
+      ]
+    },
+    "to": {
+      "text": "„TO ostaje republikanska u praksi. Ako JNA kasnije digne pripravnost, to neće izbrisati ovaj dogovor — samo će ga učiniti skupljim.“",
+      "choices": [
+        {
+          "id": "end_to",
+          "label": "Zatvori.",
+          "next": null,
+          "effects": {
+            "federal.war_risk": -1,
+            "flags_add": [
+              "dialogue_kucan_to_done"
+            ]
+          }
+        }
+      ]
+    },
+    "press": {
+      "text": "Ne diže glas. Bilježi da je savezni centar izabrao inventuru umjesto stola. Secesijska spremnost raste — mirnodopski, na papiru.",
+      "choices": [
+        {
+          "id": "end_press",
+          "label": "Izađi.",
+          "next": null,
+          "effects": {
+            "flags_add": [
+              "to_inventory_push",
+              "to_inventory_ordered",
+              "dialogue_kucan_press_done"
+            ],
+            "federal.war_risk": 2
+          }
+        }
+      ]
+    }
+  }
+}

@@ -104,6 +104,9 @@ function continueSave(game) {
   if (!game.state.desk_month) game.state.desk_month = "";
   if (!Array.isArray(game.state.dialogue_done)) game.state.dialogue_done = [];
   if (game.state.activeDialogue === undefined) game.state.activeDialogue = null;
+  if (game.state.save_schema == null || game.state.save_schema < 2) {
+    game.state.save_schema = 2; // Pass 2: TO/NBJ desks + late dialogues
+  }
   for (const u of Object.values(game.state.units || {})) {
     if (u.jna_threatened == null) u.jna_threatened = false;
   }
@@ -427,7 +430,7 @@ async function boot() {
     setI18n(hr, en);
     fillChrome();
 
-    const [units, parties, agencies, act1, act2, act3, act4, act5, documents, desks, dMarkovic, dKadijevic, dJovic, dMesic, dDrnovsek] = await Promise.all([
+    const [units, parties, agencies, act1, act2, act3, act4, act5, documents, desks, dMarkovic, dKadijevic, dJovic, dMesic, dDrnovsek, dKucan, dTudman, dMarkovicLate, dKadijevicLate] = await Promise.all([
       loadJSON("data/units.json"),
       loadJSON("data/parties.json"),
       loadJSON("data/agencies.json"),
@@ -443,6 +446,10 @@ async function boot() {
       loadJSON("data/dialogue/jovic.json"),
       loadJSON("data/dialogue/mesic.json"),
       loadJSON("data/dialogue/drnovsek.json"),
+      loadJSON("data/dialogue/kucan.json"),
+      loadJSON("data/dialogue/tudman.json"),
+      loadJSON("data/dialogue/markovic_late.json"),
+      loadJSON("data/dialogue/kadijevic_late.json"),
     ]);
 
     const catalogs = {
@@ -451,7 +458,7 @@ async function boot() {
       agencies,
       documents,
       desks: desks.desks || desks,
-      dialogues: [dMarkovic, dKadijevic, dJovic, dMesic, dDrnovsek],
+      dialogues: [dMarkovic, dKadijevic, dJovic, dMesic, dDrnovsek, dKucan, dTudman, dMarkovicLate, dKadijevicLate],
     };
     const catalogEvents = flattenActs([act1, act2, act3, act4, act5]);
 

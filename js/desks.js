@@ -1,7 +1,7 @@
 /**
  * Department / agency desks — player actions that mutate posture and feed
- * simulation.js (monthlyDrift), control.js (federal_control), and endings.js
- * via flags (jna_*, siv_*, presidency_*, ssup_*, ssp_*, finance_*).
+ * simulation.js (monthlyDrift), control.js (federal_control), elections.js
+ * (gravity weights), and endings.js via flags.
  *
  * Coupling map (keep in sync with comments in simulation.js / control.js):
  * - JNA posture garrison|alert|political → war_risk, jna_cohesion, obedience
@@ -10,11 +10,27 @@
  * - SSUP soft|hard → interethnic_tension HR/BA
  * - SSP ec_track → international_standing / ec_troika_watching
  * - Finance open|freeze → transfers, trust, budget
+ * - TO coordinate|inventory|republic_hold → to_control SI/HR, inventory flags
+ * - NBJ tight|loose|fragment → inflation, hard_currency, dinar program
+ *
+ * Action economy: 1 desk action / month (2 if SIV authority ≥ 55). Same pool
+ * for all eight desks — no spam. Soft-block if already in posture with flag.
  */
 import { clamp, pathAdd } from "./state.js";
 import { applyEffects, requiresMet } from "./events.js";
 import { recomputeFederalControl } from "./control.js";
 import { t } from "./i18n.js";
+
+const POSTURE_FLAG_MAP = {
+  jna: { garrison: "jna_garrison_posture", alert: "jna_mobilization_alert", political: "jna_political_weight" },
+  siv: { austerity: "siv_austerity_stance", stimulus: "siv_stimulus_stance" },
+  presidency: { mediate: "presidency_mediation_active", hardline: "presidency_hardline" },
+  ssup: { soft: "ssup_soft_line", hard: "ssup_hard_line" },
+  ssp: { ec_track: "ssp_ec_track" },
+  finance: { open: "finance_transfers_open", freeze: "finance_transfer_freeze" },
+  to: { coordinate: "to_coordinate_posture", inventory: "to_inventory_push", republic_hold: "to_republic_hold" },
+  nby: { tight: "nby_tight_dinar", loose: "nby_loose_credit", fragment: "nby_fragment_risk" },
+};
 
 export function initDesks(state, catalog) {
   if (!catalog?.desks) return;
@@ -32,6 +48,8 @@ export function initDesks(state, catalog) {
   if (state.desk_actions == null) state.desk_actions = 0;
   if (!state.desk_month) state.desk_month = "";
   if (!Array.isArray(state.dialogue_done)) state.dialogue_done = [];
+  // Save migration: Pass 2 schema (TO / NBJ) — initDesks already fills missing ids
+  if (state.save_schema == null || state.save_schema < 2) state.save_schema = 2;
   syncDeskFlagsFromPosture(state);
 }
 
@@ -44,8 +62,13 @@ export function deskRuntime(state, id) {
 }
 
 export function deskCap(state) {
-  // One desk action per month base; +1 if SIV authority high (shares economy of attention with reforms).
-  return (state.federal.siv_authority || 0) >= 55 ? 2 : 1;
+  // One desk action per month base; +1 if SIV authority high (attention economy vs reforms).
+  let cap = (state.federal.siv_authority || 0) >= 55 ? 2 : 1;
+  // NBJ capacity high + tight dinar: slight extra bandwidth for economic desks only via flag, not raw spam
+  if (state.flags?.nby_tight_dinar && (state.desks?.nby?.capacity || 0) >= 70) {
+    // still max 2 — do not inflate beyond reform competition
+  }
+  return cap;
 }
 
 export function grantDeskActions(state) {
@@ -118,18 +141,9 @@ export function actionsForDesk(state, catalog, deskId) {
         block_reason = gate.reason || t("desk.locked");
       }
     }
-    // Already in this posture with flag filed → soft block
     const setPosture = raw.effects?.desk_set?.[deskId]?.posture;
     if (!blocked && setPosture && state.desks?.[deskId]?.posture === setPosture) {
-      const flagMap = {
-        jna: { garrison: "jna_garrison_posture", alert: "jna_mobilization_alert", political: "jna_political_weight" },
-        siv: { austerity: "siv_austerity_stance", stimulus: "siv_stimulus_stance" },
-        presidency: { mediate: "presidency_mediation_active", hardline: "presidency_hardline" },
-        ssup: { soft: "ssup_soft_line", hard: "ssup_hard_line" },
-        ssp: { ec_track: "ssp_ec_track" },
-        finance: { open: "finance_transfers_open", freeze: "finance_transfer_freeze" },
-      };
-      const flag = flagMap[deskId]?.[setPosture];
+      const flag = POSTURE_FLAG_MAP[deskId]?.[setPosture];
       if (!flag || state.flags[flag]) {
         blocked = true;
         block_reason = t("desk.samePosture");
@@ -184,7 +198,7 @@ export function applyDeskAction(state, catalog, deskId, actionId) {
 
 /**
  * Monthly posture — called from simulation.monthlyDrift.
- * These numbers are intentionally modest; event cards and dialogue remain the big levers.
+ * Modest numbers; event cards and dialogue remain the big levers.
  */
 export function applyDeskMonthlyPosture(state, scale = 1) {
   if (!state.desks) return;
@@ -196,6 +210,8 @@ export function applyDeskMonthlyPosture(state, scale = 1) {
   const ssup = state.desks.ssup;
   const ssp = state.desks.ssp;
   const fin = state.desks.finance;
+  const to = state.desks.to;
+  const nby = state.desks.nby;
 
   if (jna) {
     if (jna.posture === "alert") {
@@ -210,7 +226,6 @@ export function applyDeskMonthlyPosture(state, scale = 1) {
       f.legitimacy = clamp(f.legitimacy - 0.3 * s);
       jna.agenda_tension = clamp(jna.agenda_tension + 1.5 * s);
     }
-    // High agenda tension in JNA erodes civilian obedience
     if (jna.agenda_tension >= 60) {
       f.jna_obedience_to_civilian = clamp(f.jna_obedience_to_civilian - 0.5 * s);
     }
@@ -246,7 +261,6 @@ export function applyDeskMonthlyPosture(state, scale = 1) {
       if (state.units.HR) state.units.HR.secession_readiness = clamp(state.units.HR.secession_readiness + 0.4 * s);
     }
     if (pret.agenda_tension >= 70 && pret.loyalty < 40) {
-      // Soft path toward deadlock without auto-setting the flag (events still own E3 math)
       f.presidency_cohesion = clamp(f.presidency_cohesion - 0.8 * s);
     }
   }
@@ -274,11 +288,58 @@ export function applyDeskMonthlyPosture(state, scale = 1) {
       f.inter_republic_trade = clamp(f.inter_republic_trade + 0.3 * s);
     }
   }
+
+  if (to) {
+    if (to.posture === "inventory") {
+      f.war_risk = clamp(f.war_risk + 0.4 * s);
+      if (state.units.SI) {
+        state.units.SI.to_control = clamp((state.units.SI.to_control || 50) - 0.5 * s);
+        state.units.SI.federal_trust = clamp(state.units.SI.federal_trust - 0.3 * s);
+      }
+      if (state.units.HR) {
+        state.units.HR.to_control = clamp((state.units.HR.to_control || 50) - 0.5 * s);
+        state.units.HR.federal_trust = clamp(state.units.HR.federal_trust - 0.3 * s);
+      }
+      to.agenda_tension = clamp(to.agenda_tension + 0.8 * s);
+    } else if (to.posture === "coordinate") {
+      f.jna_obedience_to_civilian = clamp(f.jna_obedience_to_civilian + 0.3 * s);
+      f.war_risk = clamp(f.war_risk - 0.2 * s);
+    } else if (to.posture === "republic_hold") {
+      if (state.units.SI) state.units.SI.to_control = clamp((state.units.SI.to_control || 50) + 0.6 * s);
+      if (state.units.HR) state.units.HR.to_control = clamp((state.units.HR.to_control || 50) + 0.6 * s);
+      f.jna_cohesion = clamp(f.jna_cohesion - 0.3 * s);
+    }
+  }
+
+  if (nby) {
+    if (nby.posture === "tight") {
+      f.inflation = clamp(f.inflation - 0.6 * s);
+      f.hard_currency = clamp(f.hard_currency + 0.4 * s);
+      f.reform_momentum = clamp(f.reform_momentum + 0.3 * s);
+    } else if (nby.posture === "loose") {
+      f.inflation = clamp(f.inflation + 0.7 * s);
+      f.inter_republic_trade = clamp(f.inter_republic_trade + 0.3 * s);
+    } else if (nby.posture === "fragment") {
+      f.inter_republic_trade = clamp(f.inter_republic_trade - 0.6 * s);
+      f.legitimacy = clamp(f.legitimacy - 0.3 * s);
+      nby.agenda_tension = clamp(nby.agenda_tension + 1 * s);
+    }
+    if (nby.loyalty < 35) {
+      f.hard_currency = clamp(f.hard_currency - 0.4 * s);
+    }
+  }
+
   syncDeskFlagsFromPosture(state);
 }
 
 export function deskStatusLabel(posture) {
   return t("desk.posture." + (posture || "default"));
+}
+
+export function deskChipShort(posture) {
+  const key = "desk.chip." + (posture || "default");
+  const label = t(key);
+  return label === key ? deskStatusLabel(posture) : label;
 }
 
 export function syncDeskFlagsFromPosture(state) {
@@ -294,4 +355,36 @@ export function syncDeskFlagsFromPosture(state) {
     state.flags.siv_austerity_stance = s.posture === "austerity";
     state.flags.siv_stimulus_stance = s.posture === "stimulus";
   }
+  const to = state.desks.to;
+  if (to) {
+    state.flags.to_coordinate_posture = to.posture === "coordinate";
+    state.flags.to_inventory_push = to.posture === "inventory";
+    state.flags.to_republic_hold = to.posture === "republic_hold";
+  }
+  const nby = state.desks.nby;
+  if (nby) {
+    state.flags.nby_tight_dinar = nby.posture === "tight";
+    state.flags.nby_loose_credit = nby.posture === "loose";
+    state.flags.nby_fragment_risk = nby.posture === "fragment";
+  }
+}
+
+/** Compact strip chips for UI — id + short posture label + tone. */
+export function deskStatusChips(state, catalog) {
+  const desks = listDesks(catalog);
+  return desks.map((d) => {
+    const rt = deskRuntime(state, d.id);
+    const posture = rt?.posture || d.posture_default || "default";
+    let tone = "neutral";
+    if (["alert", "hard", "hardline", "inventory", "fragment", "political", "freeze"].includes(posture)) tone = "warn";
+    if (["garrison", "mediate", "soft", "coordinate", "tight", "open", "technocrat"].includes(posture)) tone = "good";
+    return {
+      id: d.id,
+      name: d.name,
+      posture,
+      label: deskChipShort(posture),
+      tone,
+      loyalty: rt?.loyalty ?? d.stats?.loyalty ?? 50,
+    };
+  });
 }

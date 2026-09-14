@@ -50,8 +50,18 @@ function rawControl(state, id) {
   if (state.flags.finance_transfers_open) n += 1;
   if (state.flags.ssup_hard_line) n -= 2;
   if (state.flags.ssup_soft_line) n += 1;
+  if (state.flags.to_inventory_push) n -= 2;
+  if (state.flags.to_coordinate_posture) n += 1;
+  if (state.flags.to_republic_hold) n -= 1;
+  if (state.flags.nby_tight_dinar) n += 1;
+  if (state.flags.nby_fragment_risk) n -= 2;
+  if (state.flags.dialogue_kucan_conf && id === "SI") n += 3;
+  if (state.flags.dialogue_tudman_mediate && id === "HR") n += 2;
+  if (state.flags.dialogue_tudman_hard && id === "HR") n -= 4;
   if ((state.desks?.presidency?.loyalty || 0) >= 60) n += 1;
   if ((state.desks?.siv?.loyalty || 0) < 35) n -= 1;
+  if ((state.desks?.nby?.loyalty || 0) >= 60 && state.flags.nby_tight_dinar) n += 1;
+  if ((state.desks?.to?.agenda_tension || 0) >= 65) n -= 1;
   return n;
 }
 

@@ -27,6 +27,63 @@ function bump(state, id, n) {
   if (p) p.support = clamp(p.support + n);
 }
 
+/** Desk / dialogue posture weights election night (Pass 2). Player still does not vote.
+ * Prefer explicit dialogue / event flags over default posture sync so garrison/tight
+ * baselines do not silently skew every roll.
+ */
+function deskDialogueElectionBias(unit, spec, state) {
+  let d = 0;
+  const id = unit.id;
+  const f = state.flags || {};
+  // SIV / Marković
+  if (f.siv_stimulus_stance || f.dialogue_markovic_teeth) d += 2;
+  if (f.dialogue_markovic_starve || f.markovic_starved) d -= 3;
+  if (f.siv_austerity_stance && f.desk_event_siv_seen) d += id === "RS" || id === "ME" ? 1 : -1;
+  if (f.dialogue_markovic_customs) d += 2;
+  if (f.dialogue_markovic_resign_hint) d -= 2;
+  if (f.dialogue_markovic_nby || (f.nby_tight_dinar && f.desk_event_nby_seen)) {
+    d += id === "MK" || id === "BA" ? 2 : 1;
+  }
+  if (f.nby_fragment_risk && (f.desk_event_nby_seen || f.dialogue_markovic_imf)) d -= 2;
+  if (f.nby_loose_credit && f.desk_event_nby_seen) d += id === "RS" ? -1 : 1;
+  // JNA — alert/threat hurt SK successor in SI/HR; garrison only if player locked it via talk/event
+  if (f.jna_mobilization_alert || f.dialogue_kadijevic_alert) {
+    d -= id === "SI" || id === "HR" ? 4 : 2;
+  }
+  if (f.dialogue_kadijevic_civilian || (f.jna_garrison_posture && f.desk_event_jna_seen)) d += 2;
+  if (f.player_used_jna_threat || f.dialogue_kadijevic_serbia || f.dialogue_kadijevic_serbia_late) {
+    d -= id === "SI" || id === "HR" ? 5 : 1;
+  }
+  // Presidency
+  if (f.presidency_mediation_active || f.dialogue_jovic_bind) d += 2;
+  if (f.presidency_hardline || f.dialogue_jovic_serbia) d -= 2;
+  if (f.dialogue_mesic_seat) d += id === "HR" ? 2 : 0;
+  if (f.dialogue_mesic_block) d -= id === "HR" ? 3 : 1;
+  // TO
+  if (f.to_inventory_push || f.dialogue_kadijevic_to && state.desks?.to?.posture === "inventory") {
+    if (id === "SI" || id === "HR") d -= 3;
+  }
+  if (f.to_coordinate_posture && (f.desk_event_to_seen || f.dialogue_kadijevic_to || f.dialogue_kucan_to)) d += 1;
+  if (f.to_republic_hold && (f.desk_event_to_seen || f.dialogue_kucan_to) && (id === "SI" || id === "HR")) d -= 1;
+  // SSUP / SSP
+  if (f.ssup_hard_line && id === "HR") d -= 3;
+  if (f.ssup_soft_line && f.desk_event_ssup_seen && id === "HR") d += 1;
+  if (f.ssp_ec_track && (id === "SI" || id === "HR")) d += 1;
+  // Kučan / Tuđman
+  if (f.dialogue_kucan_conf && id === "SI") d += 3;
+  if (f.dialogue_kucan_press && id === "SI") d -= 4;
+  if (f.dialogue_tudman_mediate && id === "HR") d += 2;
+  if (f.dialogue_tudman_hard && id === "HR") d -= 5;
+  // Desk loyalty soft signal (only if player engaged desks)
+  if (f.desk_event_siv_seen || f.talked_markovic) {
+    const sivL = state.desks?.siv?.loyalty ?? 50;
+    if (sivL >= 65) d += 1;
+    if (sivL < 35) d -= 2;
+  }
+  if (f.presidency_mediation_active && (state.desks?.presidency?.loyalty || 0) >= 60) d += 1;
+  return d;
+}
+
 function gravityP(unit, spec, state) {
   let p = skjSuccessorChance(unit, mediaControl(unit));
   if (spec.gravity === "opposition") p = clamp(p - 8);
@@ -50,6 +107,8 @@ function gravityP(unit, spec, state) {
     p = clamp(p + 2);
   }
   if (state.flags.federal_observers_si && unit.id === "SI") p = clamp(p + 5);
+  // Pass 2: desks + dialogue meaningfully weight the roll
+  p = clamp(p + deskDialogueElectionBias(unit, spec, state));
   return p;
 }
 
@@ -216,6 +275,15 @@ function runPlebiscite(state, spec) {
     : clamp(58 + unit.secession_readiness * 0.35 - unit.federal_trust * 0.22);
   if (state.flags.demos_slovenia) p = clamp(p + 6);
   if (state.flags.player_used_jna_threat) p = clamp(p + 8);
+  if (state.flags.jna_mobilization_alert) p = clamp(p + 4);
+  if (state.flags.jna_garrison_posture) p = clamp(p - 3);
+  if (state.flags.to_inventory_push) p = clamp(p + 5);
+  if (state.flags.to_coordinate_posture) p = clamp(p - 2);
+  if (state.flags.dialogue_kucan_conf) p = clamp(p - 6);
+  if (state.flags.dialogue_kucan_press) p = clamp(p + 5);
+  if (state.flags.presidency_mediation_active) p = clamp(p - 3);
+  if (state.flags.presidency_hardline) p = clamp(p + 3);
+  if (state.flags.ssp_ec_track || state.flags.ec_troika_watching) p = clamp(p - 2);
   const roll = Math.random() * 100;
   const yes = roll < p;
   if (yes) {

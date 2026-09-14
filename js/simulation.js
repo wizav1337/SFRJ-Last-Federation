@@ -23,6 +23,12 @@ export function recomputeWarRisk(state) {
   if (state.flags.jna_garrison_posture) w -= 1;
   if (state.flags.ssup_hard_line) w += 2;
   if (state.flags.presidency_mediation_active) w -= 1;
+  if (state.flags.to_inventory_push) w += 2;
+  if (state.flags.to_coordinate_posture) w -= 1;
+  if (state.flags.to_republic_hold) w += 1;
+  if (state.flags.nby_fragment_risk) w += 1;
+  if (state.flags.dialogue_tudman_hard) w += 2;
+  if (state.flags.dialogue_kadijevic_winter) w -= 1;
   if (state.flags.confederal_talks_open && state.federal.war_risk < 60) w -= 2;
   if (state.flags.markovic_mandate_strong) w -= 1;
   state.federal.war_risk = clamp(w);
@@ -84,12 +90,28 @@ export function buildMonthlyReport(state, before, months) {
   if ((state.federal.imf_pressure || 0) >= 60) drivers.push("pritisak MMF-a je visok");
   if (state.desks?.jna?.posture === "alert") drivers.push("JNA u pripravnosti (šalter vojske)");
   if (state.desks?.jna?.posture === "garrison") drivers.push("JNA u garnizonskoj postavi");
+  if (state.desks?.jna?.posture === "political") drivers.push("JNA kao politička težina");
   if (state.desks?.siv?.posture === "austerity") drivers.push("SIV u štednji");
   if (state.desks?.siv?.posture === "stimulus") drivers.push("SIV u poticaju");
+  if (state.desks?.siv?.posture === "technocrat") drivers.push("SIV tehnokratski (knjige)");
   if (state.desks?.presidency?.posture === "mediate") drivers.push("Predsjedništvo medira");
   if (state.desks?.presidency?.posture === "hardline") drivers.push("Predsjedništvo na tvrdoj liniji");
   if (state.flags.ssup_hard_line) drivers.push("SSUP na tvrdoj liniji");
+  if (state.flags.ssup_soft_line) drivers.push("SSUP na mekoj liniji");
   if (state.flags.ssp_ec_track) drivers.push("SSP na kolosijeku EEZ");
+  if (state.desks?.finance?.posture === "freeze") drivers.push("Financije: transferi smrznuti");
+  if (state.desks?.finance?.posture === "open") drivers.push("Financije: transferi otvoreni");
+  if (state.desks?.to?.posture === "inventory") drivers.push("TO: savezna inventura zaliha");
+  if (state.desks?.to?.posture === "coordinate") drivers.push("TO koordinirana s JNA");
+  if (state.desks?.to?.posture === "republic_hold") drivers.push("TO u republikanskom držaju");
+  if (state.desks?.nby?.posture === "tight") drivers.push("NBJ: tvrdi dinar / rezerve");
+  if (state.desks?.nby?.posture === "loose") drivers.push("NBJ: labaviji kredit");
+  if (state.desks?.nby?.posture === "fragment") drivers.push("NBJ upozorava na fragment platnog prometa");
+  if (state.flags.dialogue_kucan_conf) drivers.push("razgovor s Kučanom: konfederalni stol");
+  if (state.flags.dialogue_tudman_mediate) drivers.push("razgovor s Tuđmanom: medijacija");
+  if (state.flags.dialogue_tudman_hard) drivers.push("razgovor s Tuđmanom: tvrda upozorenja");
+  if (state.flags.talked_markovic_late) drivers.push("jesenski krug s Markovićem");
+  if (state.flags.talked_kadijevic_late) drivers.push("zimski krug s Kadijevićem");
 
   return {
     months: months || 1,
@@ -166,7 +188,7 @@ export function monthlyDrift(state, scale = 1) {
     f.jna_cohesion - secessionAvg * 0.02 * scale - (state.flags.player_used_jna_threat ? 2 * scale : 0)
   );
 
-  // Department posture (desks.js) — JNA/SIV/Predsjedništvo/SSUP/SSP/Finance
+  // Department posture (desks.js) — JNA/SIV/Predsjedništvo/SSUP/SSP/Finance/TO/NBJ
   applyDeskMonthlyPosture(state, scale);
 
   // Agency soft decay: weakened organs sap authority

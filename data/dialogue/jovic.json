@@ -87,10 +87,18 @@
       "choices": [
         {
           "id": "end_bind",
-          "label": "Zapiši u dnevnik.",
-          "next": null,
+          "label": "Zapiši u dnevnik — i otvori konfederalni jezik.",
+          "next": "bind_conf",
           "effects": {
             "federal.war_risk": -1
+          }
+        },
+        {
+          "id": "end_bind_only",
+          "label": "Samo kvorum. Bez novog stolnog jezika.",
+          "next": null,
+          "effects": {
+            "federal.presidency_cohesion": 1
           }
         }
       ]
@@ -116,6 +124,40 @@
           "label": "Zatvori.",
           "next": null,
           "effects": {}
+        }
+      ]
+    },
+    "bind_conf": {
+      "text": "„Konfederalni stol nije kapitulacija ako Predsjedništvo još sjedi. E3 traži otvorenu povelju i organ koji se može sastati — ne zastoj.“",
+      "choices": [
+        {
+          "id": "open_conf",
+          "label": "Otvori konfederalne razgovore.",
+          "next": null,
+          "effects": {
+            "flags_add": [
+              "confederal_talks_open",
+              "slovenia_invited_back",
+              "dialogue_jovic_conf"
+            ],
+            "federal.legitimacy": 2,
+            "SI.federal_trust": 3,
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            }
+          }
+        },
+        {
+          "id": "wait_conf",
+          "label": "Pričekaj travanjski nacrt.",
+          "next": null,
+          "effects": {
+            "flags_add": [
+              "dialogue_jovic_conf_wait"
+            ]
+          }
         }
       ]
     }
