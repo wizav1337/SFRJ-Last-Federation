@@ -227,6 +227,84 @@
       ]
     },
     {
+      "id": "desk_ssup_before_pleb",
+      "date": "1990-12-15",
+      "act": 4,
+      "desk": "SSUP",
+      "priority": "optional",
+      "title": "SSUP pred slovenskim plebiscitom",
+      "location": "SSUP — Beograd / Ljubljana (kanal)",
+      "briefing": "Plebiscit 23. prosinca je savjetodavni uvod, ne proglašenje neovisnosti. SSUP može držati uze/promatrače, meku liniju, ili tvrdi pritisak. Nota EEZ-a (ako postoji) nije priznanje. Nema lipanjskog rata.",
+      "constitutional_note": "Plebiscit ne sjeda Sloveniju iz institucija 23. prosinca. Proglašenje nije na ovom spisu.",
+      "documents": [
+        "1974_federation"
+      ],
+      "requires": {
+        "flags_not": [
+          "desk_event_ssup_pleb_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "leash",
+          "label": "Uze Predsjedništva + promatrači — bez pritiska na listiće.",
+          "legal": "political",
+          "effects": {
+            "federal.sdb_control": 3,
+            "federal.presidency_cohesion": 2,
+            "SI.federal_trust": 3,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "desk_event_ssup_pleb_seen",
+              "sdb_civilian_leash",
+              "ssup_observe_line"
+            ],
+            "desk_set": {
+              "ssup": {
+                "posture": "observe"
+              }
+            }
+          }
+        },
+        {
+          "id": "soft",
+          "label": "Meka linija — republikanska milicija vodi red.",
+          "legal": "political",
+          "effects": {
+            "SI.federal_trust": 1,
+            "flags_add": [
+              "desk_event_ssup_pleb_seen",
+              "ssup_soft_line"
+            ],
+            "desk_set": {
+              "ssup": {
+                "posture": "soft"
+              }
+            }
+          }
+        },
+        {
+          "id": "hard",
+          "label": "Tvrdi signal — „Savez još postoji“.",
+          "legal": "extra_constitutional",
+          "effects": {
+            "SI.secession_readiness": 5,
+            "SI.federal_trust": -6,
+            "federal.war_risk": 3,
+            "flags_add": [
+              "desk_event_ssup_pleb_seen",
+              "ssup_hard_line"
+            ],
+            "desk_set": {
+              "ssup": {
+                "posture": "hard"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_ssp_before_pleb",
       "date": "1990-12-18",
       "act": 4,
@@ -299,6 +377,80 @@
             "flags_add": [
               "ssp_quiet_demarche",
               "desk_event_ssp_pleb_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_presidency_before_pleb",
+      "date": "1990-12-18",
+      "act": 4,
+      "desk": "PRET",
+      "priority": "optional",
+      "title": "Predsjedništvo pred plebiscitom",
+      "location": "Predsjedništvo SFRJ",
+      "briefing": "Danima prije savjetodavnog plebiscita Predsjedništvo može ponoviti poziv za stol, čuvati kvorum, ili zatvoriti jezik. Ako su razgovori s Kučanom/Jovićem već otvorili konfederalni stog, ovo je trenutak za potpis — ne za Izetbegović–Gligorov (lipanj, van odsječka).",
+      "constitutional_note": "E3: otvorena povelja + Predsjedništvo koje se može sastati. Blokada isključuje E3.",
+      "documents": [
+        "1974_presidency"
+      ],
+      "requires": {
+        "flags_any": [
+          "presidency_mediation_active",
+          "dialogue_kucan_conf",
+          "confederal_talks_open"
+        ],
+        "flags_not": [
+          "desk_event_pret_pleb_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "invite_sign",
+          "label": "Poziv + potpis: stol ostaje otvoren.",
+          "legal": "political",
+          "effects": {
+            "charter_signatures_add": 1,
+            "federal.presidency_cohesion": 3,
+            "SI.federal_trust": 3,
+            "flags_add": [
+              "desk_event_pret_pleb_seen",
+              "confederal_talks_open",
+              "slovenia_invited_back",
+              "presidency_quorum_guard"
+            ],
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            }
+          }
+        },
+        {
+          "id": "quorum_only",
+          "label": "Samo kvorum — bez novog potpisa.",
+          "legal": "political",
+          "effects": {
+            "federal.presidency_cohesion": 2,
+            "flags_add": [
+              "desk_event_pret_pleb_seen",
+              "presidency_quorum_guard"
+            ],
+            "flags_remove": [
+              "presidency_deadlock"
+            ]
+          }
+        },
+        {
+          "id": "cold",
+          "label": "Hladan hodnik — neka Ljubljana sama računa.",
+          "legal": "political",
+          "effects": {
+            "SI.secession_readiness": 4,
+            "federal.presidency_cohesion": -2,
+            "flags_add": [
+              "desk_event_pret_pleb_seen"
             ]
           }
         }

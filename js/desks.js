@@ -13,8 +13,9 @@
  * - TO coordinate|inventory|republic_hold → to_control SI/HR, inventory flags
  * - NBJ tight|loose|fragment → inflation, hard_currency, dinar program
  *
- * Action economy: 1 desk action / month (2 if SIV authority ≥ 55). Same pool
- * for all eight desks — no spam. Soft-block if already in posture with flag.
+ * Action economy (Pass 3): shared monthly attention with reforms.
+ * attentionCap = 3 (4 if SIV ≥ 60). Desk + reform both burn attention_left.
+ * Soft-block if already in posture with flag.
  */
 import { clamp, pathAdd } from "./state.js";
 import { applyEffects, requiresMet } from "./events.js";
@@ -48,8 +49,11 @@ export function initDesks(state, catalog) {
   if (state.desk_actions == null) state.desk_actions = 0;
   if (!state.desk_month) state.desk_month = "";
   if (!Array.isArray(state.dialogue_done)) state.dialogue_done = [];
-  // Save migration: Pass 2 schema (TO / NBJ) — initDesks already fills missing ids
-  if (state.save_schema == null || state.save_schema < 2) state.save_schema = 2;
+  if (!state.dialogue_visits) state.dialogue_visits = {};
+  if (state.attention_left == null) state.attention_left = 0;
+  if (!state.attention_month) state.attention_month = "";
+  // Save migration: Pass 3 schema (shared attention + multi-visit dialogue)
+  if (state.save_schema == null || state.save_schema < 3) state.save_schema = 3;
   syncDeskFlagsFromPosture(state);
 }
 
@@ -61,21 +65,47 @@ export function deskRuntime(state, id) {
   return state.desks?.[id] || null;
 }
 
-export function deskCap(state) {
-  // One desk action per month base; +1 if SIV authority high (attention economy vs reforms).
-  let cap = (state.federal.siv_authority || 0) >= 55 ? 2 : 1;
-  // NBJ capacity high + tight dinar: slight extra bandwidth for economic desks only via flag, not raw spam
-  if (state.flags?.nby_tight_dinar && (state.desks?.nby?.capacity || 0) >= 70) {
-    // still max 2 — do not inflate beyond reform competition
-  }
-  return cap;
+/** Shared monthly attention — reforms and desks compete for the same scarce pool. */
+export function attentionCap(state) {
+  return (state.federal.siv_authority || 0) >= 60 ? 4 : 3;
 }
 
-export function grantDeskActions(state) {
+export function deskCap(state) {
+  // Display: remaining shared attention (same as reform left after Pass 3).
+  if (state.attention_left != null) return Math.max(state.attention_left, 0);
+  return attentionCap(state);
+}
+
+export function syncAttentionDisplays(state) {
+  const left = Math.max(0, state.attention_left ?? 0);
+  state.desk_actions = left;
+  state.reform_actions = left;
+}
+
+export function grantAttentionActions(state) {
   const month = (state.federal.clock || "").slice(0, 7);
-  if (state.desk_month === month) return;
+  if (state.attention_month === month && state.attention_left != null) {
+    syncAttentionDisplays(state);
+    return;
+  }
+  state.attention_month = month;
   state.desk_month = month;
-  state.desk_actions = deskCap(state);
+  state.reform_month = month;
+  state.attention_left = attentionCap(state);
+  syncAttentionDisplays(state);
+}
+
+/** @deprecated Pass 3 — prefer grantAttentionActions; kept as alias. */
+export function grantDeskActions(state) {
+  grantAttentionActions(state);
+}
+
+export function spendAttention(state, n = 1) {
+  const cost = Math.max(1, n || 1);
+  if ((state.attention_left ?? 0) < cost) return false;
+  state.attention_left -= cost;
+  syncAttentionDisplays(state);
+  return true;
 }
 
 export function listDesks(catalog) {
@@ -118,7 +148,7 @@ export function applyDeskEffects(state, effects) {
 export function actionsForDesk(state, catalog, deskId) {
   const def = deskDef(catalog, deskId);
   if (!def) return [];
-  const none = (state.desk_actions || 0) <= 0;
+  const none = (state.attention_left != null ? state.attention_left : state.desk_actions || 0) <= 0;
   const budget = state.federal.federal_budget || 0;
   return (def.actions || []).map((raw) => {
     const cost = raw.cost || {};
@@ -169,10 +199,17 @@ export function applyDeskAction(state, catalog, deskId, actionId) {
   if (action.blocked) return { ok: false, reason: action.block_reason || t("desk.locked") };
 
   if (action.reformCost > 0) {
-    if ((state.desk_actions || 0) < action.reformCost) {
+    const left = state.attention_left != null ? state.attention_left : state.desk_actions || 0;
+    if (left < action.reformCost) {
       return { ok: false, reason: t("desk.none") };
     }
-    state.desk_actions -= action.reformCost;
+    if (state.attention_left != null) {
+      if (!spendAttention(state, action.reformCost)) {
+        return { ok: false, reason: t("desk.none") };
+      }
+    } else {
+      state.desk_actions -= action.reformCost;
+    }
   }
   if (action.budgetCost > 0) {
     pathAdd(state, "federal.federal_budget", -action.budgetCost);
@@ -272,6 +309,21 @@ export function applyDeskMonthlyPosture(state, scale = 1) {
       f.war_risk = clamp(f.war_risk + 0.3 * s);
     } else if (ssup.posture === "soft") {
       if (state.units.HR) state.units.HR.interethnic_tension = clamp(state.units.HR.interethnic_tension - 0.3 * s);
+    } else if (ssup.posture === "observe") {
+      f.sdb_control = clamp(f.sdb_control + 0.3 * s);
+      if (state.units.HR) state.units.HR.interethnic_tension = clamp(state.units.HR.interethnic_tension - 0.15 * s);
+    }
+    if (state.flags.sdb_civilian_leash) {
+      f.presidency_cohesion = clamp(f.presidency_cohesion + 0.2 * s);
+      f.sdb_control = clamp(f.sdb_control + 0.2 * s);
+    }
+    if (state.flags.sdb_leash_tight) {
+      f.sdb_control = clamp(f.sdb_control + 0.4 * s);
+      f.legitimacy = clamp(f.legitimacy + 0.15 * s);
+      ssup.agenda_tension = clamp(ssup.agenda_tension + 0.4 * s);
+    }
+    if (state.flags.ssup_hard_line && state.flags.sdb_files_shared) {
+      f.war_risk = clamp(f.war_risk + 0.2 * s);
     }
   }
 
@@ -329,7 +381,33 @@ export function applyDeskMonthlyPosture(state, scale = 1) {
     }
   }
 
+  // Pass 3: confederal stack — Kučan/Jović/Mesić/mediation quietly supports E3 path
+  const confStack = confederalStackDepth(state);
+  if (confStack >= 2 && state.flags.confederal_talks_open) {
+    f.war_risk = clamp(f.war_risk - 0.25 * s * Math.min(confStack, 4));
+    f.presidency_cohesion = clamp(f.presidency_cohesion + 0.2 * s);
+  }
+  if (confStack >= 3 && state.flags.presidency_quorum_guard && !state.flags.presidency_deadlock) {
+    f.legitimacy = clamp(f.legitimacy + 0.15 * s);
+  }
+
   syncDeskFlagsFromPosture(state);
+}
+
+/** Count outcome-relevant confederal stack flags (E3 path strength). */
+export function confederalStackDepth(state) {
+  const f = state.flags || {};
+  let n = 0;
+  if (f.confederal_talks_open) n += 1;
+  if (f.dialogue_kucan_conf) n += 1;
+  if (f.dialogue_jovic_conf) n += 1;
+  if (f.dialogue_mesic_confederal) n += 1;
+  if (f.presidency_mediation_active) n += 1;
+  if (f.slovenia_invited_back) n += 1;
+  if (f.presidency_quorum_guard) n += 1;
+  if (f.dialogue_kucan_charter) n += 1;
+  if (f.confederal_stack_memo) n += 1;
+  return n;
 }
 
 export function deskStatusLabel(posture) {
@@ -367,6 +445,12 @@ export function syncDeskFlagsFromPosture(state) {
     state.flags.nby_loose_credit = nby.posture === "loose";
     state.flags.nby_fragment_risk = nby.posture === "fragment";
   }
+  const ssup = state.desks.ssup;
+  if (ssup) {
+    state.flags.ssup_soft_line = ssup.posture === "soft";
+    state.flags.ssup_hard_line = ssup.posture === "hard";
+    state.flags.ssup_observe_line = ssup.posture === "observe";
+  }
 }
 
 /** Compact strip chips for UI — id + short posture label + tone. */
@@ -377,7 +461,7 @@ export function deskStatusChips(state, catalog) {
     const posture = rt?.posture || d.posture_default || "default";
     let tone = "neutral";
     if (["alert", "hard", "hardline", "inventory", "fragment", "political", "freeze"].includes(posture)) tone = "warn";
-    if (["garrison", "mediate", "soft", "coordinate", "tight", "open", "technocrat"].includes(posture)) tone = "good";
+    if (["garrison", "mediate", "soft", "coordinate", "tight", "open", "technocrat", "observe"].includes(posture)) tone = "good";
     return {
       id: d.id,
       name: d.name,

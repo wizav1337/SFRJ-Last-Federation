@@ -3,22 +3,24 @@ import { t } from "./i18n.js";
 import { applyEffects, requiresMet, spawnNoncomplianceFollowup } from "./events.js";
 import { needsPresidencyVote } from "./agencies.js";
 import { recomputeFederalControl } from "./control.js";
+import { attentionCap, grantAttentionActions, spendAttention, syncAttentionDisplays } from "./desks.js";
 
 export const REFORM_FAMILIES = ["skj", "siv", "pret", "force"];
 
 export function reformCap(state) {
-  return (state.federal.siv_authority || 0) >= 60 ? 3 : 2;
+  // Pass 3: shared attention with desks (display uses attention_left).
+  if (state.attention_left != null) return Math.max(state.attention_left, 0);
+  return attentionCap(state);
 }
 
 export function grantReformActions(state) {
-  const month = (state.federal.clock || "").slice(0, 7);
-  if (state.reform_month === month) return;
-  state.reform_month = month;
-  state.reform_actions = reformCap(state);
+  grantAttentionActions(state);
 }
 
 export function expireReformActions(state) {
   state.reform_actions = 0;
+  state.desk_actions = 0;
+  state.attention_left = 0;
 }
 
 function dir(partial) {
@@ -51,8 +53,8 @@ function partyNameForGov(state, unitId) {
 export function reformsFor(state, family) {
   const unitId = state.selectedUnit || "SI";
   const u = state.units[unitId];
-  const none = (state.reform_actions || 0) <= 0;
-  const noneReason = t("reform.none");
+  const none = (state.attention_left != null ? state.attention_left : state.reform_actions || 0) <= 0;
+  const noneReason = t("attention.none") !== "attention.none" ? t("attention.none") : t("reform.none");
   const list = [];
 
   const gateNone = (r) => {
@@ -470,7 +472,8 @@ export function reformsFor(state, family) {
 
 export function applyReform(state, reform, opts = {}) {
   if (reform.blocked) return { ok: false, reason: reform.block_reason };
-  if ((state.reform_actions || 0) <= 0) return { ok: false, reason: t("reform.none") };
+  const attnLeft = state.attention_left != null ? state.attention_left : state.reform_actions || 0;
+  if (attnLeft <= 0) return { ok: false, reason: t("reform.none") };
 
   const gate = requiresMet(state, reform.requires);
   if (!gate.ok) return { ok: false, reason: gate.reason };
@@ -486,7 +489,11 @@ export function applyReform(state, reform, opts = {}) {
     }
   }
 
-  state.reform_actions = Math.max(0, (state.reform_actions || 0) - 1);
+  if (state.attention_left != null) {
+    if (!spendAttention(state, 1)) return { ok: false, reason: t("reform.none") };
+  } else {
+    state.reform_actions = Math.max(0, (state.reform_actions || 0) - 1);
+  }
   applyEffects(state, effects);
 
   if (reform.planned) {

@@ -961,3 +961,82 @@
 .desk-chip.tone-warn { border-color: rgba(162, 75, 46, 0.65); }
 .desk-chip.tone-warn .chip-posture { color: #d4a090; }
 .desk-chip.tone-neutral .chip-posture { color: #b8a888; }
+
+/* Pass 3 — chip overflow + pressure strip + revisit chat */
+.desk-chip-row {
+  max-width: min(520px, 42vw);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(196, 163, 90, 0.45) transparent;
+  -webkit-overflow-scrolling: touch;
+  mask-image: linear-gradient(90deg, #000 0%, #000 calc(100% - 18px), transparent 100%);
+}
+.desk-chip-row::-webkit-scrollbar {
+  height: 4px;
+}
+.desk-chip-row::-webkit-scrollbar-thumb {
+  background: rgba(196, 163, 90, 0.45);
+  border-radius: 2px;
+}
+.desk-chip {
+  flex: 0 0 auto;
+  min-width: 40px;
+  max-width: 52px;
+}
+.pressure-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: stretch;
+  flex: 1 1 100%;
+  max-width: 100%;
+  order: 20;
+  margin-top: 2px;
+  padding-top: 2px;
+  border-top: 1px solid rgba(196, 163, 90, 0.2);
+}
+.pressure-chip {
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+  max-width: 280px;
+  padding: 3px 7px;
+  border: 1px solid rgba(196, 163, 90, 0.35);
+  background: #1e1812;
+  font-size: 10px;
+  line-height: 1.25;
+  color: var(--cream);
+}
+.pressure-chip .pid {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  flex: 0 0 auto;
+}
+.pressure-chip .ptxt {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pressure-chip.sev-critical {
+  border-color: rgba(180, 60, 40, 0.75);
+  background: #2a1510;
+}
+.pressure-chip.sev-critical .pid { color: #e09070; }
+.pressure-chip.sev-warn {
+  border-color: rgba(180, 120, 40, 0.65);
+}
+.pressure-chip.sev-info {
+  border-color: rgba(70, 140, 120, 0.45);
+}
+.choice.revisit-chat {
+  border-style: solid;
+  border-color: rgba(70, 140, 120, 0.55);
+  box-shadow: inset 0 0 0 1px rgba(70, 140, 120, 0.15);
+}
+#agency-strip {
+  flex-wrap: wrap;
+  align-content: flex-start;
+}

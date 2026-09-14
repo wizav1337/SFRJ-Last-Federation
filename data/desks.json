@@ -403,7 +403,7 @@
       "name": "SSUP",
       "name_hr": "Savezni sekretarijat za unutarnje poslove",
       "kind": "secretariat",
-      "briefing": "Savezni unutarnji poslovi i kanal SDB. Meka ili tvrda linija mijenja napetost u HR/BA i putove prema E5.",
+      "briefing": "Savezni unutarnji poslovi i kanal SDB. Meka, promatračka ili tvrda linija mijenja napetost u HR/BA. Uze Predsjedništva nad SDB-om (leash) i dijeljenje dosjea mijenjaju putove prema E3/E5 — nije kazalište rata.",
       "stats": {
         "loyalty": 52,
         "capacity": 48,
@@ -441,6 +441,35 @@
               "ssup_soft_line"
             ],
             "flags_remove": [
+              "ssup_hard_line",
+              "ssup_observe_line"
+            ]
+          }
+        },
+        {
+          "id": "observe_line",
+          "label": "Promatračka postava: SDB bilježi, ne udara.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "ssup": {
+                "posture": "observe"
+              }
+            },
+            "desk_add": {
+              "ssup": {
+                "capacity": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.sdb_control": 3,
+            "HR.interethnic_tension": -1,
+            "flags_add": [
+              "ssup_observe_line"
+            ],
+            "flags_remove": [
               "ssup_hard_line"
             ]
           }
@@ -472,7 +501,8 @@
               "ssup_hard_line"
             ],
             "flags_remove": [
-              "ssup_soft_line"
+              "ssup_soft_line",
+              "ssup_observe_line"
             ]
           }
         },
@@ -487,12 +517,114 @@
             "desk_add": {
               "ssup": {
                 "loyalty": 4
+              },
+              "presidency": {
+                "loyalty": 2
               }
             },
             "federal.sdb_control": 5,
             "federal.presidency_cohesion": 2,
+            "federal.war_risk": -1,
             "flags_add": [
               "sdb_civilian_leash"
+            ]
+          }
+        },
+        {
+          "id": "sdb_leash_tight",
+          "label": "Zategni uze: SDB izvještava Predsjedništvo prije akcije.",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "requires": {
+            "flags": [
+              "sdb_civilian_leash"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "ssup": {
+                "loyalty": 2,
+                "agenda_tension": 4
+              },
+              "presidency": {
+                "capacity": 2
+              }
+            },
+            "federal.sdb_control": 6,
+            "federal.presidency_cohesion": 3,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -2,
+            "flags_add": [
+              "sdb_leash_tight",
+              "sdb_civilian_leash"
+            ],
+            "flags_remove": [
+              "ssup_hard_line"
+            ]
+          }
+        },
+        {
+          "id": "sdb_share_files",
+          "label": "Podijeli dosjee SDB Predsjedništvu (civilni nadzor).",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags": [
+              "sdb_civilian_leash"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "ssup": {
+                "agenda_tension": 5
+              },
+              "presidency": {
+                "loyalty": 3
+              }
+            },
+            "federal.sdb_control": 3,
+            "federal.presidency_cohesion": 2,
+            "SI.federal_trust": 1,
+            "HR.federal_trust": 1,
+            "flags_add": [
+              "sdb_files_shared"
+            ]
+          }
+        },
+        {
+          "id": "ssup_knin_watch",
+          "label": "Tihi nadzor kninske zone — bez racije, s izvješćem.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags": [
+              "krajina_log_revolution"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "ssup": {
+                "posture": "observe"
+              }
+            },
+            "desk_add": {
+              "ssup": {
+                "capacity": 2
+              }
+            },
+            "HR.interethnic_tension": -2,
+            "federal.sdb_control": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "ssup_knin_watch",
+              "ssup_observe_line"
+            ],
+            "flags_remove": [
+              "ssup_hard_line"
             ]
           }
         }

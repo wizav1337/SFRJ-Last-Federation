@@ -168,6 +168,68 @@
           }
         }
       ]
+    },
+    "revisit_may": {
+      "text": "Mesić zna da je 15. svibnja blizu. „Dušan sam uzeti stolac. Blokada je zastoj — i E3 je gotov. Sjedenje nije kapitulacija; zastoj jest. Ako imate potpise, recite to Predsjedništvu prije rotacije.“",
+      "choices": [
+        {
+          "id": "prep_seat",
+          "label": "Pripremi sjedenje i čuvaj kvorum.",
+          "next": null,
+          "effects": {
+            "federal.presidency_cohesion": 3,
+            "charter_signatures_add": 1,
+            "flags_add": [
+              "dialogue_mesic_revisit",
+              "dialogue_mesic_seat",
+              "presidency_quorum_guard",
+              "confederal_talks_open"
+            ],
+            "flags_remove": [
+              "presidency_deadlock"
+            ],
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            }
+          }
+        },
+        {
+          "id": "hint_block",
+          "label": "Drži opciju blokade u rezervi.",
+          "next": null,
+          "effects": {
+            "federal.presidency_cohesion": -3,
+            "HR.secession_readiness": 3,
+            "flags_add": [
+              "dialogue_mesic_revisit",
+              "dialogue_mesic_block"
+            ]
+          }
+        }
+      ]
     }
-  }
+  },
+  "entries": [
+    {
+      "id": "start",
+      "node": "start",
+      "once": true
+    },
+    {
+      "id": "revisit_may",
+      "node": "revisit_may",
+      "once": true,
+      "priority": 2,
+      "require_done": true,
+      "available_from": "1991-03-01",
+      "unlock": {
+        "flags": [
+          "talked_mesic",
+          "hdz_croatia"
+        ]
+      }
+    }
+  ]
 }

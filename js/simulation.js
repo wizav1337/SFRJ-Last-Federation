@@ -29,6 +29,11 @@ export function recomputeWarRisk(state) {
   if (state.flags.nby_fragment_risk) w += 1;
   if (state.flags.dialogue_tudman_hard) w += 2;
   if (state.flags.dialogue_kadijevic_winter) w -= 1;
+  if (state.flags.sdb_civilian_leash) w -= 1;
+  if (state.flags.sdb_leash_tight) w -= 1;
+  if (state.flags.ssup_observe_line) w -= 0.5;
+  if (state.flags.dialogue_kucan_charter) w -= 1;
+  if (state.flags.confederal_stack_memo) w -= 0.5;
   if (state.flags.confederal_talks_open && state.federal.war_risk < 60) w -= 2;
   if (state.flags.markovic_mandate_strong) w -= 1;
   state.federal.war_risk = clamp(w);
@@ -112,6 +117,13 @@ export function buildMonthlyReport(state, before, months) {
   if (state.flags.dialogue_tudman_hard) drivers.push("razgovor s Tuđmanom: tvrda upozorenja");
   if (state.flags.talked_markovic_late) drivers.push("jesenski krug s Markovićem");
   if (state.flags.talked_kadijevic_late) drivers.push("zimski krug s Kadijevićem");
+  if (state.flags.sdb_civilian_leash) drivers.push("SDB na uzetu Predsjedništva");
+  if (state.flags.sdb_leash_tight) drivers.push("SDB: zategnuti civilni nadzor");
+  if (state.flags.sdb_files_shared) drivers.push("dosjei SDB dijeljeni Predsjedništvu");
+  if (state.flags.ssup_observe_line) drivers.push("SSUP u promatračkoj postavi");
+  if (state.flags.confederal_stack_memo) drivers.push("memorandum konfederalnog stoga");
+  if (state.flags.dialogue_kucan_charter) drivers.push("Kučan: potpis na konfederalnoj traci");
+  if (state.flags.dialogue_kucan_revisit) drivers.push("ponovni razgovor s Kučanom");
 
   return {
     months: months || 1,

@@ -1,4 +1,5 @@
 import { t } from "./i18n.js";
+import { confederalStackDepth } from "./desks.js";
 
 /**
  * Slice A does not run the full campaign lock. Early-loss still fires
@@ -180,6 +181,8 @@ function nearMisses(state, wonId) {
     if ((state.charter_signatures || 0) < 4) need.push(t("near.charter", { n: state.charter_signatures || 0 }));
     if (f.war_risk >= 50) need.push(t("near.war", { n: f.war_risk }));
     if (state.flags.presidency_deadlock) need.push(t("near.deadlock"));
+    const stack = confederalStackDepth(state);
+    if (stack < 3) need.push(t("near.stack", { n: stack }));
     if (need.length) misses.push({ id: "E3", title: t("end.E3.title"), need });
   }
   if (wonId !== "E1") {
@@ -225,6 +228,14 @@ function pathNotes(state) {
   if (state.flags.talked_kadijevic_late) notes.push(t("path.talkKadijevicLate"));
   if (state.flags.dialogue_kucan_conf) notes.push(t("path.kucanConf"));
   if (state.flags.dialogue_tudman_hard) notes.push(t("path.tudmanHard"));
+  if (state.flags.sdb_civilian_leash) notes.push(t("path.sdbLeash"));
+  if (state.flags.sdb_leash_tight) notes.push(t("path.sdbTight"));
+  if (state.flags.sdb_files_shared) notes.push(t("path.sdbFiles"));
+  if (state.flags.ssup_observe_line) notes.push(t("path.ssupObserve"));
+  if (state.flags.dialogue_kucan_charter) notes.push(t("path.kucanCharter"));
+  if (state.flags.confederal_stack_memo) notes.push(t("path.confStack"));
+  const stack = confederalStackDepth(state);
+  if (stack >= 3) notes.push(t("path.stackDepth", { n: stack }));
   return notes;
 }
 
@@ -340,6 +351,7 @@ export function evaluateCampaignEnd(state) {
         t("e3.rule"),
         t("reason.charter", { n: state.charter_signatures }),
         t("reason.warMid", { n: f.war_risk }),
+        t("reason.stack", { n: confederalStackDepth(state) }),
       ],
       flavor: t("end.E3.flavor"),
     };
@@ -411,4 +423,87 @@ export function actFiveBrief(state) {
     skj_unity: state.federal.skj_unity,
     war_risk: state.federal.war_risk,
   };
+}
+
+/**
+ * Live near-miss / desk-failure pressure for UI (Pass 3).
+ * Shown when failure modes almost lock an ending — not only on the end card.
+ */
+export function livePressureWarnings(state) {
+  if (!state || state.ended) return [];
+  const f = state.federal;
+  const warnings = [];
+  const clock = f.clock || "";
+
+  // E5 almost: war_risk climbing + hard desks
+  if (f.war_risk >= 70 && f.war_risk < 85) {
+    warnings.push({
+      id: "E5",
+      severity: "critical",
+      text: t("pressure.e5", { n: f.war_risk }),
+    });
+  } else if (f.war_risk >= 55 && (state.flags.jna_mobilization_alert || state.flags.ssup_hard_line || state.flags.presidency_hardline)) {
+    warnings.push({
+      id: "E5",
+      severity: "warn",
+      text: t("pressure.e5desk", { n: f.war_risk }),
+    });
+  }
+
+  // E3 almost locked out by deadlock / hardline
+  if (state.flags.confederal_talks_open && state.flags.presidency_deadlock) {
+    warnings.push({
+      id: "E3",
+      severity: "critical",
+      text: t("pressure.e3deadlock"),
+    });
+  } else if (
+    state.flags.confederal_talks_open &&
+    (state.charter_signatures || 0) >= 2 &&
+    (state.charter_signatures || 0) < 4 &&
+    clock >= "1991-01-01"
+  ) {
+    warnings.push({
+      id: "E3",
+      severity: "info",
+      text: t("pressure.e3charter", { n: state.charter_signatures || 0 }),
+    });
+  } else if (
+    confederalStackDepth(state) >= 3 &&
+    state.flags.confederal_talks_open &&
+    !state.flags.presidency_deadlock &&
+    f.war_risk < 50 &&
+    (state.charter_signatures || 0) < 4 &&
+    clock >= "1990-10-01"
+  ) {
+    warnings.push({
+      id: "E3",
+      severity: "info",
+      text: t("pressure.e3near", { n: confederalStackDepth(state), c: state.charter_signatures || 0 }),
+    });
+  }
+
+  // E2 gravity: Serbian machine + JNA political
+  if (
+    (state.flags.jna_sides_with_serbia || state.flags.jna_political_weight || state.flags.dialogue_kadijevic_serbia) &&
+    (state.units.SI?.secession_readiness || 0) >= 45 &&
+    clock >= "1990-09-01"
+  ) {
+    warnings.push({
+      id: "E2",
+      severity: "warn",
+      text: t("pressure.e2"),
+    });
+  }
+
+  // SDB leash failure mode
+  if (state.flags.ssup_hard_line && !state.flags.sdb_civilian_leash && state.flags.krajina_log_revolution) {
+    warnings.push({
+      id: "SDB",
+      severity: "warn",
+      text: t("pressure.sdb"),
+    });
+  }
+
+  return warnings.slice(0, 3);
 }

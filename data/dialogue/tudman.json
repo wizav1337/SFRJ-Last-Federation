@@ -153,6 +153,75 @@
           }
         }
       ]
+    },
+    "revisit_winter": {
+      "text": "Tuđman ne priča o lipnju kao o ratu. „Sabor je izabran. Ako savezni SSUP/SDB udara tvrdo, Zagreb računa suverenost brže. Ako mediraš i držiš uze, još ima saveznog jezika — konfederalnog, ne unitarnog.“",
+      "choices": [
+        {
+          "id": "tudman_conf",
+          "label": "Pozovi Hrvatsku na konfederalni stol.",
+          "next": null,
+          "effects": {
+            "charter_signatures_add": 1,
+            "HR.federal_trust": 3,
+            "HR.secession_readiness": -2,
+            "flags_add": [
+              "dialogue_tudman_revisit",
+              "dialogue_tudman_mediate",
+              "confederal_talks_open"
+            ],
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              },
+              "ssup": {
+                "posture": "soft"
+              }
+            }
+          }
+        },
+        {
+          "id": "tudman_hard2",
+          "label": "Upozori da Savez još drži silu.",
+          "next": null,
+          "effects": {
+            "HR.federal_trust": -5,
+            "HR.secession_readiness": 4,
+            "federal.war_risk": 3,
+            "flags_add": [
+              "dialogue_tudman_revisit",
+              "dialogue_tudman_hard",
+              "player_used_jna_threat"
+            ],
+            "desk_set": {
+              "jna": {
+                "posture": "alert"
+              }
+            }
+          }
+        }
+      ]
     }
-  }
+  },
+  "entries": [
+    {
+      "id": "start",
+      "node": "start",
+      "once": true
+    },
+    {
+      "id": "revisit_winter",
+      "node": "revisit_winter",
+      "once": true,
+      "priority": 2,
+      "require_done": true,
+      "available_from": "1990-12-01",
+      "unlock": {
+        "flags": [
+          "talked_tudman",
+          "hdz_croatia"
+        ]
+      }
+    }
+  ]
 }
