@@ -77,3 +77,23 @@ Nema borbe, nema Desetodnevnog rata, nema lipanjskih proglašenja kao dovršenog
 
 ## Jezik
 Zadani UI je hrvatski (ijekavica): Predsjedništvo SFRJ, Savezno izvršno vijeće / SIV, Skupština SFRJ, Vijeće republika i pokrajina, Sabor, SR/SAP oblici. Chrome u `data/i18n/hr.json`. Tekst događaja u JSON-u činova.
+
+
+---
+
+## Dodatak — proširenje `expand/slice-a-upgrade`
+
+Nova mirnodopska kartica / logika (sve prije lipnja 1991.; nema čina VI):
+
+| Spis | Datum | Napomena |
+|---|---|---|
+| `multiparty_laws_wave` | 1990-02-20 | Republikanski višestranački zakoni; blagoslov može postaviti `skj_renounced_monopoly`. |
+| `imf_standby` | 1990-03-01 | Marković = predsjednik **SIV-a**; stand-by / dinar. |
+| `customs_war` | 1990-10-22 | Međurepubličke carine nakon suverenosti; nije fronta. |
+| `ec_troika_note` | 1990-12-20 | Nota EZ-a prije plebiscita; nije priznanje. |
+| `pakrac_incident` | 1991-03-02 | Pakrac: stanica, barikade, JNA; briefing kaže da nitko nije poginuo (savezno izvješće). |
+| `belgrade_march91` | 1991-03-09 | Devetomartovski protest; tenkovi u gradu; nije lipanjski rat. |
+
+E3 pravilo **nije** dirano: otvorena povelja + Predsjedništvo koje se može sastati; sjedenje Mesića ≠ blokada.
+
+Simulacija: mjesečni drift sada uključuje trgovinu, MMF, carine, Pakrac/ožujak kao pokretače; mjesečni briefing pokazuje delte. Završni spis dodaje put, near-miss i brojke. Izetbegović–Gligorov i dalje **nije** na travanjskoj kartici.

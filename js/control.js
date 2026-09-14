@@ -18,6 +18,7 @@ export function isOutsideControl(state, id) {
     return true;
   }
   if (u.jna_threatened) return true;
+  if (id === "HR" && state.flags.pakrac_standoff && (u.interethnic_tension || 0) >= 70) return true;
   return false;
 }
 
@@ -34,6 +35,9 @@ function rawControl(state, id) {
   if (state.flags.competence_shifted) n -= 6;
   if (state.flags.markovic_mandate_strong) n += 3;
   if (state.flags.markovic_starved) n -= 2;
+  if (state.flags.customs_war_active) n -= 4;
+  if (state.flags.imf_standby_active && state.flags.markovic_dinar_program) n += 2;
+  if (state.flags.ec_troika_watching) n += 1;
   return n;
 }
 

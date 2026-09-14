@@ -49,11 +49,28 @@ export function showEncyclopedia(game) {
   const agencies = game.catalogs.agencies.agencies
     .map((a) => `<li><strong>${a.name}</strong> — ${a.competence}</li>`)
     .join("");
+  const endings = ["E1", "E2", "E3", "E4", "E5"]
+    .map((id) => `<li><strong>${id}</strong> — ${t("end." + id + ".title")}: ${t("end." + id + ".flavor", { date: "…" })}</li>`)
+    .join("");
+  const timeline = `
+    <li><strong>sij 1990.</strong> — 14. kongres SKJ, odricanje vodeće uloge</li>
+    <li><strong>velj–ožu 1990.</strong> — višestranački zakoni; stand-by / dinar</li>
+    <li><strong>tra–svi 1990.</strong> — izbori SI/HR; rotacija Jović</li>
+    <li><strong>srp–ruj 1990.</strong> — srpski referendum/ustav; balvani; suverenost</li>
+    <li><strong>lis–pro 1990.</strong> — carine; izbori MK/BA/RS–ME; plebiscit SI</li>
+    <li><strong>sij–ožu 1991.</strong> — SIV vs kabineti; razoružanje; Pakrac; 9. ožujak</li>
+    <li><strong>tra–svi 1991.</strong> — konfederalni nacrt; rotacija Mesić; kraj odsječka A</li>`;
   $("ency-body").innerHTML = `
     <p class="kicker" style="color:#8a7340">${t("ency.kicker")}</p>
     <h1>SFRJ 1990</h1>
     <p>${t("ency.p1")}</p>
     <p>${t("ency.p2")}</p>
+    <p>${t("ency.p3")}</p>
+    <h2>${t("ency.timeline")}</h2>
+    <ul class="ency-timeline">${timeline}</ul>
+    <h2>${t("ency.endings")}</h2>
+    <ul>${endings}</ul>
+    <p class="const-note">${t("e3.rule")}</p>
     <h2>${t("ency.units")}</h2>
     <ul>${units}</ul>
     <h2>${t("ency.parties")}</h2>
@@ -100,8 +117,10 @@ export function renderTopbar(game) {
       ).join("")}
     </div>
     ${meter(t("meter.legitimacy"), f.legitimacy)}
+    ${meter(t("meter.siv"), f.siv_authority)}
     ${meter(warHidden ? t("meter.war") : t("meter.incident"), f.war_risk, { hidden: warHidden, warn: !warHidden })}
     ${meter(t("meter.budget"), f.federal_budget)}
+    ${meter(t("meter.reform"), f.reform_momentum)}
     <div class="meter">
       <div class="lbl">${t("meter.presidency", { n: presidencyTally(s) })}</div>
       <div class="seats">${seats}</div>
@@ -168,7 +187,8 @@ export function renderInspector(game) {
       <h2>${u.name}</h2>
       <div class="insp-meta">${u.name_local} · ${t("insp.capital", { c: u.capital })}</div>
       <div class="gov-tag">${t("gov." + u.government_type)}</div>
-      <p class="ctrl-line">${t("insp.control", { n: u.federal_control ?? 0, band: t("ctrl." + controlBand(u.federal_control)) })}</p>
+      <p class="ctrl-line"><span class="ctrl-pip ${controlBand(u.federal_control)}">${t("insp.control", { n: u.federal_control ?? 0, band: t("ctrl." + controlBand(u.federal_control)) })}</span></p>
+      <p class="insp-heat">${t("insp.heatline", { heat: u.nationalist_heat, tension: u.interethnic_tension, trade: game.state.federal.inter_republic_trade })}</p>
     </div>
     <div class="insp-body">
       ${stats}

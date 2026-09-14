@@ -12,7 +12,10 @@
       "location": "SR Srbija — referendum, 1.–2. srpnja 1990.",
       "briefing": "Milošević pita Srbiju hoće li novi republikanski ustav doći prije višestranačkih izbora. Ovo nije usvajanje ustava — ustav, ako dođe, rujanski je spis. Ustav prvo znači da pravila piše sjedeći stroj. Izbori prvo znači da stroj može izgubiti pero. Vojvodina i Kosovo već su u sobi kao srpska pitanja, ne kao savezna. Vi sjedite u Beogradu kao federacija, ne kao Srbija. U Srbiji u proljeće 1990. izbori nisu održani.",
       "constitutional_note": "Republika smije mijenjati svoj ustav. Upotrijebiti tu izmjenu da dokrajči kastriranje pokrajina iz 1989. savezna je činjenica čak i kad je listić republikanski. SPS (Socijalistička partija Srbije) put je Srbije, ne automatski saveznog Predsjedništva.",
-      "documents": ["1974_federation", "1974_provinces"],
+      "documents": [
+        "1974_federation",
+        "1974_provinces"
+      ],
       "choices": [
         {
           "id": "constitution_first",
@@ -27,7 +30,9 @@
             "federal.legitimacy": -3,
             "ME.skj_hold": 3,
             "RS.planned_move": "constitution_first_then_elections",
-            "flags_add": ["serbia_constitution_first"]
+            "flags_add": [
+              "serbia_constitution_first"
+            ]
           }
         },
         {
@@ -70,7 +75,10 @@
       "location": "SAP Kosovo / hodnik Predsjedništva",
       "briefing": "Autonomija iz 1974. na Kosovu već je prerezana 1989. Ne pišite Kosovo kao da je onaj status još netaknut. Ako Srbija piše ustav prije nego itko drugi glasuje, kosovska albanska politika odgovara odsutnošću: bojkot, paralelne škole, proglašenje koje federacija neće pečatirati. Ako još nemate srpski ustavni trag, rana iz 1989. dovoljna je. Savezni odgovor jedino je što stvarno držite: sjedalo, policijski spis, ili rečenicu u Službenom listu. Sjedala SAP Vojvodine i SAP Kosova u Predsjedništvu postoje, ali do 1990. glasaju sa srpskom mašinom osim ako ste stvorili zastavicu koja kaže drugačije.",
       "constitutional_note": "Pokrajine iz 1974. još su savezne jedinice u Predsjedništvu i u Vijeću republika i pokrajina, iako je 1989. ispraznila njihovu autonomiju unutar SR Srbije. Tretirati Kosovo kao unutarnju srpsku općinu ustavna je izmjena čak i kad stigne kao republikanski spis. Sjedalo nije slobodan glumac po defaultu.",
-      "documents": ["1974_provinces", "1974_presidency"],
+      "documents": [
+        "1974_provinces",
+        "1974_presidency"
+      ],
       "choices": [
         {
           "id": "record_boycott",
@@ -83,7 +91,9 @@
             "federal.legitimacy": 3,
             "RS.elite_cohesion": -5,
             "XK.planned_move": "boycott_and_parallel_institutions",
-            "flags_add": ["kosovo_boycott"]
+            "flags_add": [
+              "kosovo_boycott"
+            ]
           }
         },
         {
@@ -100,7 +110,9 @@
             "RS.skj_hold": 4,
             "federal.sdb_control": 3,
             "XK.planned_move": "boycott_under_police_pressure",
-            "flags_add": ["kosovo_boycott"]
+            "flags_add": [
+              "kosovo_boycott"
+            ]
           }
         },
         {
@@ -114,21 +126,29 @@
             "federal.presidency_cohesion": -6,
             "ME.federal_trust": -3,
             "XK.planned_move": "parallel_institutions_seek_federal_ear",
-            "flags_add": ["kosovo_boycott"]
+            "flags_add": [
+              "kosovo_boycott"
+            ]
           }
         },
         {
           "id": "answer_constitution",
           "label": "Odgovori na srpski ustavni trag kao na ranu. Zadrži kosovsko sjedalo ipak.",
           "legal": "constitutional",
-          "requires": { "flags": ["serbia_constitution_first"] },
+          "requires": {
+            "flags": [
+              "serbia_constitution_first"
+            ]
+          },
           "effects": {
             "XK.federal_trust": 5,
             "XK.secession_readiness": 5,
             "RS.elite_cohesion": -4,
             "federal.legitimacy": 2,
             "XK.planned_move": "boycott_and_parallel_institutions",
-            "flags_add": ["kosovo_boycott"]
+            "flags_add": [
+              "kosovo_boycott"
+            ]
           }
         }
       ]
@@ -143,7 +163,10 @@
       "location": "Sjeverna Dalmacija / Lika / Knin — sredina kolovoza 1990.",
       "briefing": "Srpska sela u Hrvatskoj stavila su stabla preko asfalta. Knin je željeznički čvor i politička rečenica. SDS (Srpska demokratska stranka) zove to samozaštitom. Zagreb zove to pobunom. JNA zove to prometnim problemom dok je netko ne zamoli da bude vojska. U ovom spisu nema bitke. Ima balvana, grada, i federacije koja se još pretvara da je cesta savezna.",
       "constitutional_note": "Unutarnji poslovi republikanski su. Savezni promet i vojska nisu. Čistiti cestu s JNA tvrdnja je o nadležnosti. Ostavi li balvane, to je također tvrdnja o nadležnosti.",
-      "documents": ["1974_federation", "all_peoples_defence"],
+      "documents": [
+        "1974_federation",
+        "all_peoples_defence"
+      ],
       "choices": [
         {
           "id": "lift_logs",
@@ -157,7 +180,9 @@
             "HR.federal_trust": -4,
             "federal.legitimacy": 2,
             "HR.planned_move": "knin_roadblocks",
-            "flags_add": ["krajina_log_revolution"]
+            "flags_add": [
+              "krajina_log_revolution"
+            ]
           }
         },
         {
@@ -174,7 +199,10 @@
             "federal.jna_cohesion": 4,
             "HR.jna_presence": 8,
             "HR.planned_move": "knin_roadblocks",
-            "flags_add": ["krajina_log_revolution", "player_used_jna_threat"]
+            "flags_add": [
+              "krajina_log_revolution",
+              "player_used_jna_threat"
+            ]
           }
         },
         {
@@ -186,35 +214,50 @@
             "federal.presidency_cohesion": -3,
             "HR.interethnic_tension": 3,
             "HR.planned_move": "knin_roadblocks",
-            "flags_add": ["krajina_log_revolution", "confederal_talks_open"]
+            "flags_add": [
+              "krajina_log_revolution",
+              "confederal_talks_open"
+            ]
           }
         },
         {
           "id": "leave_zagreb",
           "label": "Nazovi to hrvatskom unutarnjom stvari. Ostavi Saboru asfalt.",
           "legal": "constitutional",
-          "requires": { "flags": ["hdz_croatia"] },
+          "requires": {
+            "flags": [
+              "hdz_croatia"
+            ]
+          },
           "effects": {
             "HR.federal_trust": 6,
             "HR.secession_readiness": 5,
             "federal.legitimacy": -4,
             "HR.minority_fear": 8,
             "HR.planned_move": "knin_roadblocks",
-            "flags_add": ["krajina_log_revolution"]
+            "flags_add": [
+              "krajina_log_revolution"
+            ]
           }
         },
         {
           "id": "use_inventory",
           "label": "Upotrijebi proljetni popis TO. JNA već ima listu. Neka ostane lista.",
           "legal": "presidency_decree",
-          "requires": { "flags": ["to_inventory_ordered"] },
+          "requires": {
+            "flags": [
+              "to_inventory_ordered"
+            ]
+          },
           "effects": {
             "HR.to_control": -6,
             "HR.federal_trust": -6,
             "federal.jna_cohesion": 3,
             "federal.war_risk": 4,
             "HR.planned_move": "knin_roadblocks",
-            "flags_add": ["krajina_log_revolution"]
+            "flags_add": [
+              "krajina_log_revolution"
+            ]
           }
         }
       ]
@@ -229,7 +272,10 @@
       "location": "Skupština SR Slovenije / Sabor SR Hrvatske",
       "briefing": "Ljubljana i Zagreb pišu se kao države koje se još slučajno nalaze u federaciji. DEMOS, ako drži Sloveniju, neće čekati vaše dopuštenje. HDZ, ako drži Sabor, tretirat će tekst iz 1974. kao kostim. Ako DEMOS ne drži, ne pišite da već vlada. Ako HDZ ne drži, ne disciplinirajte hrvatski CK kao da je još vlada. Možete poslati stavke Ustavnom sudu, otvoriti konfederalne razgovore, ili se pretvarati da je Službeni list još dovoljan.",
       "constitutional_note": "Deklaracija suverenosti nije otcjepljenje dok nije. To je tvrdnja o preostaloj nadležnosti. Federacija odgovara nabrajanjem što ostaje savezno, ili nabrajanjem ničega.",
-      "documents": ["1974_federation", "1974_siv"],
+      "documents": [
+        "1974_federation",
+        "1974_siv"
+      ],
       "choices": [
         {
           "id": "court_void",
@@ -259,7 +305,9 @@
             "federal.presidency_cohesion": 4,
             "SI.planned_move": "sovereignty_text_in_assembly",
             "HR.planned_move": "sabor_sovereignty_language",
-            "flags_add": ["confederal_talks_open"]
+            "flags_add": [
+              "confederal_talks_open"
+            ]
           }
         },
         {
@@ -279,7 +327,11 @@
           "id": "ack_demos",
           "label": "Priznaj tekst skupštine DEMOS-a kao slovenski stav, ne kao otcjepljenje.",
           "legal": "political",
-          "requires": { "flags": ["demos_slovenia"] },
+          "requires": {
+            "flags": [
+              "demos_slovenia"
+            ]
+          },
           "effects": {
             "SI.federal_trust": 8,
             "SI.secession_readiness": 3,
@@ -292,7 +344,11 @@
           "id": "ack_hdz",
           "label": "Priznaj tekst Sabora kao jezik suverenosti HDZ-a, ne kao granicu.",
           "legal": "political",
-          "requires": { "flags": ["hdz_croatia"] },
+          "requires": {
+            "flags": [
+              "hdz_croatia"
+            ]
+          },
           "effects": {
             "HR.federal_trust": 6,
             "HR.secession_readiness": 4,
@@ -313,8 +369,15 @@
       "location": "Skupština SR Srbije — 28. rujna 1990.",
       "briefing": "Srpanjski referendum bio je o redu godine. Danas Srbija usvaja novi republikanski ustav. Pokrajine se prazne kao republikanski spis. Ovo nije savezni izbor i nije izbor održan u proljeće. Vi sjedite kao federacija. SPS stroj piše pravila prije listića u prosincu.",
       "constitutional_note": "Republikanski ustav nije savezni statut. Isprazniti SAP Vojvodinu i SAP Kosovo kao unutarnju srpsku stvar mijenja aritmetiku osam iz 1974. čak i kad sjedala u Predsjedništvu ostanu.",
-      "documents": ["1974_federation", "1974_provinces"],
-      "requires": { "flags": ["serbia_constitution_first"] },
+      "documents": [
+        "1974_federation",
+        "1974_provinces"
+      ],
+      "requires": {
+        "flags": [
+          "serbia_constitution_first"
+        ]
+      },
       "choices": [
         {
           "id": "record_gazette",
@@ -325,7 +388,9 @@
             "XK.federal_trust": -4,
             "VO.elite_cohesion": -4,
             "RS.elite_cohesion": 4,
-            "flags_add": ["serbia_new_constitution"]
+            "flags_add": [
+              "serbia_new_constitution"
+            ]
           }
         },
         {
@@ -337,7 +402,9 @@
             "federal.legitimacy": 3,
             "RS.federal_trust": -6,
             "XK.federal_trust": 4,
-            "flags_add": ["serbia_new_constitution"]
+            "flags_add": [
+              "serbia_new_constitution"
+            ]
           }
         },
         {
@@ -349,7 +416,9 @@
             "RS.elite_cohesion": -6,
             "XK.federal_trust": 5,
             "VO.federal_trust": 3,
-            "flags_add": ["serbia_new_constitution"]
+            "flags_add": [
+              "serbia_new_constitution"
+            ]
           }
         }
       ]
@@ -364,7 +433,11 @@
       "location": "Skupština SFRJ — Vijeće republika i pokrajina",
       "briefing": "Savezna Skupština još ima dva vijeća. Vijeće republika i pokrajina može zaustaviti statut time što ne stigne, ne pristane, ili se ne broji kao Jugoslavija. Delegacije koje kod kuće imaju tekstove suverenosti ne žure u Beograd. Delegacije koje imaju novi srpski ustav — ako ste ga dopustili — također ne žure. Paraliza je postupak, ne puč. Ono što je ostalo od SKJ-a ne zapovijeda ovim vijećima.",
       "constitutional_note": "Savezni zakon zahtijeva Skupštinu. Dekret Predsjedništva nije zamjena osim u jeziku za koji vam je već rečeno da je skup. SIV ne može memorandumom vratiti zemlju u jedno tržište.",
-      "documents": ["1974_federation", "1974_siv", "1974_presidency"],
+      "documents": [
+        "1974_federation",
+        "1974_siv",
+        "1974_presidency"
+      ],
       "choices": [
         {
           "id": "force_session",
@@ -394,7 +467,9 @@
             "federal.presidency_cohesion": -6,
             "SI.secession_readiness": 4,
             "HR.secession_readiness": 4,
-            "flags_add": ["player_used_emergency"],
+            "flags_add": [
+              "player_used_emergency"
+            ],
             "SI.planned_move": "bypass_federal_assembly",
             "HR.planned_move": "bypass_federal_assembly",
             "RS.planned_move": "hold_the_chamber"
@@ -419,7 +494,11 @@
           "id": "blame_knin",
           "label": "Imenuj Knin u zapisniku. Vijeće je blokirano cestom, ne samo pravilom.",
           "legal": "political",
-          "requires": { "flags": ["krajina_log_revolution"] },
+          "requires": {
+            "flags": [
+              "krajina_log_revolution"
+            ]
+          },
           "effects": {
             "federal.assembly_function": -8,
             "HR.interethnic_tension": 4,
@@ -427,6 +506,97 @@
             "SI.planned_move": "bypass_federal_assembly",
             "HR.planned_move": "knin_roadblocks",
             "RS.planned_move": "hold_the_chamber"
+          }
+        }
+      ]
+    },
+    {
+      "id": "customs_war",
+      "date": "1990-10-22",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "mandatory",
+      "title": "Carine među republikama",
+      "location": "Granični prijelazi SI–HR–RS · kraj listopada 1990.",
+      "briefing": "Nakon tekstova suverenosti i srpskog ustava, republike postavljaju carinske i sanitetske kontrole kao da je unutarnje tržište strano. Slovenija i Hrvatska štite vlastite knjige. Srbija odgovara. Markovićev dinar gubi smisao ako roba ne prolazi. Možete otvoriti koridore silom propisa, pogoditi se o kvotama, ili priznati da je federacija već carinska unija samo na papiru. Nema fronte. Ima nestašice i ljutnje.",
+      "constitutional_note": "Jedinstveno tržište savezna je nadležnost na papiru iz 1974. Republikanska carina prema drugoj republici nepoštovanje je saveznog okvira — još nije rat.",
+      "documents": [
+        "1974_siv",
+        "1974_federation"
+      ],
+      "choices": [
+        {
+          "id": "open_corridors",
+          "label": "Naredi otvaranje koridora. SIV + NBJ, popis prijelaza, kazne.",
+          "legal": "assembly_statute",
+          "noncompliance_chance": 0.35,
+          "noncompliance_units": [
+            "SI",
+            "HR"
+          ],
+          "effects": {
+            "flags_add": [
+              "customs_war_active"
+            ],
+            "flags_remove": [],
+            "federal.siv_authority": 4,
+            "federal.inter_republic_trade": 6,
+            "federal.legitimacy": 2,
+            "SI.federal_trust": -4,
+            "HR.federal_trust": -3,
+            "RS.elite_cohesion": -3
+          }
+        },
+        {
+          "id": "quota_deal",
+          "label": "Pogodi se o kvotama i prijelaznim režimima. Kupi mjesece.",
+          "legal": "siv",
+          "effects": {
+            "flags_add": [
+              "customs_war_resolved"
+            ],
+            "federal.inter_republic_trade": 4,
+            "federal.reform_momentum": 2,
+            "federal.federal_budget": -3,
+            "SI.federal_trust": 3,
+            "HR.federal_trust": 2,
+            "MK.federal_trust": 2
+          }
+        },
+        {
+          "id": "let_customs",
+          "label": "Pusti carine. Federacija ostaje ime; tržište postaje republikansko.",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "customs_war_active",
+              "competence_shifted"
+            ],
+            "federal.inter_republic_trade": -10,
+            "federal.siv_authority": -6,
+            "federal.inflation": 4,
+            "SI.federal_trust": 4,
+            "HR.federal_trust": 3,
+            "RS.nationalist_heat": 4
+          }
+        },
+        {
+          "id": "jna_escort",
+          "label": "Zatraži JNA kao „pratnju konvoja“. Prijetnja bez bitke.",
+          "legal": "presidency_decree",
+          "noncompliance_chance": 0.4,
+          "noncompliance_unit": "SI",
+          "effects": {
+            "flags_add": [
+              "customs_war_active",
+              "player_used_jna_threat"
+            ],
+            "federal.war_risk": 6,
+            "federal.jna_obedience_to_civilian": -4,
+            "federal.inter_republic_trade": 3,
+            "SI.federal_trust": -8,
+            "HR.federal_trust": -6,
+            "SI.secession_readiness": 5
           }
         }
       ]
@@ -442,7 +612,9 @@
       "location": "Savezni spis / republikanski glavni grad",
       "briefing": "Republika nije izvršila posljednji savezni akt. Službeni list nije garnizon. Možete pregovarati, zanemariti, pritisnuti preko JNA, ili kupiti spis. Ovo nije bitka. To je pitanje opisuje li sljedeća rečenica u Službenom listu još državu.",
       "constitutional_note": "Nepoštovanje republikanska je politička činjenica. Pritisak JNA savezna je vojna činjenica. Ne miješajte ih u zapisniku.",
-      "documents": ["1974_federation"],
+      "documents": [
+        "1974_federation"
+      ],
       "choices": [
         {
           "id": "negotiate",
@@ -474,7 +646,9 @@
             "NC.federal_trust": -10,
             "NC.secession_readiness": 6,
             "federal.legitimacy": -6,
-            "flags_add": ["player_used_jna_threat"]
+            "flags_add": [
+              "player_used_jna_threat"
+            ]
           }
         },
         {

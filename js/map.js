@@ -96,7 +96,7 @@ export function bindMap(onSelect, getState) {
       const stats = u
         ? (getState?.()?.mapMode === "control"
           ? t("map.tip.control", { n: u.federal_control, band: t("ctrl." + controlBand(u.federal_control)) })
-          : t("map.tip", { trust: u.federal_trust, secession: u.secession_readiness }))
+          : t("map.tip", { trust: u.federal_trust, secession: u.secession_readiness, tension: u.interethnic_tension }))
         : t("map.inspect");
       tip.innerHTML = `<strong>${name}</strong><span>${stats}</span>`;
     });
@@ -116,5 +116,5 @@ export function refreshTip(state) {
     `<strong>${u.name}</strong>` +
     `<span>${state.mapMode === "control"
       ? t("map.tip.control", { n: u.federal_control, band: t("ctrl." + controlBand(u.federal_control)) })
-      : t("map.tip", { trust: u.federal_trust, secession: u.secession_readiness })}</span>`;
+      : t("map.tip", { trust: u.federal_trust, secession: u.secession_readiness, tension: u.interethnic_tension })}</span>`;
 }

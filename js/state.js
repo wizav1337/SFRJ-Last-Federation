@@ -75,6 +75,16 @@ export const CORE_FLAGS = [
   "slovenia_federal_reply_failed",
   "sovereignty_texts_filed",
   "federal_observers_si",
+  "multiparty_wave",
+  "imf_standby_active",
+  "customs_war_active",
+  "customs_war_resolved",
+  "pakrac_standoff",
+  "pakrac_defused",
+  "belgrade_march_tanks",
+  "belgrade_march_concession",
+  "arsj_campaign_live",
+  "ec_troika_watching",
   "croatia_act_in_court",
 ];
 
@@ -170,6 +180,8 @@ export function createNewState(catalogs) {
     reform_actions: 0,
     reform_month: "",
     reformFamily: "skj",
+    lastMonthlyReport: null,
+    pressureLog: [],
   };
 }
 

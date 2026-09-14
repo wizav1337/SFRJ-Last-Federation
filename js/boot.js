@@ -130,13 +130,31 @@ function showSlice(slice) {
 function showEndCard(end) {
   const reasons = (end.reasons || []).map((r) => `<li>${r}</li>`).join("");
   const flags = (end.flags || []).join(", ") || "none";
+  const path = (end.path || []).map((r) => `<li>${r}</li>`).join("");
+  const near = (end.near || [])
+    .map((n) => `<li><strong>${n.id} ${n.title}</strong> — ${(n.need || []).join("; ")}</li>`)
+    .join("");
+  const st = end.stats || {};
+  const stats = st.legitimacy != null
+    ? `<p class="end-stats">${t("end.stats", {
+        leg: st.legitimacy,
+        war: st.war_risk,
+        siv: st.siv,
+        ref: st.reform,
+        trade: st.trade,
+        charter: st.charter,
+      })}</p>`
+    : "";
   openModal(`
     <div class="modal wide dark" data-lock="true">
       <p class="kicker">${t("end.kicker", { id: end.id, date: end.date })}</p>
       <h2>${end.title}</h2>
       <p>${end.flavor}</p>
+      ${stats}
       <p><strong>${t("end.what")}</strong></p>
       <ul>${reasons}</ul>
+      ${path ? `<p><strong>${t("end.path")}</strong></p><ul class="path-list">${path}</ul>` : ""}
+      ${near ? `<p><strong>${t("end.near")}</strong></p><ul class="near-list">${near}</ul>` : ""}
       <p class="const-note">${t("end.flags", { flags })}</p>
       <div class="modal-actions"><button class="btn primary" id="modal-close">${t("end.close")}</button></div>
     </div>`);
@@ -170,11 +188,18 @@ function showAftermath(game, { months, ending, election, next }) {
     return;
   }
   if (months > 0) {
+    const rep = game.state.lastMonthlyReport;
+    const lines = (rep?.lines || [])
+      .map((l) => `<li class="drift-${l.tone || "neutral"}">${l.text}</li>`)
+      .join("");
+    const drivers = (rep?.drivers || []).map((d) => `<li>${d}</li>`).join("");
     openModal(`
-      <div class="modal">
+      <div class="modal wide">
         <p class="kicker">${t("drift.kicker")}</p>
         <h2>${game.state.federal.clock.slice(0, 7)}</h2>
         <p>${t("drift.body")}</p>
+        ${lines ? `<p><strong>${t("drift.deltas")}</strong></p><ul class="drift-list">${lines}</ul>` : ""}
+        ${drivers ? `<p><strong>${t("drift.drivers")}</strong></p><ul class="drift-drivers">${drivers}</ul>` : ""}
         <div class="modal-actions"><button class="btn primary" id="modal-close">${t("drift.continue")}</button></div>
       </div>`);
   }
