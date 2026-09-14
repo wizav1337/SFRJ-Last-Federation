@@ -800,3 +800,64 @@
   color: var(--navy);
   background: rgba(196, 163, 90, 0.2);
 }
+
+
+/* ---------- Slice A upgrade polish ---------- */
+
+.ctrl-pip {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 2px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+.ctrl-pip.listen { background: rgba(46, 110, 112, 0.25); color: #9ec9c4; }
+.ctrl-pip.contested { background: rgba(196, 163, 90, 0.2); color: #e0c07a; }
+.ctrl-pip.outside { background: rgba(162, 75, 46, 0.25); color: #e0a090; }
+
+.insp-heat {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: var(--muted, #9a9080);
+  font-family: var(--mono);
+}
+
+.drift-list, .drift-drivers, .path-list, .near-list, .ency-timeline {
+  margin: 6px 0 14px;
+  padding-left: 1.2em;
+  line-height: 1.45;
+}
+.drift-good { color: #8fbf9a; }
+.drift-bad { color: #d09070; }
+.drift-neutral { color: inherit; }
+
+.end-stats {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: #c4a35a;
+  margin: 8px 0 14px;
+}
+
+.ency-card {
+  max-height: 86vh;
+  overflow: auto;
+}
+.ency-card h2 {
+  margin-top: 22px;
+  font-size: 16px;
+  color: var(--gold-bright, #e0c07a);
+}
+
+.map-tip {
+  max-width: 260px;
+}
+.map-tip span {
+  display: block;
+  margin-top: 4px;
+  opacity: 0.9;
+}
+
+#topbar .meter {
+  min-width: 72px;
+}

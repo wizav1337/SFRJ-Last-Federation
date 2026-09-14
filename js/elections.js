@@ -43,6 +43,12 @@ function gravityP(unit, spec, state) {
     p = clamp(p + 4);
     if (spec.gravity === "opposition") p = clamp(p + 6);
   }
+  if (state.flags.arsj_campaign_live) {
+    p = clamp(p - 3);
+  }
+  if (state.flags.ec_troika_watching && (unit.id === "SI" || unit.id === "HR")) {
+    p = clamp(p + 2);
+  }
   if (state.flags.federal_observers_si && unit.id === "SI") p = clamp(p + 5);
   return p;
 }

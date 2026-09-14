@@ -21,12 +21,15 @@ Desktop-first, 1280×720 minimum.
 
 ## What is in the shell
 
-- Title / new game / continue (`localStorage` key `sfrj1990.v1`) / encyclopedia
+- Title / new game / continue (`localStorage` key `sfrj1990.v1`) / encyclopedia (timeline + E1–E5)
 - Map of eight 1990 SFRJ units (republics and provinces). Toggle **Raskol** vs **Savezna kontrola**
-- Unit inspector, agency strip, **Reforme** desk (2 actions per month, 3 if SIV authority ≥ 60)
-- Acts I–V (`data/events/act1.json`–`act5.json`). Vertical Slice A ends 15 May 1991 and locks endings E1–E5
+- Unit inspector with control band, heat/tension, and trade readout
+- Agency strip + **Reforme** desk (2 actions per month, 3 if SIV authority ≥ 60), including trade corridors and IMF review
+- Acts I–V with expanded historically grounded cards (multiparty laws, IMF stand-by, customs war, EC note, Pakrac, 9 March Belgrade). Vertical Slice A ends 15 May 1991 and locks endings E1–E5
+- Monthly drift briefing with cause–effect deltas
 - Presidency vote (5 of 8) on decrees and emergency language
 - Election night: weighted roll; the player does not cast the popular vote
+- Ending dossier: path notes, near-misses for other endings, summary stats
 
 Map borders from Wikimedia Commons *Yugoslavia, administrative divisions* (CC BY 4.0, User:Milenioscuro). Regenerate with `python _geo/build_map.py`.
 
@@ -35,7 +38,7 @@ Map borders from Wikimedia Commons *Yugoslavia, administrative divisions* (CC BY
 ```
 index.html          shell
 css/                tokens + layout
-js/                 boot, events, map, reforms, elections, endings
+js/                 boot, events, map, reforms, elections, endings, simulation
 data/events/        Acts I–V
 data/i18n/hr.json   Croatian UI chrome
 data/               units, parties, agencies, documents

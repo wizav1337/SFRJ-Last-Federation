@@ -330,6 +330,34 @@ const ACT3_AGENDAS = {
   slice_close: {
     _all: {},
   },
+  multiparty_laws_wave: {
+    _all: {
+      SI: "multi_party_law_and_sovereignty_language",
+      HR: "multi_party_law_and_sovereignty_language",
+      MK: "wait_and_bargain_for_equal_republic_status",
+    },
+  },
+  imf_standby: {
+    _all: {},
+  },
+  customs_war: {
+    open_corridors: { SI: "govern_beside_siv", HR: "govern_beside_siv" },
+    quota_deal: { SI: "govern_beside_siv", HR: "govern_beside_siv", MK: "bargain_equal_republic_status" },
+    let_customs: { SI: "bypass_federal_assembly", HR: "bypass_federal_assembly" },
+    jna_escort: { SI: "refuse_or_file_the_disarm_order", HR: "refuse_or_file_the_disarm_order" },
+  },
+  ec_troika_note: {
+    _all: { SI: "confederal_exit_clause", HR: "confederal_residual_sovereignty" },
+  },
+  pakrac_incident: {
+    _all: { HR: "knin_roadblocks", BA: "watch_krajina_spread" },
+  },
+  belgrade_march91: {
+    condemn_tanks: { RS: "opposition_serbia_unfinished" },
+    republic_matter: { RS: "sps_holds_serbia" },
+    use_chaos_talks: { SI: "confederal_exit_clause", HR: "confederal_residual_sovereignty" },
+    back_order: { RS: "sps_holds_serbia", SI: "watch_ljubljana_then_follow" },
+  },
 };
 
 export function applyPlannedMoves(state, event, choice) {

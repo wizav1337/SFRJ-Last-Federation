@@ -161,7 +161,7 @@ export function reformsFor(state, family) {
       blocked: !!state.flags.markovic_starved,
       block_reason: t("reform.skj.srsj.starved"),
       effects: {
-        flags_add: ["markovic_list_founded"],
+        flags_add: ["markovic_list_founded", "arsj_campaign_live"],
         "federal.federal_budget": -5,
         "federal.reform_momentum": 5,
         parties: { arsj: { support: 10 } },
@@ -262,6 +262,48 @@ export function reformsFor(state, family) {
     })));
   }
 
+    list.push(gateNone(dir({
+      id: "siv_trade_corridor",
+      family: "siv",
+      action: "reform",
+      target: "finance",
+      legal: "siv",
+      label: t("reform.siv.corridor"),
+      legitimacy_cost: 3,
+      noncompliance_chance: 0.2,
+      blocked: false,
+      block_reason: "",
+      effects: {
+        flags_add: ["customs_war_resolved"],
+        flags_remove: ["customs_war_active"],
+        "federal.inter_republic_trade": 8,
+        "federal.siv_authority": 3,
+        "federal.hard_currency": 2,
+        "SI.federal_trust": 2,
+        "HR.federal_trust": 2,
+        "MK.federal_trust": 2,
+      },
+    })));
+    list.push(gateNone(dir({
+      id: "siv_imf_review",
+      family: "siv",
+      action: "reform",
+      target: "siv",
+      legal: "siv",
+      label: t("reform.siv.imf"),
+      legitimacy_cost: 2,
+      noncompliance_chance: 0.12,
+      blocked: !state.flags.imf_standby_active,
+      block_reason: t("reform.siv.imf.blocked"),
+      effects: {
+        "federal.imf_pressure": -4,
+        "federal.hard_currency": 3,
+        "federal.reform_momentum": 3,
+        "federal.international_standing": 3,
+        "federal.federal_budget": -2,
+      },
+    })));
+
   if (family === "pret") {
     list.push(gateNone(dir({
       id: "pret_confederal_talks",
@@ -347,6 +389,26 @@ export function reformsFor(state, family) {
       },
     })));
   }
+
+    list.push(gateNone(dir({
+      id: "pret_broadcast",
+      family: "pret",
+      action: "reform",
+      target: "presidency",
+      legal: "political",
+      label: t("reform.pret.broadcast"),
+      legitimacy_cost: 2,
+      noncompliance_chance: 0.15,
+      effects: {
+        "federal.legitimacy": 3,
+        "federal.presidency_cohesion": 2,
+        "SI.yugoslav_identity": 2,
+        "HR.yugoslav_identity": 2,
+        "BA.yugoslav_identity": 2,
+        "MK.yugoslav_identity": 2,
+        "RS.nationalist_heat": -2,
+      },
+    })));
 
   if (family === "force") {
     list.push(gateNone(dir({
