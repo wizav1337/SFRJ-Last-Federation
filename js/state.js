@@ -85,7 +85,47 @@ export const CORE_FLAGS = [
   "belgrade_march_concession",
   "arsj_campaign_live",
   "ec_troika_watching",
-  "croatia_act_in_court",
+    "croatia_act_in_court",
+  "jna_garrison_posture",
+  "jna_mobilization_alert",
+  "jna_political_weight",
+  "jna_civilian_chain",
+  "siv_austerity_stance",
+  "siv_stimulus_stance",
+  "siv_cabinet_pressure",
+  "presidency_mediation_active",
+  "presidency_hardline",
+  "presidency_quorum_guard",
+  "ssup_soft_line",
+  "ssup_hard_line",
+  "sdb_civilian_leash",
+  "ssp_ec_track",
+  "ssp_quiet_demarche",
+  "finance_transfers_open",
+  "finance_transfer_freeze",
+  "finance_imf_aligned",
+  "talked_markovic",
+  "talked_kadijevic",
+  "talked_jovic",
+  "talked_mesic",
+  "talked_drnovsek",
+  "dialogue_markovic_teeth",
+  "dialogue_markovic_starve",
+  "dialogue_kadijevic_civilian",
+  "dialogue_kadijevic_alert",
+  "dialogue_kadijevic_serbia",
+  "dialogue_jovic_bind",
+  "dialogue_jovic_serbia",
+  "dialogue_jovic_defer",
+  "dialogue_mesic_seat",
+  "dialogue_mesic_block",
+  "dialogue_mesic_confederal",
+  "dialogue_drnovsek_invite",
+  "dialogue_drnovsek_pressure",
+  "desk_event_jna_seen",
+  "desk_event_siv_seen",
+  "desk_event_ssup_seen",
+  "desk_event_pret_seen",
 ];
 
 const BOOLEAN_FEDERAL = new Set(["skj_leading_role"]);
@@ -182,6 +222,11 @@ export function createNewState(catalogs) {
     reformFamily: "skj",
     lastMonthlyReport: null,
     pressureLog: [],
+    desks: {},
+    desk_actions: 0,
+    desk_month: "",
+    dialogue_done: [],
+    activeDialogue: null,
   };
 }
 
@@ -212,6 +257,9 @@ export function pathGet(state, path) {
   if (parts[0] === "federal") return state.federal[parts[1]];
   if (parts[0] === "presidency") return state.presidency[parts[1]];
   if (UNIT_IDS.includes(parts[0])) return state.units[parts[0]][parts[1]];
+  if (parts[0] === "desks" && parts[1] && state.desks?.[parts[1]]) {
+    return parts[2] ? state.desks[parts[1]][parts[2]] : state.desks[parts[1]];
+  }
   if (Object.prototype.hasOwnProperty.call(state.federal, parts[0]) && parts.length === 1) {
     return state.federal[parts[0]];
   }

@@ -1,0 +1,132 @@
+{
+  "id": "mesic",
+  "speaker": "Stipe Mesić",
+  "title": "Hrvatski član Predsjedništva (nakon HDZ-a)",
+  "desk": "presidency",
+  "unlock": {
+    "flags": [
+      "hdz_croatia"
+    ]
+  },
+  "nodes": {
+    "start": {
+      "text": "Mesić još nije predsjedatelj — ali već zna da će 15. svibnja 1991. biti dužan sjediti. „Blokada nije sjedenje. Sjedenje drži stolac ispunjenim. Blokada isključuje konfederalni završetak. To nije moja poetika — to je vaša matematika.“",
+      "choices": [
+        {
+          "id": "promise_seat",
+          "label": "Obećaj potporu sjedenju kad dođe red.",
+          "next": "seat",
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "loyalty": 4,
+                "agenda_tension": -3
+              }
+            },
+            "HR.federal_trust": 4,
+            "flags_add": [
+              "talked_mesic",
+              "dialogue_mesic_seat",
+              "presidency_mediation_active"
+            ],
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            }
+          }
+        },
+        {
+          "id": "hint_block",
+          "label": "Nagovijesti da zastoj može biti poluga.",
+          "next": "block",
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "agenda_tension": 9,
+                "loyalty": -5
+              }
+            },
+            "federal.presidency_cohesion": -6,
+            "HR.secession_readiness": 4,
+            "flags_add": [
+              "talked_mesic",
+              "dialogue_mesic_block"
+            ],
+            "desk_set": {
+              "presidency": {
+                "posture": "hardline"
+              }
+            }
+          }
+        },
+        {
+          "id": "confederal",
+          "label": "Traži otvoreni konfederalni stol prije rotacije.",
+          "next": "conf",
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "loyalty": 3
+              }
+            },
+            "federal.legitimacy": 2,
+            "SI.federal_trust": 3,
+            "flags_add": [
+              "talked_mesic",
+              "confederal_talks_open",
+              "slovenia_invited_back",
+              "dialogue_mesic_confederal"
+            ],
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "seat": {
+      "text": "„Dobro. Kad dođe kalendar, sjedit ću ako me ne blokiraju. Zapamtite razliku — E3 je zahtijeva.“",
+      "choices": [
+        {
+          "id": "end_seat",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {
+            "flags_add": [
+              "presidency_quorum_guard"
+            ]
+          }
+        }
+      ]
+    },
+    "block": {
+      "text": "Ne kaže da će blokirati. Kaže da „stolac nije igračka“. Dosje bilježi tvrđi put — bliže zastoju, dalje od E3.",
+      "choices": [
+        {
+          "id": "end_block",
+          "label": "Zatvori.",
+          "next": null,
+          "effects": {
+            "federal.war_risk": 2
+          }
+        }
+      ]
+    },
+    "conf": {
+      "text": "„Stol prije svibnja. Ako potpišemo jezik konfederacije, rotacija nije pogreb.“",
+      "choices": [
+        {
+          "id": "end_conf",
+          "label": "Otvori dosje razgovora.",
+          "next": null,
+          "effects": {
+            "charter_signatures_min": 1
+          }
+        }
+      ]
+    }
+  }
+}

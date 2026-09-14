@@ -7,6 +7,8 @@ import { runElection } from "./elections.js";
 import { applyDirective, needsPresidencyVote } from "./agencies.js";
 import { grantReformActions, expireReformActions, applyReform } from "./reforms.js";
 import { recomputeFederalControl } from "./control.js";
+import { initDesks, grantDeskActions, applyDeskAction } from "./desks.js";
+import { startDialogue, chooseDialogue, abortDialogue } from "./dialogue.js";
 import { setI18n, t } from "./i18n.js";
 import {
   showTitle,
@@ -65,6 +67,8 @@ function enterMain(game) {
   }
   if (ev && ev.desk && ev.desk !== "REPUBLIKE") game.state.desk = ev.desk;
   grantReformActions(game.state);
+  initDesks(game.state, game.catalogs);
+  grantDeskActions(game.state);
   renderAll(game);
 }
 
@@ -72,8 +76,10 @@ function startNew(game) {
   game.state = createNewState(game.catalogs);
   seedQueue(game.state, game.catalogEvents);
   game.state.federal.turn = monthIndex(game.state.federal.clock);
+  initDesks(game.state, game.catalogs);
   recomputeFederalControl(game.state);
   grantReformActions(game.state);
+  grantDeskActions(game.state);
   saveState(game.state);
   game.hasSave = true;
   enterMain(game);
@@ -93,11 +99,18 @@ function continueSave(game) {
   if (game.state.reform_actions == null) game.state.reform_actions = 0;
   if (!game.state.reform_month) game.state.reform_month = "";
   if (!game.state.reformFamily) game.state.reformFamily = "skj";
+  if (!game.state.desks) game.state.desks = {};
+  if (game.state.desk_actions == null) game.state.desk_actions = 0;
+  if (!game.state.desk_month) game.state.desk_month = "";
+  if (!Array.isArray(game.state.dialogue_done)) game.state.dialogue_done = [];
+  if (game.state.activeDialogue === undefined) game.state.activeDialogue = null;
   for (const u of Object.values(game.state.units || {})) {
     if (u.jna_threatened == null) u.jna_threatened = false;
   }
+  initDesks(game.state, game.catalogs);
   recomputeFederalControl(game.state);
   grantReformActions(game.state);
+  grantDeskActions(game.state);
   enterMain(game);
 }
 
@@ -112,6 +125,7 @@ function afterWorldTick(game, previousClock, opts = {}) {
   }
   const ending = evaluateEndings(game.state);
   grantReformActions(game.state);
+  grantDeskActions(game.state);
   saveState(game.state);
   renderAll(game);
   return { months, ending, next };
@@ -319,7 +333,63 @@ function onDirective(game, directive) {
   commitDirective(game, directive, {});
 }
 
+
+function onDeskAction(game, deskId, actionId) {
+  const previousClock = game.state.federal.clock;
+  const result = applyDeskAction(game.state, game.catalogs, deskId, actionId);
+  if (!result.ok) {
+    openModal(`
+      <div class="modal">
+        <h2>${t("vote.unavailable")}</h2>
+        <p>${result.reason}</p>
+        <div class="modal-actions"><button class="btn primary" id="modal-close">${t("ui.close")}</button></div>
+      </div>`);
+    return;
+  }
+  afterWorldTick(game, previousClock, { advanceClock: false });
+  showDirectiveResult({ line: result.line, noncompliance: false });
+}
+
+function onDialogueStart(game, dialogueId) {
+  const def = (game.catalogs.dialogues || []).find((d) => d.id === dialogueId);
+  const result = startDialogue(game.state, def);
+  if (!result.ok) {
+    openModal(`
+      <div class="modal">
+        <h2>${t("dialogue.locked")}</h2>
+        <p>${result.reason || ""}</p>
+        <div class="modal-actions"><button class="btn primary" id="modal-close">${t("ui.close")}</button></div>
+      </div>`);
+    return;
+  }
+  saveState(game.state);
+  // UI module opens the panel via render callback
+  if (typeof game.openDialoguePanel === "function") game.openDialoguePanel();
+}
+
+function onDialogueChoice(game, choiceId) {
+  const previousClock = game.state.federal.clock;
+  const result = chooseDialogue(game.state, game.catalogs, choiceId);
+  if (!result.ok) {
+    openModal(`
+      <div class="modal">
+        <h2>${t("dialogue.none")}</h2>
+        <p>${result.reason || ""}</p>
+        <div class="modal-actions"><button class="btn primary" id="modal-close">${t("ui.close")}</button></div>
+      </div>`);
+    return;
+  }
+  if (result.done) {
+    afterWorldTick(game, previousClock, { advanceClock: false });
+    showDirectiveResult({ line: result.line || t("dialogue.closed", { name: "" }), noncompliance: false });
+    return;
+  }
+  saveState(game.state);
+  if (typeof game.openDialoguePanel === "function") game.openDialoguePanel();
+}
+
 function fillChrome() {
+
   document.documentElement.lang = "hr";
   document.title = t("html.title");
   const bootK = document.querySelector("#screen-boot .kicker");
@@ -357,7 +427,7 @@ async function boot() {
     setI18n(hr, en);
     fillChrome();
 
-    const [units, parties, agencies, act1, act2, act3, act4, act5, documents] = await Promise.all([
+    const [units, parties, agencies, act1, act2, act3, act4, act5, documents, desks, dMarkovic, dKadijevic, dJovic, dMesic, dDrnovsek] = await Promise.all([
       loadJSON("data/units.json"),
       loadJSON("data/parties.json"),
       loadJSON("data/agencies.json"),
@@ -367,9 +437,22 @@ async function boot() {
       loadJSON("data/events/act4.json"),
       loadJSON("data/events/act5.json"),
       loadJSON("data/documents.json"),
+      loadJSON("data/desks.json"),
+      loadJSON("data/dialogue/markovic.json"),
+      loadJSON("data/dialogue/kadijevic.json"),
+      loadJSON("data/dialogue/jovic.json"),
+      loadJSON("data/dialogue/mesic.json"),
+      loadJSON("data/dialogue/drnovsek.json"),
     ]);
 
-    const catalogs = { units, parties, agencies, documents };
+    const catalogs = {
+      units,
+      parties,
+      agencies,
+      documents,
+      desks: desks.desks || desks,
+      dialogues: [dMarkovic, dKadijevic, dJovic, dMesic, dDrnovsek],
+    };
     const catalogEvents = flattenActs([act1, act2, act3, act4, act5]);
 
     const game = {
@@ -385,6 +468,15 @@ async function boot() {
       },
       onReform(reform) {
         onReform(game, reform);
+      },
+      onDeskAction(deskId, actionId) {
+        onDeskAction(game, deskId, actionId);
+      },
+      onDialogueStart(dialogueId) {
+        onDialogueStart(game, dialogueId);
+      },
+      onDialogueChoice(choiceId) {
+        onDialogueChoice(game, choiceId);
       },
     };
 

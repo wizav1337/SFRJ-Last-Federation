@@ -335,6 +335,91 @@
       ]
     },
     {
+      "id": "desk_jna_readiness",
+      "date": "1990-02-25",
+      "act": 1,
+      "desk": "PRET",
+      "priority": "regional",
+      "title": "SSNO: postava JNA na papiru",
+      "location": "Beograd — Savezni sekretarijat za narodnu obranu",
+      "briefing": "Kadijević šalje kratki memo Predsjedništvu: garnizon, pripravnost ili politička težina. Nema bitke — ima postave. Šalter JNA (ako ste ga dirali) već mijenja mjesečni drift; ova kartica to čini vidljivim. Mirnodopski odsječak: nema fronte.",
+      "constitutional_note": "Zapovijedanje oružanim snagama ostaje kod Predsjedništva. SSNO upravlja; ne zamjenjuje civilni lanac.",
+      "documents": [],
+      "choices": [
+        {
+          "id": "keep_garrison",
+          "label": "Ostavi garnizonsku postavu. Kasarne, ne ulice.",
+          "legal": "presidency_decree",
+          "effects": {
+            "desk_set": {
+              "jna": {
+                "posture": "garrison"
+              }
+            },
+            "desk_add": {
+              "jna": {
+                "loyalty": 3,
+                "agenda_tension": -3
+              }
+            },
+            "federal.jna_obedience_to_civilian": 3,
+            "federal.war_risk": -2,
+            "flags_add": [
+              "jna_garrison_posture",
+              "desk_event_jna_seen"
+            ],
+            "flags_remove": [
+              "jna_mobilization_alert",
+              "jna_political_weight"
+            ]
+          }
+        },
+        {
+          "id": "raise_ready",
+          "label": "Podigni pripravnost. Tiho. Bez govora o ratu.",
+          "legal": "presidency_decree",
+          "effects": {
+            "desk_set": {
+              "jna": {
+                "posture": "alert"
+              }
+            },
+            "desk_add": {
+              "jna": {
+                "capacity": 4,
+                "agenda_tension": 5
+              }
+            },
+            "federal.war_risk": 4,
+            "SI.federal_trust": -3,
+            "flags_add": [
+              "jna_mobilization_alert",
+              "desk_event_jna_seen"
+            ],
+            "flags_remove": [
+              "jna_garrison_posture"
+            ]
+          }
+        },
+        {
+          "id": "defer_staff",
+          "label": "Odgodi. Neka štab sam piše raspored vježbi.",
+          "legal": "political",
+          "effects": {
+            "desk_add": {
+              "jna": {
+                "agenda_tension": 2
+              }
+            },
+            "federal.presidency_cohesion": -1,
+            "flags_add": [
+              "desk_event_jna_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "imf_standby",
       "date": "1990-03-01",
       "act": 1,
@@ -398,6 +483,89 @@
             "federal.siv_authority": -4,
             "SI.federal_trust": -3,
             "RS.skj_hold": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_siv_stance",
+      "date": "1990-03-12",
+      "act": 1,
+      "desk": "SIV",
+      "priority": "regional",
+      "title": "SIV: štednja, poticaj ili knjige",
+      "location": "Beograd — Savezno izvršno vijeće",
+      "briefing": "Nakon stand-byja Marković pita Predsjedništvo za stav, ne za krunu. Šalter SIV-a (štednja / poticaj / tehnokrat) već vuče inflaciju i trgovinu u mjesečnom driftu. Ova kartica bira postavu naglas.",
+      "constitutional_note": "Marković je predsjednik SIV-a, ne predsjednik Jugoslavije. Stav SIV-a nije dekret Predsjedništva — ali bez potpore stolca ostaje papir.",
+      "documents": [],
+      "choices": [
+        {
+          "id": "pick_austerity",
+          "label": "Štednja: tvrđi dinar, tanji transferi.",
+          "legal": "assembly_statute",
+          "effects": {
+            "desk_set": {
+              "siv": {
+                "posture": "austerity"
+              }
+            },
+            "federal.inflation": -3,
+            "federal.federal_budget": 2,
+            "flags_add": [
+              "siv_austerity_stance",
+              "desk_event_siv_seen"
+            ],
+            "flags_remove": [
+              "siv_stimulus_stance"
+            ]
+          }
+        },
+        {
+          "id": "pick_stimulus",
+          "label": "Poticaj: koridori i transferi uz mandat.",
+          "legal": "assembly_statute",
+          "effects": {
+            "desk_set": {
+              "siv": {
+                "posture": "stimulus"
+              }
+            },
+            "desk_add": {
+              "siv": {
+                "loyalty": 4
+              }
+            },
+            "federal.inter_republic_trade": 3,
+            "federal.siv_authority": 3,
+            "flags_add": [
+              "siv_stimulus_stance",
+              "markovic_mandate_strong",
+              "desk_event_siv_seen"
+            ],
+            "flags_remove": [
+              "siv_austerity_stance",
+              "markovic_starved"
+            ]
+          }
+        },
+        {
+          "id": "pick_books",
+          "label": "Samo knjige. Tehnokratski stav.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "siv": {
+                "posture": "technocrat"
+              }
+            },
+            "federal.reform_momentum": 3,
+            "flags_add": [
+              "desk_event_siv_seen"
+            ],
+            "flags_remove": [
+              "siv_austerity_stance",
+              "siv_stimulus_stance"
+            ]
           }
         }
       ]

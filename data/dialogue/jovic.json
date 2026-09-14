@@ -1,0 +1,123 @@
+{
+  "id": "jovic",
+  "speaker": "Borisav Jović",
+  "title": "Član Predsjedništva (SR Srbija) / predsjedatelj nakon 15. V 1990.",
+  "desk": "presidency",
+  "unlock": {},
+  "nodes": {
+    "start": {
+      "text": "Jović govori mirno, kao da je kalendar već odlučio. „Rotacija nije Milošević. Rotacija je postupak. Ako postupak pukne, Predsjedništvo više nije organ — nego hodnik.“",
+      "choices": [
+        {
+          "id": "bind_procedure",
+          "label": "Veži postupak: kvorum i medijacija prije sile.",
+          "next": "bind",
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "loyalty": 5,
+                "agenda_tension": -5
+              }
+            },
+            "federal.presidency_cohesion": 6,
+            "flags_add": [
+              "talked_jovic",
+              "presidency_mediation_active",
+              "presidency_quorum_guard",
+              "dialogue_jovic_bind"
+            ],
+            "flags_remove": [
+              "presidency_deadlock"
+            ],
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            }
+          }
+        },
+        {
+          "id": "serbia_first",
+          "label": "Priznaj da Srbija mora držati težinu dok drugi „igraju secesiju“.",
+          "next": "serbia",
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "loyalty": -4,
+                "agenda_tension": 8
+              }
+            },
+            "federal.presidency_cohesion": -5,
+            "RS.skj_hold": 3,
+            "SI.federal_trust": -4,
+            "flags_add": [
+              "talked_jovic",
+              "presidency_hardline",
+              "dialogue_jovic_serbia"
+            ],
+            "desk_set": {
+              "presidency": {
+                "posture": "hardline"
+              }
+            }
+          }
+        },
+        {
+          "id": "defer",
+          "label": "Odgodi. Neka republike same pišu dnevni red.",
+          "next": "defer",
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "capacity": -4,
+                "agenda_tension": 4
+              }
+            },
+            "federal.presidency_cohesion": -3,
+            "flags_add": [
+              "talked_jovic",
+              "dialogue_jovic_defer"
+            ]
+          }
+        }
+      ]
+    },
+    "bind": {
+      "text": "„Pet glasova. Bez pet nema izvanrednog, nema naredbe JNA, nema kazališta. Medijacija je jeftinija od kasarni.“",
+      "choices": [
+        {
+          "id": "end_bind",
+          "label": "Zapiši u dnevnik.",
+          "next": null,
+          "effects": {
+            "federal.war_risk": -1
+          }
+        }
+      ]
+    },
+    "serbia": {
+      "text": "Ne treba mu aplauz. Treba mu da ostali čuju tko još drži pečat. Kohezija Predsjedništva pada; put prema zastoju postaje kraći.",
+      "choices": [
+        {
+          "id": "end_serbia",
+          "label": "Izađi.",
+          "next": null,
+          "effects": {
+            "federal.legitimacy": -2
+          }
+        }
+      ]
+    },
+    "defer": {
+      "text": "Dnevni red ostaje prazan. Republike će ga ispuniti — svaka svojim jezikom.",
+      "choices": [
+        {
+          "id": "end_defer",
+          "label": "Zatvori.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    }
+  }
+}

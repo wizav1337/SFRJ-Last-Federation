@@ -1,0 +1,706 @@
+{
+  "desks": [
+    {
+      "id": "jna",
+      "agency_id": "jna",
+      "name": "JNA",
+      "name_hr": "Jugoslavenska narodna armija",
+      "kind": "force",
+      "briefing": "Savezne oružane snage još formalno slušaju Predsjedništvo. Kohezija, poslušnost civilima i postava (garnizon / pripravnost / politička težina) mjesečno mijenjaju ratni rizik i saveznu kontrolu.",
+      "stats": {
+        "loyalty": 72,
+        "capacity": 78,
+        "agenda_tension": 32
+      },
+      "posture_default": "garrison",
+      "postures": [
+        "garrison",
+        "alert",
+        "political"
+      ],
+      "actions": [
+        {
+          "id": "hold_garrison",
+          "label": "Drži garnizonsku postavu: kasarne, ne ulice.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "jna": {
+                "posture": "garrison"
+              }
+            },
+            "desk_add": {
+              "jna": {
+                "loyalty": 3,
+                "agenda_tension": -4
+              }
+            },
+            "federal.jna_obedience_to_civilian": 3,
+            "federal.war_risk": -2,
+            "flags_add": [
+              "jna_garrison_posture"
+            ],
+            "flags_remove": [
+              "jna_mobilization_alert",
+              "jna_political_weight"
+            ]
+          }
+        },
+        {
+          "id": "raise_alert",
+          "label": "Podigni pripravnost: više ophodnji, manje politike.",
+          "cost": {
+            "reform": 1,
+            "budget": 2
+          },
+          "effects": {
+            "desk_set": {
+              "jna": {
+                "posture": "alert"
+              }
+            },
+            "desk_add": {
+              "jna": {
+                "capacity": 4,
+                "agenda_tension": 6,
+                "loyalty": -2
+              }
+            },
+            "federal.jna_cohesion": 3,
+            "federal.war_risk": 4,
+            "HR.interethnic_tension": 3,
+            "SI.federal_trust": -3,
+            "flags_add": [
+              "jna_mobilization_alert"
+            ],
+            "flags_remove": [
+              "jna_garrison_posture"
+            ]
+          }
+        },
+        {
+          "id": "political_weight",
+          "label": "Politička težina JNA: prisutnost bez otvorene prijetnje.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "jna": {
+                "posture": "political"
+              }
+            },
+            "desk_add": {
+              "jna": {
+                "agenda_tension": 8,
+                "loyalty": -4
+              }
+            },
+            "federal.jna_obedience_to_civilian": -5,
+            "federal.legitimacy": -4,
+            "flags_add": [
+              "jna_political_weight"
+            ],
+            "flags_remove": [
+              "jna_garrison_posture"
+            ]
+          }
+        },
+        {
+          "id": "civilian_chain",
+          "label": "Pojačaj civilni lanac: Predsjedništvo iznad štaba.",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_add": {
+              "jna": {
+                "loyalty": 5,
+                "agenda_tension": -3
+              },
+              "presidency": {
+                "loyalty": 2
+              }
+            },
+            "federal.jna_obedience_to_civilian": 6,
+            "federal.presidency_cohesion": 2,
+            "flags_add": [
+              "jna_civilian_chain"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "siv",
+      "agency_id": "siv",
+      "name": "SIV",
+      "name_hr": "Savezno izvršno vijeće",
+      "kind": "constitutional",
+      "briefing": "Predsjednik SIV-a (Marković) nije predsjednik Jugoslavije. Stav SIV-a (štednja / poticaj / tehnokratski) vuče inflaciju, trgovinu i reformski zamah svakog mjeseca.",
+      "stats": {
+        "loyalty": 58,
+        "capacity": 62,
+        "agenda_tension": 40
+      },
+      "posture_default": "technocrat",
+      "postures": [
+        "technocrat",
+        "austerity",
+        "stimulus"
+      ],
+      "actions": [
+        {
+          "id": "austerity",
+          "label": "Štednja: tvrđi dinar, tanji transferi.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "siv": {
+                "posture": "austerity"
+              }
+            },
+            "desk_add": {
+              "siv": {
+                "agenda_tension": 5,
+                "loyalty": -2
+              }
+            },
+            "federal.inflation": -4,
+            "federal.federal_budget": 3,
+            "federal.reform_momentum": 2,
+            "SI.living_standard": -2,
+            "HR.living_standard": -2,
+            "flags_add": [
+              "siv_austerity_stance"
+            ],
+            "flags_remove": [
+              "siv_stimulus_stance"
+            ]
+          }
+        },
+        {
+          "id": "stimulus",
+          "label": "Poticaj: transferi i jedinstveno tržište.",
+          "cost": {
+            "reform": 1,
+            "budget": 3
+          },
+          "effects": {
+            "desk_set": {
+              "siv": {
+                "posture": "stimulus"
+              }
+            },
+            "desk_add": {
+              "siv": {
+                "loyalty": 4,
+                "capacity": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.inter_republic_trade": 4,
+            "federal.siv_authority": 3,
+            "federal.hard_currency": -2,
+            "flags_add": [
+              "siv_stimulus_stance",
+              "markovic_mandate_strong"
+            ],
+            "flags_remove": [
+              "siv_austerity_stance",
+              "markovic_starved"
+            ]
+          }
+        },
+        {
+          "id": "technocrat",
+          "label": "Tehnokratski stav: knjige, ne govori.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "siv": {
+                "posture": "technocrat"
+              }
+            },
+            "desk_add": {
+              "siv": {
+                "capacity": 4,
+                "agenda_tension": -3
+              }
+            },
+            "federal.siv_authority": 2,
+            "federal.reform_momentum": 3,
+            "flags_remove": [
+              "siv_austerity_stance",
+              "siv_stimulus_stance"
+            ]
+          }
+        },
+        {
+          "id": "starve_cabinets",
+          "label": "Pritisni republikanske kabinete knjigovodstvom (bez JNA).",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_add": {
+              "siv": {
+                "agenda_tension": 6,
+                "loyalty": -3
+              }
+            },
+            "federal.siv_authority": 4,
+            "SI.federal_trust": -4,
+            "HR.federal_trust": -4,
+            "flags_add": [
+              "siv_cabinet_pressure"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "presidency",
+      "agency_id": "presidency",
+      "name": "Predsjedništvo",
+      "name_hr": "Predsjedništvo SFRJ",
+      "kind": "constitutional",
+      "briefing": "Kolektivni šef države. Stolac rotira; kohezija i medijacija mjesečno drže ili kidaju putove E1–E3. Zastoj isključuje E3.",
+      "stats": {
+        "loyalty": 50,
+        "capacity": 55,
+        "agenda_tension": 45
+      },
+      "posture_default": "mediate",
+      "postures": [
+        "mediate",
+        "hardline",
+        "deadlock_risk"
+      ],
+      "actions": [
+        {
+          "id": "mediate",
+          "label": "Medijacija: stol prije tenkova.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            },
+            "desk_add": {
+              "presidency": {
+                "loyalty": 4,
+                "agenda_tension": -5
+              }
+            },
+            "federal.presidency_cohesion": 5,
+            "federal.war_risk": -2,
+            "flags_add": [
+              "presidency_mediation_active"
+            ],
+            "flags_remove": [
+              "presidency_hardline"
+            ]
+          }
+        },
+        {
+          "id": "hardline",
+          "label": "Tvrda linija: jedinstvo prije kompromisa.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "presidency": {
+                "posture": "hardline"
+              }
+            },
+            "desk_add": {
+              "presidency": {
+                "agenda_tension": 7,
+                "loyalty": -3
+              }
+            },
+            "federal.presidency_cohesion": -4,
+            "SI.secession_readiness": 3,
+            "HR.secession_readiness": 3,
+            "flags_add": [
+              "presidency_hardline"
+            ],
+            "flags_remove": [
+              "presidency_mediation_active"
+            ]
+          }
+        },
+        {
+          "id": "keep_quorum",
+          "label": "Drži kvorum: pet od osam, bez zastoja.",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "capacity": 5,
+                "loyalty": 3
+              }
+            },
+            "federal.presidency_cohesion": 4,
+            "federal.assembly_function": 2,
+            "flags_add": [
+              "presidency_quorum_guard"
+            ],
+            "flags_remove": [
+              "presidency_deadlock"
+            ]
+          }
+        },
+        {
+          "id": "open_confederal",
+          "label": "Pozovi konfederalni stol (bez povelje još).",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_not": [
+              "presidency_deadlock"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "agenda_tension": -4,
+                "loyalty": 2
+              }
+            },
+            "federal.legitimacy": 3,
+            "SI.federal_trust": 4,
+            "HR.federal_trust": 3,
+            "flags_add": [
+              "confederal_talks_open",
+              "slovenia_invited_back",
+              "presidency_mediation_active"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ssup",
+      "agency_id": "ssup",
+      "name": "SSUP",
+      "name_hr": "Savezni sekretarijat za unutarnje poslove",
+      "kind": "secretariat",
+      "briefing": "Savezni unutarnji poslovi i kanal SDB. Meka ili tvrda linija mijenja napetost u HR/BA i putove prema E5.",
+      "stats": {
+        "loyalty": 52,
+        "capacity": 48,
+        "agenda_tension": 38
+      },
+      "posture_default": "soft",
+      "postures": [
+        "soft",
+        "hard",
+        "observe"
+      ],
+      "actions": [
+        {
+          "id": "soft_line",
+          "label": "Meka linija: promatrači, ne racije.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "ssup": {
+                "posture": "soft"
+              }
+            },
+            "desk_add": {
+              "ssup": {
+                "loyalty": 3,
+                "agenda_tension": -4
+              }
+            },
+            "HR.interethnic_tension": -3,
+            "BA.interethnic_tension": -2,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "ssup_soft_line"
+            ],
+            "flags_remove": [
+              "ssup_hard_line"
+            ]
+          }
+        },
+        {
+          "id": "hard_line",
+          "label": "Tvrda linija: savezni pritisak na stanice i barikade.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "ssup": {
+                "posture": "hard"
+              }
+            },
+            "desk_add": {
+              "ssup": {
+                "capacity": 4,
+                "agenda_tension": 8,
+                "loyalty": -3
+              }
+            },
+            "HR.interethnic_tension": 5,
+            "HR.federal_trust": -5,
+            "federal.war_risk": 3,
+            "federal.sdb_control": 4,
+            "flags_add": [
+              "ssup_hard_line"
+            ],
+            "flags_remove": [
+              "ssup_soft_line"
+            ]
+          }
+        },
+        {
+          "id": "sdb_leash",
+          "label": "Drži SDB na kratkom uzetu Predsjedništva.",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_add": {
+              "ssup": {
+                "loyalty": 4
+              }
+            },
+            "federal.sdb_control": 5,
+            "federal.presidency_cohesion": 2,
+            "flags_add": [
+              "sdb_civilian_leash"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ssp",
+      "agency_id": "ssp",
+      "name": "SSP",
+      "name_hr": "Savezni sekretarijat za inozemne poslove",
+      "kind": "secretariat",
+      "briefing": "Diplomacija, Nesvrstani, kontakti s EEZ. Vanjski stav mijenja međunarodni položaj i težinu note EZ-a prema E4.",
+      "stats": {
+        "loyalty": 55,
+        "capacity": 50,
+        "agenda_tension": 30
+      },
+      "posture_default": "nonaligned",
+      "postures": [
+        "nonaligned",
+        "ec_track",
+        "isolation"
+      ],
+      "actions": [
+        {
+          "id": "ec_track",
+          "label": "Kolosijek EEZ: nota, ne priznanje.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "ssp": {
+                "posture": "ec_track"
+              }
+            },
+            "desk_add": {
+              "ssp": {
+                "capacity": 4,
+                "agenda_tension": 3
+              }
+            },
+            "federal.international_standing": 5,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "ssp_ec_track",
+              "ec_troika_watching"
+            ]
+          }
+        },
+        {
+          "id": "nonaligned",
+          "label": "Nesvrstani: stari jezik, manje EEZ.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "ssp": {
+                "posture": "nonaligned"
+              }
+            },
+            "desk_add": {
+              "ssp": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.international_standing": 1,
+            "flags_remove": [
+              "ssp_ec_track"
+            ]
+          }
+        },
+        {
+          "id": "quiet_demarche",
+          "label": "Tiha demarša glavnim prijestolnicama o jedinstvenom tržištu.",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_add": {
+              "ssp": {
+                "capacity": 3
+              }
+            },
+            "federal.international_standing": 3,
+            "federal.inter_republic_trade": 2,
+            "flags_add": [
+              "ssp_quiet_demarche"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "finance",
+      "agency_id": "finance",
+      "name": "Financije",
+      "name_hr": "Savezni sekretarijat za financije",
+      "kind": "secretariat",
+      "briefing": "Savezni proračun i transferi. Smrzavanje ili otvaranje fondova vuče životni standard, carine i put Markovića.",
+      "stats": {
+        "loyalty": 54,
+        "capacity": 58,
+        "agenda_tension": 42
+      },
+      "posture_default": "open",
+      "postures": [
+        "open",
+        "freeze",
+        "target"
+      ],
+      "actions": [
+        {
+          "id": "open_transfers",
+          "label": "Otvori transferi: Federalni fond i koridori.",
+          "cost": {
+            "reform": 1,
+            "budget": 2
+          },
+          "effects": {
+            "desk_set": {
+              "finance": {
+                "posture": "open"
+              }
+            },
+            "desk_add": {
+              "finance": {
+                "loyalty": 3,
+                "agenda_tension": -3
+              }
+            },
+            "federal.inter_republic_trade": 3,
+            "MK.living_standard": 2,
+            "BA.living_standard": 2,
+            "ME.living_standard": 1,
+            "flags_add": [
+              "finance_transfers_open"
+            ],
+            "flags_remove": [
+              "finance_transfer_freeze"
+            ]
+          }
+        },
+        {
+          "id": "freeze_transfers",
+          "label": "Smrzni transferi republikama koje ne plaćaju.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "finance": {
+                "posture": "freeze"
+              }
+            },
+            "desk_add": {
+              "finance": {
+                "agenda_tension": 7,
+                "capacity": 2
+              }
+            },
+            "federal.federal_budget": 4,
+            "SI.federal_trust": -5,
+            "HR.federal_trust": -5,
+            "federal.siv_authority": 2,
+            "flags_add": [
+              "finance_transfer_freeze"
+            ],
+            "flags_remove": [
+              "finance_transfers_open"
+            ]
+          }
+        },
+        {
+          "id": "imf_align",
+          "label": "Uskladi knjige sa stand-byjem MMF-a.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags": [
+              "imf_standby_active"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "finance": {
+                "posture": "target"
+              }
+            },
+            "desk_add": {
+              "finance": {
+                "capacity": 5,
+                "loyalty": 2
+              }
+            },
+            "federal.imf_pressure": -4,
+            "federal.hard_currency": 3,
+            "federal.reform_momentum": 3,
+            "flags_add": [
+              "finance_imf_aligned"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

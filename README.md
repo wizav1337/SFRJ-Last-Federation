@@ -25,8 +25,10 @@ Desktop-first, 1280×720 minimum.
 - Map of eight 1990 SFRJ units (republics and provinces). Toggle **Raskol** vs **Savezna kontrola**
 - Unit inspector with control band, heat/tension, and trade readout
 - Agency strip + **Reforme** desk (2 actions per month, 3 if SIV authority ≥ 60), including trade corridors and IMF review
-- Acts I–V with expanded historically grounded cards (multiparty laws, IMF stand-by, customs war, EC note, Pakrac, 9 March Belgrade). Vertical Slice A ends 15 May 1991 and locks endings E1–E5
-- Monthly drift briefing with cause–effect deltas
+- **Šalteri** (department desks): JNA, SIV, Predsjedništvo, SSUP, SSP, Financije — loyalty / capacity / agenda + 2–4 actions each (1–2 desk actions per month). Posture feeds monthly drift and federal control
+- **Razgovori**: branching chats with Marković, Kadijević, Drnovšek, Jović, Mesić (flags + desk stats, not an LLM)
+- Acts I–V with expanded historically grounded cards (multiparty laws, IMF stand-by, customs war, EC note, Pakrac, 9 March Belgrade) plus desk-linked cards (JNA readiness, SIV stance, SSUP after logs, presidency corridor). Vertical Slice A ends 15 May 1991 and locks endings E1–E5
+- Monthly drift briefing with cause–effect deltas (includes desk posture drivers)
 - Presidency vote (5 of 8) on decrees and emergency language
 - Election night: weighted roll; the player does not cast the popular vote
 - Ending dossier: path notes, near-misses for other endings, summary stats
@@ -38,10 +40,24 @@ Map borders from Wikimedia Commons *Yugoslavia, administrative divisions* (CC BY
 ```
 index.html          shell
 css/                tokens + layout
-js/                 boot, events, map, reforms, elections, endings, simulation
+js/                 boot, events, map, reforms, desks, dialogue, elections, endings, simulation
 data/events/        Acts I–V
+data/desks.json     department desk stats + actions
+data/dialogue/      branching institutional chats
 data/i18n/hr.json   Croatian UI chrome
 data/               units, parties, agencies, documents
 assets/map.svg      playable map
 AUDIT.md            historical/logic audit of Slice A
 ```
+
+## Department desks & dialogue
+
+Open **Šalteri** on the agency strip. Each desk shows loyalty, capacity, agenda tension, and posture. Actions spend desk action points (and sometimes budget) and set flags such as `jna_mobilization_alert`, `siv_austerity_stance`, `presidency_mediation_active`. Those flags are read by:
+
+- `js/simulation.js` — `applyDeskMonthlyPosture` inside monthly drift
+- `js/control.js` — federal control modifiers
+- `js/endings.js` — path notes toward E1–E5
+
+Open **Razgovori** for short branching conversations. Choices call the same effect pipeline as event cards (`desk_set` / `desk_add` / `flags_add`).
+
+Default UI language remains Croatian (ijekavica). IDs and flags stay English.

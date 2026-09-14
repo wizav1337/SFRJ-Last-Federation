@@ -17,6 +17,18 @@ import { paintMap, refreshTip } from "./map.js";
 import { idleBrief } from "./endings.js";
 import { controlBand, obeysBelgrade } from "./control.js";
 import { reformsFor, REFORM_FAMILIES, reformCap } from "./reforms.js";
+import {
+  listDesks,
+  deskRuntime,
+  actionsForDesk,
+  deskCap,
+  deskStatusLabel,
+} from "./desks.js";
+import {
+  listDialogues,
+  currentDialogueNode,
+  dialogueDone,
+} from "./dialogue.js";
 
 const EMBLEM = `
 <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
@@ -77,6 +89,11 @@ export function showEncyclopedia(game) {
     <div class="ency-grid"><ul>${parties}</ul></div>
     <h2>${t("ency.organs")}</h2>
     <ul>${agencies}</ul>
+    <h2>${t("ency.desks")}</h2>
+    <ul>${(game.catalogs.desks || []).map((d) => `<li><strong>${d.name_hr || d.name}</strong> — ${d.briefing}</li>`).join("")}</ul>
+    <h2>${t("ency.dialogue")}</h2>
+    <p>${t("ency.dialogueBody")}</p>
+    <ul>${(game.catalogs.dialogues || []).map((d) => `<li><strong>${d.speaker}</strong> — ${d.title}</li>`).join("")}</ul>
     <div class="modal-actions">
       <button class="btn primary" id="ency-back">${t("ency.back")}</button>
     </div>
@@ -216,11 +233,23 @@ export function renderAgencies(game) {
   const list = workshopAgencies(game.state);
   const left = game.state.reform_actions ?? 0;
   const cap = reformCap(game.state);
+  const dLeft = game.state.desk_actions ?? 0;
+  const dCap = deskCap(game.state);
   $("agency-strip").innerHTML =
     `<button class="agency reform-btn" data-reform="1">
         <div class="aid">${t("reform.kicker")}</div>
         <div class="aname">${t("reform.btn")}</div>
         <div class="status-pip active">${t("reform.left", { n: left, cap })}</div>
+      </button>` +
+    `<button class="agency desk-hub-btn" data-desks="1">
+        <div class="aid">${t("desk.hubAid")}</div>
+        <div class="aname">${t("desk.hub")}</div>
+        <div class="status-pip active">${t("desk.left", { n: dLeft, cap: dCap })}</div>
+      </button>` +
+    `<button class="agency chat-hub-btn" data-chat="1">
+        <div class="aid">${t("dialogue.hubAid")}</div>
+        <div class="aname">${t("dialogue.hub")}</div>
+        <div class="status-pip active">${t("dialogue.hubPip")}</div>
       </button>` +
     list
       .map(
@@ -233,9 +262,12 @@ export function renderAgencies(game) {
       )
       .join("");
   $("agency-strip").querySelector("[data-reform]")?.addEventListener("click", () => showReformDesk(game));
+  $("agency-strip").querySelector("[data-desks]")?.addEventListener("click", () => showDeskHub(game));
+  $("agency-strip").querySelector("[data-chat]")?.addEventListener("click", () => showDialogueHub(game));
   $("agency-strip").querySelectorAll("[data-agency]").forEach((btn) => {
     btn.addEventListener("click", () => openAgency(game, btn.getAttribute("data-agency")));
   });
+  game.openDialoguePanel = () => showDialoguePanel(game);
 }
 
 function openAgency(game, id) {
@@ -411,7 +443,131 @@ export function renderEvent(game) {
   });
 }
 
+
+export function showDeskHub(game, focusId) {
+  const catalog = game.catalogs;
+  const desks = listDesks(catalog);
+  const id = focusId || desks[0]?.id || "jna";
+  const def = desks.find((d) => d.id === id);
+  const rt = deskRuntime(game.state, id);
+  if (!def || !rt) return;
+  const switcher = desks
+    .map(
+      (d) =>
+        `<button type="button" class="desk ${d.id === id ? "active" : ""}" data-desk-switch="${d.id}">${d.name}</button>`
+    )
+    .join("");
+  const actions = actionsForDesk(game.state, catalog, id)
+    .map((a) => {
+      const costBits = [];
+      if (a.reformCost) costBits.push(t("desk.costReform", { n: a.reformCost }));
+      if (a.budgetCost) costBits.push(t("desk.costBudget", { n: a.budgetCost }));
+      return `
+        <button class="choice political ${a.blocked ? "blocked" : ""}" data-desk-act="${a.id}" ${a.blocked ? "disabled" : ""}>
+          <span class="legal">${costBits.join(" · ") || t("desk.costFree")}${a.blocked ? " · " + t("event.locked") : ""}</span>
+          <span class="label">${a.blocked ? a.block_reason : a.label}</span>
+        </button>`;
+    })
+    .join("");
+  openModal(`
+    <div class="modal wide desk-modal">
+      <p class="kicker" style="color:#8a7340">${t("desk.kicker")} · ${t("desk.left", { n: game.state.desk_actions || 0, cap: deskCap(game.state) })}</p>
+      <h2>${def.name_hr || def.name}</h2>
+      <p>${def.briefing}</p>
+      <div class="desk-stats">
+        <div class="desk-stat"><span>${t("desk.stat.loyalty")}</span><b>${rt.loyalty}</b><div class="stat-bar"><i style="width:${rt.loyalty}%"></i></div></div>
+        <div class="desk-stat"><span>${t("desk.stat.capacity")}</span><b>${rt.capacity}</b><div class="stat-bar"><i style="width:${rt.capacity}%"></i></div></div>
+        <div class="desk-stat"><span>${t("desk.stat.agenda")}</span><b>${rt.agenda_tension}</b><div class="stat-bar heat"><i style="width:${rt.agenda_tension}%"></i></div></div>
+        <div class="desk-stat posture"><span>${t("desk.stat.posture")}</span><b>${deskStatusLabel(rt.posture)}</b></div>
+      </div>
+      <div class="desks" style="margin:10px 0 14px">${switcher}</div>
+      <div class="event-choices" style="padding:0;grid-template-columns:1fr 1fr">${actions}</div>
+      <p class="const-note">${t("desk.coupling")}</p>
+      <div class="modal-actions"><button class="btn" id="modal-close">${t("workshop.close")}</button></div>
+    </div>
+  `);
+  document.querySelectorAll("[data-desk-switch]").forEach((btn) => {
+    btn.addEventListener("click", () => showDeskHub(game, btn.getAttribute("data-desk-switch")));
+  });
+  document.querySelectorAll("[data-desk-act]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const act = btn.getAttribute("data-desk-act");
+      game.onDeskAction(id, act);
+    });
+  });
+}
+
+export function showDialogueHub(game) {
+  const list = listDialogues(game.catalogs, game.state);
+  const rows = list
+    .map((d) => {
+      const done = dialogueDone(game.state, d.id);
+      return `
+        <button class="choice political ${done ? "done-chat" : ""}" data-dlg="${d.id}">
+          <span class="legal">${d.desk || "—"} · ${done ? t("dialogue.done") : t("dialogue.open")}</span>
+          <span class="label">${d.speaker} — ${d.title}</span>
+        </button>`;
+    })
+    .join("");
+  openModal(`
+    <div class="modal wide">
+      <p class="kicker" style="color:#8a7340">${t("dialogue.kicker")}</p>
+      <h2>${t("dialogue.title")}</h2>
+      <p>${t("dialogue.intro")}</p>
+      <div class="event-choices" style="padding:0;grid-template-columns:1fr">${rows || `<p>${t("dialogue.empty")}</p>`}</div>
+      <div class="modal-actions"><button class="btn" id="modal-close">${t("workshop.close")}</button></div>
+    </div>
+  `);
+  document.querySelectorAll("[data-dlg]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      closeModal();
+      game.onDialogueStart(btn.getAttribute("data-dlg"));
+    });
+  });
+}
+
+export function showDialoguePanel(game) {
+  const cur = currentDialogueNode(game.catalogs, game.state);
+  if (!cur) {
+    showDialogueHub(game);
+    return;
+  }
+  const { def, node } = cur;
+  const choices = (node.choices || [])
+    .map(
+      (c) => `
+      <button class="choice political" data-dlg-choice="${c.id}">
+        <span class="legal">${t("dialogue.reply")}</span>
+        <span class="label">${c.label}</span>
+      </button>`
+    )
+    .join("");
+  openModal(`
+    <div class="modal wide dark dialogue-modal" data-lock="true">
+      <p class="kicker">${def.title}</p>
+      <h2>${def.speaker}</h2>
+      <p class="briefing dialogue-text">${node.text}</p>
+      <div class="event-choices" style="padding:0;grid-template-columns:1fr">${choices}</div>
+      <div class="modal-actions"><button class="btn" id="dlg-abort">${t("dialogue.abort")}</button></div>
+    </div>
+  `);
+  document.querySelectorAll("[data-dlg-choice]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      game.onDialogueChoice(btn.getAttribute("data-dlg-choice"));
+    });
+  });
+  const abort = $("dlg-abort");
+  if (abort) {
+    abort.onclick = () => {
+      game.state.activeDialogue = null;
+      closeModal();
+      renderAll(game);
+    };
+  }
+}
+
 export function openModal(html) {
+
   const root = $("modal-root");
   root.innerHTML = html;
   root.classList.add("open");
