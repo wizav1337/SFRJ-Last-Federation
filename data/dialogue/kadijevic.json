@@ -235,6 +235,70 @@
           }
         }
       ]
+    },
+    "revisit_chain": {
+      "text": "Kadijević govori o lancu zapovijedanja. „Ako SDB i SSUP idu ispred vojske, kasarne postaju političke. Ako Predsjedništvo drži uze i TO koordinaciju, JNA može ostati garnizon — mirnodopski.“",
+      "choices": [
+        {
+          "id": "keep_garrison",
+          "label": "Drži garnizon i civilni lanac.",
+          "next": null,
+          "effects": {
+            "federal.jna_obedience_to_civilian": 4,
+            "federal.war_risk": -2,
+            "flags_add": [
+              "dialogue_kadijevic_civilian",
+              "jna_civilian_chain"
+            ],
+            "desk_set": {
+              "jna": {
+                "posture": "garrison"
+              },
+              "to": {
+                "posture": "coordinate"
+              }
+            }
+          }
+        },
+        {
+          "id": "raise_alert",
+          "label": "Podigni pripravnost — „za red“.",
+          "next": null,
+          "effects": {
+            "federal.war_risk": 3,
+            "federal.jna_cohesion": 2,
+            "flags_add": [
+              "dialogue_kadijevic_alert",
+              "jna_mobilization_alert"
+            ],
+            "desk_set": {
+              "jna": {
+                "posture": "alert"
+              }
+            }
+          }
+        }
+      ]
     }
-  }
+  },
+  "entries": [
+    {
+      "id": "start",
+      "node": "start",
+      "once": true
+    },
+    {
+      "id": "revisit_chain",
+      "node": "revisit_chain",
+      "once": true,
+      "priority": 2,
+      "require_done": true,
+      "available_from": "1990-08-15",
+      "unlock": {
+        "flags": [
+          "talked_kadijevic"
+        ]
+      }
+    }
+  ]
 }

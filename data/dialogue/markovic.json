@@ -193,6 +193,77 @@
           }
         }
       ]
+    },
+    "revisit_autumn": {
+      "text": "Marković — još predsjednik SIV-a, ne „predsjednik Jugoslavije“ — gleda carine i dinar. „Ako šalter Financija/NBJ i SIV dijele pažnju s vojskom, program umire. Trebam prostor za stol, ne još jednu naredbu.“",
+      "choices": [
+        {
+          "id": "protect_siv",
+          "label": "Zaštiti SIV i tvrdi dinar — pažnja na ekonomiju.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 4,
+            "federal.reform_momentum": 3,
+            "federal.inflation": -2,
+            "flags_add": [
+              "dialogue_markovic_revisit",
+              "markovic_mandate_strong",
+              "nby_tight_dinar"
+            ],
+            "desk_set": {
+              "siv": {
+                "posture": "technocrat"
+              },
+              "nby": {
+                "posture": "tight"
+              }
+            }
+          }
+        },
+        {
+          "id": "open_conf_econ",
+          "label": "Veži ekonomski stol uz konfederalni jezik.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 2,
+            "federal.inter_republic_trade": 3,
+            "charter_signatures_add": 1,
+            "flags_add": [
+              "dialogue_markovic_revisit",
+              "confederal_talks_open",
+              "slovenia_invited_back"
+            ],
+            "desk_set": {
+              "siv": {
+                "posture": "stimulus"
+              },
+              "presidency": {
+                "posture": "mediate"
+              }
+            }
+          }
+        }
+      ]
     }
-  }
+  },
+  "entries": [
+    {
+      "id": "start",
+      "node": "start",
+      "once": true
+    },
+    {
+      "id": "revisit_autumn",
+      "node": "revisit_autumn",
+      "once": true,
+      "priority": 2,
+      "require_done": true,
+      "available_from": "1990-08-01",
+      "unlock": {
+        "flags": [
+          "talked_markovic"
+        ]
+      }
+    }
+  ]
 }

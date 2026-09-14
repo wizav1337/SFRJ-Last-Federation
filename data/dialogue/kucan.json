@@ -144,6 +144,129 @@
           }
         }
       ]
+    },
+    "revisit_charter": {
+      "text": "Kučan vraća se na stol. „Poziv nije potpis. Ako hoćete E3 — otvorenu povelju i Predsjedništvo koje se može sastati — trebate još potpisa, ne još inventura. Mogu dovesti još jedan potpis ako Predsjedništvo ostane organ, ne hodnik.“",
+      "choices": [
+        {
+          "id": "take_signature",
+          "label": "Uzmi slovenski potpis i čuvaj kvorum.",
+          "next": null,
+          "effects": {
+            "charter_signatures_add": 1,
+            "federal.presidency_cohesion": 3,
+            "SI.federal_trust": 4,
+            "SI.secession_readiness": -3,
+            "flags_add": [
+              "dialogue_kucan_charter",
+              "dialogue_kucan_revisit",
+              "slovenia_invited_back",
+              "presidency_quorum_guard"
+            ],
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            }
+          }
+        },
+        {
+          "id": "ask_more",
+          "label": "Traži širi stol — i Hrvatsku u sobi.",
+          "next": null,
+          "effects": {
+            "charter_signatures_add": 1,
+            "federal.legitimacy": 2,
+            "HR.federal_trust": 2,
+            "flags_add": [
+              "dialogue_kucan_charter",
+              "dialogue_kucan_revisit",
+              "confederal_talks_open"
+            ],
+            "desk_add": {
+              "presidency": {
+                "loyalty": 2
+              }
+            }
+          }
+        }
+      ]
+    },
+    "revisit_spring": {
+      "text": "Proljeće 1991. Kučan ne spominje lipanj. „Još smo u institucijama. Ako tvrda linija SSUP/JNA raste, Ljubljana će računati kalendar drugačije. Ako držite medijaciju i uze nad SDB, još ima papira za potpisati.“",
+      "choices": [
+        {
+          "id": "spring_mediate",
+          "label": "Obnovi medijaciju i uze — bez prijetnje.",
+          "next": null,
+          "effects": {
+            "federal.war_risk": -2,
+            "federal.presidency_cohesion": 2,
+            "charter_signatures_add": 1,
+            "flags_add": [
+              "dialogue_kucan_revisit",
+              "presidency_mediation_active",
+              "sdb_civilian_leash"
+            ],
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              },
+              "ssup": {
+                "posture": "observe"
+              }
+            }
+          }
+        },
+        {
+          "id": "spring_press",
+          "label": "Pritisni jedinstvo — inventura ostaje na stolu.",
+          "next": null,
+          "effects": {
+            "SI.secession_readiness": 5,
+            "SI.federal_trust": -4,
+            "federal.war_risk": 2,
+            "flags_add": [
+              "dialogue_kucan_revisit",
+              "to_inventory_push"
+            ]
+          }
+        }
+      ]
     }
-  }
+  },
+  "entries": [
+    {
+      "id": "start",
+      "node": "start",
+      "once": true
+    },
+    {
+      "id": "revisit_charter",
+      "node": "revisit_charter",
+      "once": true,
+      "priority": 2,
+      "require_done": true,
+      "available_from": "1990-10-01",
+      "unlock": {
+        "flags": [
+          "dialogue_kucan_conf",
+          "confederal_talks_open"
+        ]
+      }
+    },
+    {
+      "id": "revisit_spring",
+      "node": "revisit_spring",
+      "once": true,
+      "priority": 3,
+      "require_done": true,
+      "available_from": "1991-02-01",
+      "unlock": {
+        "flags": [
+          "talked_kucan"
+        ]
+      }
+    }
+  ]
 }

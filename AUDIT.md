@@ -151,3 +151,42 @@ E3 pravilo **nije** dirano. `player_used_jna_threat` na razgovoru s Kadijevićem
 ### Ekonomija pažnje
 
 1–2 akcije šaltera mjesečno za osam šaltera; soft-block iste postave; reforme ostaju odvojeni bazen (2–3). Nema trivialnog spama.
+
+---
+
+## Dodatak — Pass 3 `expand/pass3-depth`
+
+Višestruki posjeti razgovorima; zajednička pažnja reforme↔šalteri; produbljeni SSUP/SDB uze; jači konfederalni stog za E3; upozorenja blizu ishoda na traci; nove kartice činova 2–5; `save_schema` 3; djelomični `en.json`.
+
+### Nova / proširena kartica
+
+| Spis | Datum | Napomena |
+|---|---|---|
+| `desk_ssup_election_season` | 1990-04-18 | SSUP pred SI izborima; meka/promatrač/tvrdo; nije fronta |
+| `desk_presidency_after_votes` | 1990-05-20 | Medijacija/kvorum/konfederalni jezik nakon listića |
+| `desk_sdb_sovereignty_watch` | 1990-09-28 | SDB nakon suverenosti/balvana; dosjei / Knin / tvrdo |
+| `confederal_stack_memo` | 1990-10-12 | Zahtijeva Kučan/Jović/stol; **nije** Izetbegović–Gligorov |
+| `desk_ssup_before_pleb` | 1990-12-15 | SSUP pred savjetodavnim plebiscitom |
+| `desk_presidency_before_pleb` | 1990-12-18 | Potpis/kvorum pred plebiscitom; E3 pravilo ponovljeno |
+| `desk_sdb_leash_may` | 1991-04-22 | Uze SDB pred svibanjskom rotacijom |
+
+### Razgovori (multi-visit)
+
+- `entries` + `dialogue_visits`: Kučan (charter / proljeće), Jović (stog), Marković (jesen), Mesić (pred svibanj), Tuđman (zima), Kadijević (lanac)
+- `charter_signatures_add` gradi potpise uz postojeći `charter_signatures` / `_min`
+- `player_used_jna_threat` na tvrdoj grani Tuđmana ostaje namjerno
+
+### SSUP / SDB
+
+Nove akcije: promatračka postava, zategnuti uze, dijeljenje dosjea, tihi nadzor Knina. Mjesečni drift i ratni rizik čitaju `sdb_civilian_leash` / `sdb_leash_tight` / `ssup_observe_line`.
+
+### Ekonomija pažnje
+
+Zajednički mjesečni bazen: **3** (4 ako SIV ≥ 60). Reforme i šalteri troše isti `attention_left`. Nema odvojenog spama.
+
+### Pravila koja nisu dirana
+
+- E3: otvorena povelja (≥4) + Predsjedništvo koje se može sastati; sjedenje Mesića ≠ blokada
+- Nema čina VI; nema lipanjskog rata; Izetbegović–Gligorov nije na travanjskoj kartici
+- Marković = predsjednik **SIV-a**
+- ID-ovi i zastavice engleski; UI hrvatski

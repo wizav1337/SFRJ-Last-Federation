@@ -739,6 +739,96 @@
       ]
     },
     {
+      "id": "desk_sdb_leash_may",
+      "date": "1991-04-22",
+      "act": 5,
+      "desk": "SSUP",
+      "priority": "optional",
+      "title": "Uze SDB pred svibanjskom rotacijom",
+      "location": "SSUP / Predsjedništvo",
+      "briefing": "Prije 15. svibnja Predsjedništvo može zategnuti uze nad SDB-om ili pustiti tvrdu liniju. Ishod mijenja napetost i kvorum — ne otvara lipanjski rat. Marković ostaje predsjednik SIV-a.",
+      "constitutional_note": "Sjedenje Mesića ≠ zastoj. Blokada isključuje E3. Civilni nadzor SDB-a podupire organ koji se može sastati.",
+      "documents": [
+        "1974_presidency"
+      ],
+      "requires": {
+        "flags_any": [
+          "sdb_civilian_leash",
+          "ssup_observe_line",
+          "ssup_soft_line",
+          "ssup_hard_line"
+        ],
+        "flags_not": [
+          "desk_event_sdb_may_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "tighten",
+          "label": "Zategni uze: SDB izvještava prije akcije.",
+          "legal": "political",
+          "effects": {
+            "federal.sdb_control": 5,
+            "federal.presidency_cohesion": 3,
+            "federal.war_risk": -2,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "desk_event_sdb_may_seen",
+              "sdb_leash_tight",
+              "sdb_civilian_leash"
+            ],
+            "desk_set": {
+              "ssup": {
+                "posture": "observe"
+              }
+            }
+          }
+        },
+        {
+          "id": "share",
+          "label": "Podijeli dosjee i drži meku liniju.",
+          "legal": "political",
+          "effects": {
+            "federal.sdb_control": 3,
+            "HR.interethnic_tension": -2,
+            "flags_add": [
+              "desk_event_sdb_may_seen",
+              "sdb_files_shared",
+              "sdb_civilian_leash",
+              "ssup_soft_line"
+            ],
+            "desk_set": {
+              "ssup": {
+                "posture": "soft"
+              }
+            }
+          }
+        },
+        {
+          "id": "release_hard",
+          "label": "Pusti tvrdu liniju pred rotacijom.",
+          "legal": "extra_constitutional",
+          "effects": {
+            "federal.war_risk": 4,
+            "HR.interethnic_tension": 4,
+            "federal.presidency_cohesion": -3,
+            "flags_add": [
+              "desk_event_sdb_may_seen",
+              "ssup_hard_line"
+            ],
+            "flags_remove": [
+              "sdb_leash_tight"
+            ],
+            "desk_set": {
+              "ssup": {
+                "posture": "hard"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
       "id": "croatian_chair_skh",
       "date": "1991-05-15",
       "act": 5,

@@ -3,6 +3,87 @@
   "title": "Prvi izbori",
   "events": [
     {
+      "id": "desk_ssup_election_season",
+      "date": "1990-04-18",
+      "act": 2,
+      "desk": "SSUP",
+      "priority": "optional",
+      "title": "SSUP pred listićima",
+      "location": "SSUP / SDB — Beograd; promatračke točke Ljubljana / Zagreb",
+      "briefing": "Izbori u Sloveniji za nekoliko dana; Hrvatska uskoro. SSUP može držati meku/promatračku liniju, poslati SDB u brojanje (skupo politički), ili ostaviti republikansku miliciju na miru. Nije fronta. Marković ostaje predsjednik SIV-a, ne zapovjednik unutarnjih poslova.",
+      "constitutional_note": "Savezna milicija i SDB nisu birački odbor. Upadi u brojanje su izvanredni čak kad su tihi. Kučan, ako pobijedi, ne zapovijeda JNA.",
+      "documents": [
+        "1974_federation"
+      ],
+      "requires": {
+        "flags_not": [
+          "desk_event_ssup_election_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "observe",
+          "label": "Promatračka postava: bilježi, ne dira listiće.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssup": {
+                "posture": "observe"
+              }
+            },
+            "federal.sdb_control": 2,
+            "federal.legitimacy": 2,
+            "SI.federal_trust": 2,
+            "flags_add": [
+              "desk_event_ssup_election_seen",
+              "ssup_election_watch",
+              "ssup_observe_line",
+              "sdb_civilian_leash"
+            ]
+          }
+        },
+        {
+          "id": "soft",
+          "label": "Meka linija: ostavi republikansku miliciju.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssup": {
+                "posture": "soft"
+              }
+            },
+            "HR.interethnic_tension": -1,
+            "SI.federal_trust": 1,
+            "flags_add": [
+              "desk_event_ssup_election_seen",
+              "ssup_soft_line"
+            ]
+          }
+        },
+        {
+          "id": "hard_count",
+          "label": "Pošalji SDB bliže brojanju — „red“.",
+          "legal": "extra_constitutional",
+          "effects": {
+            "desk_set": {
+              "ssup": {
+                "posture": "hard"
+              }
+            },
+            "federal.legitimacy": -4,
+            "federal.war_risk": 2,
+            "SI.federal_trust": -5,
+            "HR.federal_trust": -3,
+            "flags_add": [
+              "desk_event_ssup_election_seen",
+              "ssup_hard_line",
+              "player_used_purge"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "slovenia_election",
       "date": "1990-04-22",
       "act": 2,
@@ -194,6 +275,86 @@
             "SI.federal_trust": 4,
             "flags_add": [
               "presidency_deadlock"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_presidency_after_votes",
+      "date": "1990-05-20",
+      "act": 2,
+      "desk": "PRET",
+      "priority": "optional",
+      "title": "Hodnik Predsjedništva nakon listića",
+      "location": "Predsjedništvo SFRJ, Beograd",
+      "briefing": "Rotacija Jovića je pala ili pada. DEMOS i HDZ (ako su pobijedili) više nisu „opozicija u čekanju“. Predsjedništvo može medirati, zatvrditi liniju, ili čuvati kvorum za kasniji konfederalni stol. E3: otvorena povelja + organ koji se može sastati; sjedenje ≠ zastoj.",
+      "constitutional_note": "Pet glasova za izvanredne mjere. Zastoj Predsjedništva isključuje E3. Sjedenje hrvatskog člana nije blokada.",
+      "documents": [
+        "1974_presidency"
+      ],
+      "requires": {
+        "flags_any": [
+          "slovenia_election_held",
+          "croatia_election_held"
+        ]
+      },
+      "choices": [
+        {
+          "id": "mediate",
+          "label": "Medijacija i kvorum — stol ostaje otvoren.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            },
+            "federal.presidency_cohesion": 4,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "presidency_mediation_active",
+              "presidency_quorum_guard"
+            ],
+            "flags_remove": [
+              "presidency_deadlock"
+            ]
+          }
+        },
+        {
+          "id": "hardline",
+          "label": "Tvrda linija: republike ne smiju „igrati secesiju“.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "presidency": {
+                "posture": "hardline"
+              }
+            },
+            "federal.presidency_cohesion": -4,
+            "SI.secession_readiness": 3,
+            "HR.secession_readiness": 3,
+            "flags_add": [
+              "presidency_hardline"
+            ]
+          }
+        },
+        {
+          "id": "open_conf",
+          "label": "Otvori konfederalni jezik već sada.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            },
+            "charter_signatures_add": 1,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "confederal_talks_open",
+              "slovenia_invited_back",
+              "presidency_mediation_active"
             ]
           }
         }

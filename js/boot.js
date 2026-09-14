@@ -7,7 +7,7 @@ import { runElection } from "./elections.js";
 import { applyDirective, needsPresidencyVote } from "./agencies.js";
 import { grantReformActions, expireReformActions, applyReform } from "./reforms.js";
 import { recomputeFederalControl } from "./control.js";
-import { initDesks, grantDeskActions, applyDeskAction } from "./desks.js";
+import { initDesks, grantDeskActions, grantAttentionActions, applyDeskAction } from "./desks.js";
 import { startDialogue, chooseDialogue, abortDialogue } from "./dialogue.js";
 import { setI18n, t } from "./i18n.js";
 import {
@@ -103,9 +103,14 @@ function continueSave(game) {
   if (game.state.desk_actions == null) game.state.desk_actions = 0;
   if (!game.state.desk_month) game.state.desk_month = "";
   if (!Array.isArray(game.state.dialogue_done)) game.state.dialogue_done = [];
+  if (!game.state.dialogue_visits || typeof game.state.dialogue_visits !== "object") {
+    game.state.dialogue_visits = {};
+  }
   if (game.state.activeDialogue === undefined) game.state.activeDialogue = null;
-  if (game.state.save_schema == null || game.state.save_schema < 2) {
-    game.state.save_schema = 2; // Pass 2: TO/NBJ desks + late dialogues
+  if (game.state.attention_left == null) game.state.attention_left = game.state.reform_actions || 0;
+  if (!game.state.attention_month) game.state.attention_month = game.state.reform_month || "";
+  if (game.state.save_schema == null || game.state.save_schema < 3) {
+    game.state.save_schema = 3; // Pass 3: shared attention + multi-visit dialogue
   }
   for (const u of Object.values(game.state.units || {})) {
     if (u.jna_threatened == null) u.jna_threatened = false;

@@ -44,6 +44,12 @@ export function requiresMet(state, requires) {
       if (missing.length) return { ok: false, reason: t("req.flags", { flags: missing.join(", ") }) };
       continue;
     }
+    if (path === "flags_any" && Array.isArray(need)) {
+      if (!need.some((f) => state.flags[f])) {
+        return { ok: false, reason: t("req.flagsAny", { flags: need.join(", ") }) };
+      }
+      continue;
+    }
     if (path === "flags_not" && Array.isArray(need)) {
       const present = need.filter((f) => state.flags[f]);
       if (present.length) return { ok: false, reason: t("req.flagsNot", { flags: present.join(", ") }) };
@@ -247,6 +253,19 @@ export function applyEffects(state, effects) {
     if (key === "charter_signatures_min") {
       state.charter_signatures = Math.max(state.charter_signatures || 0, Math.round(Number(value)));
       applied.push(`charter_signatures≥${state.charter_signatures}`);
+      continue;
+    }
+    if (key === "charter_signatures_add") {
+      let n = (state.charter_signatures || 0) + Math.round(Number(value));
+      const inviting =
+        (Array.isArray(effects.flags_add) && effects.flags_add.includes("slovenia_invited_back")) ||
+        !!state.flags.slovenia_invited_back;
+      const gone =
+        (state.flags.slovenia_left_institutions || state.flags.independence_slovenia_declared) &&
+        !inviting;
+      if (gone && Number(value) > 0) n -= 1;
+      state.charter_signatures = Math.max(0, Math.min(8, n));
+      applied.push(`charter_signatures+=${value}→${state.charter_signatures}`);
       continue;
     }
     pathAdd(state, key, value);

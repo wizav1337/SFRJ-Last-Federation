@@ -160,6 +160,74 @@
           }
         }
       ]
+    },
+    "revisit_stack": {
+      "text": "Jović gleda kalendar. „Konfederalni jezik nije kapitulacija ako Predsjedništvo još sjedi. Ako Kučan i Marković vuku potpise, Srbija može sjesti — ili zatvoriti stol zastojem. Vi birate postupak.“",
+      "choices": [
+        {
+          "id": "keep_quorum",
+          "label": "Drži kvorum i otvori put potpisima.",
+          "next": null,
+          "effects": {
+            "charter_signatures_add": 1,
+            "federal.presidency_cohesion": 4,
+            "flags_add": [
+              "dialogue_jovic_revisit",
+              "presidency_quorum_guard",
+              "confederal_talks_open",
+              "dialogue_jovic_conf"
+            ],
+            "flags_remove": [
+              "presidency_deadlock"
+            ],
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            }
+          }
+        },
+        {
+          "id": "serbia_weight",
+          "label": "Neka Srbija drži težinu — stol može čekati.",
+          "next": null,
+          "effects": {
+            "federal.presidency_cohesion": -4,
+            "RS.elite_cohesion": 3,
+            "flags_add": [
+              "dialogue_jovic_revisit",
+              "presidency_hardline"
+            ],
+            "desk_set": {
+              "presidency": {
+                "posture": "hardline"
+              }
+            }
+          }
+        }
+      ]
     }
-  }
+  },
+  "entries": [
+    {
+      "id": "start",
+      "node": "start",
+      "once": true
+    },
+    {
+      "id": "revisit_stack",
+      "node": "revisit_stack",
+      "once": true,
+      "priority": 2,
+      "require_done": true,
+      "available_from": "1990-09-01",
+      "unlock": {
+        "flags_any": [
+          "dialogue_jovic_bind",
+          "dialogue_jovic_conf",
+          "talked_jovic"
+        ]
+      }
+    }
+  ]
 }

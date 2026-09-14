@@ -14,7 +14,7 @@ import {
   needsPresidencyVote,
 } from "./agencies.js";
 import { paintMap, refreshTip } from "./map.js";
-import { idleBrief } from "./endings.js";
+import { idleBrief, livePressureWarnings } from "./endings.js";
 import { controlBand, obeysBelgrade } from "./control.js";
 import { reformsFor, REFORM_FAMILIES, reformCap } from "./reforms.js";
 import {
@@ -24,11 +24,15 @@ import {
   deskCap,
   deskStatusLabel,
   deskStatusChips,
+  attentionCap,
+  confederalStackDepth,
 } from "./desks.js";
 import {
   listDialogues,
   currentDialogueNode,
   dialogueDone,
+  dialogueHubStatus,
+  dialogueVisitCount,
 } from "./dialogue.js";
 
 const EMBLEM = `
@@ -95,7 +99,12 @@ export function showEncyclopedia(game) {
     <ul>${(game.catalogs.desks || []).map((d) => `<li><strong>${d.name_hr || d.name}</strong> (${(d.postures || []).join(" / ")}) — ${d.briefing}</li>`).join("")}</ul>
     <h2>${t("ency.dialogue")}</h2>
     <p>${t("ency.dialogueBody")}</p>
-    <ul>${(game.catalogs.dialogues || []).map((d) => `<li><strong>${d.speaker}</strong> — ${d.title}${d.available_from ? " · od " + d.available_from : ""}</li>`).join("")}</ul>
+    <ul>${(game.catalogs.dialogues || []).map((d) => `<li><strong>${d.speaker}</strong> — ${d.title}${d.available_from ? " · od " + d.available_from : ""}${(d.entries || []).length > 1 ? " · " + t("ency.revisit") : ""}</li>`).join("")}</ul>
+    <h2>${t("ency.attention")}</h2>
+    <p>${t("ency.attentionBody")}</p>
+    <h2>${t("ency.e3path")}</h2>
+    <p>${t("ency.e3pathBody")}</p>
+    <p class="const-note">${t("e3.rule")}</p>
     <p class="const-note">${t("ency.electionCoupling")}</p>
     <div class="modal-actions">
       <button class="btn primary" id="ency-back">${t("ency.back")}</button>
@@ -234,10 +243,19 @@ export function renderInspector(game) {
 
 export function renderAgencies(game) {
   const list = workshopAgencies(game.state);
-  const left = game.state.reform_actions ?? 0;
-  const cap = reformCap(game.state);
-  const dLeft = game.state.desk_actions ?? 0;
-  const dCap = deskCap(game.state);
+  const attnLeft = game.state.attention_left != null ? game.state.attention_left : (game.state.reform_actions ?? 0);
+  const attnCap = attentionCap(game.state);
+  const left = attnLeft;
+  const cap = attnCap;
+  const dLeft = attnLeft;
+  const dCap = attnCap;
+  const pressure = livePressureWarnings(game.state)
+    .map(
+      (w) =>
+        `<div class="pressure-chip sev-${w.severity}" title="${w.id}"><span class="pid">${w.id}</span><span class="ptxt">${w.text}</span></div>`
+    )
+    .join("");
+  const stack = confederalStackDepth(game.state);
   const chips = deskStatusChips(game.state, game.catalogs)
     .map(
       (c) =>
@@ -248,15 +266,15 @@ export function renderAgencies(game) {
     )
     .join("");
   $("agency-strip").innerHTML =
-    `<button class="agency reform-btn" data-reform="1">
+    `<button class="agency reform-btn" data-reform="1" title="${t("attention.tip")}">
         <div class="aid">${t("reform.kicker")}</div>
         <div class="aname">${t("reform.btn")}</div>
-        <div class="status-pip active">${t("reform.left", { n: left, cap })}</div>
+        <div class="status-pip active">${t("attention.left", { n: left, cap })}</div>
       </button>` +
-    `<button class="agency desk-hub-btn" data-desks="1">
+    `<button class="agency desk-hub-btn" data-desks="1" title="${t("attention.tip")}">
         <div class="aid">${t("desk.hubAid")}</div>
         <div class="aname">${t("desk.hub")}</div>
-        <div class="status-pip active">${t("desk.left", { n: dLeft, cap: dCap })}</div>
+        <div class="status-pip active">${t("attention.shared", { n: dLeft, cap: dCap })}</div>
       </button>` +
     `<button class="agency chat-hub-btn" data-chat="1">
         <div class="aid">${t("dialogue.hubAid")}</div>
@@ -264,6 +282,13 @@ export function renderAgencies(game) {
         <div class="status-pip active">${t("dialogue.hubPip")}</div>
       </button>` +
     `<div class="desk-chip-row" aria-label="${t("desk.chipsAria")}">${chips}</div>` +
+    (pressure || stack >= 2
+      ? `<div class="pressure-row" aria-label="${t("pressure.aria")}">${pressure}${
+          stack >= 2
+            ? `<div class="pressure-chip sev-info" title="E3"><span class="pid">E3</span><span class="ptxt">${t("pressure.stack", { n: stack })}</span></div>`
+            : ""
+        }</div>`
+      : "") +
     list
       .map(
         (a) => `
@@ -364,7 +389,7 @@ export function showReformDesk(game, family) {
     .join("");
   openModal(`
     <div class="modal wide">
-      <p class="kicker" style="color:#8a7340">${t("reform.kicker")} · ${t("reform.left", { n: state.reform_actions || 0, cap: reformCap(state) })}</p>
+      <p class="kicker" style="color:#8a7340">${t("reform.kicker")} · ${t("attention.left", { n: state.attention_left != null ? state.attention_left : state.reform_actions || 0, cap: attentionCap(state) })} · ${t("attention.tipShort")}</p>
       <h2>${t("reform.title")}</h2>
       <p>${t("reform.note", { name: unit?.name || "" })}</p>
       <div class="desks" style="margin:10px 0 14px">${switcher}</div>
@@ -487,7 +512,7 @@ export function showDeskHub(game, focusId) {
     .join("");
   openModal(`
     <div class="modal wide desk-modal">
-      <p class="kicker" style="color:#8a7340">${t("desk.kicker")} · ${t("desk.left", { n: game.state.desk_actions || 0, cap: deskCap(game.state) })}</p>
+      <p class="kicker" style="color:#8a7340">${t("desk.kicker")} · ${t("attention.left", { n: game.state.attention_left != null ? game.state.attention_left : game.state.desk_actions || 0, cap: attentionCap(game.state) })} · ${t("attention.tipShort")}</p>
       <h2>${def.name_hr || def.name}</h2>
       <p>${def.briefing}</p>
       <div class="desk-stats">
@@ -517,10 +542,15 @@ export function showDialogueHub(game) {
   const list = listDialogues(game.catalogs, game.state);
   const rows = list
     .map((d) => {
-      const done = dialogueDone(game.state, d.id);
+      const status = dialogueHubStatus(d, game.state);
+      const visits = dialogueVisitCount(game.state, d.id);
+      const statusLabel =
+        status === "revisit" ? t("dialogue.revisit") : status === "done" ? t("dialogue.done") : t("dialogue.open");
+      const cls = status === "done" ? "done-chat" : status === "revisit" ? "revisit-chat" : "";
+      const disabled = status === "done" || status === "locked" ? "disabled" : "";
       return `
-        <button class="choice political ${done ? "done-chat" : ""}" data-dlg="${d.id}">
-          <span class="legal">${d.desk || "—"} · ${done ? t("dialogue.done") : t("dialogue.open")}</span>
+        <button class="choice political ${cls}" data-dlg="${d.id}" ${disabled}>
+          <span class="legal">${d.desk || "—"} · ${statusLabel}${visits ? " · ×" + visits : ""}</span>
           <span class="label">${d.speaker} — ${d.title}</span>
         </button>`;
     })
@@ -530,6 +560,7 @@ export function showDialogueHub(game) {
       <p class="kicker" style="color:#8a7340">${t("dialogue.kicker")}</p>
       <h2>${t("dialogue.title")}</h2>
       <p>${t("dialogue.intro")}</p>
+      <p class="const-note">${t("dialogue.multiVisit")}</p>
       <div class="event-choices" style="padding:0;grid-template-columns:1fr">${rows || `<p>${t("dialogue.empty")}</p>`}</div>
       <div class="modal-actions"><button class="btn" id="modal-close">${t("workshop.close")}</button></div>
     </div>

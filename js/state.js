@@ -166,6 +166,24 @@ export const CORE_FLAGS = [
   "dialogue_tudman_mediate",
   "dialogue_tudman_sov",
   "dialogue_tudman_hard",
+  "ssup_observe_line",
+  "sdb_leash_tight",
+  "sdb_files_shared",
+  "ssup_election_watch",
+  "ssup_knin_watch",
+  "dialogue_kucan_charter",
+  "dialogue_kucan_revisit",
+  "dialogue_jovic_revisit",
+  "dialogue_markovic_revisit",
+  "dialogue_mesic_revisit",
+  "dialogue_tudman_revisit",
+  "confederal_stack_memo",
+  "desk_event_ssup_election_seen",
+  "desk_event_sdb_sov_seen",
+  "desk_event_conf_stack_seen",
+  "desk_event_ssup_pleb_seen",
+  "desk_event_pret_pleb_seen",
+  "desk_event_sdb_may_seen",
 ];
 
 const BOOLEAN_FEDERAL = new Set(["skj_leading_role"]);
@@ -266,8 +284,11 @@ export function createNewState(catalogs) {
     desk_actions: 0,
     desk_month: "",
     dialogue_done: [],
+    dialogue_visits: {},
     activeDialogue: null,
-    save_schema: 2,
+    attention_left: 0,
+    attention_month: "",
+    save_schema: 3,
   };
 }
 

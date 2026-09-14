@@ -676,6 +676,166 @@
       ]
     },
     {
+      "id": "desk_sdb_sovereignty_watch",
+      "date": "1990-09-28",
+      "act": 3,
+      "desk": "SSUP",
+      "priority": "optional",
+      "title": "SDB nakon tekstova suverenosti",
+      "location": "SSUP / SDB — Beograd",
+      "briefing": "Tekstovi suverenosti (SI/HR) već su na stolu ili padaju. SDB može dijeliti dosjee Predsjedništvu (uze), promatrati Knin bez racije, ili tvrdo pritisnuti. Nema fronte. Balvani, ako stoje, ostaju politička činjenica — ne kazalište rata.",
+      "constitutional_note": "SDB je savezni kanal. Civilni nadzor Predsjedništva nije kapitulacija; tvrda linija bez uzeta diže napetost.",
+      "documents": [
+        "1974_federation"
+      ],
+      "requires": {
+        "flags_any": [
+          "sovereignty_texts_filed",
+          "krajina_log_revolution"
+        ]
+      },
+      "choices": [
+        {
+          "id": "share_files",
+          "label": "Podijeli dosjee Predsjedništvu — civilni nadzor.",
+          "legal": "political",
+          "effects": {
+            "federal.sdb_control": 4,
+            "federal.presidency_cohesion": 3,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "desk_event_sdb_sov_seen",
+              "sdb_files_shared",
+              "sdb_civilian_leash"
+            ],
+            "desk_set": {
+              "ssup": {
+                "posture": "observe"
+              }
+            }
+          }
+        },
+        {
+          "id": "knin_watch",
+          "label": "Tihi nadzor kninske zone — izvješće, ne racija.",
+          "legal": "political",
+          "effects": {
+            "HR.interethnic_tension": -3,
+            "federal.war_risk": -1,
+            "federal.sdb_control": 2,
+            "flags_add": [
+              "desk_event_sdb_sov_seen",
+              "ssup_knin_watch",
+              "ssup_observe_line"
+            ],
+            "desk_set": {
+              "ssup": {
+                "posture": "observe"
+              }
+            }
+          }
+        },
+        {
+          "id": "hard_press",
+          "label": "Tvrdi pritisak na stanice i barikade.",
+          "legal": "extra_constitutional",
+          "effects": {
+            "HR.interethnic_tension": 5,
+            "federal.war_risk": 4,
+            "federal.sdb_control": 3,
+            "flags_add": [
+              "desk_event_sdb_sov_seen",
+              "ssup_hard_line"
+            ],
+            "desk_set": {
+              "ssup": {
+                "posture": "hard"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "confederal_stack_memo",
+      "date": "1990-10-12",
+      "act": 3,
+      "desk": "PRET",
+      "priority": "optional",
+      "title": "Memorandum konfederalnog stoga",
+      "location": "Predsjedništvo SFRJ / SIV",
+      "briefing": "Razgovori s Kučanom ili Jovićem već su otvorili konfederalni jezik. Memorandum nije Izetbegović–Gligorov (taj papir je lipanj 1991., van odsječka). Ovo je unutarnji savezni zapis: potpisi, kvorum, medijacija. Marković = predsjednik SIV-a.",
+      "constitutional_note": "E3 zahtijeva otvorenu konfederalnu povelju i Predsjedništvo koje se još može sastati; sjedenje Mesića drži stolac ispunjenim, blokada je zastoj i isključuje E3.",
+      "documents": [
+        "1974_presidency"
+      ],
+      "requires": {
+        "flags_any": [
+          "dialogue_kucan_conf",
+          "dialogue_jovic_conf",
+          "confederal_talks_open"
+        ],
+        "flags_not": [
+          "desk_event_conf_stack_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "stack_sign",
+          "label": "Zapiši stog: potpis + kvorum + medijacija.",
+          "legal": "political",
+          "effects": {
+            "charter_signatures_add": 1,
+            "federal.presidency_cohesion": 3,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "desk_event_conf_stack_seen",
+              "confederal_stack_memo",
+              "presidency_quorum_guard",
+              "presidency_mediation_active",
+              "confederal_talks_open"
+            ],
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            }
+          }
+        },
+        {
+          "id": "stack_wait",
+          "label": "Pričekaj travanjski nacrt — samo bilješka.",
+          "legal": "political",
+          "effects": {
+            "federal.presidency_cohesion": 1,
+            "flags_add": [
+              "desk_event_conf_stack_seen",
+              "confederal_stack_memo"
+            ]
+          }
+        },
+        {
+          "id": "stack_reject",
+          "label": "Odbi stog — unitarni jezik.",
+          "legal": "political",
+          "effects": {
+            "SI.federal_trust": -4,
+            "HR.federal_trust": -3,
+            "SI.secession_readiness": 3,
+            "flags_add": [
+              "desk_event_conf_stack_seen",
+              "presidency_hardline"
+            ],
+            "desk_set": {
+              "presidency": {
+                "posture": "hardline"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
       "id": "assembly_paralysis",
       "date": "1990-10-18",
       "act": 3,
