@@ -36,6 +36,11 @@ export function recomputeWarRisk(state) {
   if (state.flags.confederal_stack_memo) w -= 0.5;
   if (state.flags.confederal_talks_open && state.federal.war_risk < 60) w -= 2;
   if (state.flags.markovic_mandate_strong) w -= 1;
+  if (state.flags.skj_soft_federation) w -= 0.5;
+  if (state.flags.skj_hard_unity) w += 1.5;
+  if (state.flags.confederal_skj_memo) w -= 0.5;
+  if (state.flags.dialogue_bogicevic_mediate) w -= 0.5;
+  if (state.flags.dialogue_bogicevic_bloc) w += 1;
   state.federal.war_risk = clamp(w);
 }
 
@@ -124,6 +129,15 @@ export function buildMonthlyReport(state, before, months) {
   if (state.flags.confederal_stack_memo) drivers.push("memorandum konfederalnog stoga");
   if (state.flags.dialogue_kucan_charter) drivers.push("Kučan: potpis na konfederalnoj traci");
   if (state.flags.dialogue_kucan_revisit) drivers.push("ponovni razgovor s Kučanom");
+  if (state.desks?.skj?.posture === "soft_federal" || state.flags.skj_soft_federation) drivers.push("SKJ: meka savezna linija");
+  if (state.desks?.skj?.posture === "hard_unity" || state.flags.skj_hard_unity) drivers.push("SKJ: tvrda retorika jedinstva");
+  if (state.desks?.skj?.posture === "cede_siv" || state.flags.skj_cedes_to_siv) drivers.push("SKJ predao težinu SIV-u");
+  if (state.desks?.skj?.posture === "dissolved" || state.flags.skj_dissolved) drivers.push("SKJ tiho raspušten (bez monopola)");
+  if (state.flags.republic_voice_bih_seen || state.flags.talked_bogicevic) drivers.push("glas BiH u Predsjedništvu");
+  if (state.flags.republic_voice_mk_seen || state.flags.talked_tupurkovski) drivers.push("glas Makedonije u Predsjedništvu");
+  if (state.flags.talked_racan) drivers.push("razgovor s Račanom (SKH–SDP)");
+  if (state.flags.confederal_skj_memo) drivers.push("memorandum SKJ uz otvoreni konfederalni stol");
+  if (state.flags.dialogue_jovic_skj) drivers.push("Jović čita zastavice SKJ");
 
   return {
     months: months || 1,

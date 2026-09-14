@@ -200,6 +200,34 @@ export const CORE_FLAGS = [
   "dialogue_drnovsek_congress",
   "dialogue_drnovsek_spring",
   "dialogue_drnovsek_eve",
+  "skj_soft_federation",
+  "skj_hard_unity",
+  "skj_cedes_to_siv",
+  "skj_dissolved",
+  "desk_event_skj_congress_seen",
+  "desk_event_skj_election_seen",
+  "desk_event_skj_spring_seen",
+  "desk_event_skj_memo_seen",
+  "desk_event_ssp_ec_seen",
+  "desk_event_bih_voice_seen",
+  "desk_event_mk_voice_seen",
+  "desk_event_attention_may_seen",
+  "republic_voice_bih_seen",
+  "republic_voice_mk_seen",
+  "confederal_skj_memo",
+  "talked_bogicevic",
+  "talked_tupurkovski",
+  "talked_racan",
+  "dialogue_bogicevic_mediate",
+  "dialogue_bogicevic_quorum",
+  "dialogue_bogicevic_bloc",
+  "dialogue_tupurkovski_conf",
+  "dialogue_tupurkovski_ec",
+  "dialogue_tupurkovski_quiet",
+  "dialogue_racan_soft",
+  "dialogue_racan_cede",
+  "dialogue_racan_dissolve",
+  "dialogue_jovic_skj",
 ];
 
 const BOOLEAN_FEDERAL = new Set(["skj_leading_role"]);
@@ -306,7 +334,7 @@ export function createNewState(catalogs) {
     attention_month: "",
     attention_spent_desks: 0,
     attention_spent_reforms: 0,
-    save_schema: 4,
+    save_schema: 5,
   };
 }
 

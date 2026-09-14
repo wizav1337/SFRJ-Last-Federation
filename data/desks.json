@@ -1249,6 +1249,159 @@
           }
         }
       ]
+    },
+    {
+      "id": "skj",
+      "agency_id": "skj",
+      "name": "SKJ",
+      "name_hr": "Ostatak SKJ / savezni CK",
+      "kind": "socio_political",
+      "briefing": "Nakon 14. kongresa ostaje ostatak Saveza i savezni CK na papiru. Meka savezna linija, tvrda retorika jedinstva, predaja težine SIV-u ili tiho raspuštanje — sve to mijenja jedinstvo SKJ-a i put prema E1, bez vraćanja monopola vodeće uloge.",
+      "stats": {
+        "loyalty": 42,
+        "capacity": 38,
+        "agenda_tension": 55
+      },
+      "posture_default": "soft_federal",
+      "postures": [
+        "soft_federal",
+        "hard_unity",
+        "cede_siv",
+        "dissolved"
+      ],
+      "actions": [
+        {
+          "id": "soft_federal_line",
+          "label": "Meka savezna linija: ostaci SKJ-a kao savezni jezik, ne kao zapovijed.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "skj": {
+                "posture": "soft_federal"
+              }
+            },
+            "desk_add": {
+              "skj": {
+                "loyalty": 4,
+                "agenda_tension": -4
+              }
+            },
+            "federal.skj_unity": 4,
+            "federal.legitimacy": 2,
+            "SI.federal_trust": 2,
+            "HR.federal_trust": 1,
+            "flags_add": [
+              "skj_soft_federation"
+            ],
+            "flags_remove": [
+              "skj_hard_unity",
+              "skj_dissolved"
+            ]
+          }
+        },
+        {
+          "id": "hard_unity_rhetoric",
+          "label": "Tvrda retorika jedinstva: jedan centar, jedna linija.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "skj": {
+                "posture": "hard_unity"
+              }
+            },
+            "desk_add": {
+              "skj": {
+                "agenda_tension": 8,
+                "loyalty": -3
+              }
+            },
+            "federal.skj_unity": 2,
+            "SI.federal_trust": -4,
+            "HR.federal_trust": -3,
+            "SI.secession_readiness": 3,
+            "HR.secession_readiness": 2,
+            "flags_add": [
+              "skj_hard_unity"
+            ],
+            "flags_remove": [
+              "skj_soft_federation",
+              "skj_cedes_to_siv"
+            ]
+          }
+        },
+        {
+          "id": "cede_to_siv",
+          "label": "Predaj težinu SIV-u: Marković nosi knjige, SKJ šuti.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "skj": {
+                "posture": "cede_siv"
+              }
+            },
+            "desk_add": {
+              "skj": {
+                "loyalty": -2,
+                "agenda_tension": -3,
+                "capacity": -2
+              },
+              "siv": {
+                "loyalty": 5,
+                "capacity": 3
+              }
+            },
+            "federal.siv_authority": 5,
+            "federal.skj_unity": -4,
+            "federal.reform_momentum": 3,
+            "flags_add": [
+              "skj_cedes_to_siv",
+              "markovic_mandate_strong"
+            ],
+            "flags_remove": [
+              "skj_hard_unity"
+            ]
+          }
+        },
+        {
+          "id": "dissolve_quietly",
+          "label": "Tiho raspuštanje: nema monopola, nema restauracije.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "skj": {
+                "posture": "dissolved"
+              }
+            },
+            "desk_add": {
+              "skj": {
+                "capacity": -8,
+                "loyalty": -6,
+                "agenda_tension": -10
+              }
+            },
+            "federal.skj_unity": -12,
+            "federal.legitimacy": 1,
+            "federal.reform_momentum": 2,
+            "federal.skj_leading_role": false,
+            "flags_add": [
+              "skj_dissolved",
+              "skj_renounced_monopoly"
+            ],
+            "flags_remove": [
+              "skj_hard_unity",
+              "skj_soft_federation"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

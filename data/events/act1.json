@@ -200,6 +200,132 @@
       ]
     },
     {
+      "id": "desk_skj_after_congress",
+      "date": "1990-02-05",
+      "act": 1,
+      "desk": "SKJ",
+      "priority": "federal",
+      "title": "Ostatak SKJ nakon Kongresa",
+      "location": "Beograd — savezni CK (ostatak)",
+      "briefing": "Dvorana je prazna, a pečat još postoji. Ostaci SKJ-a pitaju: meka savezna linija, tvrda retorika jedinstva, predaja težine Markovićevu SIV-u, ili tiho raspuštanje. Nema restauracije monopola vodeće uloge — taj je put već zatvoren ili još stoji na papiru. Ovo je stranački šalter, ne fronta.",
+      "constitutional_note": "SKJ nije državni organ. Marković je predsjednik SIV-a, ne predsjednik Jugoslavije. Jović nije Milošević.",
+      "documents": [
+        "skj_statute",
+        "1974_art_leading_role"
+      ],
+      "requires": {
+        "flags_any": [
+          "skj_split",
+          "slovenia_walkout",
+          "skj_renounced_monopoly"
+        ]
+      },
+      "choices": [
+        {
+          "id": "soft_line",
+          "label": "Meka savezna linija. Ostaci govore jezik saveza, ne zapovijed.",
+          "legal": "party",
+          "effects": {
+            "desk_set": {
+              "skj": {
+                "posture": "soft_federal"
+              }
+            },
+            "desk_add": {
+              "skj": {
+                "loyalty": 4,
+                "agenda_tension": -3
+              }
+            },
+            "federal.skj_unity": 3,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "skj_soft_federation",
+              "desk_event_skj_congress_seen"
+            ]
+          }
+        },
+        {
+          "id": "hard_line",
+          "label": "Tvrda retorika jedinstva. Jedan centar.",
+          "legal": "party",
+          "effects": {
+            "desk_set": {
+              "skj": {
+                "posture": "hard_unity"
+              }
+            },
+            "desk_add": {
+              "skj": {
+                "agenda_tension": 6
+              }
+            },
+            "federal.skj_unity": 2,
+            "SI.federal_trust": -4,
+            "HR.federal_trust": -3,
+            "flags_add": [
+              "skj_hard_unity",
+              "desk_event_skj_congress_seen"
+            ]
+          }
+        },
+        {
+          "id": "cede_siv",
+          "label": "Predaj težinu SIV-u. Marković nosi knjige.",
+          "legal": "party",
+          "effects": {
+            "desk_set": {
+              "skj": {
+                "posture": "cede_siv"
+              }
+            },
+            "desk_add": {
+              "skj": {
+                "loyalty": -2
+              },
+              "siv": {
+                "loyalty": 4,
+                "capacity": 2
+              }
+            },
+            "federal.siv_authority": 4,
+            "federal.skj_unity": -3,
+            "flags_add": [
+              "skj_cedes_to_siv",
+              "markovic_mandate_strong",
+              "desk_event_skj_congress_seen"
+            ]
+          }
+        },
+        {
+          "id": "dissolve",
+          "label": "Tiho raspuštanje. Nema monopola nazad.",
+          "legal": "party",
+          "effects": {
+            "desk_set": {
+              "skj": {
+                "posture": "dissolved"
+              }
+            },
+            "desk_add": {
+              "skj": {
+                "capacity": -6,
+                "loyalty": -4
+              }
+            },
+            "federal.skj_unity": -10,
+            "federal.skj_leading_role": false,
+            "federal.reform_momentum": 2,
+            "flags_add": [
+              "skj_dissolved",
+              "skj_renounced_monopoly",
+              "desk_event_skj_congress_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_ssp_nonaligned_open",
       "date": "1990-02-08",
       "act": 1,

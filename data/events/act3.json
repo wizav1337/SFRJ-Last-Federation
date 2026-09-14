@@ -515,6 +515,96 @@
       ]
     },
     {
+      "id": "desk_ssp_ec_track",
+      "date": "1990-08-28",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "SSP: kolosijek EEZ (nota, ne priznanje)",
+      "location": "Beograd — Savezni sekretarijat za inozemne poslove",
+      "briefing": "Nakon balvana i prije suverenosti SSP pita: kolosijek EEZ (nota i promatrači), stari nesvrstani jezik, ili tiha demarša o jedinstvenom tržištu. Ovo nije priznanje republika i nije lipanjski rat. Marković ostaje predsjednik SIV-a; vanjski stol ne zamjenjuje Predsjedništvo.",
+      "constitutional_note": "SSP vodi diplomaciju. Priznanje nije na stolu do kraja Slice A.",
+      "documents": [
+        "1974_federation"
+      ],
+      "requires": {
+        "flags_any": [
+          "krajina_log_revolution",
+          "multiparty_wave",
+          "ssp_quiet_demarche",
+          "ssp_ec_track"
+        ]
+      },
+      "choices": [
+        {
+          "id": "ec_note",
+          "label": "Kolosijek EEZ: nota i promatrači, ne priznanje.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "ssp": {
+                "posture": "ec_track"
+              }
+            },
+            "desk_add": {
+              "ssp": {
+                "capacity": 4
+              }
+            },
+            "federal.international_standing": 5,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "ssp_ec_track",
+              "ec_troika_watching",
+              "desk_event_ssp_ec_seen"
+            ]
+          }
+        },
+        {
+          "id": "nonaligned",
+          "label": "Ostani na nesvrstanom jeziku.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "ssp": {
+                "posture": "nonaligned"
+              }
+            },
+            "desk_add": {
+              "ssp": {
+                "loyalty": 3
+              }
+            },
+            "federal.international_standing": 1,
+            "flags_add": [
+              "desk_event_ssp_ec_seen"
+            ],
+            "flags_remove": [
+              "ssp_ec_track"
+            ]
+          }
+        },
+        {
+          "id": "quiet_market",
+          "label": "Tiha demarša o jedinstvenom tržištu.",
+          "legal": "siv",
+          "effects": {
+            "desk_add": {
+              "ssp": {
+                "capacity": 2
+              }
+            },
+            "federal.international_standing": 3,
+            "federal.inter_republic_trade": 2,
+            "flags_add": [
+              "ssp_quiet_demarche",
+              "desk_event_ssp_ec_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "sovereignty_texts",
       "date": "1990-09-27",
       "act": 3,
