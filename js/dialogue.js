@@ -34,6 +34,7 @@ function officeHolderOk(def, state) {
   if (def.id === "tupurkovski" && !(state.units?.MK?.election_held || (state.federal.clock || "") >= "1990-12-01")) return false;
   if (def.id === "gligorov" && !(state.units?.MK?.election_held || clock >= "1991-01-27")) return false;
   if (def.id === "bucin" && clock < "1990-11-01") return false;
+  if (def.id === "bulatovic" && !(state.units?.ME?.election_held || clock >= "1990-12-23")) return false;
   if (def.id === "izetbegovic" && !(state.flags.sda_sds_hdz_bosnia || state.flags.republic_voice_bih_seen || state.flags.talked_bogicevic || state.units?.BA?.election_held)) return false;
   return true;
 }
@@ -108,6 +109,7 @@ export function isDialogueAvailable(def, state) {
   if (def.id === "tupurkovski" && !(state.units?.MK?.election_held || (state.federal.clock || "") >= "1990-12-01")) return false;
   if (def.id === "gligorov" && !(state.units?.MK?.election_held || clock >= "1991-01-27")) return false;
   if (def.id === "bucin" && clock < "1990-11-01") return false;
+  if (def.id === "bulatovic" && !(state.units?.ME?.election_held || clock >= "1990-12-23")) return false;
   if (def.id === "izetbegovic" && !(state.flags.sda_sds_hdz_bosnia || state.flags.republic_voice_bih_seen || state.flags.talked_bogicevic || state.units?.BA?.election_held)) return false;
   return availableEntries(def, state).length > 0;
 }

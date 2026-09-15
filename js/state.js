@@ -265,6 +265,28 @@ export const CORE_FLAGS = [
   "dialogue_izetbegovic_refuse_ig",
   "dialogue_izetbegovic_quiet",
   "izetbegovic_refused_ig_frame",
+  "fond_open_south",
+  "fond_freeze",
+  "fond_target_mk_me",
+  "fond_politicized",
+  "siv_fond_bind",
+  "jna_quiet_redistribute",
+  "presidency_south_balance",
+  "confederal_fond_memo",
+  "desk_event_fond_open_seen",
+  "desk_event_fond_autumn_seen",
+  "desk_event_fond_spring_seen",
+  "desk_event_fond_memo_seen",
+  "desk_event_jna_quiet_seen",
+  "desk_event_siv_fond_seen",
+  "desk_event_presidency_south_seen",
+  "desk_event_bulatovic_voice_seen",
+  "republic_voice_bulatovic_seen",
+  "talked_bulatovic",
+  "dialogue_bulatovic_soft",
+  "dialogue_bulatovic_bloc",
+  "dialogue_bulatovic_fond",
+  "dialogue_markovic_fond",
 ];
 
 const BOOLEAN_FEDERAL = new Set(["skj_leading_role"]);
@@ -371,7 +393,7 @@ export function createNewState(catalogs) {
     attention_month: "",
     attention_spent_desks: 0,
     attention_spent_reforms: 0,
-    save_schema: 6,
+    save_schema: 7,
   };
 }
 

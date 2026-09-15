@@ -74,12 +74,12 @@ export function showEncyclopedia(game) {
     .join("");
   const timeline = `
     <li><strong>sij 1990.</strong> — 14. kongres SKJ, odricanje vodeće uloge; Drnovšek na čekiću</li>
-    <li><strong>velj–ožu 1990.</strong> — SSP/nesvrstani; pravosuđe; višestranački zakoni; stand-by / dinar; TO inventura</li>
+    <li><strong>velj–ožu 1990.</strong> — SSP/nesvrstani; pravosuđe; Fond; višestranački zakoni; stand-by / dinar; TO inventura</li>
     <li><strong>tra–svi 1990.</strong> — SSUP pred izborima; izbori SI/HR; rotacija Jović; pravosuđe nakon listića</li>
     <li><strong>srp–ruj 1990.</strong> — srpski referendum/ustav; balvani; SDB; suverenost</li>
     <li><strong>lis–pro 1990.</strong> — konfederalni stog; carine; izbori MK/BA/RS–ME; SSUP/SSP/Predsjedništvo pred plebiscitom</li>
     <li><strong>sij–ožu 1991.</strong> — SIV vs kabineti; razoružanje; Pakrac; 9. ožujak; uze SDB</li>
-    <li><strong>tra–svi 1991.</strong> — konfederalni nacrt; sukob tvrdih šaltera/stola; FER/trgovina; pravosuđe pred rotacijom; Mesić; kraj odsječka A</li>
+    <li><strong>tra–svi 1991.</strong> — konfederalni nacrt; Fond/jug; sukob tvrdih šaltera/stola; FER/trgovina; pravosuđe pred rotacijom; Mesić; kraj odsječka A</li>
     <li><strong>Pass 3–4</strong> — ${t("ency.timelinePass34")}</li>`;
   $("ency-body").innerHTML = `
     <p class="kicker" style="color:#8a7340">${t("ency.kicker")}</p>

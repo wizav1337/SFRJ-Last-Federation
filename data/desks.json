@@ -131,6 +131,34 @@
               "jna_civilian_chain"
             ]
           }
+        },
+        {
+          "id": "quiet_redistribute",
+          "label": "Tiha preraspodjela garnizona — bez prijetnje republikama.",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_add": {
+              "jna": {
+                "loyalty": 2,
+                "agenda_tension": -2,
+                "capacity": 2
+              }
+            },
+            "federal.jna_cohesion": 2,
+            "federal.jna_obedience_to_civilian": 1,
+            "federal.war_risk": -1,
+            "SI.federal_trust": -1,
+            "HR.federal_trust": -1,
+            "MK.federal_trust": 1,
+            "ME.federal_trust": 1,
+            "flags_add": [
+              "jna_quiet_redistribute"
+            ],
+            "flags_remove": []
+          }
         }
       ]
     },
@@ -264,6 +292,40 @@
               "siv_cabinet_pressure"
             ]
           }
+        },
+        {
+          "id": "bind_fond",
+          "label": "Veži SIV knjige uz Federalni fond (Marković = SIV).",
+          "cost": {
+            "reform": 1,
+            "budget": 2
+          },
+          "effects": {
+            "desk_add": {
+              "siv": {
+                "loyalty": 3,
+                "capacity": 2,
+                "agenda_tension": -2
+              },
+              "fond": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.siv_authority": 3,
+            "federal.reform_momentum": 2,
+            "MK.living_standard": 2,
+            "ME.living_standard": 2,
+            "BA.living_standard": 1,
+            "XK.living_standard": 1,
+            "flags_add": [
+              "siv_fond_bind",
+              "markovic_mandate_strong"
+            ],
+            "flags_remove": [
+              "markovic_starved"
+            ]
+          }
         }
       ]
     },
@@ -393,6 +455,39 @@
               "slovenia_invited_back",
               "presidency_mediation_active"
             ]
+          }
+        },
+        {
+          "id": "south_balance",
+          "label": "Uravnoteži južne glasove: MK/ME/BA za stolom Predsjedništva.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "loyalty": 3,
+                "agenda_tension": -3,
+                "capacity": 2
+              }
+            },
+            "federal.presidency_cohesion": 4,
+            "federal.legitimacy": 2,
+            "MK.federal_trust": 3,
+            "ME.federal_trust": 3,
+            "BA.federal_trust": 2,
+            "flags_add": [
+              "presidency_south_balance",
+              "presidency_mediation_active"
+            ],
+            "flags_remove": [
+              "presidency_hardline"
+            ],
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            }
           }
         }
       ]
@@ -1706,6 +1801,167 @@
             "flags_remove": [
               "customs_war_active",
               "fer_customs_hard"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "fond",
+      "agency_id": "federal_fund",
+      "name": "Fond",
+      "name_hr": "Federalni fond za nerazvijene",
+      "kind": "secretariat",
+      "briefing": "Federalni fond za nerazvijene hrani MK, ME, BA i XK. Postave (otvoren jug / smrzavanje / cilj MK–ME / politizacija) diraju living_standard, federal_trust, federal_budget i zastavice fond_*. Marković ostaje predsjednik SIV-a — Fond izvršava transfer, ne zamjenjuje SIV. Titograd ostaje Titograd.",
+      "stats": {
+        "loyalty": 52,
+        "capacity": 48,
+        "agenda_tension": 38
+      },
+      "posture_default": "open_south",
+      "postures": [
+        "open_south",
+        "freeze",
+        "target_mk_me",
+        "politicized"
+      ],
+      "actions": [
+        {
+          "id": "open_south",
+          "label": "Otvori jug: transferi MK/ME/BA/XK bez političkog pečata.",
+          "cost": {
+            "reform": 1,
+            "budget": 2
+          },
+          "effects": {
+            "desk_set": {
+              "fond": {
+                "posture": "open_south"
+              }
+            },
+            "desk_add": {
+              "fond": {
+                "loyalty": 3,
+                "agenda_tension": -3
+              }
+            },
+            "MK.living_standard": 3,
+            "ME.living_standard": 2,
+            "BA.living_standard": 2,
+            "XK.living_standard": 2,
+            "MK.federal_trust": 2,
+            "ME.federal_trust": 2,
+            "federal.inter_republic_trade": 2,
+            "federal.federal_budget": -2,
+            "flags_add": [
+              "fond_open_south"
+            ],
+            "flags_remove": [
+              "fond_freeze",
+              "fond_politicized"
+            ]
+          }
+        },
+        {
+          "id": "freeze_fund",
+          "label": "Smrzni Fond: pritisak na republike koje ne plaćaju doprinos.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "fond": {
+                "posture": "freeze"
+              }
+            },
+            "desk_add": {
+              "fond": {
+                "agenda_tension": 7,
+                "capacity": 2,
+                "loyalty": -2
+              }
+            },
+            "federal.federal_budget": 3,
+            "federal.siv_authority": 1,
+            "MK.federal_trust": -4,
+            "ME.federal_trust": -3,
+            "BA.federal_trust": -3,
+            "XK.federal_trust": -3,
+            "MK.living_standard": -2,
+            "ME.living_standard": -1,
+            "flags_add": [
+              "fond_freeze"
+            ],
+            "flags_remove": [
+              "fond_open_south",
+              "fond_target_mk_me"
+            ]
+          }
+        },
+        {
+          "id": "target_mk_me",
+          "label": "Ciljaj MK i ME: uži koridor, manje BiH/Kosovo.",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_set": {
+              "fond": {
+                "posture": "target_mk_me"
+              }
+            },
+            "desk_add": {
+              "fond": {
+                "loyalty": 2,
+                "agenda_tension": 2
+              }
+            },
+            "MK.living_standard": 3,
+            "ME.living_standard": 3,
+            "MK.federal_trust": 3,
+            "ME.federal_trust": 3,
+            "BA.federal_trust": -2,
+            "XK.federal_trust": -2,
+            "BA.living_standard": -1,
+            "flags_add": [
+              "fond_target_mk_me"
+            ],
+            "flags_remove": [
+              "fond_freeze"
+            ]
+          }
+        },
+        {
+          "id": "politicize",
+          "label": "Politiziraj Fond: glasovi južno za savezni stol (ne fronta).",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "fond": {
+                "posture": "politicized"
+              }
+            },
+            "desk_add": {
+              "fond": {
+                "agenda_tension": 6,
+                "loyalty": -1
+              }
+            },
+            "federal.legitimacy": 2,
+            "federal.presidency_cohesion": 2,
+            "MK.federal_trust": 2,
+            "ME.federal_trust": 2,
+            "SI.federal_trust": -2,
+            "HR.federal_trust": -2,
+            "flags_add": [
+              "fond_politicized",
+              "presidency_south_balance"
+            ],
+            "flags_remove": [
+              "fond_freeze"
             ]
           }
         }

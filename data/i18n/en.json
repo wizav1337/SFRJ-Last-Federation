@@ -222,5 +222,21 @@
   "path.ferCustoms": "FER: hard customs",
   "ency.timelinePass6": "Assembly + FER desks; Gligorov / Bućin / Izetbegović mediation; gated cards; save_schema 6",
   "desk.posture.session_open": "Open session",
-  "desk.chip.session_open": "Session"
+  "desk.chip.session_open": "Session",
+  "path.fondOpen": "Fund: south open",
+  "path.fondFreeze": "Fund frozen",
+  "path.fondTarget": "Fund: target MK–ME",
+  "path.fondPoliticized": "Fund politicized",
+  "path.sivFond": "SIV bound to Fund",
+  "path.jnaQuiet": "JNA: quiet redistribute (no threat)",
+  "path.southBalance": "Presidency: southern balance",
+  "path.fondMemo": "Fund memo with open confederal talks",
+  "path.talkBulatovic": "talk with Bulatović (Titograd)",
+  "path.markovicFond": "Marković on Fund/IMF",
+  "desk.posture.open_south": "South open",
+  "desk.posture.target_mk_me": "Target MK–ME",
+  "desk.posture.politicized": "Politicized",
+  "desk.chip.open_south": "South",
+  "desk.chip.target_mk_me": "MK–ME",
+  "desk.chip.politicized": "Polit."
 }

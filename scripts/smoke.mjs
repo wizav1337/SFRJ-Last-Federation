@@ -56,14 +56,14 @@ catalogs.dialogues = [
   "drnovsek", "jovic", "kadijevic", "kadijevic_late", "kucan",
   "markovic", "markovic_late", "mesic", "tudman",
   "bogicevic", "tupurkovski", "racan",
-  "gligorov", "bucin", "izetbegovic",
+  "gligorov", "bucin", "izetbegovic", "bulatovic",
 ].map((id) => readJSON(`data/dialogue/${id}.json`));
 
 const acts = ["act1", "act2", "act3", "act4", "act5"].map((a) => readJSON(`data/events/${a}.json`));
 const flat = flattenActs(acts);
 
 const state = createNewState(catalogs);
-assert(state.save_schema === 6, "save_schema 6");
+assert(state.save_schema === 7, "save_schema 7");
 assert(state.attention_spent_desks === 0 && state.attention_spent_reforms === 0, "spend counters");
 
 initDesks(state, catalogs);
@@ -73,11 +73,13 @@ assert(cap === 3 || cap === 4, "attention cap");
 assert(state.attention_left === cap, "attention granted");
 
 const desks = listDesks(catalogs);
-assert(desks.length >= 12, "at least 12 desks (assembly+fer)");
+assert(desks.length >= 13, "at least 13 desks (fond)");
 assert(desks.some((d) => d.id === "justice"), "justice desk present");
 assert(desks.some((d) => d.id === "skj"), "skj desk present");
 assert(desks.some((d) => d.id === "assembly"), "assembly desk present");
 assert(desks.some((d) => d.id === "fer"), "fer desk present");
+assert(desks.some((d) => d.id === "fond"), "fond desk present");
+assert(state.desks.fond?.posture === "open_south", "fond default posture");
 assert(state.desks.justice?.posture === "constitutional", "justice default posture");
 assert(state.desks.skj?.posture === "soft_federal", "skj default posture");
 assert(state.desks.assembly?.posture === "session_open", "assembly default posture");
@@ -91,6 +93,14 @@ assert(asmActs.some((a) => a.id === "stall_floor"), "assembly stall");
 const ferActs = actionsForDesk(state, catalogs, "fer");
 assert(ferActs.some((a) => a.id === "open_trade"), "fer open_trade");
 assert(ferActs.some((a) => a.id === "hold_imf"), "fer hold_imf");
+const fondActs = actionsForDesk(state, catalogs, "fond");
+assert(fondActs.some((a) => a.id === "open_south"), "fond open_south");
+assert(fondActs.some((a) => a.id === "freeze_fund"), "fond freeze");
+const jnaDeep = actionsForDesk(state, catalogs, "jna");
+assert(jnaDeep.some((a) => a.id === "quiet_redistribute"), "jna quiet_redistribute");
+assert(!(jnaDeep.find((a) => a.id === "quiet_redistribute")?.effects?.flags_add || []).includes("player_used_jna_threat"), "quiet JNA must not set threat");
+assert(actionsForDesk(state, catalogs, "siv").some((a) => a.id === "bind_fond"), "siv bind_fond");
+assert(actionsForDesk(state, catalogs, "presidency").some((a) => a.id === "south_balance"), "presidency south_balance");
 
 // Spend desk then reform buckets
 assert(spendAttention(state, 1, "desk"), "spend desk");
@@ -160,12 +170,20 @@ for (const id of [
   "republic_voice_gligorov",
   "desk_assembly_spring91",
   "mediation_izetbegovic_gate",
+  "desk_fond_open",
+  "desk_jna_quiet_order",
+  "desk_siv_fond_bind",
+  "desk_fond_autumn",
+  "republic_voice_bulatovic",
+  "desk_presidency_south",
+  "desk_fond_spring91",
+  "confederal_fond_memo",
 ]) {
   assert(ids.has(id), "event " + id);
 }
 
 // Pass 5–6 dialogues present
-for (const id of ["bogicevic", "tupurkovski", "racan", "gligorov", "bucin", "izetbegovic"]) {
+for (const id of ["bogicevic", "tupurkovski", "racan", "gligorov", "bucin", "izetbegovic", "bulatovic"]) {
   assert(catalogs.dialogues.some((d) => d.id === id), "dialogue " + id);
 }
 const glig = catalogs.dialogues.find((d) => d.id === "gligorov");
@@ -174,6 +192,11 @@ assert(!(glig.nodes.start.choices || []).some((c) => /prihvati.*I–G nacrt|potp
 
 const jovic = catalogs.dialogues.find((d) => d.id === "jovic");
 assert(jovic && (jovic.entries || []).some((e) => e.id === "revisit_skj"), "jovic SKJ revisit");
+const markovic = catalogs.dialogues.find((d) => d.id === "markovic");
+assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_fond"), "markovic fond revisit");
+const bul = catalogs.dialogues.find((d) => d.id === "bulatovic");
+assert(bul && /Titograd/i.test(JSON.stringify(bul)), "bulatovic Titograd");
+assert(!/Podgorica/i.test(JSON.stringify(bul)), "bulatovic not Podgorica");
 
 // Invariants: no I-G on April card; Slice A end
 const april = flat.find((e) => e.id === "confederal_draft");
@@ -181,6 +204,9 @@ assert(april && /Izetbegović–Gligorov|Izetbegovic|I–G|I-G/i.test(april.brie
 assert(!(april.choices || []).some((c) => /Izetbegović–Gligorov/i.test(c.label || "")), "no I-G choice on April card");
 const skjMemo = flat.find((e) => e.id === "confederal_skj_memo");
 assert(skjMemo && /Izetbegović–Gligorov|I–G/i.test((skjMemo.briefing || "") + (skjMemo.constitutional_note || "")), "SKJ memo excludes I-G");
+const fondMemo = flat.find((e) => e.id === "confederal_fond_memo");
+assert(fondMemo && /Izetbegović–Gligorov|I–G/i.test((fondMemo.briefing || "") + (fondMemo.constitutional_note || "")), "fond memo excludes I-G");
+assert(!(fondMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.test(c.label || "")), "no accept I-G on fond memo");
 
 // Slice A end date invariant
 assert(!ids.has("june_war") && !flat.some((e) => (e.date || "") > "1991-05-15" && e.id !== "slice_close"), "no post-15 May cards");
@@ -193,4 +219,5 @@ console.log("smoke OK", {
   conflict: warns[0]?.textKey,
   schema: state.save_schema,
   pass6: ["assembly", "fer", "gligorov", "bucin", "izetbegovic"],
+  pass7: ["fond", "bulatovic", "quiet_redistribute", "bind_fond", "south_balance"],
 });

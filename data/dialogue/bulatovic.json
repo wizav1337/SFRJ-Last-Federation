@@ -1,0 +1,163 @@
+{
+  "id": "bulatovic",
+  "speaker": "Momir Bulatović",
+  "title": "Predsjednik Predsjedništva SR Crne Gore",
+  "desk": "presidency",
+  "available_from": "1990-12-23",
+  "unlock": {},
+  "nodes": {
+    "start": {
+      "text": "Bulatović prima u Titogradu — ime grada ostaje Titograd. „Crna Gora može držati meku federaciju, sjesti uz srpski blok, ili tražiti Federalni fond kao južni koridor. Nismo Beogradova pokrajina. Zastoj Predsjedništva zatvara E3. Marković vodi SIV — knjige, ne krunu.“",
+      "choices": [
+        {
+          "id": "soft_fed",
+          "label": "Meka federacija: Titograd uz savezni stol.",
+          "next": "soft",
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "loyalty": 3,
+                "agenda_tension": -3
+              }
+            },
+            "federal.presidency_cohesion": 3,
+            "ME.federal_trust": 5,
+            "ME.yugoslav_identity": 3,
+            "flags_add": [
+              "talked_bulatovic",
+              "dialogue_bulatovic_soft",
+              "me_soft_federation",
+              "presidency_mediation_active"
+            ],
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            }
+          }
+        },
+        {
+          "id": "serbia_bloc",
+          "label": "Sjedi uz srpski blok — poluga, ne aneksija.",
+          "next": "bloc",
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "agenda_tension": 5,
+                "loyalty": -2
+              }
+            },
+            "federal.presidency_cohesion": -2,
+            "ME.federal_trust": 2,
+            "ME.skj_hold": 3,
+            "RS.federal_trust": 2,
+            "flags_add": [
+              "talked_bulatovic",
+              "dialogue_bulatovic_bloc",
+              "me_serbia_bloc"
+            ]
+          }
+        },
+        {
+          "id": "fond_south",
+          "label": "Traži Fond: južni koridor za Titograd i Skopje.",
+          "next": "fond",
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "loyalty": 2
+              },
+              "fond": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              }
+            },
+            "ME.living_standard": 2,
+            "MK.living_standard": 1,
+            "ME.federal_trust": 3,
+            "federal.federal_budget": -1,
+            "flags_add": [
+              "talked_bulatovic",
+              "dialogue_bulatovic_fond",
+              "fond_open_south",
+              "fond_target_mk_me"
+            ],
+            "desk_set": {
+              "fond": {
+                "posture": "target_mk_me"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "soft": {
+      "text": "„Dobro. Meka federacija nije kapitulacija. Titograd sjedi — bez da zatvori stol.“",
+      "choices": [
+        {
+          "id": "end_soft",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {
+            "federal.war_risk": -1,
+            "federal.legitimacy": 1
+          }
+        }
+      ]
+    },
+    "bloc": {
+      "text": "Titograd bilježi težinu uz RS. Nije naredba Joviću — Jović nije Milošević — ali kohezija Predsjedništva pada.",
+      "choices": [
+        {
+          "id": "end_bloc",
+          "label": "Izađi.",
+          "next": null,
+          "effects": {
+            "federal.war_risk": 1
+          }
+        }
+      ]
+    },
+    "fond": {
+      "text": "„Fond nije milostinja. Ako SIV i Fond dijele knjige, jug drži savezni jezik. Marković ostaje predsjednik SIV-a.“",
+      "choices": [
+        {
+          "id": "end_fond",
+          "label": "Zatvori.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 1,
+            "flags_add": [
+              "siv_fond_bind"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "entries": [
+    {
+      "id": "start",
+      "node": "start",
+      "once": true,
+      "available_from": "1990-12-23"
+    },
+    {
+      "id": "revisit_spring",
+      "node": "start",
+      "once": true,
+      "priority": 2,
+      "available_from": "1991-02-20",
+      "require_done": true,
+      "unlock": {
+        "flags_any": [
+          "fond_open_south",
+          "fond_freeze",
+          "fond_politicized",
+          "confederal_talks_open",
+          "presidency_south_balance"
+        ]
+      }
+    }
+  ]
+}

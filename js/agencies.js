@@ -64,6 +64,9 @@ export function syncAgenciesFromFlags(state) {
   if (state.flags.fer_customs_hard && state.flags.customs_war_active) {
     setAgencyStatus(state, "fer", "weakened");
   }
+  if (state.flags.fond_freeze || state.flags.fond_politicized) {
+    setAgencyStatus(state, "federal_fund", "weakened");
+  }
 }
 
 export function legalLabel(legal) {

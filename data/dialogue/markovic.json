@@ -244,6 +244,84 @@
           }
         }
       ]
+    },
+    "revisit_fond": {
+      "text": "Marković — predsjednik SIV-a, ne „predsjednik Jugoslavije“ — gleda Federalni fond i MMF. „Ako Fond smrzne jug, program umire. Ako politiziramo transfer, sjeverozapad bježi. Trebam koridor i stand-by, ne još jednu vojnu naredbu.“",
+      "choices": [
+        {
+          "id": "open_fond_siv",
+          "label": "Otvori Fond uz SIV knjige — jug kao savezni jezik.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 3,
+            "federal.reform_momentum": 2,
+            "MK.living_standard": 2,
+            "ME.living_standard": 2,
+            "flags_add": [
+              "dialogue_markovic_fond",
+              "siv_fond_bind",
+              "fond_open_south",
+              "markovic_mandate_strong"
+            ],
+            "flags_remove": [
+              "fond_freeze",
+              "markovic_starved"
+            ],
+            "desk_set": {
+              "siv": {
+                "posture": "stimulus"
+              },
+              "fond": {
+                "posture": "open_south"
+              }
+            }
+          }
+        },
+        {
+          "id": "imf_over_fond",
+          "label": "Prvo stand-by MMF — Fond sekundarno.",
+          "next": null,
+          "effects": {
+            "federal.imf_pressure": -2,
+            "federal.hard_currency": 2,
+            "federal.international_standing": 2,
+            "flags_add": [
+              "dialogue_markovic_fond",
+              "imf_standby_active",
+              "fer_imf_line",
+              "finance_imf_aligned"
+            ],
+            "desk_set": {
+              "siv": {
+                "posture": "austerity"
+              },
+              "fer": {
+                "posture": "imf_line"
+              }
+            }
+          }
+        },
+        {
+          "id": "freeze_hint",
+          "label": "Dopusti smrzavanje Fonda ako republike ne plaćaju.",
+          "next": null,
+          "effects": {
+            "federal.federal_budget": 2,
+            "federal.siv_authority": 1,
+            "MK.federal_trust": -2,
+            "ME.federal_trust": -2,
+            "flags_add": [
+              "dialogue_markovic_fond",
+              "fond_freeze"
+            ],
+            "desk_set": {
+              "fond": {
+                "posture": "freeze"
+              }
+            }
+          }
+        }
+      ]
     }
   },
   "entries": [
@@ -262,6 +340,25 @@
       "unlock": {
         "flags": [
           "talked_markovic"
+        ]
+      }
+    },
+    {
+      "id": "revisit_fond",
+      "node": "revisit_fond",
+      "once": true,
+      "priority": 3,
+      "require_done": true,
+      "available_from": "1990-10-01",
+      "unlock": {
+        "flags_any": [
+          "fond_open_south",
+          "fond_freeze",
+          "fond_politicized",
+          "fond_target_mk_me",
+          "siv_fond_bind",
+          "imf_standby_active",
+          "fer_imf_line"
         ]
       }
     }
