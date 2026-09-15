@@ -606,6 +606,85 @@
       ]
     },
     {
+      "id": "desk_ssrn_spring91",
+      "date": "1991-02-22",
+      "act": 5,
+      "desk": "SKJ",
+      "priority": "federal",
+      "title": "SSRN u proljeće 1991.",
+      "location": "Beograd — SSRN",
+      "briefing": "Proljeće 1991., još unutar Slice A (≤15. V). SSRN može držati forum uz SIV ili se urušiti. Nema čina VI; nema lipanjskog rata. Mesićeva dužnost stolca nije auto-sjedenje na ovoj kartici.",
+      "constitutional_note": "Slice A završava 15. svibnja 1991.; ova kartica ne otvara rat.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "ssrn_mass_front",
+          "ssrn_civic_forum",
+          "ssrn_siv_bind",
+          "ssrn_party_capture",
+          "desk_event_ssrn_open_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "bind_spring",
+          "label": "Obnovi vezu SSRN–SIV.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "ssrn": {
+                "posture": "mass_front_open"
+              }
+            },
+            "federal.siv_authority": 2,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "ssrn_siv_bind",
+              "ssrn_mass_front",
+              "desk_event_ssrn_spring_seen"
+            ],
+            "flags_remove": [
+              "ssrn_paralyzed"
+            ]
+          }
+        },
+        {
+          "id": "civic_spring",
+          "label": "Građanski forum u proljeće.",
+          "legal": "party",
+          "effects": {
+            "desk_set": {
+              "ssrn": {
+                "posture": "civic_forum"
+              }
+            },
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "ssrn_civic_forum",
+              "desk_event_ssrn_spring_seen"
+            ]
+          }
+        },
+        {
+          "id": "collapse",
+          "label": "Pusti SSRN u paralizu.",
+          "legal": "party",
+          "effects": {
+            "desk_set": {
+              "ssrn": {
+                "posture": "paralyzed"
+              }
+            },
+            "federal.legitimacy": -3,
+            "flags_add": [
+              "ssrn_paralyzed",
+              "desk_event_ssrn_spring_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_assembly_spring91",
       "date": "1991-02-25",
       "act": 5,
@@ -1376,6 +1455,87 @@
           "effects": {
             "flags_add": [
               "desk_event_fond_memo_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "confederal_ssrn_memo",
+      "date": "1991-04-20",
+      "act": 5,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Memorandum: SSRN uz konfederalni stol",
+      "location": "Beograd — Predsjedništvo",
+      "briefing": "Ako je konfederalni stol otvoren, SSRN može dati forumski pečat — ili ostati prazan. Izetbegović–Gligorov (I–G) nije prihvatljiv papir: samo isključenje. E3 i dalje traži otvorenu povelju i Predsjedništvo koje se može sastati. Marković = SIV; Jović ≠ Milošević; Titograd ostaje Titograd.",
+      "constitutional_note": "Izetbegović–Gligorov nacrt NIJE dostupan izbor. Blokada Predsjedništva isključuje E3.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "confederal_talks_open",
+          "ssrn_civic_forum",
+          "ssrn_siv_bind",
+          "ssrn_mass_front",
+          "presidency_quorum_guard"
+        ]
+      },
+      "choices": [
+        {
+          "id": "forum_memo",
+          "label": "Veži SSRN forum uz otvoreni konfederalni stol (bez I–G).",
+          "legal": "presidency_decree",
+          "effects": {
+            "desk_set": {
+              "ssrn": {
+                "posture": "civic_forum"
+              },
+              "presidency": {
+                "posture": "mediate"
+              }
+            },
+            "federal.presidency_cohesion": 3,
+            "federal.legitimacy": 2,
+            "charter_signatures_add": 1,
+            "flags_add": [
+              "confederal_ssrn_memo",
+              "ssrn_civic_forum",
+              "confederal_talks_open",
+              "desk_event_ssrn_memo_seen"
+            ],
+            "flags_remove": [
+              "presidency_deadlock"
+            ]
+          }
+        },
+        {
+          "id": "mass_memo",
+          "label": "Masovni front kao štit uz stol — bez I–G.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssrn": {
+                "posture": "mass_front_open"
+              }
+            },
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "confederal_ssrn_memo",
+              "ssrn_mass_front",
+              "desk_event_ssrn_memo_seen"
+            ]
+          }
+        },
+        {
+          "id": "refuse_ig_frame",
+          "label": "Zapiši: I–G nije papir; SSRN ne potpisuje taj okvir.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "confederal_ssrn_memo",
+              "desk_event_ssrn_memo_seen",
+              "gligorov_refused_ig_frame"
             ]
           }
         }

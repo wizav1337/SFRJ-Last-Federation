@@ -322,6 +322,79 @@
           }
         }
       ]
+    },
+    "revisit_ssrn": {
+      "text": "Marković — predsjednik SIV-a — gleda SSRN. „Masovni front može držati forum uz knjige. Ako ga stranka zarobi, reformski zamah umire. Ako ga paralizirate, gubim javni jezik. Ne tražim krunu — tražim ljuštura koja ne smeta SIV-u.“",
+      "choices": [
+        {
+          "id": "ssrn_with_siv",
+          "label": "Veži SSRN uz SIV knjige — otvoreni front.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 3,
+            "federal.legitimacy": 2,
+            "federal.reform_momentum": 2,
+            "flags_add": [
+              "dialogue_markovic_ssrn",
+              "ssrn_siv_bind",
+              "ssrn_mass_front",
+              "markovic_mandate_strong"
+            ],
+            "flags_remove": [
+              "ssrn_paralyzed",
+              "ssrn_party_capture"
+            ],
+            "desk_set": {
+              "ssrn": {
+                "posture": "mass_front_open"
+              },
+              "siv": {
+                "posture": "technocrat"
+              }
+            }
+          }
+        },
+        {
+          "id": "ssrn_civic",
+          "label": "Pusti građanski forum — manje partijskog pečata.",
+          "next": null,
+          "effects": {
+            "federal.legitimacy": 3,
+            "federal.reform_momentum": 1,
+            "flags_add": [
+              "dialogue_markovic_ssrn",
+              "ssrn_civic_forum"
+            ],
+            "flags_remove": [
+              "ssrn_party_capture",
+              "ssrn_paralyzed"
+            ],
+            "desk_set": {
+              "ssrn": {
+                "posture": "civic_forum"
+              }
+            }
+          }
+        },
+        {
+          "id": "ssrn_starve",
+          "label": "Neka SSRN ostane prazan — SIV nosi papir sam.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 1,
+            "federal.legitimacy": -2,
+            "flags_add": [
+              "dialogue_markovic_ssrn",
+              "ssrn_paralyzed"
+            ],
+            "desk_set": {
+              "ssrn": {
+                "posture": "paralyzed"
+              }
+            }
+          }
+        }
+      ]
     }
   },
   "entries": [
@@ -359,6 +432,24 @@
           "siv_fond_bind",
           "imf_standby_active",
           "fer_imf_line"
+        ]
+      }
+    },
+    {
+      "id": "revisit_ssrn",
+      "node": "revisit_ssrn",
+      "once": true,
+      "priority": 4,
+      "require_done": true,
+      "available_from": "1990-11-01",
+      "unlock": {
+        "flags_any": [
+          "ssrn_mass_front",
+          "ssrn_civic_forum",
+          "ssrn_party_capture",
+          "ssrn_paralyzed",
+          "ssrn_siv_bind",
+          "desk_event_ssrn_open_seen"
         ]
       }
     }

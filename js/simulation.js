@@ -51,6 +51,13 @@ export function recomputeWarRisk(state) {
   if (state.flags.fond_freeze) w += 0.4;
   if (state.flags.fond_open_south || state.flags.fond_target_mk_me) w -= 0.25;
   if (state.flags.fond_politicized) w += 0.2;
+  if (state.flags.ssrn_paralyzed || state.flags.ssrn_party_capture) w += 0.25;
+  if (state.flags.ssrn_civic_forum || state.flags.ssrn_siv_bind) w -= 0.2;
+  if (state.flags.ssp_isolation) w += 0.2;
+  if (state.flags.ssp_nam_bridge) w -= 0.15;
+  if (state.flags.finance_target) w += 0.15;
+  if (state.flags.finance_soft_corridor) w -= 0.15;
+  if (state.flags.dialogue_mesic_late_duty || state.flags.dialogue_jovic_late_quorum) w -= 0.2;
   if (state.flags.jna_quiet_redistribute) w -= 0.3;
   if (state.flags.presidency_south_balance || state.flags.confederal_fond_memo) w -= 0.3;
   if (state.flags.dialogue_bulatovic_bloc) w += 0.4;
@@ -171,6 +178,19 @@ export function buildMonthlyReport(state, before, months) {
   if (state.flags.talked_bulatovic || state.flags.republic_voice_bulatovic_seen) drivers.push("glas Bulatovića (Titograd)");
   if (state.flags.confederal_fond_memo) drivers.push("memorandum Fond uz konfederalni stol");
   if (state.flags.dialogue_markovic_fond) drivers.push("Marković o Fondu/MMF");
+  if (state.desks?.ssrn?.posture === "mass_front_open" || state.flags.ssrn_mass_front) drivers.push("SSRN: otvoreni masovni front");
+  if (state.desks?.ssrn?.posture === "civic_forum" || state.flags.ssrn_civic_forum) drivers.push("SSRN: građanski forum");
+  if (state.desks?.ssrn?.posture === "party_capture" || state.flags.ssrn_party_capture) drivers.push("SSRN: stranačko zarobljavanje");
+  if (state.desks?.ssrn?.posture === "paralyzed" || state.flags.ssrn_paralyzed) drivers.push("SSRN paraliziran");
+  if (state.flags.ssrn_siv_bind) drivers.push("SSRN vezan uz SIV");
+  if (state.flags.ssp_isolation || state.desks?.ssp?.posture === "isolation") drivers.push("SSP: izolacija");
+  if (state.flags.ssp_nam_bridge) drivers.push("SSP: most Nesvrstanih");
+  if (state.flags.finance_target || state.desks?.finance?.posture === "target") drivers.push("Financije: ciljani kanali");
+  if (state.flags.finance_soft_corridor) drivers.push("Financije: meki koridor");
+  if (state.flags.confederal_ssrn_memo) drivers.push("memorandum SSRN uz konfederalni stol");
+  if (state.flags.talked_mesic_late) drivers.push("kasni Mesić: dužnost stolca");
+  if (state.flags.talked_jovic_late) drivers.push("kasni Jović: kvorum vs blok");
+  if (state.flags.dialogue_markovic_ssrn) drivers.push("Marković o SSRN");
 
   return {
     months: months || 1,

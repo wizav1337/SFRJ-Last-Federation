@@ -57,13 +57,14 @@ catalogs.dialogues = [
   "markovic", "markovic_late", "mesic", "tudman",
   "bogicevic", "tupurkovski", "racan",
   "gligorov", "bucin", "izetbegovic", "bulatovic",
+  "mesic_late", "jovic_late",
 ].map((id) => readJSON(`data/dialogue/${id}.json`));
 
 const acts = ["act1", "act2", "act3", "act4", "act5"].map((a) => readJSON(`data/events/${a}.json`));
 const flat = flattenActs(acts);
 
 const state = createNewState(catalogs);
-assert(state.save_schema === 7, "save_schema 7");
+assert(state.save_schema === 8, "save_schema 8");
 assert(state.attention_spent_desks === 0 && state.attention_spent_reforms === 0, "spend counters");
 
 initDesks(state, catalogs);
@@ -73,7 +74,7 @@ assert(cap === 3 || cap === 4, "attention cap");
 assert(state.attention_left === cap, "attention granted");
 
 const desks = listDesks(catalogs);
-assert(desks.length >= 13, "at least 13 desks (fond)");
+assert(desks.length >= 14, "at least 14 desks (ssrn)");
 assert(desks.some((d) => d.id === "justice"), "justice desk present");
 assert(desks.some((d) => d.id === "skj"), "skj desk present");
 assert(desks.some((d) => d.id === "assembly"), "assembly desk present");
@@ -101,6 +102,20 @@ assert(jnaDeep.some((a) => a.id === "quiet_redistribute"), "jna quiet_redistribu
 assert(!(jnaDeep.find((a) => a.id === "quiet_redistribute")?.effects?.flags_add || []).includes("player_used_jna_threat"), "quiet JNA must not set threat");
 assert(actionsForDesk(state, catalogs, "siv").some((a) => a.id === "bind_fond"), "siv bind_fond");
 assert(actionsForDesk(state, catalogs, "presidency").some((a) => a.id === "south_balance"), "presidency south_balance");
+assert(desks.some((d) => d.id === "ssrn"), "ssrn desk present");
+assert(state.desks.ssrn?.posture === "mass_front_open", "ssrn default posture");
+const ssrnActs = actionsForDesk(state, catalogs, "ssrn");
+assert(ssrnActs.some((a) => a.id === "mass_front_open"), "ssrn mass_front_open");
+assert(ssrnActs.some((a) => a.id === "open_civic_forum"), "ssrn civic");
+assert(ssrnActs.some((a) => a.id === "party_capture"), "ssrn party_capture");
+assert(ssrnActs.some((a) => a.id === "paralyze"), "ssrn paralyze");
+assert(ssrnActs.some((a) => a.id === "bind_siv"), "ssrn bind_siv");
+const sspDeep = actionsForDesk(state, catalogs, "ssp");
+assert(sspDeep.some((a) => a.id === "isolation"), "ssp isolation");
+assert(sspDeep.some((a) => a.id === "nam_bridge"), "ssp nam_bridge");
+const finDeep = actionsForDesk(state, catalogs, "finance");
+assert(finDeep.some((a) => a.id === "target_channels"), "finance target_channels");
+assert(finDeep.some((a) => a.id === "soft_corridor"), "finance soft_corridor");
 
 // Spend desk then reform buckets
 assert(spendAttention(state, 1, "desk"), "spend desk");
@@ -178,14 +193,27 @@ for (const id of [
   "desk_presidency_south",
   "desk_fond_spring91",
   "confederal_fond_memo",
+  "desk_ssrn_open",
+  "desk_finance_target",
+  "desk_ssp_isolation",
+  "desk_ssrn_civic",
+  "desk_ssrn_party",
+  "desk_ssrn_before_pleb",
+  "desk_ssrn_spring91",
+  "confederal_ssrn_memo",
 ]) {
   assert(ids.has(id), "event " + id);
 }
 
 // Pass 5–6 dialogues present
-for (const id of ["bogicevic", "tupurkovski", "racan", "gligorov", "bucin", "izetbegovic", "bulatovic"]) {
+for (const id of ["bogicevic", "tupurkovski", "racan", "gligorov", "bucin", "izetbegovic", "bulatovic", "mesic_late", "jovic_late"]) {
   assert(catalogs.dialogues.some((d) => d.id === id), "dialogue " + id);
 }
+const mesicLate = catalogs.dialogues.find((d) => d.id === "mesic_late");
+assert(mesicLate && /dužnost|stolac|15\. svibnja/i.test(JSON.stringify(mesicLate)), "mesic_late chair duty language");
+assert(!(JSON.stringify(mesicLate).includes("mesic_seated") && /flags_add[^\]]*mesic_seated/.test(JSON.stringify(mesicLate))), "mesic_late no auto-seat");
+const jovicLate = catalogs.dialogues.find((d) => d.id === "jovic_late");
+assert(jovicLate && /nije Milošević|≠ Milošević|ne Milošević/i.test(JSON.stringify(jovicLate)), "jovic_late not Milošević");
 const glig = catalogs.dialogues.find((d) => d.id === "gligorov");
 assert(glig && /Izetbegović–Gligorov|I–G/i.test(JSON.stringify(glig)), "gligorov mentions I-G exclusion");
 assert(!(glig.nodes.start.choices || []).some((c) => /prihvati.*I–G nacrt|potpiši I–G/i.test(c.label || "")), "no accept I-G choice");
@@ -194,6 +222,7 @@ const jovic = catalogs.dialogues.find((d) => d.id === "jovic");
 assert(jovic && (jovic.entries || []).some((e) => e.id === "revisit_skj"), "jovic SKJ revisit");
 const markovic = catalogs.dialogues.find((d) => d.id === "markovic");
 assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_fond"), "markovic fond revisit");
+assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_ssrn"), "markovic ssrn revisit");
 const bul = catalogs.dialogues.find((d) => d.id === "bulatovic");
 assert(bul && /Titograd/i.test(JSON.stringify(bul)), "bulatovic Titograd");
 assert(!/Podgorica/i.test(JSON.stringify(bul)), "bulatovic not Podgorica");
@@ -207,6 +236,9 @@ assert(skjMemo && /Izetbegović–Gligorov|I–G/i.test((skjMemo.briefing || "")
 const fondMemo = flat.find((e) => e.id === "confederal_fond_memo");
 assert(fondMemo && /Izetbegović–Gligorov|I–G/i.test((fondMemo.briefing || "") + (fondMemo.constitutional_note || "")), "fond memo excludes I-G");
 assert(!(fondMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.test(c.label || "")), "no accept I-G on fond memo");
+const ssrnMemo = flat.find((e) => e.id === "confederal_ssrn_memo");
+assert(ssrnMemo && /Izetbegović–Gligorov|I–G/i.test((ssrnMemo.briefing || "") + (ssrnMemo.constitutional_note || "")), "ssrn memo excludes I-G");
+assert(!(ssrnMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.test(c.label || "")), "no accept I-G on ssrn memo");
 
 // Slice A end date invariant
 assert(!ids.has("june_war") && !flat.some((e) => (e.date || "") > "1991-05-15" && e.id !== "slice_close"), "no post-15 May cards");
@@ -220,4 +252,5 @@ console.log("smoke OK", {
   schema: state.save_schema,
   pass6: ["assembly", "fer", "gligorov", "bucin", "izetbegovic"],
   pass7: ["fond", "bulatovic", "quiet_redistribute", "bind_fond", "south_balance"],
+  pass8: ["ssrn", "mesic_late", "jovic_late", "isolation", "soft_corridor"],
 });

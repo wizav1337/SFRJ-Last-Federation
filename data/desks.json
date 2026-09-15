@@ -731,7 +731,7 @@
       "name": "SSP",
       "name_hr": "Savezni sekretarijat za inozemne poslove",
       "kind": "secretariat",
-      "briefing": "Diplomacija, Nesvrstani, kontakti s EEZ. Vanjski stav mijenja međunarodni položaj i težinu note EZ-a prema E4.",
+      "briefing": "Diplomacija, Nesvrstani, kontakti s EEZ. Vanjski stav mijenja međunarodni položaj i težinu note EZ-a prema E4. Pass 8: izolacija ili most Nesvrstanih — mirnodopske zastavice ssp_isolation / ssp_nam_bridge.",
       "stats": {
         "loyalty": 55,
         "capacity": 50,
@@ -813,6 +813,68 @@
               "ssp_quiet_demarche"
             ]
           }
+        },
+        {
+          "id": "isolation",
+          "label": "Izolacija: zatvori EEZ kolosijek, manje demarši.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "ssp": {
+                "posture": "isolation"
+              }
+            },
+            "desk_add": {
+              "ssp": {
+                "agenda_tension": 5,
+                "loyalty": -2
+              }
+            },
+            "federal.international_standing": -4,
+            "federal.legitimacy": -1,
+            "flags_add": [
+              "ssp_isolation"
+            ],
+            "flags_remove": [
+              "ssp_ec_track",
+              "ssp_nam_bridge",
+              "ec_troika_watching"
+            ]
+          }
+        },
+        {
+          "id": "nam_bridge",
+          "label": "Most Nesvrstanih: stari jezik kao most, ne kao zid.",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_set": {
+              "ssp": {
+                "posture": "nonaligned"
+              }
+            },
+            "desk_add": {
+              "ssp": {
+                "loyalty": 3,
+                "capacity": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.international_standing": 3,
+            "federal.legitimacy": 2,
+            "federal.inter_republic_trade": 1,
+            "flags_add": [
+              "ssp_nam_bridge",
+              "ssp_quiet_demarche"
+            ],
+            "flags_remove": [
+              "ssp_isolation"
+            ]
+          }
         }
       ]
     },
@@ -822,7 +884,7 @@
       "name": "Financije",
       "name_hr": "Savezni sekretarijat za financije",
       "kind": "secretariat",
-      "briefing": "Savezni proračun i transferi. Smrzavanje ili otvaranje fondova vuče životni standard, carine i put Markovića.",
+      "briefing": "Savezni proračun i transferi. Smrzavanje ili otvaranje fondova vuče životni standard, carine i put Markovića. Pass 8: ciljani kanali (finance_target) i meki koridor (finance_soft_corridor) — mirnodopski, bez fronte.",
       "stats": {
         "loyalty": 54,
         "capacity": 58,
@@ -924,6 +986,73 @@
             "federal.reform_momentum": 3,
             "flags_add": [
               "finance_imf_aligned"
+            ]
+          }
+        },
+        {
+          "id": "target_channels",
+          "label": "Ciljaj kanale: uži transferi prema platišama.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "finance": {
+                "posture": "target"
+              }
+            },
+            "desk_add": {
+              "finance": {
+                "capacity": 3,
+                "agenda_tension": 4
+              }
+            },
+            "federal.federal_budget": 3,
+            "federal.siv_authority": 1,
+            "SI.federal_trust": -3,
+            "HR.federal_trust": -3,
+            "MK.living_standard": 1,
+            "ME.living_standard": 1,
+            "flags_add": [
+              "finance_target"
+            ],
+            "flags_remove": [
+              "finance_transfers_open",
+              "finance_soft_corridor"
+            ]
+          }
+        },
+        {
+          "id": "soft_corridor",
+          "label": "Meki koridor: tihi transferi uz SIV knjige (Marković = SIV).",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_set": {
+              "finance": {
+                "posture": "open"
+              }
+            },
+            "desk_add": {
+              "finance": {
+                "loyalty": 3,
+                "agenda_tension": -3
+              }
+            },
+            "federal.inter_republic_trade": 2,
+            "federal.siv_authority": 2,
+            "federal.reform_momentum": 1,
+            "BA.living_standard": 1,
+            "MK.living_standard": 1,
+            "flags_add": [
+              "finance_soft_corridor",
+              "finance_transfers_open"
+            ],
+            "flags_remove": [
+              "finance_transfer_freeze",
+              "finance_target"
             ]
           }
         }
@@ -1963,6 +2092,191 @@
             "flags_remove": [
               "fond_freeze"
             ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ssrn",
+      "agency_id": "ssrn",
+      "name": "SSRN",
+      "name_hr": "Socijalistički savez radnog naroda / SSRN",
+      "kind": "socio_political",
+      "briefing": "Masovni front SSRN — ljuštura izbornog stroja i građanskog foruma. Postave (otvoreni front / stranačko zarobljavanje / građanski forum / paraliza) diraju legitimnost, skj_hold i zastavice ssrn_*. Veza uz SIV (ssrn_siv_bind) ne čini Markovića predsjednikom Jugoslavije. Mirnodopski šalter; bez fronte.",
+      "stats": {
+        "loyalty": 48,
+        "capacity": 45,
+        "agenda_tension": 40
+      },
+      "posture_default": "mass_front_open",
+      "postures": [
+        "mass_front_open",
+        "party_capture",
+        "civic_forum",
+        "paralyzed"
+      ],
+      "actions": [
+        {
+          "id": "mass_front_open",
+          "label": "Otvori masovni front: SSRN kao široka ljuštura, ne stranka.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "ssrn": {
+                "posture": "mass_front_open"
+              }
+            },
+            "desk_add": {
+              "ssrn": {
+                "loyalty": 3,
+                "agenda_tension": -3
+              }
+            },
+            "federal.legitimacy": 2,
+            "federal.skj_unity": 1,
+            "SI.skj_hold": 1,
+            "HR.skj_hold": 1,
+            "flags_add": [
+              "ssrn_mass_front"
+            ],
+            "flags_remove": [
+              "ssrn_paralyzed",
+              "ssrn_party_capture"
+            ]
+          }
+        },
+        {
+          "id": "open_civic_forum",
+          "label": "Građanski forum: SSRN kao prostor bez stranačkog pečata.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "ssrn": {
+                "posture": "civic_forum"
+              }
+            },
+            "desk_add": {
+              "ssrn": {
+                "loyalty": 2,
+                "capacity": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.legitimacy": 3,
+            "federal.reform_momentum": 2,
+            "SI.federal_trust": 2,
+            "HR.federal_trust": 2,
+            "flags_add": [
+              "ssrn_civic_forum"
+            ],
+            "flags_remove": [
+              "ssrn_paralyzed",
+              "ssrn_party_capture"
+            ]
+          }
+        },
+        {
+          "id": "party_capture",
+          "label": "Stranačko zarobljavanje: SSRN kao produžetak partijskih listi.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "ssrn": {
+                "posture": "party_capture"
+              }
+            },
+            "desk_add": {
+              "ssrn": {
+                "agenda_tension": 6,
+                "loyalty": -2
+              }
+            },
+            "federal.legitimacy": -2,
+            "federal.skj_unity": 2,
+            "RS.skj_hold": 3,
+            "SI.federal_trust": -2,
+            "HR.federal_trust": -2,
+            "flags_add": [
+              "ssrn_party_capture"
+            ],
+            "flags_remove": [
+              "ssrn_civic_forum",
+              "ssrn_mass_front"
+            ]
+          }
+        },
+        {
+          "id": "paralyze",
+          "label": "Paraliziraj SSRN: prazna ljuštura, bez foruma.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "ssrn": {
+                "posture": "paralyzed"
+              }
+            },
+            "desk_add": {
+              "ssrn": {
+                "capacity": -4,
+                "agenda_tension": 4,
+                "loyalty": -3
+              }
+            },
+            "federal.legitimacy": -3,
+            "federal.assembly_function": -2,
+            "flags_add": [
+              "ssrn_paralyzed"
+            ],
+            "flags_remove": [
+              "ssrn_civic_forum",
+              "ssrn_mass_front",
+              "ssrn_siv_bind"
+            ]
+          }
+        },
+        {
+          "id": "bind_siv",
+          "label": "Veži SSRN uz SIV knjige (Marković = predsjednik SIV-a).",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_add": {
+              "ssrn": {
+                "loyalty": 2,
+                "agenda_tension": -2
+              },
+              "siv": {
+                "loyalty": 2,
+                "capacity": 2
+              }
+            },
+            "federal.siv_authority": 3,
+            "federal.reform_momentum": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "ssrn_siv_bind",
+              "ssrn_mass_front"
+            ],
+            "flags_remove": [
+              "ssrn_paralyzed"
+            ],
+            "desk_set": {
+              "ssrn": {
+                "posture": "mass_front_open"
+              },
+              "siv": {
+                "posture": "technocrat"
+              }
+            }
           }
         }
       ]

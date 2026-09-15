@@ -1,21 +1,157 @@
 {
   "agencies": [
-    {"id": "presidency", "name": "Predsjedništvo SFRJ", "kind": "constitutional", "desk": "PRET", "status": "active", "competence": "kolektivni šef države; zapovijedanje oružanim snagama; vanjska politika; arbitraža među republikama", "dissolve_legal": "extra_constitutional"},
-    {"id": "assembly", "name": "Skupština SFRJ", "kind": "constitutional", "desk": "PRET", "status": "active", "competence": "savezni zakoni; dva vijeća; bira SIV", "dissolve_legal": "extra_constitutional"},
-    {"id": "siv", "name": "Savezno izvršno vijeće", "kind": "constitutional", "desk": "SIV", "status": "active", "competence": "savezna vlada; izvršenje saveznog zakona", "dissolve_legal": "assembly_statute"},
-    {"id": "const_court", "name": "Ustavni sud Jugoslavije", "kind": "constitutional", "desk": "PRET", "status": "active", "competence": "ustavnost saveznih i republikanskih akata", "dissolve_legal": "extra_constitutional"},
-    {"id": "nby", "name": "Narodna banka Jugoslavije", "kind": "constitutional", "desk": "SIV", "status": "active", "competence": "dinar; rezerve; usklađivanje republikanskih banaka", "dissolve_legal": "assembly_statute"},
-    {"id": "ssno", "name": "Savezni sekretarijat za narodnu obranu", "kind": "secretariat", "desk": "SIV", "status": "active", "competence": "uprava JNA; obrambena politika", "dissolve_legal": "assembly_statute"},
-    {"id": "ssp", "name": "Savezni sekretarijat za inozemne poslove", "kind": "secretariat", "desk": "SIV", "status": "active", "competence": "diplomacija; Pokret nesvrstanih; kontakti s EEZ", "dissolve_legal": "assembly_statute"},
-    {"id": "ssup", "name": "Savezni sekretarijat za unutarnje poslove", "kind": "secretariat", "desk": "SIV", "status": "active", "competence": "savezni unutarnji poslovi; kanal SDB", "dissolve_legal": "assembly_statute"},
-    {"id": "finance", "name": "Savezni sekretarijat za financije", "kind": "secretariat", "desk": "SIV", "status": "active", "competence": "savezni proračun; transferi", "dissolve_legal": "assembly_statute"},
-    {"id": "justice", "name": "Savezni sekretarijat za pravosuđe", "kind": "secretariat", "desk": "SIV", "status": "active", "competence": "savezni pravni poslovi", "dissolve_legal": "assembly_statute"},
-    {"id": "fer", "name": "Savezni sekretarijat za vanjske ekonomske odnose", "kind": "secretariat", "desk": "SIV", "status": "active", "competence": "trgovina; sučelje MMF-a sa SIV-om", "dissolve_legal": "assembly_statute"},
-    {"id": "jna", "name": "Jugoslavenska narodna armija", "kind": "force", "desk": "PRET", "status": "active", "competence": "savezne oružane snage", "dissolve_legal": "extra_constitutional"},
-    {"id": "to", "name": "Teritorijalna obrana", "kind": "force", "desk": "PRET", "status": "active", "competence": "republikanska teritorijalna obrana; zalihe dijelom federalizirane u doktrini", "dissolve_legal": "emergency"},
-    {"id": "sdb", "name": "Služba državne sigurnosti (SDB)", "kind": "force", "desk": "SIV", "status": "active", "competence": "državna sigurnost", "dissolve_legal": "presidency_decree"},
-    {"id": "skj", "name": "Savez komunista Jugoslavije", "kind": "socio_political", "desk": "SKJ", "status": "active", "competence": "vodeća idejno-politička organizacija", "dissolve_legal": "party"},
-    {"id": "ssrn", "name": "Socijalistički savez radnog naroda", "kind": "socio_political", "desk": "SKJ", "status": "weakened", "competence": "masovni front; ljuštura izbornog stroja", "dissolve_legal": "party"},
-    {"id": "federal_fund", "name": "Federalni fond za nerazvijene", "kind": "secretariat", "desk": "SIV", "status": "active", "competence": "transferi prema MK, ME, BA, XK", "dissolve_legal": "assembly_statute"}
+    {
+      "id": "presidency",
+      "name": "Predsjedništvo SFRJ",
+      "kind": "constitutional",
+      "desk": "PRET",
+      "status": "active",
+      "competence": "kolektivni šef države; zapovijedanje oružanim snagama; vanjska politika; arbitraža među republikama",
+      "dissolve_legal": "extra_constitutional"
+    },
+    {
+      "id": "assembly",
+      "name": "Skupština SFRJ",
+      "kind": "constitutional",
+      "desk": "PRET",
+      "status": "active",
+      "competence": "savezni zakoni; dva vijeća; bira SIV",
+      "dissolve_legal": "extra_constitutional"
+    },
+    {
+      "id": "siv",
+      "name": "Savezno izvršno vijeće",
+      "kind": "constitutional",
+      "desk": "SIV",
+      "status": "active",
+      "competence": "savezna vlada; izvršenje saveznog zakona",
+      "dissolve_legal": "assembly_statute"
+    },
+    {
+      "id": "const_court",
+      "name": "Ustavni sud Jugoslavije",
+      "kind": "constitutional",
+      "desk": "PRET",
+      "status": "active",
+      "competence": "ustavnost saveznih i republikanskih akata",
+      "dissolve_legal": "extra_constitutional"
+    },
+    {
+      "id": "nby",
+      "name": "Narodna banka Jugoslavije",
+      "kind": "constitutional",
+      "desk": "SIV",
+      "status": "active",
+      "competence": "dinar; rezerve; usklađivanje republikanskih banaka",
+      "dissolve_legal": "assembly_statute"
+    },
+    {
+      "id": "ssno",
+      "name": "Savezni sekretarijat za narodnu obranu",
+      "kind": "secretariat",
+      "desk": "SIV",
+      "status": "active",
+      "competence": "uprava JNA; obrambena politika",
+      "dissolve_legal": "assembly_statute"
+    },
+    {
+      "id": "ssp",
+      "name": "Savezni sekretarijat za inozemne poslove",
+      "kind": "secretariat",
+      "desk": "SIV",
+      "status": "active",
+      "competence": "diplomacija; Pokret nesvrstanih; kontakti s EEZ",
+      "dissolve_legal": "assembly_statute"
+    },
+    {
+      "id": "ssup",
+      "name": "Savezni sekretarijat za unutarnje poslove",
+      "kind": "secretariat",
+      "desk": "SIV",
+      "status": "active",
+      "competence": "savezni unutarnji poslovi; kanal SDB",
+      "dissolve_legal": "assembly_statute"
+    },
+    {
+      "id": "finance",
+      "name": "Savezni sekretarijat za financije",
+      "kind": "secretariat",
+      "desk": "SIV",
+      "status": "active",
+      "competence": "savezni proračun; transferi",
+      "dissolve_legal": "assembly_statute"
+    },
+    {
+      "id": "justice",
+      "name": "Savezni sekretarijat za pravosuđe",
+      "kind": "secretariat",
+      "desk": "SIV",
+      "status": "active",
+      "competence": "savezni pravni poslovi",
+      "dissolve_legal": "assembly_statute"
+    },
+    {
+      "id": "fer",
+      "name": "Savezni sekretarijat za vanjske ekonomske odnose",
+      "kind": "secretariat",
+      "desk": "SIV",
+      "status": "active",
+      "competence": "trgovina; sučelje MMF-a sa SIV-om",
+      "dissolve_legal": "assembly_statute"
+    },
+    {
+      "id": "jna",
+      "name": "Jugoslavenska narodna armija",
+      "kind": "force",
+      "desk": "PRET",
+      "status": "active",
+      "competence": "savezne oružane snage",
+      "dissolve_legal": "extra_constitutional"
+    },
+    {
+      "id": "to",
+      "name": "Teritorijalna obrana",
+      "kind": "force",
+      "desk": "PRET",
+      "status": "active",
+      "competence": "republikanska teritorijalna obrana; zalihe dijelom federalizirane u doktrini",
+      "dissolve_legal": "emergency"
+    },
+    {
+      "id": "sdb",
+      "name": "Služba državne sigurnosti (SDB)",
+      "kind": "force",
+      "desk": "SIV",
+      "status": "active",
+      "competence": "državna sigurnost",
+      "dissolve_legal": "presidency_decree"
+    },
+    {
+      "id": "skj",
+      "name": "Savez komunista Jugoslavije",
+      "kind": "socio_political",
+      "desk": "SKJ",
+      "status": "active",
+      "competence": "vodeća idejno-politička organizacija",
+      "dissolve_legal": "party"
+    },
+    {
+      "id": "ssrn",
+      "name": "Socijalistički savez radnog naroda",
+      "kind": "socio_political",
+      "desk": "SSRN",
+      "status": "weakened",
+      "competence": "masovni front; građanski forum; ljuštura izbornog stroja",
+      "dissolve_legal": "party"
+    },
+    {
+      "id": "federal_fund",
+      "name": "Federalni fond za nerazvijene",
+      "kind": "secretariat",
+      "desk": "SIV",
+      "status": "active",
+      "competence": "transferi prema MK, ME, BA, XK",
+      "dissolve_legal": "assembly_statute"
+    }
   ]
 }

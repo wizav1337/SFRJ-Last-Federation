@@ -22,6 +22,7 @@
  * Pass 5: SKJ remnant caucus desk + republic-voice coupling.
  * Pass 6: Skupština (assembly) + FER desks; ME/Gligorov voices feed stack.
  * Pass 7: Fond za nerazvijene + deepen JNA/SIV/Presidency; Bulatović voice.
+ * Pass 8: SSRN desk + deepen SSP/Finance; late Mesić/Jović; Marković SSRN revisit.
  * Soft-block if already in posture with flag.
  */
 import { clamp, pathAdd } from "./state.js";
@@ -34,8 +35,8 @@ const POSTURE_FLAG_MAP = {
   siv: { austerity: "siv_austerity_stance", stimulus: "siv_stimulus_stance" },
   presidency: { mediate: "presidency_mediation_active", hardline: "presidency_hardline" },
   ssup: { soft: "ssup_soft_line", hard: "ssup_hard_line" },
-  ssp: { ec_track: "ssp_ec_track" },
-  finance: { open: "finance_transfers_open", freeze: "finance_transfer_freeze" },
+  ssp: { ec_track: "ssp_ec_track", isolation: "ssp_isolation" },
+  finance: { open: "finance_transfers_open", freeze: "finance_transfer_freeze", target: "finance_target" },
   to: { coordinate: "to_coordinate_posture", inventory: "to_inventory_push", republic_hold: "to_republic_hold" },
   nby: { tight: "nby_tight_dinar", loose: "nby_loose_credit", fragment: "nby_fragment_risk" },
   justice: { constitutional: "justice_constitutional_line", arbitrate: "justice_arbitrate_line", hard: "justice_hard_line" },
@@ -43,6 +44,7 @@ const POSTURE_FLAG_MAP = {
   assembly: { session_open: "assembly_open", stalled: "assembly_stalled", rubber_stamp: "assembly_rubber_stamp" },
   fer: { trade_open: "fer_trade_open", imf_line: "fer_imf_line", customs_hard: "fer_customs_hard" },
   fond: { open_south: "fond_open_south", freeze: "fond_freeze", target_mk_me: "fond_target_mk_me", politicized: "fond_politicized" },
+  ssrn: { mass_front_open: "ssrn_mass_front", party_capture: "ssrn_party_capture", civic_forum: "ssrn_civic_forum", paralyzed: "ssrn_paralyzed" },
 };
 
 export function initDesks(state, catalog) {
@@ -65,7 +67,7 @@ export function initDesks(state, catalog) {
   if (state.attention_left == null) state.attention_left = 0;
   if (!state.attention_month) state.attention_month = "";
   // Save migration: Pass 3 schema (shared attention + multi-visit dialogue)
-  if (state.save_schema == null || state.save_schema < 7) state.save_schema = 7;
+  if (state.save_schema == null || state.save_schema < 8) state.save_schema = 8;
   syncDeskFlagsFromPosture(state);
 }
 
@@ -426,8 +428,17 @@ export function applyDeskMonthlyPosture(state, scale = 1) {
     }
   }
 
-  if (ssp?.posture === "ec_track") {
-    f.international_standing = clamp(f.international_standing + 0.4 * s);
+  if (ssp) {
+    if (ssp.posture === "ec_track") {
+      f.international_standing = clamp(f.international_standing + 0.4 * s);
+    } else if (ssp.posture === "isolation") {
+      f.international_standing = clamp(f.international_standing - 0.45 * s);
+      f.legitimacy = clamp(f.legitimacy - 0.1 * s);
+      ssp.agenda_tension = clamp(ssp.agenda_tension + 0.3 * s);
+    } else if (ssp.posture === "nonaligned") {
+      f.international_standing = clamp(f.international_standing + 0.15 * s);
+      if (state.flags.ssp_nam_bridge) f.legitimacy = clamp(f.legitimacy + 0.15 * s);
+    }
   }
 
   if (fin) {
@@ -437,6 +448,16 @@ export function applyDeskMonthlyPosture(state, scale = 1) {
       if (state.units.HR) state.units.HR.federal_trust = clamp(state.units.HR.federal_trust - 0.4 * s);
     } else if (fin.posture === "open") {
       f.inter_republic_trade = clamp(f.inter_republic_trade + 0.3 * s);
+      if (state.flags.finance_soft_corridor) {
+        f.siv_authority = clamp(f.siv_authority + 0.15 * s);
+        f.reform_momentum = clamp(f.reform_momentum + 0.1 * s);
+      }
+    } else if (fin.posture === "target") {
+      f.federal_budget = clamp(f.federal_budget + 0.35 * s);
+      f.siv_authority = clamp(f.siv_authority + 0.1 * s);
+      fin.agenda_tension = clamp(fin.agenda_tension + 0.35 * s);
+      if (state.units.SI) state.units.SI.federal_trust = clamp(state.units.SI.federal_trust - 0.25 * s);
+      if (state.units.HR) state.units.HR.federal_trust = clamp(state.units.HR.federal_trust - 0.25 * s);
     }
   }
 
@@ -610,6 +631,33 @@ export function applyDeskMonthlyPosture(state, scale = 1) {
     }
   }
 
+  const ssrn = state.desks.ssrn;
+  if (ssrn) {
+    if (ssrn.posture === "mass_front_open") {
+      f.legitimacy = clamp(f.legitimacy + 0.2 * s);
+      f.skj_unity = clamp(f.skj_unity + 0.1 * s);
+    } else if (ssrn.posture === "civic_forum") {
+      f.legitimacy = clamp(f.legitimacy + 0.35 * s);
+      f.reform_momentum = clamp(f.reform_momentum + 0.2 * s);
+      if (state.units.SI) state.units.SI.federal_trust = clamp(state.units.SI.federal_trust + 0.15 * s);
+      if (state.units.HR) state.units.HR.federal_trust = clamp(state.units.HR.federal_trust + 0.15 * s);
+    } else if (ssrn.posture === "party_capture") {
+      f.legitimacy = clamp(f.legitimacy - 0.25 * s);
+      f.skj_unity = clamp(f.skj_unity + 0.2 * s);
+      ssrn.agenda_tension = clamp(ssrn.agenda_tension + 0.4 * s);
+      if (state.units.SI) state.units.SI.federal_trust = clamp(state.units.SI.federal_trust - 0.15 * s);
+      if (state.units.HR) state.units.HR.federal_trust = clamp(state.units.HR.federal_trust - 0.15 * s);
+    } else if (ssrn.posture === "paralyzed") {
+      f.legitimacy = clamp(f.legitimacy - 0.35 * s);
+      f.assembly_function = clamp(f.assembly_function - 0.2 * s);
+      ssrn.capacity = clamp(ssrn.capacity - 0.2 * s);
+    }
+    if (state.flags.ssrn_siv_bind) {
+      f.siv_authority = clamp(f.siv_authority + 0.2 * s);
+      f.reform_momentum = clamp(f.reform_momentum + 0.1 * s);
+    }
+  }
+
     const justice = state.desks.justice;
   if (justice) {
     if (justice.posture === "constitutional") {
@@ -677,6 +725,9 @@ export function confederalStackDepth(state) {
   if (f.assembly_quorum_ok || f.assembly_open) n += 1;
   if (f.confederal_fond_memo || f.presidency_south_balance) n += 1;
   if (f.dialogue_bulatovic_soft || f.dialogue_bulatovic_fond) n += 1;
+  if (f.confederal_ssrn_memo || f.ssrn_civic_forum) n += 1;
+  if (f.dialogue_mesic_late_duty || f.dialogue_mesic_late_conf) n += 1;
+  if (f.dialogue_jovic_late_quorum) n += 1;
   return n;
 }
 
@@ -759,6 +810,24 @@ export function syncDeskFlagsFromPosture(state) {
     state.flags.fond_target_mk_me = fondD.posture === "target_mk_me";
     state.flags.fond_politicized = fondD.posture === "politicized";
   }
+  const sspD = state.desks.ssp;
+  if (sspD) {
+    state.flags.ssp_ec_track = sspD.posture === "ec_track";
+    state.flags.ssp_isolation = sspD.posture === "isolation";
+  }
+  const finD = state.desks.finance;
+  if (finD) {
+    state.flags.finance_transfers_open = finD.posture === "open";
+    state.flags.finance_transfer_freeze = finD.posture === "freeze";
+    state.flags.finance_target = finD.posture === "target";
+  }
+  const ssrnD = state.desks.ssrn;
+  if (ssrnD) {
+    state.flags.ssrn_mass_front = ssrnD.posture === "mass_front_open";
+    state.flags.ssrn_party_capture = ssrnD.posture === "party_capture";
+    state.flags.ssrn_civic_forum = ssrnD.posture === "civic_forum";
+    state.flags.ssrn_paralyzed = ssrnD.posture === "paralyzed";
+  }
 }
 
 /** Compact strip chips for UI — id + short posture label + tone. */
@@ -768,8 +837,8 @@ export function deskStatusChips(state, catalog) {
     const rt = deskRuntime(state, d.id);
     const posture = rt?.posture || d.posture_default || "default";
     let tone = "neutral";
-    if (["alert", "hard", "hardline", "inventory", "fragment", "political", "freeze", "hard_unity", "stalled", "customs_hard", "rubber_stamp", "politicized"].includes(posture)) tone = "warn";
-    if (["garrison", "mediate", "soft", "coordinate", "tight", "open", "technocrat", "observe", "constitutional", "arbitrate", "soft_federal", "cede_siv", "trade_open", "imf_line", "session_open", "open_south", "target_mk_me"].includes(posture)) tone = "good";
+    if (["alert", "hard", "hardline", "inventory", "fragment", "political", "freeze", "hard_unity", "stalled", "customs_hard", "rubber_stamp", "politicized", "party_capture", "paralyzed", "isolation"].includes(posture)) tone = "warn";
+    if (["garrison", "mediate", "soft", "coordinate", "tight", "open", "technocrat", "observe", "constitutional", "arbitrate", "soft_federal", "cede_siv", "trade_open", "imf_line", "session_open", "open_south", "target_mk_me", "mass_front_open", "civic_forum", "nonaligned", "ec_track"].includes(posture)) tone = "good";
     return {
       id: d.id,
       name: d.name,

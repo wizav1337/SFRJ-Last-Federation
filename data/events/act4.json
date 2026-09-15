@@ -489,77 +489,154 @@
       ]
     },
     {
-      "id": "republic_voice_me",
-      "date": "1990-12-18",
+      "id": "desk_ssrn_before_pleb",
+      "date": "1990-12-16",
       "act": 4,
       "desk": "PRET",
       "priority": "federal",
-      "title": "Glas Crne Gore (Titograd)",
-      "location": "Titograd / Beograd — Predsjedništvo (ME stolac)",
-      "briefing": "Bućin ili linija Titograda: meka federacija, srpski blok kao poluga, ili kvorum. Grad ostaje Titograd. Nije aneksija; nije otcjepljenje. E3: zastoj isključuje ishod.",
-      "constitutional_note": "Jović ≠ Milošević. Marković = SIV. Nema Izetbegović–Gligorova.",
-      "documents": [
-        "1974_presidency"
-      ],
+      "title": "SSRN pred plebiscitom",
+      "location": "Beograd — Predsjedništvo / SSRN",
+      "briefing": "Pred slovenskim plebiscitom SSRN može držati forum ili se paralizirati. Jović je predsjedatelj (postupak), ne Milošević. Nema auto-sjedenja Mesića. I–G nije dostupan papir.",
+      "constitutional_note": "Plebiscit je republikanski čin; SSRN ne zamjenjuje Predsjedništvo.",
+      "documents": [],
       "requires": {
-        "flags_not": [
-          "desk_event_me_voice_seen"
+        "flags_any": [
+          "ssrn_mass_front",
+          "ssrn_civic_forum",
+          "ssrn_siv_bind",
+          "desk_event_ssrn_open_seen",
+          "presidency_rotation_jovic"
         ]
       },
       "choices": [
         {
-          "id": "soft_me",
-          "label": "Meka federacija iz Titograda.",
-          "legal": "political",
+          "id": "hold_forum",
+          "label": "Drži forum otvorenim uz kvorum Predsjedništva.",
+          "legal": "presidency_decree",
           "effects": {
             "desk_set": {
+              "ssrn": {
+                "posture": "civic_forum"
+              },
               "presidency": {
                 "posture": "mediate"
               }
             },
-            "federal.presidency_cohesion": 4,
-            "ME.federal_trust": 5,
+            "federal.presidency_cohesion": 2,
+            "federal.legitimacy": 2,
             "flags_add": [
-              "me_soft_federation",
-              "dialogue_bucin_soft",
-              "presidency_mediation_active",
-              "republic_voice_me_seen",
-              "desk_event_me_voice_seen"
-            ]
-          }
-        },
-        {
-          "id": "bloc_me",
-          "label": "Sjedi uz srpski blok kao polugu.",
-          "legal": "political",
-          "effects": {
-            "federal.presidency_cohesion": -3,
-            "ME.skj_hold": 3,
-            "RS.federal_trust": 2,
-            "flags_add": [
-              "me_serbia_bloc",
-              "dialogue_bucin_bloc",
-              "republic_voice_me_seen",
-              "desk_event_me_voice_seen"
-            ]
-          }
-        },
-        {
-          "id": "quorum_me",
-          "label": "Čuvaj kvorum: Titograd sjedi.",
-          "legal": "political",
-          "effects": {
-            "federal.presidency_cohesion": 5,
-            "ME.federal_trust": 3,
-            "flags_add": [
-              "me_quorum_guard",
+              "ssrn_civic_forum",
               "presidency_quorum_guard",
-              "dialogue_bucin_quorum",
-              "republic_voice_me_seen",
-              "desk_event_me_voice_seen"
+              "desk_event_ssrn_pleb_seen"
+            ]
+          }
+        },
+        {
+          "id": "mass",
+          "label": "Masovni front kao štit legitimnosti.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssrn": {
+                "posture": "mass_front_open"
+              }
+            },
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "ssrn_mass_front",
+              "desk_event_ssrn_pleb_seen"
+            ]
+          }
+        },
+        {
+          "id": "freeze_ssrn",
+          "label": "Paraliziraj SSRN pred plebiscitom.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssrn": {
+                "posture": "paralyzed"
+              }
+            },
+            "federal.legitimacy": -2,
+            "SI.secession_readiness": 2,
+            "flags_add": [
+              "ssrn_paralyzed",
+              "desk_event_ssrn_pleb_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_presidency_before_pleb",
+      "date": "1990-12-18",
+      "act": 4,
+      "desk": "PRET",
+      "priority": "optional",
+      "title": "Predsjedništvo pred plebiscitom",
+      "location": "Predsjedništvo SFRJ",
+      "briefing": "Danima prije savjetodavnog plebiscita Predsjedništvo može ponoviti poziv za stol, čuvati kvorum, ili zatvoriti jezik. Ako su razgovori s Kučanom/Jovićem već otvorili konfederalni stog, ovo je trenutak za potpis — ne za Izetbegović–Gligorov (lipanj, van odsječka).",
+      "constitutional_note": "E3: otvorena povelja + Predsjedništvo koje se može sastati. Blokada isključuje E3.",
+      "documents": [
+        "1974_presidency"
+      ],
+      "requires": {
+        "flags_any": [
+          "presidency_mediation_active",
+          "dialogue_kucan_conf",
+          "confederal_talks_open"
+        ],
+        "flags_not": [
+          "desk_event_pret_pleb_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "invite_sign",
+          "label": "Poziv + potpis: stol ostaje otvoren.",
+          "legal": "political",
+          "effects": {
+            "charter_signatures_add": 1,
+            "federal.presidency_cohesion": 3,
+            "SI.federal_trust": 3,
+            "flags_add": [
+              "desk_event_pret_pleb_seen",
+              "confederal_talks_open",
+              "slovenia_invited_back",
+              "presidency_quorum_guard"
+            ],
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            }
+          }
+        },
+        {
+          "id": "quorum_only",
+          "label": "Samo kvorum — bez novog potpisa.",
+          "legal": "political",
+          "effects": {
+            "federal.presidency_cohesion": 2,
+            "flags_add": [
+              "desk_event_pret_pleb_seen",
+              "presidency_quorum_guard"
             ],
             "flags_remove": [
               "presidency_deadlock"
+            ]
+          }
+        },
+        {
+          "id": "cold",
+          "label": "Hladan hodnik — neka Ljubljana sama računa.",
+          "legal": "political",
+          "effects": {
+            "SI.secession_readiness": 4,
+            "federal.presidency_cohesion": -2,
+            "flags_add": [
+              "desk_event_pret_pleb_seen"
             ]
           }
         }
@@ -644,74 +721,77 @@
       ]
     },
     {
-      "id": "desk_presidency_before_pleb",
+      "id": "republic_voice_me",
       "date": "1990-12-18",
       "act": 4,
       "desk": "PRET",
-      "priority": "optional",
-      "title": "Predsjedništvo pred plebiscitom",
-      "location": "Predsjedništvo SFRJ",
-      "briefing": "Danima prije savjetodavnog plebiscita Predsjedništvo može ponoviti poziv za stol, čuvati kvorum, ili zatvoriti jezik. Ako su razgovori s Kučanom/Jovićem već otvorili konfederalni stog, ovo je trenutak za potpis — ne za Izetbegović–Gligorov (lipanj, van odsječka).",
-      "constitutional_note": "E3: otvorena povelja + Predsjedništvo koje se može sastati. Blokada isključuje E3.",
+      "priority": "federal",
+      "title": "Glas Crne Gore (Titograd)",
+      "location": "Titograd / Beograd — Predsjedništvo (ME stolac)",
+      "briefing": "Bućin ili linija Titograda: meka federacija, srpski blok kao poluga, ili kvorum. Grad ostaje Titograd. Nije aneksija; nije otcjepljenje. E3: zastoj isključuje ishod.",
+      "constitutional_note": "Jović ≠ Milošević. Marković = SIV. Nema Izetbegović–Gligorova.",
       "documents": [
         "1974_presidency"
       ],
       "requires": {
-        "flags_any": [
-          "presidency_mediation_active",
-          "dialogue_kucan_conf",
-          "confederal_talks_open"
-        ],
         "flags_not": [
-          "desk_event_pret_pleb_seen"
+          "desk_event_me_voice_seen"
         ]
       },
       "choices": [
         {
-          "id": "invite_sign",
-          "label": "Poziv + potpis: stol ostaje otvoren.",
+          "id": "soft_me",
+          "label": "Meka federacija iz Titograda.",
           "legal": "political",
           "effects": {
-            "charter_signatures_add": 1,
-            "federal.presidency_cohesion": 3,
-            "SI.federal_trust": 3,
-            "flags_add": [
-              "desk_event_pret_pleb_seen",
-              "confederal_talks_open",
-              "slovenia_invited_back",
-              "presidency_quorum_guard"
-            ],
             "desk_set": {
               "presidency": {
                 "posture": "mediate"
               }
-            }
-          }
-        },
-        {
-          "id": "quorum_only",
-          "label": "Samo kvorum — bez novog potpisa.",
-          "legal": "political",
-          "effects": {
-            "federal.presidency_cohesion": 2,
+            },
+            "federal.presidency_cohesion": 4,
+            "ME.federal_trust": 5,
             "flags_add": [
-              "desk_event_pret_pleb_seen",
-              "presidency_quorum_guard"
-            ],
-            "flags_remove": [
-              "presidency_deadlock"
+              "me_soft_federation",
+              "dialogue_bucin_soft",
+              "presidency_mediation_active",
+              "republic_voice_me_seen",
+              "desk_event_me_voice_seen"
             ]
           }
         },
         {
-          "id": "cold",
-          "label": "Hladan hodnik — neka Ljubljana sama računa.",
+          "id": "bloc_me",
+          "label": "Sjedi uz srpski blok kao polugu.",
           "legal": "political",
           "effects": {
-            "SI.secession_readiness": 4,
-            "federal.presidency_cohesion": -2,
+            "federal.presidency_cohesion": -3,
+            "ME.skj_hold": 3,
+            "RS.federal_trust": 2,
             "flags_add": [
-              "desk_event_pret_pleb_seen"
+              "me_serbia_bloc",
+              "dialogue_bucin_bloc",
+              "republic_voice_me_seen",
+              "desk_event_me_voice_seen"
+            ]
+          }
+        },
+        {
+          "id": "quorum_me",
+          "label": "Čuvaj kvorum: Titograd sjedi.",
+          "legal": "political",
+          "effects": {
+            "federal.presidency_cohesion": 5,
+            "ME.federal_trust": 3,
+            "flags_add": [
+              "me_quorum_guard",
+              "presidency_quorum_guard",
+              "dialogue_bucin_quorum",
+              "republic_voice_me_seen",
+              "desk_event_me_voice_seen"
+            ],
+            "flags_remove": [
+              "presidency_deadlock"
             ]
           }
         }

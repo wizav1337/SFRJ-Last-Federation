@@ -431,6 +431,85 @@
       ]
     },
     {
+      "id": "desk_ssrn_civic",
+      "date": "1990-08-22",
+      "act": 3,
+      "desk": "SKJ",
+      "priority": "federal",
+      "title": "SSRN ljeti: forum ili zarobljavanje",
+      "location": "Beograd — SSRN",
+      "briefing": "Nakon balvana i suverenističkih tekstova SSRN može postati građanski forum ili stranačka ljuštura. Izetbegović–Gligorov nije na stolu. Titograd ostaje Titograd.",
+      "constitutional_note": "Forum nije Predsjedništvo; E3 i dalje traži kvorum i otvorenu povelju.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "ssrn_mass_front",
+          "ssrn_civic_forum",
+          "ssrn_party_capture",
+          "desk_event_ssrn_open_seen",
+          "krajina_log_revolution"
+        ]
+      },
+      "choices": [
+        {
+          "id": "forum",
+          "label": "Otvori građanski forum.",
+          "legal": "party",
+          "effects": {
+            "desk_set": {
+              "ssrn": {
+                "posture": "civic_forum"
+              }
+            },
+            "federal.legitimacy": 2,
+            "SI.federal_trust": 2,
+            "flags_add": [
+              "ssrn_civic_forum",
+              "desk_event_ssrn_civic_seen"
+            ],
+            "flags_remove": [
+              "ssrn_party_capture",
+              "ssrn_paralyzed"
+            ]
+          }
+        },
+        {
+          "id": "party",
+          "label": "Stranačko zarobljavanje.",
+          "legal": "party",
+          "effects": {
+            "desk_set": {
+              "ssrn": {
+                "posture": "party_capture"
+              }
+            },
+            "federal.legitimacy": -2,
+            "flags_add": [
+              "ssrn_party_capture",
+              "desk_event_ssrn_civic_seen"
+            ]
+          }
+        },
+        {
+          "id": "paralyze",
+          "label": "Paraliziraj SSRN.",
+          "legal": "party",
+          "effects": {
+            "desk_set": {
+              "ssrn": {
+                "posture": "paralyzed"
+              }
+            },
+            "federal.legitimacy": -2,
+            "flags_add": [
+              "ssrn_paralyzed",
+              "desk_event_ssrn_civic_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_ssup_after_logs",
       "date": "1990-08-25",
       "act": 3,
@@ -791,70 +870,6 @@
       ]
     },
     {
-      "id": "serbia_constitution",
-      "date": "1990-09-28",
-      "act": 3,
-      "desk": "REPUBLIKE",
-      "priority": "mandatory",
-      "title": "Novi ustav SR Srbije",
-      "location": "Skupština SR Srbije — 28. rujna 1990.",
-      "briefing": "Srpanjski referendum bio je o redu godine. Danas Srbija usvaja novi republikanski ustav. Pokrajine se prazne kao republikanski spis. Ovo nije savezni izbor i nije izbor održan u proljeće. Vi sjedite kao federacija. SPS stroj piše pravila prije listića u prosincu.",
-      "constitutional_note": "Republikanski ustav nije savezni statut. Isprazniti SAP Vojvodinu i SAP Kosovo kao unutarnju srpsku stvar mijenja aritmetiku osam iz 1974. čak i kad sjedala u Predsjedništvu ostanu.",
-      "documents": [
-        "1974_federation",
-        "1974_provinces"
-      ],
-      "requires": {
-        "flags": [
-          "serbia_constitution_first"
-        ]
-      },
-      "choices": [
-        {
-          "id": "record_gazette",
-          "label": "Zabilježi ustav kao republikanski spis. Prigovori u Službenom listu, ne u vojsci.",
-          "legal": "constitutional",
-          "effects": {
-            "federal.legitimacy": 2,
-            "XK.federal_trust": -4,
-            "VO.elite_cohesion": -4,
-            "RS.elite_cohesion": 4,
-            "flags_add": [
-              "serbia_new_constitution"
-            ]
-          }
-        },
-        {
-          "id": "court_serbia",
-          "label": "Pošalji pokrajinske odredbe Ustavnom sudu. Neka nalaz stoji.",
-          "legal": "constitutional",
-          "effects": {
-            "federal.assembly_function": 3,
-            "federal.legitimacy": 3,
-            "RS.federal_trust": -6,
-            "XK.federal_trust": 4,
-            "flags_add": [
-              "serbia_new_constitution"
-            ]
-          }
-        },
-        {
-          "id": "name_eight",
-          "label": "Imenuj to kao napad na aritmetiku osam. Zadrži sjedala SAP-a na papiru.",
-          "legal": "political",
-          "effects": {
-            "federal.presidency_cohesion": -4,
-            "RS.elite_cohesion": -6,
-            "XK.federal_trust": 5,
-            "VO.federal_trust": 3,
-            "flags_add": [
-              "serbia_new_constitution"
-            ]
-          }
-        }
-      ]
-    },
-    {
       "id": "desk_sdb_sovereignty_watch",
       "date": "1990-09-28",
       "act": 3,
@@ -931,6 +946,70 @@
                 "posture": "hard"
               }
             }
+          }
+        }
+      ]
+    },
+    {
+      "id": "serbia_constitution",
+      "date": "1990-09-28",
+      "act": 3,
+      "desk": "REPUBLIKE",
+      "priority": "mandatory",
+      "title": "Novi ustav SR Srbije",
+      "location": "Skupština SR Srbije — 28. rujna 1990.",
+      "briefing": "Srpanjski referendum bio je o redu godine. Danas Srbija usvaja novi republikanski ustav. Pokrajine se prazne kao republikanski spis. Ovo nije savezni izbor i nije izbor održan u proljeće. Vi sjedite kao federacija. SPS stroj piše pravila prije listića u prosincu.",
+      "constitutional_note": "Republikanski ustav nije savezni statut. Isprazniti SAP Vojvodinu i SAP Kosovo kao unutarnju srpsku stvar mijenja aritmetiku osam iz 1974. čak i kad sjedala u Predsjedništvu ostanu.",
+      "documents": [
+        "1974_federation",
+        "1974_provinces"
+      ],
+      "requires": {
+        "flags": [
+          "serbia_constitution_first"
+        ]
+      },
+      "choices": [
+        {
+          "id": "record_gazette",
+          "label": "Zabilježi ustav kao republikanski spis. Prigovori u Službenom listu, ne u vojsci.",
+          "legal": "constitutional",
+          "effects": {
+            "federal.legitimacy": 2,
+            "XK.federal_trust": -4,
+            "VO.elite_cohesion": -4,
+            "RS.elite_cohesion": 4,
+            "flags_add": [
+              "serbia_new_constitution"
+            ]
+          }
+        },
+        {
+          "id": "court_serbia",
+          "label": "Pošalji pokrajinske odredbe Ustavnom sudu. Neka nalaz stoji.",
+          "legal": "constitutional",
+          "effects": {
+            "federal.assembly_function": 3,
+            "federal.legitimacy": 3,
+            "RS.federal_trust": -6,
+            "XK.federal_trust": 4,
+            "flags_add": [
+              "serbia_new_constitution"
+            ]
+          }
+        },
+        {
+          "id": "name_eight",
+          "label": "Imenuj to kao napad na aritmetiku osam. Zadrži sjedala SAP-a na papiru.",
+          "legal": "political",
+          "effects": {
+            "federal.presidency_cohesion": -4,
+            "RS.elite_cohesion": -6,
+            "XK.federal_trust": 5,
+            "VO.federal_trust": 3,
+            "flags_add": [
+              "serbia_new_constitution"
+            ]
           }
         }
       ]
@@ -1015,6 +1094,91 @@
               "fer_imf_line",
               "imf_standby_active",
               "desk_event_fer_autumn_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_ssrn_party",
+      "date": "1990-10-08",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "SSRN i SIV: veza knjiga",
+      "location": "Beograd — SIV / SSRN",
+      "briefing": "Marković može vezati SSRN uz SIV knjige (ssrn_siv_bind) ili ostaviti front sam. Marković = predsjednik SIV-a, ne Jugoslavije.",
+      "constitutional_note": "SIV ≠ Predsjedništvo; veza SSRN–SIV ne sjeda stolac.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "ssrn_mass_front",
+          "ssrn_civic_forum",
+          "ssrn_party_capture",
+          "desk_event_ssrn_open_seen",
+          "markovic_mandate_strong"
+        ]
+      },
+      "choices": [
+        {
+          "id": "bind",
+          "label": "Veži SSRN uz SIV (Marković = SIV).",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "ssrn": {
+                "posture": "mass_front_open"
+              },
+              "siv": {
+                "posture": "technocrat"
+              }
+            },
+            "federal.siv_authority": 3,
+            "federal.reform_momentum": 2,
+            "flags_add": [
+              "ssrn_siv_bind",
+              "ssrn_mass_front",
+              "desk_event_ssrn_party_seen"
+            ],
+            "flags_remove": [
+              "ssrn_paralyzed"
+            ]
+          }
+        },
+        {
+          "id": "keep_forum",
+          "label": "Drži građanski forum odvojen od SIV-a.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "ssrn": {
+                "posture": "civic_forum"
+              }
+            },
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "ssrn_civic_forum",
+              "desk_event_ssrn_party_seen"
+            ]
+          }
+        },
+        {
+          "id": "starve",
+          "label": "Gladuj SSRN — SIV nosi papir sam.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "ssrn": {
+                "posture": "paralyzed"
+              }
+            },
+            "federal.legitimacy": -1,
+            "flags_add": [
+              "ssrn_paralyzed",
+              "desk_event_ssrn_party_seen"
+            ],
+            "flags_remove": [
+              "ssrn_siv_bind"
             ]
           }
         }

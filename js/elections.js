@@ -90,6 +90,17 @@ function deskDialogueElectionBias(unit, spec, state) {
     d += id === "SI" || id === "HR" ? -1 : 1;
   }
   if (f.presidency_south_balance) d += (id === "MK" || id === "ME" || id === "BA") ? 1 : 0;
+  // SSRN / SSP / Finance (Pass 8)
+  if (f.ssrn_civic_forum || f.ssrn_mass_front) d += 1;
+  if (f.ssrn_siv_bind) d += 1;
+  if (f.ssrn_party_capture) d += (id === "RS") ? 1 : -1;
+  if (f.ssrn_paralyzed) d -= 1;
+  if (f.ssp_ec_track && (id === "SI" || id === "HR")) d += 1;
+  if (f.ssp_nam_bridge) d += 1;
+  if (f.ssp_isolation) d -= 1;
+  if (f.finance_soft_corridor) d += 1;
+  if (f.finance_target && (id === "SI" || id === "HR")) d -= 1;
+  if (f.dialogue_markovic_ssrn) d += 1;
   // Kučan / Tuđman
   if (f.dialogue_kucan_conf && id === "SI") d += 3;
   if (f.dialogue_kucan_press && id === "SI") d -= 4;

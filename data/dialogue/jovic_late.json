@@ -1,0 +1,179 @@
+{
+  "id": "jovic_late",
+  "speaker": "Borisav Jović",
+  "title": "Predsjedatelj Predsjedništva (nakon 15. V 1990.) — kasni krug",
+  "desk": "presidency",
+  "available_from": "1990-09-15",
+  "unlock": {
+    "flags_any": [
+      "presidency_rotation_jovic",
+      "talked_jovic"
+    ]
+  },
+  "nodes": {
+    "start": {
+      "text": "Jović — predsjedatelj nakon 15. svibnja 1990., ne Milošević — govori mirno. „Srpski blok može držati težinu. Kvorum može držati organ. Ako zamijenite postupak osobom, Predsjedništvo postaje hodnik. Ja nisam Milošević. Rotacija je postupak.“",
+      "choices": [
+        {
+          "id": "quorum_over_bloc",
+          "label": "Kvorum iznad bloka: pet glasova prije ulične težine.",
+          "next": "quorum",
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "loyalty": 5,
+                "agenda_tension": -4
+              }
+            },
+            "federal.presidency_cohesion": 5,
+            "flags_add": [
+              "talked_jovic_late",
+              "dialogue_jovic_late_quorum",
+              "presidency_quorum_guard",
+              "presidency_mediation_active"
+            ],
+            "flags_remove": [
+              "presidency_deadlock"
+            ],
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            }
+          }
+        },
+        {
+          "id": "serbia_bloc_weight",
+          "label": "Neka srpski blok drži težinu dok drugi igraju secesiju.",
+          "next": "bloc",
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "loyalty": -3,
+                "agenda_tension": 7
+              }
+            },
+            "federal.presidency_cohesion": -4,
+            "RS.elite_cohesion": 3,
+            "RS.skj_hold": 2,
+            "SI.federal_trust": -3,
+            "HR.federal_trust": -3,
+            "flags_add": [
+              "talked_jovic_late",
+              "dialogue_jovic_late_bloc",
+              "presidency_hardline"
+            ],
+            "desk_set": {
+              "presidency": {
+                "posture": "hardline"
+              }
+            }
+          }
+        },
+        {
+          "id": "ssrn_mass_note",
+          "label": "Pitaj za SSRN: masovni front ili prazna ljuštura uz Predsjedništvo.",
+          "next": "ssrn",
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "loyalty": 2
+              },
+              "ssrn": {
+                "loyalty": 2,
+                "agenda_tension": -2
+              }
+            },
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "talked_jovic_late",
+              "dialogue_jovic_late_ssrn",
+              "ssrn_mass_front"
+            ],
+            "desk_set": {
+              "ssrn": {
+                "posture": "mass_front_open"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "quorum": {
+      "text": "„Pet od osam. Bez pet nema izvanrednog, nema naredbe, nema kazališta. Kvorum je jeftiniji od kasarni. I nije Beogradova kruna.“",
+      "choices": [
+        {
+          "id": "end_quorum",
+          "label": "Zapiši kvorum — Jović ≠ Milošević.",
+          "next": null,
+          "effects": {
+            "federal.war_risk": -1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "presidency_quorum_guard"
+            ]
+          }
+        }
+      ]
+    },
+    "bloc": {
+      "text": "Težina bloka bilježi se. Nije naredba Miloševiću — Jović ostaje postupak — ali kohezija Predsjedništva pada.",
+      "choices": [
+        {
+          "id": "end_bloc",
+          "label": "Izađi.",
+          "next": null,
+          "effects": {
+            "federal.war_risk": 1,
+            "federal.legitimacy": -2
+          }
+        }
+      ]
+    },
+    "ssrn": {
+      "text": "„SSRN još može biti ljuštura. Ako ga zarobi stranka, Predsjedništvo gubi forum. Ako ga vežete uz SIV — Marković nosi knjige, ja nosim postupak.“",
+      "choices": [
+        {
+          "id": "end_ssrn_open",
+          "label": "Drži SSRN otvorenim frontom.",
+          "next": null,
+          "effects": {
+            "flags_add": [
+              "ssrn_mass_front",
+              "dialogue_jovic_late_ssrn"
+            ],
+            "flags_remove": [
+              "ssrn_paralyzed",
+              "ssrn_party_capture"
+            ],
+            "federal.legitimacy": 1
+          }
+        },
+        {
+          "id": "end_ssrn_bind",
+          "label": "Veži SSRN uz SIV (Marković = SIV).",
+          "next": null,
+          "effects": {
+            "flags_add": [
+              "ssrn_siv_bind",
+              "ssrn_mass_front"
+            ],
+            "federal.siv_authority": 2,
+            "desk_set": {
+              "siv": {
+                "posture": "technocrat"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "entries": [
+    {
+      "id": "start",
+      "node": "start",
+      "once": true
+    }
+  ]
+}
