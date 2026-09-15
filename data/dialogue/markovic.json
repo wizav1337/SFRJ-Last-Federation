@@ -713,6 +713,86 @@
           }
         }
       ]
+    },
+    "revisit_sdb": {
+      "text": "Marković — predsjednik SIV-a — gleda SDB. „Gračanin drži SSUP kanal; služba mora biti na civilnom uzetu. Dosjei i promatranje smiruju; zategnuti uze diže rizik. Ja ne vodim racije — tražim papir koji SIV može čitati. Nema rata.“",
+      "choices": [
+        {
+          "id": "sdb_civ",
+          "label": "Civilni uze SDB — SIV i Predsjedništvo iznad službe.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 2,
+            "federal.sdb_control": 4,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -2,
+            "flags_add": [
+              "dialogue_markovic_sdb",
+              "sdb_civilian_leash",
+              "sdb_siv_bind",
+              "markovic_mandate_strong",
+              "sdb_quiet_paper"
+            ],
+            "flags_remove": [
+              "sdb_leash_tight"
+            ],
+            "desk_set": {
+              "sdb": {
+                "posture": "civilian_leash"
+              },
+              "siv": {
+                "posture": "technocrat"
+              }
+            }
+          }
+        },
+        {
+          "id": "sdb_dos",
+          "label": "Dosjei na SIV stol — transparentnost bez tvrde ruke.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 2,
+            "federal.sdb_control": 3,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "dialogue_markovic_sdb",
+              "sdb_files_shared",
+              "sdb_dossier_channel",
+              "sdb_siv_bind",
+              "sdb_quiet_paper"
+            ],
+            "desk_set": {
+              "sdb": {
+                "posture": "dossier_share"
+              }
+            }
+          }
+        },
+        {
+          "id": "sdb_obs",
+          "label": "Promatračka linija — meki servis.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 1,
+            "federal.sdb_control": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "dialogue_markovic_sdb",
+              "sdb_observe_line",
+              "ssup_observe_line",
+              "sdb_quiet_paper"
+            ],
+            "flags_remove": [
+              "sdb_leash_tight"
+            ],
+            "desk_set": {
+              "sdb": {
+                "posture": "observe_line"
+              }
+            }
+          }
+        }
+      ]
     }
   },
   "entries": [
@@ -841,6 +921,25 @@
           "ssno_siv_bind",
           "desk_event_ssno_open_seen",
           "dialogue_kadijevic_ssno"
+        ]
+      }
+    },
+    {
+      "id": "revisit_sdb",
+      "node": "revisit_sdb",
+      "once": true,
+      "priority": 7,
+      "require_done": true,
+      "available_from": "1991-02-01",
+      "unlock": {
+        "flags_any": [
+          "sdb_civilian_leash",
+          "sdb_observe_line",
+          "sdb_files_shared",
+          "sdb_leash_tight",
+          "sdb_siv_bind",
+          "desk_event_sdb_open_seen",
+          "dialogue_gracanin"
         ]
       }
     }

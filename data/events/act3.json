@@ -2220,6 +2220,166 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_sdb_autumn",
+      "date": "1990-09-12",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "SDB jesen: pritisak na servis",
+      "location": "Beograd — SDB",
+      "briefing": "Suverenosti i balvani dižu pritisak na SDB. Dosjei, promatranje ili tvrđi uze — bez otvaranja fronte. Izetbegović–Gligorov nije tema ovog spisa.",
+      "constitutional_note": "Mirnodopski papir; nema čina VI.",
+      "documents": [
+        "1974_presidency"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_sdb_open_seen",
+          "desk_event_sdb_spring_seen",
+          "krajina_log_revolution",
+          "croatia_sovereignty",
+          "sdb_civilian_leash"
+        ]
+      },
+      "choices": [
+        {
+          "id": "autumn_dossier",
+          "label": "Podijeli dosjee — transparentnost.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "dossier_share"
+              }
+            },
+            "federal.legitimacy": 2,
+            "federal.sdb_control": 2,
+            "flags_add": [
+              "sdb_files_shared",
+              "sdb_dossier_channel",
+              "desk_event_sdb_autumn_seen",
+              "sdb_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "autumn_observe",
+          "label": "Drži promatračku liniju.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "observe_line"
+              }
+            },
+            "federal.war_risk": -1,
+            "flags_add": [
+              "sdb_observe_line",
+              "desk_event_sdb_autumn_seen",
+              "sdb_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "autumn_tight",
+          "label": "Zategni uze pod jesenjim pritiskom.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "tight_leash"
+              }
+            },
+            "federal.sdb_control": 4,
+            "federal.war_risk": 2,
+            "flags_add": [
+              "sdb_leash_tight",
+              "desk_event_sdb_autumn_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_ssup_sdb_bind",
+      "date": "1990-10-05",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "SSUP ↔ SDB: zajednički kanal",
+      "location": "Beograd — SSUP / SDB",
+      "briefing": "Gračanin nudi vezu SSUP–SDB: zajednički papir, dosjei u kanalu, bez samostalne intervencije. Marković ostaje predsjednik SIV-a.",
+      "constitutional_note": "SSUP ostaje politički sekretarijat; SDB servis.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_sdb_open_seen",
+          "sdb_civilian_leash",
+          "sdb_observe_line",
+          "ssup_soft_line",
+          "ssup_observe_line"
+        ]
+      },
+      "choices": [
+        {
+          "id": "bind_yes",
+          "label": "Veži SDB uz SSUP kanal.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "observe_line"
+              },
+              "ssup": {
+                "posture": "observe"
+              }
+            },
+            "federal.sdb_control": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "sdb_ssup_bind",
+              "ssup_sdb_liaison",
+              "desk_event_ssup_sdb_bind_seen",
+              "sdb_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "bind_dossier",
+          "label": "Prihvati dosjee u SSUP kanal.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "dossier_share"
+              }
+            },
+            "federal.sdb_control": 3,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "ssup_sdb_channel",
+              "sdb_files_shared",
+              "desk_event_ssup_sdb_bind_seen",
+              "sdb_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "bind_defer",
+          "label": "Odgodi — držati odvojene stolove.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": -1,
+            "flags_add": [
+              "desk_event_ssup_sdb_bind_seen"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

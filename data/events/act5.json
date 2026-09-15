@@ -2951,6 +2951,161 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_sdb_spring91",
+      "date": "1991-03-18",
+      "act": 5,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "SDB proljeće 1991.: papirni put",
+      "location": "Beograd — SDB",
+      "briefing": "Proljeće 1991. — SDB i dalje na papiru: uze, dosjei, Knin. Nema čina VI. Nema lipanjskog rata kao mehanike. Marković = predsjednik SIV-a.",
+      "constitutional_note": "Slice A završava 15. svibnja 1991.; ovaj spis ne otvara rat.",
+      "documents": [
+        "1974_presidency"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_sdb_open_seen",
+          "desk_event_sdb_pleb_seen",
+          "sdb_civilian_leash",
+          "sdb_observe_line",
+          "sdb_siv_bind",
+          "dialogue_gracanin"
+        ]
+      },
+      "choices": [
+        {
+          "id": "s91_leash",
+          "label": "Drži civilni uze do svibnja.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "civilian_leash"
+              }
+            },
+            "federal.war_risk": -2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "sdb_civilian_leash",
+              "desk_event_sdb_spring91_seen",
+              "sdb_quiet_paper"
+            ],
+            "flags_remove": [
+              "sdb_leash_tight"
+            ]
+          }
+        },
+        {
+          "id": "s91_knin",
+          "label": "Pojačaj tihi nadzor Knina.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "knin_watch"
+              }
+            },
+            "federal.sdb_control": 3,
+            "federal.war_risk": 1,
+            "flags_add": [
+              "sdb_knin_watch",
+              "desk_event_sdb_spring91_seen"
+            ]
+          }
+        },
+        {
+          "id": "s91_observe",
+          "label": "Promatračka linija — meki izlaz.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "observe_line"
+              }
+            },
+            "federal.war_risk": -1,
+            "flags_add": [
+              "sdb_observe_line",
+              "desk_event_sdb_spring91_seen",
+              "sdb_quiet_paper"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "confederal_sdb_memo",
+      "date": "1991-04-28",
+      "act": 5,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Memorandum SDB uz konfederalni stol",
+      "location": "Beograd — konfederalni radni stol",
+      "briefing": "Uz konfederalni stol stiže memo SDB: civilni uze i dosjei kao jamstvo da služba ne lomi pregovore. Izetbegović–Gligorov nacrt **nije** dostupan papir — samo isključenje. Nema rata.",
+      "constitutional_note": "I–G nije prihvatljiv papir na ovom stolu; SDB memo ne priznaje secesiju.",
+      "documents": [
+        "1974_presidency"
+      ],
+      "requires": {
+        "flags_any": [
+          "confederal_talks_open",
+          "desk_event_sdb_open_seen",
+          "sdb_civilian_leash",
+          "sdb_observe_line",
+          "sdb_siv_bind",
+          "dialogue_markovic_sdb"
+        ]
+      },
+      "choices": [
+        {
+          "id": "memo_leash",
+          "label": "Priloži memo: civilni uze SDB uz stol.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 2,
+            "federal.war_risk": -2,
+            "federal.presidency_cohesion": 2,
+            "flags_add": [
+              "confederal_sdb_memo",
+              "sdb_civilian_leash",
+              "desk_event_sdb_memo_seen",
+              "sdb_quiet_paper"
+            ],
+            "flags_remove": [
+              "sdb_leash_tight"
+            ]
+          }
+        },
+        {
+          "id": "memo_dossier",
+          "label": "Priloži dosjee uz konfederalni papir.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 2,
+            "federal.siv_authority": 1,
+            "flags_add": [
+              "confederal_sdb_memo",
+              "sdb_files_shared",
+              "desk_event_sdb_memo_seen",
+              "sdb_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "memo_hold",
+          "label": "Zadrži SDB izvan stola.",
+          "legal": "political",
+          "effects": {
+            "federal.war_risk": 1,
+            "flags_add": [
+              "desk_event_sdb_memo_seen"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

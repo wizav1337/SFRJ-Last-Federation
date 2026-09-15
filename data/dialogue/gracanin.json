@@ -1,0 +1,255 @@
+{
+  "id": "gracanin",
+  "speaker": "Petar Gračanin",
+  "title": "savezni sekretar za unutarnje poslove",
+  "desk": "sdb",
+  "available_from": "1990-08-01",
+  "unlock": {
+    "flags_any": [
+      "sdb_civilian_leash",
+      "sdb_observe_line",
+      "sdb_files_shared",
+      "sdb_leash_tight",
+      "desk_event_sdb_open_seen",
+      "ssup_soft_line",
+      "multiparty_wave"
+    ]
+  },
+  "nodes": {
+    "start": {
+      "text": "Gračanin prima u Saveznom sekretarijatu za unutarnje poslove. „SDB je servis, ne fronta. Civilni uze, promatranje, dosjei ili zategnuti uze — sve papir. Marković ostaje predsjednik SIV-a. Ja držim kanal SSUP–SDB. Što želite od službe?“",
+      "choices": [
+        {
+          "id": "leash",
+          "label": "Civilni uze — Predsjedništvo i SIV iznad SDB.",
+          "next": "leash_done",
+          "effects": {
+            "desk_add": {
+              "sdb": {
+                "loyalty": 4,
+                "agenda_tension": -3
+              },
+              "ssup": {
+                "loyalty": 2
+              }
+            },
+            "federal.sdb_control": 4,
+            "federal.legitimacy": 2,
+            "federal.presidency_cohesion": 2,
+            "federal.war_risk": -2,
+            "flags_add": [
+              "talked_gracanin",
+              "dialogue_gracanin",
+              "dialogue_gracanin_leash",
+              "sdb_civilian_leash",
+              "sdb_quiet_paper"
+            ],
+            "flags_remove": [
+              "sdb_leash_tight"
+            ],
+            "desk_set": {
+              "sdb": {
+                "posture": "civilian_leash"
+              }
+            }
+          }
+        },
+        {
+          "id": "observe",
+          "label": "Promatračka linija — dosjei bez tvrde ruke.",
+          "next": "observe_done",
+          "effects": {
+            "desk_add": {
+              "sdb": {
+                "capacity": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.sdb_control": 3,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "talked_gracanin",
+              "dialogue_gracanin",
+              "sdb_observe_line",
+              "ssup_observe_line",
+              "sdb_quiet_paper"
+            ],
+            "flags_remove": [
+              "sdb_leash_tight",
+              "ssup_hard_line"
+            ],
+            "desk_set": {
+              "sdb": {
+                "posture": "observe_line"
+              },
+              "ssup": {
+                "posture": "observe"
+              }
+            }
+          }
+        },
+        {
+          "id": "tight",
+          "label": "Zategni uze — tvrđi servisni držaj.",
+          "next": "tight_done",
+          "effects": {
+            "desk_add": {
+              "sdb": {
+                "capacity": 4,
+                "agenda_tension": 5,
+                "loyalty": -2
+              }
+            },
+            "federal.sdb_control": 5,
+            "federal.war_risk": 2,
+            "federal.legitimacy": -1,
+            "flags_add": [
+              "talked_gracanin",
+              "dialogue_gracanin",
+              "sdb_leash_tight",
+              "sdb_civilian_leash"
+            ],
+            "flags_remove": [
+              "sdb_observe_line"
+            ],
+            "desk_set": {
+              "sdb": {
+                "posture": "tight_leash"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "leash_done": {
+      "text": "„Uze je civilni. Služba sluša Predsjedništvo i SIV — ne samostalni štab. Nema rata.“",
+      "choices": [
+        {
+          "id": "end_leash",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "observe_done": {
+      "text": "„Promatramo. Dosjei idu gore, ne na ulicu. Nema čina VI.“",
+      "choices": [
+        {
+          "id": "end_obs",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "tight_done": {
+      "text": "„Uze je zategnut. To diže kontrolu i rizik — i dalje papir, ne fronta.“",
+      "choices": [
+        {
+          "id": "end_tight",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "revisit_ssup": {
+      "text": "Gračanin ponovo: „SSUP kanal i SDB servis. Možemo dijeliti dosjee, držati Knin na oku ili vratiti meki uze. Bez priznanja secesije. Bez rata.“",
+      "choices": [
+        {
+          "id": "share",
+          "label": "Podijeli dosjee Predsjedništvu i SIV-u.",
+          "next": null,
+          "effects": {
+            "federal.sdb_control": 3,
+            "federal.siv_authority": 2,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "dialogue_gracanin",
+              "sdb_files_shared",
+              "sdb_dossier_channel",
+              "ssup_sdb_channel",
+              "sdb_quiet_paper"
+            ],
+            "desk_set": {
+              "sdb": {
+                "posture": "dossier_share"
+              }
+            }
+          }
+        },
+        {
+          "id": "knin",
+          "label": "Tihi nadzor Knina — promatranje.",
+          "next": null,
+          "effects": {
+            "federal.sdb_control": 3,
+            "federal.war_risk": 1,
+            "HR.federal_trust": -1,
+            "flags_add": [
+              "dialogue_gracanin",
+              "sdb_knin_watch",
+              "ssup_knin_watch",
+              "sdb_observe_line"
+            ],
+            "desk_set": {
+              "sdb": {
+                "posture": "knin_watch"
+              }
+            }
+          }
+        },
+        {
+          "id": "soft_back",
+          "label": "Vrati meki civilni uze.",
+          "next": null,
+          "effects": {
+            "federal.sdb_control": 2,
+            "federal.war_risk": -2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "dialogue_gracanin",
+              "sdb_civilian_leash",
+              "sdb_quiet_paper"
+            ],
+            "flags_remove": [
+              "sdb_leash_tight"
+            ],
+            "desk_set": {
+              "sdb": {
+                "posture": "civilian_leash"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "entries": [
+    {
+      "id": "start",
+      "node": "start",
+      "once": true,
+      "priority": 10
+    },
+    {
+      "id": "revisit_ssup",
+      "node": "revisit_ssup",
+      "once": true,
+      "priority": 6,
+      "require_done": true,
+      "available_from": "1990-11-01",
+      "unlock": {
+        "flags_any": [
+          "sdb_civilian_leash",
+          "sdb_observe_line",
+          "sdb_files_shared",
+          "sdb_knin_watch",
+          "ssup_sdb_liaison",
+          "desk_event_sdb_open_seen"
+        ]
+      }
+    }
+  ]
+}

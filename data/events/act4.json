@@ -1623,6 +1623,172 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_sdb_before_pleb",
+      "date": "1990-12-10",
+      "act": 4,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "SDB pred savjetodavnim plebiscitom",
+      "location": "Beograd — SDB",
+      "briefing": "Pred savjetodavnim plebiscitom SDB može držati meki uze, dijeliti dosjee ili zategnuti servis. Sjedenje Mesića nije automatsko. Nema priznanja secesije.",
+      "constitutional_note": "Savjetodavni plebiscit ≠ priznanje; SDB ne sjeda Mesića.",
+      "documents": [
+        "1974_presidency"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_sdb_open_seen",
+          "sdb_civilian_leash",
+          "sdb_observe_line",
+          "sdb_files_shared",
+          "desk_event_sdb_autumn_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "pleb_leash",
+          "label": "Meki civilni uze pred listićem.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "civilian_leash"
+              }
+            },
+            "federal.war_risk": -1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "sdb_civilian_leash",
+              "desk_event_sdb_pleb_seen",
+              "sdb_quiet_paper"
+            ],
+            "flags_remove": [
+              "sdb_leash_tight"
+            ]
+          }
+        },
+        {
+          "id": "pleb_dossier",
+          "label": "Dosjei na stol Predsjedništva.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "dossier_share"
+              }
+            },
+            "federal.presidency_cohesion": 1,
+            "flags_add": [
+              "sdb_files_shared",
+              "sdb_dossier_channel",
+              "desk_event_sdb_pleb_seen",
+              "sdb_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "pleb_tight",
+          "label": "Zategni uze pred listićem.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "tight_leash"
+              }
+            },
+            "federal.sdb_control": 3,
+            "federal.war_risk": 2,
+            "flags_add": [
+              "sdb_leash_tight",
+              "desk_event_sdb_pleb_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_siv_sdb_leash",
+      "date": "1990-12-16",
+      "act": 4,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "SIV × SDB: civilni nadzor",
+      "location": "Beograd — SIV",
+      "briefing": "Marković traži da SDB bude čitljiv SIV-u: civilni uze, dosjei, bez samostalne tvrde ruke. On je predsjednik SIV-a, ne zapovjednik službe na terenu.",
+      "constitutional_note": "SIV nadzor je politički; Predsjedništvo ostaje kolektivni šef.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_sdb_open_seen",
+          "sdb_civilian_leash",
+          "sdb_dossier_channel",
+          "markovic_mandate_strong",
+          "sdb_siv_bind"
+        ]
+      },
+      "choices": [
+        {
+          "id": "siv_bind",
+          "label": "Veži SDB uz SIV civilni nadzor.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "civilian_leash"
+              },
+              "siv": {
+                "posture": "technocrat"
+              }
+            },
+            "federal.siv_authority": 2,
+            "federal.sdb_control": 3,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "sdb_siv_bind",
+              "sdb_civilian_leash",
+              "desk_event_siv_sdb_leash_seen",
+              "sdb_quiet_paper"
+            ],
+            "flags_remove": [
+              "sdb_leash_tight"
+            ]
+          }
+        },
+        {
+          "id": "siv_dossier",
+          "label": "Traži dosjee na SIV stol.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "dossier_share"
+              }
+            },
+            "federal.siv_authority": 2,
+            "flags_add": [
+              "sdb_siv_bind",
+              "sdb_files_shared",
+              "desk_event_siv_sdb_leash_seen",
+              "sdb_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "siv_defer",
+          "label": "Ostavi SDB na SSUP kanalu.",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "desk_event_siv_sdb_leash_seen",
+              "sdb_ssup_bind"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

@@ -1822,6 +1822,97 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_sdb_open",
+      "date": "1990-02-20",
+      "act": 1,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "SDB: servisni sloj državne sigurnosti",
+      "location": "Beograd — Služba državne sigurnosti",
+      "briefing": "SDB stoji kao savezni servis uz SSUP: civilni uze, promatranje, dosjei, tihi Knin. To nije šalter SSUP (unutarnji poslovi) — nego servisni sloj. Marković ostaje predsjednik SIV-a. Tihi papir ne postavlja player_used_jna_threat. Nema rata.",
+      "constitutional_note": "SDB ne zamjenjuje Predsjedništvo ni SSUP; civilni lanac ostaje politički.",
+      "documents": [
+        "1974_presidency",
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "markovic_mandate_strong",
+          "multiparty_wave",
+          "ssup_soft_line",
+          "ssup_observe_line",
+          "sdb_civilian_leash",
+          "skj_renounced_monopoly",
+          "siv_austerity_stance"
+        ]
+      },
+      "choices": [
+        {
+          "id": "open_leash",
+          "label": "Otvori šalter: civilni uze SDB.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "civilian_leash"
+              }
+            },
+            "federal.sdb_control": 3,
+            "federal.legitimacy": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "sdb_civilian_leash",
+              "desk_event_sdb_open_seen",
+              "sdb_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "open_observe",
+          "label": "Promatračka linija — dosjei bez tvrde ruke.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "observe_line"
+              },
+              "ssup": {
+                "posture": "observe"
+              }
+            },
+            "federal.sdb_control": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "sdb_observe_line",
+              "ssup_observe_line",
+              "desk_event_sdb_open_seen",
+              "sdb_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "open_dossier",
+          "label": "Kanal dosjea prema SIV-u.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "dossier_share"
+              }
+            },
+            "federal.sdb_control": 2,
+            "federal.siv_authority": 1,
+            "flags_add": [
+              "sdb_files_shared",
+              "sdb_dossier_channel",
+              "desk_event_sdb_open_seen",
+              "sdb_quiet_paper"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

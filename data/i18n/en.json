@@ -341,5 +341,12 @@
   "path.toSsnoLiaison": "TO–SSNO ministry channel",
   "path.ssnoMemo": "SSNO memo at confederal table",
   "path.kadijevicSsno": "Kadijević on SSNO",
-  "path.markovicSsno": "Marković on SSNO"
+  "path.markovicSsno": "Marković on SSNO",
+  "ency.timelinePass13": "SDB desk; Gračanin; deepen SSUP/SIV; gated cards; save_schema 13",
+  "path.sdbLeash": "SDB: civilian leash",
+  "path.sdbObserve": "SDB: observe line",
+  "path.sdbDossier": "SDB: dossier share",
+  "path.sdbTight": "SDB: tight leash",
+  "path.sdbKnin": "SDB: quiet Knin watch",
+  "path.sdbMemo": "SDB memo at confederal table"
 }

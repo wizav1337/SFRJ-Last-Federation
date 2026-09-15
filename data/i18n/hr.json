@@ -545,8 +545,8 @@
   "pressure.stack": "Konfederalni stog {n}",
   "near.stack": "konfederalni stog tanak ({n})",
   "reason.stack": "konfederalni stog {n}",
-  "path.sdbLeash": "SDB na uzetu Predsjedništva",
-  "path.sdbTight": "zategnuti civilni nadzor SDB",
+  "path.sdbLeash": "SDB: civilni uze",
+  "path.sdbTight": "SDB: zategnuti uze",
   "path.sdbFiles": "dosjei SDB dijeljeni",
   "path.ssupObserve": "SSUP promatračka postava",
   "path.kucanCharter": "Kučan: potpis na traci",
@@ -742,5 +742,10 @@
   "path.toSsnoLiaison": "TO–SSNO ministarski kanal",
   "path.ssnoMemo": "memorandum SSNO uz konfederalni stol",
   "path.kadijevicSsno": "Kadijević o SSNO",
-  "path.markovicSsno": "Marković o SSNO"
+  "path.markovicSsno": "Marković o SSNO",
+  "ency.timelinePass13": "šalter SDB; Gračanin; produbljeni SSUP/SIV; gated kartice; save_schema 13",
+  "path.sdbObserve": "SDB: promatračka linija",
+  "path.sdbDossier": "SDB: dijeljenje dosjea",
+  "path.sdbKnin": "SDB: tihi nadzor Knina",
+  "path.sdbMemo": "memorandum SDB uz konfederalni stol"
 }
