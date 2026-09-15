@@ -555,6 +555,89 @@
       ]
     },
     {
+      "id": "desk_ssno_spring",
+      "date": "1990-05-08",
+      "act": 2,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Proljetni SSNO: doktrina ili inventura",
+      "location": "Beograd — SSNO",
+      "briefing": "Prije ljetnih izbora SSNO pita Predsjedništvo za postavu: savezna doktrina, inventurni kanal ili veza s TO. Soft putovi snižavaju war_risk; inventura diže napetost u SI/HR bez fronte. Nema prijetnje JNA.",
+      "constitutional_note": "Ministarski papir ne zamjenjuje glas Predsjedništva o uporabi snaga.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "desk_event_ssno_open_seen",
+          "ssno_doctrine_federal",
+          "ssno_inventory_audit",
+          "ssno_chair_counsel",
+          "ssno_to_coordinate",
+          "talked_kadijevic",
+          "multiparty_wave"
+        ]
+      },
+      "choices": [
+        {
+          "id": "spring_doctrine",
+          "label": "Drži saveznu doktrinu.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssno": {
+                "posture": "doctrine_federal"
+              }
+            },
+            "federal.jna_obedience_to_civilian": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "ssno_doctrine_federal",
+              "desk_event_ssno_spring_seen"
+            ]
+          }
+        },
+        {
+          "id": "spring_to",
+          "label": "Gurni koordinaciju SSNO–TO.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssno": {
+                "posture": "to_coordinate"
+              },
+              "to": {
+                "posture": "coordinate"
+              }
+            },
+            "federal.war_risk": -1,
+            "flags_add": [
+              "ssno_to_coordinate",
+              "to_ssno_liaison",
+              "desk_event_ssno_spring_seen"
+            ]
+          }
+        },
+        {
+          "id": "spring_inv",
+          "label": "Inventurni audit — papir.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssno": {
+                "posture": "inventory_audit"
+              }
+            },
+            "federal.war_risk": 1,
+            "SI.federal_trust": -1,
+            "HR.federal_trust": -1,
+            "flags_add": [
+              "ssno_inventory_audit",
+              "desk_event_ssno_spring_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_provinces_spring",
       "date": "1990-05-10",
       "act": 2,

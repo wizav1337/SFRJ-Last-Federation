@@ -388,6 +388,29 @@ export const CORE_FLAGS = [
   "dialogue_kostic_observe",
   "dialogue_kostic_bloc",
   "dialogue_markovic_provinces",
+  "ssno_doctrine_federal",
+  "ssno_inventory_audit",
+  "ssno_to_coordinate",
+  "ssno_chair_counsel",
+  "ssno_quiet_paper",
+  "ssno_siv_bind",
+  "ssno_paralyzed",
+  "jna_ssno_doctrine_bind",
+  "jna_ssno_inventory_channel",
+  "to_ssno_liaison",
+  "to_ssno_shared_paper",
+  "confederal_ssno_memo",
+  "desk_event_ssno_open_seen",
+  "desk_event_ssno_spring_seen",
+  "desk_event_ssno_autumn_seen",
+  "desk_event_jna_ssno_bind_seen",
+  "desk_event_ssno_pleb_seen",
+  "desk_event_to_ssno_liaison_seen",
+  "desk_event_ssno_spring91_seen",
+  "desk_event_ssno_memo_seen",
+  "dialogue_kadijevic_ssno",
+  "dialogue_kadijevic_ssno_late",
+  "dialogue_markovic_ssno",
 ];
 
 const BOOLEAN_FEDERAL = new Set(["skj_leading_role"]);
@@ -494,7 +517,7 @@ export function createNewState(catalogs) {
     attention_month: "",
     attention_spent_desks: 0,
     attention_spent_reforms: 0,
-    save_schema: 11,
+    save_schema: 12,
   };
 }
 

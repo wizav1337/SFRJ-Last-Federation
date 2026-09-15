@@ -279,6 +279,105 @@
           }
         }
       ]
+    },
+    "revisit_ssno": {
+      "text": "Kadijević — savezni sekretar za narodnu obranu — gleda SSNO kao ministarski sloj, ne kao frontu. „JNA je snaga; TO su republikanske zalihe; SSNO je papir: doktrina, inventura, veza s TO, savjet Predsjedništvu. Marković ostaje predsjednik SIV-a — ja ne tražim krunu. Što želite od ministarstva?“",
+      "choices": [
+        {
+          "id": "ssno_doctrine",
+          "label": "Savezna doktrina: Predsjedništvo iznad štaba.",
+          "next": null,
+          "effects": {
+            "federal.jna_obedience_to_civilian": 4,
+            "federal.presidency_cohesion": 2,
+            "federal.war_risk": -2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "dialogue_kadijevic_ssno",
+              "ssno_doctrine_federal",
+              "jna_civilian_chain"
+            ],
+            "flags_remove": [
+              "jna_mobilization_alert",
+              "jna_political_weight"
+            ],
+            "desk_set": {
+              "ssno": {
+                "posture": "doctrine_federal"
+              },
+              "jna": {
+                "posture": "garrison"
+              }
+            },
+            "desk_add": {
+              "ssno": {
+                "loyalty": 3,
+                "agenda_tension": -3
+              },
+              "jna": {
+                "loyalty": 2
+              }
+            }
+          }
+        },
+        {
+          "id": "ssno_to",
+          "label": "Koordinacija SSNO–TO — popis, ne oduzimanje.",
+          "next": null,
+          "effects": {
+            "federal.jna_obedience_to_civilian": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "dialogue_kadijevic_ssno",
+              "ssno_to_coordinate",
+              "to_ssno_liaison"
+            ],
+            "desk_set": {
+              "ssno": {
+                "posture": "to_coordinate"
+              },
+              "to": {
+                "posture": "coordinate"
+              }
+            },
+            "desk_add": {
+              "ssno": {
+                "loyalty": 2
+              },
+              "to": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              }
+            }
+          }
+        },
+        {
+          "id": "ssno_counsel",
+          "label": "Savjet Predsjedništvu — memo, ne tenkovi.",
+          "next": null,
+          "effects": {
+            "federal.presidency_cohesion": 3,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -2,
+            "flags_add": [
+              "dialogue_kadijevic_ssno",
+              "ssno_chair_counsel",
+              "presidency_mediation_active"
+            ],
+            "flags_remove": [
+              "presidency_hardline"
+            ],
+            "desk_set": {
+              "ssno": {
+                "posture": "chair_counsel"
+              },
+              "presidency": {
+                "posture": "mediate"
+              }
+            }
+          }
+        }
+      ]
     }
   },
   "entries": [
@@ -297,6 +396,24 @@
       "unlock": {
         "flags": [
           "talked_kadijevic"
+        ]
+      }
+    },
+    {
+      "id": "revisit_ssno",
+      "node": "revisit_ssno",
+      "once": true,
+      "priority": 6,
+      "require_done": true,
+      "available_from": "1990-06-01",
+      "unlock": {
+        "flags_any": [
+          "ssno_doctrine_federal",
+          "ssno_inventory_audit",
+          "ssno_to_coordinate",
+          "ssno_chair_counsel",
+          "desk_event_ssno_open_seen",
+          "jna_ssno_doctrine_bind"
         ]
       }
     }

@@ -496,3 +496,41 @@ Akcije: `soft_federal_line` → `skj_soft_federation`; `hard_unity_rhetoric` →
 - `syncSerbianBloc` i dalje poštuje `provinces_vote_independently`; reforma `pret_provinces` netaknuta
 - ID-ovi i zastavice engleski; UI hrvatski (ijekavica)
 
+## Dodatak — Pass 12 `expand/pass12-ssno`
+
+Šalter **Savezni sekretarijat za narodnu obranu / SSNO** (`ssno`, agencija `ssno`); produbljeni JNA i TO; Kadijević revisit SSNO + kasni izbor; Marković revisit SSNO; kartice čina I–V; `save_schema` 12; smoke proširen. Ministarski sloj (doktrina / inventura / veza TO / savjet Predsjedništvu) — **nije** zamjena za šalter JNA (snaga) ni TO.
+
+### Nova / proširena kartica
+
+| Spis | Datum | Napomena |
+|---|---|---|
+| `desk_ssno_open` | 1990-02-22 | Otvaranje šaltera: doktrina / savjet / inventura |
+| `desk_ssno_spring` | 1990-05-08 | Proljetna postava SSNO |
+| `desk_ssno_autumn` | 1990-09-15 | Jesen: pritisak na ministarski sloj |
+| `desk_jna_ssno_bind` | 1990-10-01 | JNA ↔ SSNO doktrina (tihi papir; bez `player_used_jna_threat`) |
+| `desk_ssno_before_pleb` | 1990-12-08 | Pred savjetodavnim plebiscitom |
+| `desk_to_ssno_liaison` | 1990-12-14 | TO ↔ SSNO ministarski kanal |
+| `desk_ssno_spring91` | 1991-03-15 | Proljeće 1991. papirni put; bez čina VI |
+| `confederal_ssno_memo` | 1991-04-27 | Memo SSNO uz konfederalni stol; I–G **nije** dostupan |
+
+### Razgovori
+
+- `kadijevic.json` — `revisit_ssno` (ministarski sloj)
+- `kadijevic_late.json` — izbor `ssno_late`
+- `markovic.json` — `revisit_ssno` (SIV × SSNO)
+
+### Šalteri
+
+- **ssno**: `doctrine_federal` → `ssno_doctrine_federal`; `inventory_audit` → `ssno_inventory_audit`; `to_coordinate` → `ssno_to_coordinate`; `chair_counsel` → `ssno_chair_counsel`
+- **jna** `bind_ssno_doctrine` → `jna_ssno_doctrine_bind`; `accept_ssno_inventory` → `jna_ssno_inventory_channel`
+- **to** `liaison_ssno` → `to_ssno_liaison`; `shared_ssno_paper` → `to_ssno_shared_paper`
+- Soft-lock: `inventory_audit` sukobljava se s `confederal_talks_open`
+- Tihi SSNO/JNA papir **ne** postavlja `player_used_jna_threat`
+
+### Pravila koja nisu dirana
+
+- E3: otvorena povelja (≥4) + Predsjedništvo koje se može sastati; sjedenje Mesića ≠ blokada; blokada isključuje E3
+- Nema čina VI; nema lipanjskog rata; Izetbegović–Gligorov **nije** prihvatljiv papir (samo isključenje)
+- Marković = predsjednik **SIV-a**; Jović ≠ Milošević; Titograd ostaje Titograd
+- ID-ovi i zastavice engleski; UI hrvatski (ijekavica)
+

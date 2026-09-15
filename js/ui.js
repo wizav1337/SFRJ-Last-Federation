@@ -81,7 +81,7 @@ export function showEncyclopedia(game) {
     <li><strong>sij–ožu 1991.</strong> — SIV vs kabineti; razoružanje; Pakrac; 9. ožujak; uze SDB</li>
     <li><strong>tra–svi 1991.</strong> — konfederalni nacrt; Fond/jug; sukob tvrdih šaltera/stola; FER/trgovina; pravosuđe pred rotacijom; Mesić; kraj odsječka A</li>
     <li><strong>Pass 3–4</strong> — ${t("ency.timelinePass34")}</li>
-    <li><strong>Pass 9–11</strong> — ${t("ency.timelinePass9")} · ${t("ency.timelinePass10")} · ${t("ency.timelinePass11")}</li>`;
+    <li><strong>Pass 9–12</strong> — ${t("ency.timelinePass9")} · ${t("ency.timelinePass10")} · ${t("ency.timelinePass11")} · ${t("ency.timelinePass12")}</li>`;
   $("ency-body").innerHTML = `
     <p class="kicker" style="color:#8a7340">${t("ency.kicker")}</p>
     <h1>SFRJ 1990</h1>

@@ -6,7 +6,7 @@
       "name": "JNA",
       "name_hr": "Jugoslavenska narodna armija",
       "kind": "force",
-      "briefing": "Savezne oružane snage još formalno slušaju Predsjedništvo. Kohezija, poslušnost civilima i postava (garnizon / pripravnost / politička težina) mjesečno mijenjaju ratni rizik i saveznu kontrolu.",
+      "briefing": "Savezne oružane snage još formalno slušaju Predsjedništvo. Kohezija, poslušnost civilima i postava (garnizon / pripravnost / politička težina) mjesečno mijenjaju ratni rizik i saveznu kontrolu. Pass 7: tiha preraspodjela bez prijetnje. Pass 12: veza sa SSNO — savezna doktrina i inventurni kanal (papir, ne fronta).",
       "stats": {
         "loyalty": 72,
         "capacity": 78,
@@ -156,6 +156,99 @@
             "ME.federal_trust": 1,
             "flags_add": [
               "jna_quiet_redistribute"
+            ],
+            "flags_remove": []
+          }
+        },
+        {
+          "id": "bind_ssno_doctrine",
+          "label": "Veži JNA uz saveznu doktrinu SSNO — papir Predsjedništva, ne samostalni štab.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "ssno_doctrine_federal",
+              "ssno_chair_counsel",
+              "desk_event_ssno_open_seen",
+              "jna_civilian_chain",
+              "dialogue_kadijevic_ssno"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "jna": {
+                "loyalty": 3,
+                "agenda_tension": -3
+              },
+              "ssno": {
+                "loyalty": 3,
+                "capacity": 2,
+                "agenda_tension": -2
+              }
+            },
+            "desk_set": {
+              "ssno": {
+                "posture": "doctrine_federal"
+              },
+              "jna": {
+                "posture": "garrison"
+              }
+            },
+            "federal.jna_obedience_to_civilian": 4,
+            "federal.jna_cohesion": 2,
+            "federal.war_risk": -2,
+            "federal.presidency_cohesion": 2,
+            "flags_add": [
+              "jna_ssno_doctrine_bind",
+              "ssno_doctrine_federal",
+              "jna_garrison_posture"
+            ],
+            "flags_remove": [
+              "jna_mobilization_alert",
+              "jna_political_weight"
+            ]
+          }
+        },
+        {
+          "id": "accept_ssno_inventory",
+          "label": "Prihvati inventurni kanal SSNO — popis zaliha, ne racija.",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "requires": {
+            "flags_any": [
+              "ssno_inventory_audit",
+              "desk_event_ssno_open_seen",
+              "to_quiet_audit",
+              "jna_quiet_redistribute",
+              "dialogue_kadijevic_ssno"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "jna": {
+                "capacity": 3,
+                "agenda_tension": 2
+              },
+              "ssno": {
+                "capacity": 3,
+                "agenda_tension": 2
+              }
+            },
+            "desk_set": {
+              "ssno": {
+                "posture": "inventory_audit"
+              }
+            },
+            "federal.jna_cohesion": 2,
+            "federal.war_risk": -1,
+            "SI.federal_trust": -1,
+            "HR.federal_trust": -1,
+            "flags_add": [
+              "jna_ssno_inventory_channel",
+              "ssno_inventory_audit"
             ],
             "flags_remove": []
           }
@@ -1269,7 +1362,7 @@
       "name": "TO",
       "name_hr": "Teritorijalna obrana",
       "kind": "force",
-      "briefing": "Republikanska teritorijalna obrana: zalihe, inventura i koordinacija sa JNA. Savezna inventura ili republikanski držaj mijenja napetost u SI/HR i put prema naredbi o neregularnim formacijama — bez otvaranja fronte. Pass 9: zajednički rezervni fond (to_shared_reserve) i veza TO–NBJ (to_nby_liaison) — mirnodopski, bez fronte.",
+      "briefing": "Republikanska teritorijalna obrana: zalihe, inventura i koordinacija sa JNA. Savezna inventura ili republikanski držaj mijenja napetost u SI/HR i put prema naredbi o neregularnim formacijama — bez otvaranja fronte. Pass 9: zajednički rezervni fond (to_shared_reserve) i veza TO–NBJ (to_nby_liaison) — mirnodopski, bez fronte. Pass 12: veza sa SSNO (to_ssno_liaison) — ministarski kanal, ne fronta.",
       "stats": {
         "loyalty": 48,
         "capacity": 52,
@@ -1451,6 +1544,89 @@
             "federal.siv_authority": 1,
             "flags_add": [
               "to_nby_liaison"
+            ]
+          }
+        },
+        {
+          "id": "liaison_ssno",
+          "label": "Veza TO–SSNO: ministarski popis, ne oduzimanje.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "ssno_to_coordinate",
+              "desk_event_ssno_open_seen",
+              "to_coordinate_posture",
+              "to_quiet_audit",
+              "dialogue_kadijevic_ssno"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "to": {
+                "loyalty": 3,
+                "agenda_tension": -2,
+                "capacity": 2
+              },
+              "ssno": {
+                "loyalty": 2,
+                "capacity": 2
+              }
+            },
+            "desk_set": {
+              "to": {
+                "posture": "coordinate"
+              },
+              "ssno": {
+                "posture": "to_coordinate"
+              }
+            },
+            "federal.jna_obedience_to_civilian": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "to_ssno_liaison",
+              "ssno_to_coordinate",
+              "to_coordinate_posture"
+            ],
+            "flags_remove": [
+              "to_republic_hold",
+              "to_inventory_push"
+            ]
+          }
+        },
+        {
+          "id": "shared_ssno_paper",
+          "label": "Zajednički papir TO–SSNO o zalihama — tihi kanal.",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "requires": {
+            "flags_any": [
+              "ssno_inventory_audit",
+              "to_ssno_liaison",
+              "desk_event_ssno_open_seen",
+              "to_shared_reserve",
+              "ssno_to_coordinate"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "to": {
+                "capacity": 3,
+                "loyalty": 1
+              },
+              "ssno": {
+                "capacity": 3,
+                "agenda_tension": -1
+              }
+            },
+            "federal.war_risk": -1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "to_ssno_shared_paper",
+              "ssno_inventory_audit"
             ]
           }
         }
@@ -3270,6 +3446,236 @@
             "flags_remove": [
               "provinces_bloc_tight",
               "presidency_hardline"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ssno",
+      "agency_id": "ssno",
+      "name": "SSNO",
+      "name_hr": "Savezni sekretarijat za narodnu obranu",
+      "kind": "secretariat",
+      "briefing": "Ministarski sloj narodne obrane (Kadijević kao savezni sekretar): savezna doktrina, inventurni kanal, veza s TO i savjet Predsjedništvu — ne fronta i ne zamjena za šalter JNA (snaga) ili TO (republikanske zalihe). Postave diraju jna_obedience, war_risk, presidency_cohesion i zastavice ssno_*. Tihi papir ne postavlja player_used_jna_threat. Marković ostaje predsjednik SIV-a; SSNO ne zamjenjuje Predsjedništvo.",
+      "stats": {
+        "loyalty": 60,
+        "capacity": 58,
+        "agenda_tension": 36
+      },
+      "posture_default": "doctrine_federal",
+      "postures": [
+        "doctrine_federal",
+        "inventory_audit",
+        "to_coordinate",
+        "chair_counsel"
+      ],
+      "actions": [
+        {
+          "id": "set_doctrine_federal",
+          "label": "Savezna doktrina: Predsjedništvo iznad štaba, papir bez prijetnje.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "ssno": {
+                "posture": "doctrine_federal"
+              }
+            },
+            "desk_add": {
+              "ssno": {
+                "loyalty": 4,
+                "agenda_tension": -3,
+                "capacity": 2
+              },
+              "jna": {
+                "loyalty": 2,
+                "agenda_tension": -2
+              }
+            },
+            "federal.jna_obedience_to_civilian": 3,
+            "federal.presidency_cohesion": 2,
+            "federal.war_risk": -2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "ssno_doctrine_federal"
+            ],
+            "flags_remove": [
+              "ssno_inventory_audit",
+              "ssno_paralyzed"
+            ]
+          }
+        },
+        {
+          "id": "run_inventory_audit",
+          "label": "Inventurni kanal: popis zaliha JNA/TO — papir, ne racija.",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_set": {
+              "ssno": {
+                "posture": "inventory_audit"
+              }
+            },
+            "desk_add": {
+              "ssno": {
+                "capacity": 5,
+                "agenda_tension": 4
+              },
+              "to": {
+                "capacity": 2,
+                "agenda_tension": 2
+              },
+              "jna": {
+                "capacity": 2
+              }
+            },
+            "SI.federal_trust": -2,
+            "HR.federal_trust": -2,
+            "federal.war_risk": 1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "ssno_inventory_audit"
+            ],
+            "flags_remove": [
+              "ssno_doctrine_federal"
+            ]
+          }
+        },
+        {
+          "id": "coordinate_with_to",
+          "label": "Koordinacija SSNO–TO: zajednički popis, ne oduzimanje.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "ssno": {
+                "posture": "to_coordinate"
+              },
+              "to": {
+                "posture": "coordinate"
+              }
+            },
+            "desk_add": {
+              "ssno": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              },
+              "to": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.jna_obedience_to_civilian": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "ssno_to_coordinate",
+              "to_ssno_liaison",
+              "to_coordinate_posture"
+            ],
+            "flags_remove": [
+              "to_republic_hold",
+              "to_inventory_push"
+            ]
+          }
+        },
+        {
+          "id": "counsel_presidency",
+          "label": "Savjet Predsjedništvu: ministarski memo, ne tenkovi.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "ssno": {
+                "posture": "chair_counsel"
+              },
+              "presidency": {
+                "posture": "mediate"
+              }
+            },
+            "desk_add": {
+              "ssno": {
+                "loyalty": 2,
+                "agenda_tension": -3
+              },
+              "presidency": {
+                "loyalty": 2,
+                "agenda_tension": -2
+              }
+            },
+            "federal.presidency_cohesion": 4,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -2,
+            "federal.jna_obedience_to_civilian": 2,
+            "flags_add": [
+              "ssno_chair_counsel",
+              "presidency_mediation_active"
+            ],
+            "flags_remove": [
+              "presidency_hardline"
+            ]
+          }
+        },
+        {
+          "id": "quiet_ministry_paper",
+          "label": "Tihi ministarski papir: kapacitet bez javne naredbe.",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_add": {
+              "ssno": {
+                "capacity": 4,
+                "loyalty": 2,
+                "agenda_tension": -1
+              }
+            },
+            "federal.siv_authority": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "ssno_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "bind_siv_channel",
+          "label": "Kanal SSNO–SIV: Marković vidi inventuru, ne zapovijeda JNA.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "ssno_doctrine_federal",
+              "ssno_chair_counsel",
+              "desk_event_ssno_open_seen",
+              "markovic_mandate_strong",
+              "siv_austerity_stance",
+              "siv_stimulus_stance"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "ssno": {
+                "loyalty": 2,
+                "capacity": 2
+              },
+              "siv": {
+                "loyalty": 2,
+                "capacity": 1
+              }
+            },
+            "federal.siv_authority": 2,
+            "federal.legitimacy": 1,
+            "federal.jna_obedience_to_civilian": 1,
+            "flags_add": [
+              "ssno_siv_bind",
+              "markovic_mandate_strong"
             ]
           }
         }

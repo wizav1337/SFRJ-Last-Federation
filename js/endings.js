@@ -308,6 +308,15 @@ function pathNotes(state) {
   if (state.flags.talked_bajramovic) notes.push(t("path.bajramovic"));
   if (state.flags.talked_kostic) notes.push(t("path.kostic"));
   if (state.flags.dialogue_markovic_provinces) notes.push(t("path.markovicProvinces"));
+  if (state.flags.ssno_doctrine_federal) notes.push(t("path.ssnoDoctrine"));
+  else if (state.flags.ssno_chair_counsel) notes.push(t("path.ssnoCounsel"));
+  else if (state.flags.ssno_to_coordinate) notes.push(t("path.ssnoTo"));
+  else if (state.flags.ssno_inventory_audit) notes.push(t("path.ssnoInventory"));
+  if (state.flags.jna_ssno_doctrine_bind) notes.push(t("path.jnaSsnoBind"));
+  if (state.flags.to_ssno_liaison) notes.push(t("path.toSsnoLiaison"));
+  if (state.flags.confederal_ssno_memo) notes.push(t("path.ssnoMemo"));
+  if (state.flags.dialogue_kadijevic_ssno) notes.push(t("path.kadijevicSsno"));
+  if (state.flags.dialogue_markovic_ssno) notes.push(t("path.markovicSsno"));
   const stack = confederalStackDepth(state);
   if (stack >= 3) notes.push(t("path.stackDepth", { n: stack }));
   return notes;

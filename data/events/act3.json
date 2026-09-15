@@ -846,6 +846,95 @@
       ]
     },
     {
+      "id": "desk_ssno_autumn",
+      "date": "1990-09-15",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Jesen: SSNO pod suverenističkim pritiskom",
+      "location": "Beograd — SSNO / Predsjedništvo",
+      "briefing": "Republike pišu ustave; SSNO trpi pritisak da bude ili savezni pečat ili tihi popis. Doktrina i savjet Predsjedništvu drže papirni put; tvrda inventura diže trenje. Bez čina VI.",
+      "constitutional_note": "Suverenost republika ne briše savezni sekretarijat; ni SSNO ne briše republikanski TO.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "desk_event_ssno_open_seen",
+          "desk_event_ssno_spring_seen",
+          "ssno_doctrine_federal",
+          "ssno_chair_counsel",
+          "dialogue_kadijevic_ssno",
+          "jna_ssno_doctrine_bind",
+          "multiparty_wave"
+        ]
+      },
+      "choices": [
+        {
+          "id": "autumn_doctrine",
+          "label": "Savezna doktrina — Predsjedništvo iznad štaba.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssno": {
+                "posture": "doctrine_federal"
+              }
+            },
+            "federal.jna_obedience_to_civilian": 3,
+            "federal.presidency_cohesion": 2,
+            "federal.war_risk": -2,
+            "flags_add": [
+              "ssno_doctrine_federal",
+              "desk_event_ssno_autumn_seen"
+            ]
+          }
+        },
+        {
+          "id": "autumn_counsel",
+          "label": "Savjet Predsjedništvu — meki memo.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssno": {
+                "posture": "chair_counsel"
+              },
+              "presidency": {
+                "posture": "mediate"
+              }
+            },
+            "federal.presidency_cohesion": 3,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -2,
+            "flags_add": [
+              "ssno_chair_counsel",
+              "presidency_mediation_active",
+              "desk_event_ssno_autumn_seen"
+            ],
+            "flags_remove": [
+              "presidency_hardline"
+            ]
+          }
+        },
+        {
+          "id": "autumn_inv",
+          "label": "Inventura pod pritiskom — samo papir.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssno": {
+                "posture": "inventory_audit"
+              }
+            },
+            "federal.war_risk": 1,
+            "SI.federal_trust": -2,
+            "HR.federal_trust": -2,
+            "flags_add": [
+              "ssno_inventory_audit",
+              "desk_event_ssno_autumn_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_provinces_autumn",
       "date": "1990-09-18",
       "act": 3,
@@ -1263,6 +1352,88 @@
             "VO.federal_trust": 3,
             "flags_add": [
               "serbia_new_constitution"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_jna_ssno_bind",
+      "date": "1990-10-01",
+      "act": 3,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "JNA ↔ SSNO: doktrina na papiru",
+      "location": "Beograd — Generalštab / SSNO",
+      "briefing": "Produbljenje JNA: veži snagu uz ministarsku doktrinu SSNO. Garnizon i civilni lanac — bez prijetnje republikama. player_used_jna_threat se ne pali. Quiet paperwork.",
+      "constitutional_note": "Zapovjedni lanac ostaje u Predsjedništvu; SSNO ne izdaje samostalne borbene naredbe u odsječku A.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "desk_event_ssno_open_seen",
+          "ssno_doctrine_federal",
+          "ssno_chair_counsel",
+          "jna_civilian_chain",
+          "jna_garrison_posture",
+          "dialogue_kadijevic_ssno",
+          "desk_event_ssno_autumn_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "bind_yes",
+          "label": "Veži JNA uz saveznu doktrinu SSNO.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssno": {
+                "posture": "doctrine_federal"
+              },
+              "jna": {
+                "posture": "garrison"
+              }
+            },
+            "federal.jna_obedience_to_civilian": 4,
+            "federal.jna_cohesion": 2,
+            "federal.war_risk": -2,
+            "flags_add": [
+              "jna_ssno_doctrine_bind",
+              "ssno_doctrine_federal",
+              "desk_event_jna_ssno_bind_seen"
+            ],
+            "flags_remove": [
+              "jna_mobilization_alert",
+              "jna_political_weight"
+            ]
+          }
+        },
+        {
+          "id": "bind_inventory",
+          "label": "Prihvati inventurni kanal SSNO u JNA.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssno": {
+                "posture": "inventory_audit"
+              }
+            },
+            "federal.jna_cohesion": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "jna_ssno_inventory_channel",
+              "ssno_inventory_audit",
+              "desk_event_jna_ssno_bind_seen"
+            ]
+          }
+        },
+        {
+          "id": "bind_skip",
+          "label": "Ostavi JNA i SSNO razdvojene na papiru.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "desk_event_jna_ssno_bind_seen"
             ]
           }
         }
