@@ -523,6 +523,90 @@
       ]
     },
     {
+      "id": "desk_assembly_after_votes",
+      "date": "1990-05-28",
+      "act": 2,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Skupština nakon proljetnih listića",
+      "location": "Beograd — Skupština SFRJ",
+      "briefing": "Nakon SI/HR izbora savezna Skupština osjeća novi Sabor. Možete obnoviti kvorum, pečatirati reforme za SIV, ili dopustiti zastoj. assembly_* zastavice i legitimnost.",
+      "constitutional_note": "Nema čina VI. Rotacija Predsjedništva nije raspad Skupštine.",
+      "documents": [
+        "1974_federation"
+      ],
+      "requires": {
+        "flags_any": [
+          "slovenia_election_held",
+          "croatia_election_held",
+          "desk_event_assembly_open_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "restore_quorum",
+          "label": "Obnovi kvorum i otvoreni rad.",
+          "legal": "assembly_statute",
+          "effects": {
+            "desk_set": {
+              "assembly": {
+                "posture": "session_open"
+              }
+            },
+            "federal.assembly_function": 4,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "assembly_open",
+              "assembly_quorum_ok",
+              "desk_event_assembly_votes_seen"
+            ],
+            "flags_remove": [
+              "assembly_stalled",
+              "assembly_paralysis_risk"
+            ]
+          }
+        },
+        {
+          "id": "rubber_siv",
+          "label": "Pečatiraj pakete za SIV.",
+          "legal": "assembly_statute",
+          "effects": {
+            "desk_set": {
+              "assembly": {
+                "posture": "rubber_stamp"
+              }
+            },
+            "federal.siv_authority": 3,
+            "federal.reform_momentum": 2,
+            "federal.assembly_function": -1,
+            "flags_add": [
+              "assembly_rubber_stamp",
+              "desk_event_assembly_votes_seen"
+            ]
+          }
+        },
+        {
+          "id": "let_stall",
+          "label": "Neka zastoj traje.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "assembly": {
+                "posture": "stalled"
+              }
+            },
+            "federal.assembly_function": -4,
+            "federal.siv_authority": -2,
+            "flags_add": [
+              "assembly_stalled",
+              "assembly_paralysis_risk",
+              "desk_event_assembly_votes_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "hdz_government",
       "date": "1990-05-25",
       "act": 2,

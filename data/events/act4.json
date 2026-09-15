@@ -411,6 +411,83 @@
       ]
     },
     {
+      "id": "republic_voice_me",
+      "date": "1990-12-18",
+      "act": 4,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Glas Crne Gore (Titograd)",
+      "location": "Titograd / Beograd — Predsjedništvo (ME stolac)",
+      "briefing": "Bućin ili linija Titograda: meka federacija, srpski blok kao poluga, ili kvorum. Grad ostaje Titograd. Nije aneksija; nije otcjepljenje. E3: zastoj isključuje ishod.",
+      "constitutional_note": "Jović ≠ Milošević. Marković = SIV. Nema Izetbegović–Gligorova.",
+      "documents": [
+        "1974_presidency"
+      ],
+      "requires": {
+        "flags_not": [
+          "desk_event_me_voice_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "soft_me",
+          "label": "Meka federacija iz Titograda.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            },
+            "federal.presidency_cohesion": 4,
+            "ME.federal_trust": 5,
+            "flags_add": [
+              "me_soft_federation",
+              "dialogue_bucin_soft",
+              "presidency_mediation_active",
+              "republic_voice_me_seen",
+              "desk_event_me_voice_seen"
+            ]
+          }
+        },
+        {
+          "id": "bloc_me",
+          "label": "Sjedi uz srpski blok kao polugu.",
+          "legal": "political",
+          "effects": {
+            "federal.presidency_cohesion": -3,
+            "ME.skj_hold": 3,
+            "RS.federal_trust": 2,
+            "flags_add": [
+              "me_serbia_bloc",
+              "dialogue_bucin_bloc",
+              "republic_voice_me_seen",
+              "desk_event_me_voice_seen"
+            ]
+          }
+        },
+        {
+          "id": "quorum_me",
+          "label": "Čuvaj kvorum: Titograd sjedi.",
+          "legal": "political",
+          "effects": {
+            "federal.presidency_cohesion": 5,
+            "ME.federal_trust": 3,
+            "flags_add": [
+              "me_quorum_guard",
+              "presidency_quorum_guard",
+              "dialogue_bucin_quorum",
+              "republic_voice_me_seen",
+              "desk_event_me_voice_seen"
+            ],
+            "flags_remove": [
+              "presidency_deadlock"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_ssup_before_pleb",
       "date": "1990-12-15",
       "act": 4,

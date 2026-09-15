@@ -1402,6 +1402,314 @@
           }
         }
       ]
+    },
+    {
+      "id": "assembly",
+      "agency_id": "assembly",
+      "name": "Skupština",
+      "name_hr": "Skupština SFRJ",
+      "kind": "constitutional",
+      "briefing": "Savezna Skupština još bira SIV i donosi savezne zakone — na papiru. Otvoreni rad, zastoj ili pečatiranje bez rasprave mijenjaju assembly_function, legitimnost, autoritet SIV-a i reformski zamah. Kvorumski spisi (assembly_*) drže ili kidaju stol. Nije fronta; nije čin VI.",
+      "stats": {
+        "loyalty": 48,
+        "capacity": 44,
+        "agenda_tension": 42
+      },
+      "posture_default": "session_open",
+      "postures": [
+        "session_open",
+        "stalled",
+        "rubber_stamp"
+      ],
+      "actions": [
+        {
+          "id": "open_floor",
+          "label": "Otvori rad: dva vijeća, rasprava, zakoniti postupak.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "assembly": {
+                "posture": "session_open"
+              }
+            },
+            "desk_add": {
+              "assembly": {
+                "loyalty": 3,
+                "agenda_tension": -4,
+                "capacity": 2
+              }
+            },
+            "federal.assembly_function": 5,
+            "federal.legitimacy": 3,
+            "federal.siv_authority": 2,
+            "federal.reform_momentum": 2,
+            "flags_add": [
+              "assembly_open",
+              "assembly_quorum_ok"
+            ],
+            "flags_remove": [
+              "assembly_stalled",
+              "assembly_rubber_stamp",
+              "assembly_paralysis_risk"
+            ]
+          }
+        },
+        {
+          "id": "stall_floor",
+          "label": "Zastoj: nema kvoruma, nema zakona, SIV čeka.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "assembly": {
+                "posture": "stalled"
+              }
+            },
+            "desk_add": {
+              "assembly": {
+                "agenda_tension": 8,
+                "loyalty": -3,
+                "capacity": -2
+              }
+            },
+            "federal.assembly_function": -6,
+            "federal.legitimacy": -3,
+            "federal.siv_authority": -3,
+            "federal.reform_momentum": -2,
+            "flags_add": [
+              "assembly_stalled",
+              "assembly_paralysis_risk"
+            ],
+            "flags_remove": [
+              "assembly_open",
+              "assembly_rubber_stamp",
+              "assembly_quorum_ok"
+            ]
+          }
+        },
+        {
+          "id": "rubber_stamp",
+          "label": "Pečatiranje: brzi akti bez rasprave — SIV dobiva papir, stol gubi težinu.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "assembly": {
+                "posture": "rubber_stamp"
+              }
+            },
+            "desk_add": {
+              "assembly": {
+                "loyalty": -2,
+                "agenda_tension": 4,
+                "capacity": 1
+              }
+            },
+            "federal.assembly_function": -2,
+            "federal.siv_authority": 4,
+            "federal.legitimacy": -1,
+            "federal.reform_momentum": 3,
+            "flags_add": [
+              "assembly_rubber_stamp"
+            ],
+            "flags_remove": [
+              "assembly_open",
+              "assembly_stalled"
+            ]
+          }
+        },
+        {
+          "id": "guard_quorum",
+          "label": "Čuvaj kvorum Skupštine: sjednica, ne prazna dvorana.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "assembly_stalled",
+              "assembly_paralysis_risk",
+              "multiparty_wave",
+              "skj_split"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "assembly": {
+                "capacity": 3,
+                "loyalty": 2
+              }
+            },
+            "federal.assembly_function": 3,
+            "federal.legitimacy": 2,
+            "federal.presidency_cohesion": 1,
+            "flags_add": [
+              "assembly_quorum_ok"
+            ],
+            "flags_remove": [
+              "assembly_paralysis_risk"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "fer",
+      "agency_id": "fer",
+      "name": "FER",
+      "name_hr": "Savezni sekretarijat za vanjske ekonomske odnose",
+      "kind": "secretariat",
+      "briefing": "FER nosi trgovinu, sučelje MMF-a sa SIV-om i carinske koridore. Marković je predsjednik SIV-a — FER izvršava, ne zamjenjuje. Postave (otvorena trgovina / linija MMF / tvrde carine) diraju inter_republic_trade, hard_currency, imf_pressure, international_standing i zastavice customs_war_* / imf_standby / fer_*.",
+      "stats": {
+        "loyalty": 55,
+        "capacity": 50,
+        "agenda_tension": 36
+      },
+      "posture_default": "trade_open",
+      "postures": [
+        "trade_open",
+        "imf_line",
+        "customs_hard"
+      ],
+      "actions": [
+        {
+          "id": "open_trade",
+          "label": "Otvori međurepubličku trgovinu i vanjske koridore.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "fer": {
+                "posture": "trade_open"
+              }
+            },
+            "desk_add": {
+              "fer": {
+                "loyalty": 3,
+                "agenda_tension": -3
+              }
+            },
+            "federal.inter_republic_trade": 5,
+            "federal.hard_currency": 2,
+            "federal.international_standing": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "fer_trade_open"
+            ],
+            "flags_remove": [
+              "fer_customs_hard"
+            ]
+          }
+        },
+        {
+          "id": "hold_imf",
+          "label": "Drži sučelje MMF-a uz SIV (Marković = predsjednik SIV-a).",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "fer": {
+                "posture": "imf_line"
+              }
+            },
+            "desk_add": {
+              "fer": {
+                "capacity": 3,
+                "loyalty": 2
+              }
+            },
+            "federal.imf_pressure": -3,
+            "federal.hard_currency": 3,
+            "federal.reform_momentum": 2,
+            "federal.international_standing": 3,
+            "flags_add": [
+              "fer_imf_line",
+              "imf_standby_active",
+              "finance_imf_aligned"
+            ],
+            "flags_remove": [
+              "fer_customs_hard"
+            ]
+          }
+        },
+        {
+          "id": "harden_customs",
+          "label": "Tvrde carine: pritisak na republike koje zaobilaze savezni koridor.",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_set": {
+              "fer": {
+                "posture": "customs_hard"
+              }
+            },
+            "desk_add": {
+              "fer": {
+                "agenda_tension": 7,
+                "loyalty": -2
+              }
+            },
+            "federal.inter_republic_trade": -4,
+            "federal.federal_budget": 2,
+            "federal.imf_pressure": 2,
+            "SI.federal_trust": -3,
+            "HR.federal_trust": -3,
+            "flags_add": [
+              "fer_customs_hard",
+              "customs_war_active"
+            ],
+            "flags_remove": [
+              "fer_trade_open",
+              "customs_war_resolved"
+            ]
+          }
+        },
+        {
+          "id": "resolve_customs",
+          "label": "Smiri carinski rat: tihi koridor, ne kapitulacija.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "customs_war_active",
+              "fer_customs_hard"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "fer": {
+                "posture": "trade_open"
+              }
+            },
+            "desk_add": {
+              "fer": {
+                "loyalty": 2,
+                "agenda_tension": -4
+              }
+            },
+            "federal.inter_republic_trade": 4,
+            "federal.war_risk": -1,
+            "federal.international_standing": 2,
+            "flags_add": [
+              "customs_war_resolved",
+              "fer_trade_open",
+              "fer_customs_eased"
+            ],
+            "flags_remove": [
+              "customs_war_active",
+              "fer_customs_hard"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

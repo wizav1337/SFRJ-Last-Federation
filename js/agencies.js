@@ -58,6 +58,12 @@ export function syncAgenciesFromFlags(state) {
   if (state.flags.jna_sides_with_serbia) {
     setAgencyStatus(state, "jna", "captured_by_republic");
   }
+  if (state.flags.assembly_stalled || state.flags.assembly_paralysis_risk) {
+    setAgencyStatus(state, "assembly", "weakened");
+  }
+  if (state.flags.fer_customs_hard && state.flags.customs_war_active) {
+    setAgencyStatus(state, "fer", "weakened");
+  }
 }
 
 export function legalLabel(legal) {

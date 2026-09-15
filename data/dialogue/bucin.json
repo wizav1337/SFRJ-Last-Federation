@@ -1,0 +1,119 @@
+{
+  "id": "bucin",
+  "speaker": "Nenad Bućin",
+  "title": "Član Predsjedništva (SR Crna Gora)",
+  "desk": "presidency",
+  "available_from": "1990-11-01",
+  "unlock": {},
+  "nodes": {
+    "start": {
+      "text": "Bućin govori iz Titograda — ime grada ostaje Titograd. „Crna Gora može držati meku federaciju, sjesti uz srpski blok, ili čuvati kvorum Predsjedništva. Zastoj zatvara E3. Mi nismo Beogradova sjena, ali nismo ni otcjepljenje.“",
+      "choices": [
+        {
+          "id": "soft_fed",
+          "label": "Meka federacija: Titograd uz savezni stol.",
+          "next": "soft",
+          "effects": {
+            "desk_add": { "presidency": { "loyalty": 3, "agenda_tension": -3 } },
+            "federal.presidency_cohesion": 4,
+            "ME.federal_trust": 5,
+            "ME.yugoslav_identity": 3,
+            "flags_add": [
+              "talked_bucin",
+              "dialogue_bucin_soft",
+              "me_soft_federation",
+              "presidency_mediation_active"
+            ],
+            "desk_set": { "presidency": { "posture": "mediate" } }
+          }
+        },
+        {
+          "id": "serbia_bloc",
+          "label": "Sjedi uz srpski blok — poluga, ne aneksija.",
+          "next": "bloc",
+          "effects": {
+            "desk_add": { "presidency": { "agenda_tension": 6, "loyalty": -2 } },
+            "federal.presidency_cohesion": -3,
+            "ME.federal_trust": 2,
+            "ME.skj_hold": 3,
+            "RS.federal_trust": 2,
+            "flags_add": [
+              "talked_bucin",
+              "dialogue_bucin_bloc",
+              "me_serbia_bloc"
+            ]
+          }
+        },
+        {
+          "id": "quorum",
+          "label": "Čuvaj kvorum: pet od osam, Titograd sjedi.",
+          "next": "quorum",
+          "effects": {
+            "desk_add": { "presidency": { "capacity": 4, "loyalty": 2 } },
+            "federal.presidency_cohesion": 5,
+            "ME.federal_trust": 3,
+            "flags_add": [
+              "talked_bucin",
+              "dialogue_bucin_quorum",
+              "presidency_quorum_guard",
+              "me_quorum_guard"
+            ],
+            "flags_remove": ["presidency_deadlock"]
+          }
+        }
+      ]
+    },
+    "soft": {
+      "text": "„Dobro. Meka federacija nije kapitulacija Beogradu. Marković i dalje vodi SIV — knjige, ne krunu.“",
+      "choices": [
+        {
+          "id": "end_soft",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": { "federal.war_risk": -1, "federal.legitimacy": 1 }
+        }
+      ]
+    },
+    "bloc": {
+      "text": "Titograd bilježi tvrđu težinu uz RS. Nije naredba Joviću — Jović nije Milošević — ali kohezija Predsjedništva pada.",
+      "choices": [
+        {
+          "id": "end_bloc",
+          "label": "Izađi.",
+          "next": null,
+          "effects": { "federal.war_risk": 1 }
+        }
+      ]
+    },
+    "quorum": {
+      "text": "„Pet glasova. Bez pet nema izvanrednog. Titograd može sjediti bez da zatvori stol.“",
+      "choices": [
+        {
+          "id": "end_quorum",
+          "label": "Zatvori.",
+          "next": null,
+          "effects": { "federal.legitimacy": 1 }
+        }
+      ]
+    }
+  },
+  "entries": [
+    {
+      "id": "start",
+      "node": "start",
+      "once": true,
+      "available_from": "1990-11-01"
+    },
+    {
+      "id": "revisit_spring",
+      "node": "start",
+      "once": true,
+      "priority": 2,
+      "available_from": "1991-02-15",
+      "require_done": true,
+      "unlock": {
+        "flags_any": ["confederal_talks_open", "presidency_quorum_guard", "presidency_hardline"]
+      }
+    }
+  ]
+}

@@ -267,3 +267,43 @@ Akcije: `soft_federal_line` → `skj_soft_federation`; `hard_unity_rhetoric` →
 - Nema čina VI; nema lipanjskog rata; Izetbegović–Gligorov **nije** na travanjskoj kartici niti na SKJ memorandumu
 - Marković = predsjednik **SIV-a**; Jović ≠ Milošević
 - ID-ovi i zastavice engleski; UI hrvatski (ijekavica)
+
+---
+
+## Dodatak — Pass 6 `expand/pass6-assembly-fer`
+
+Šalteri **Skupština SFRJ** (`assembly`) i **FER** (vanjski ekonomski odnosi); glasovi Gligorova (MK), Bućina (ME / Titograd) i gated medijacija Izetbegovića (bez I–G nacrta); kartice čina I–V; `save_schema` 6; smoke proširen.
+
+### Nova / proširena kartica
+
+| Spis | Datum | Napomena |
+|---|---|---|
+| `desk_assembly_open` | 1990-03-01 | Otvoreni rad / zastoj / pečatiranje; `assembly_*` |
+| `desk_fer_open` | 1990-03-18 | FER trgovina / MMF / tvrde carine; Marković = SIV |
+| `desk_assembly_after_votes` | 1990-05-28 | Skupština nakon proljetnih listića |
+| `desk_fer_customs_autumn` | 1990-10-05 | FER / carine u jesen |
+| `republic_voice_me` | 1990-12-18 | Glas Crne Gore (Titograd); meka / blok / kvorum |
+| `republic_voice_gligorov` | 1991-01-28 | Gligorov; **odbija** I–G okvir; konfederalni / EEZ |
+| `desk_assembly_spring91` | 1991-02-25 | Skupština u proljeće 1991.; bez čina VI |
+| `mediation_izetbegovic_gate` | 1991-04-12 | Samo medijacija; I–G nacrt **nije** dostupan |
+| `desk_fer_trade_may` | 1991-05-06 | Ažurirano da čita šalter FER |
+
+### Razgovori
+
+- `gligorov.json` — MK; konfederalni / EEZ / **odbijanje** Izetbegović–Gligorov okvira
+- `bucin.json` — ME stolac; Titograd ostaje Titograd; meka federacija / srpski blok / kvorum
+- `izetbegovic.json` — gated medijacija only; I–G papir van Slice A
+
+### Šalteri
+
+- **assembly**: `session_open` → `assembly_open`; `stalled` → `assembly_stalled` + `assembly_paralysis_risk`; `rubber_stamp` → `assembly_rubber_stamp`; akcija `guard_quorum` → `assembly_quorum_ok`
+- **fer**: `trade_open` / `imf_line` / `customs_hard` (+ `resolve_customs`); dira `customs_war_*`, `imf_standby_active`, trade / hard_currency / imf_pressure / international_standing
+
+### Pravila koja nisu dirana
+
+- E3: otvorena povelja (≥4) + Predsjedništvo koje se može sastati; sjedenje Mesića ≠ blokada; blokada isključuje E3
+- Nema čina VI; nema lipanjskog rata; Izetbegović–Gligorov **nije** na travanjskoj kartici niti kao dostupan papir u novim memoima
+- Marković = predsjednik **SIV-a**; Jović ≠ Milošević; Kučan ≠ zapovjednik JNA
+- `player_used_jna_threat` samo na namjernim tvrdim granama; `to_inventory_ordered` ekskluzivnost nepromijenjena
+- ID-ovi i zastavice engleski; UI hrvatski (ijekavica)
+

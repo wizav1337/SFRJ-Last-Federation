@@ -111,8 +111,8 @@ function continueSave(game) {
   if (!game.state.attention_month) game.state.attention_month = game.state.reform_month || "";
   if (game.state.attention_spent_desks == null) game.state.attention_spent_desks = 0;
   if (game.state.attention_spent_reforms == null) game.state.attention_spent_reforms = 0;
-  if (game.state.save_schema == null || game.state.save_schema < 5) {
-    game.state.save_schema = 5; // Pass 5: SKJ desk + republic voices + schema migrate
+  if (game.state.save_schema == null || game.state.save_schema < 6) {
+    game.state.save_schema = 6; // Pass 6: assembly + FER desks + Gligorov/ME/Izetbegović voices
   }
   for (const u of Object.values(game.state.units || {})) {
     if (u.jna_threatened == null) u.jna_threatened = false;
@@ -460,7 +460,7 @@ async function boot() {
     setI18n(hr, en);
     fillChrome();
 
-    const [units, parties, agencies, act1, act2, act3, act4, act5, documents, desks, dMarkovic, dKadijevic, dJovic, dMesic, dDrnovsek, dKucan, dTudman, dMarkovicLate, dKadijevicLate, dBogicevic, dTupurkovski, dRacan] = await Promise.all([
+    const [units, parties, agencies, act1, act2, act3, act4, act5, documents, desks, dMarkovic, dKadijevic, dJovic, dMesic, dDrnovsek, dKucan, dTudman, dMarkovicLate, dKadijevicLate, dBogicevic, dTupurkovski, dRacan, dGligorov, dBucin, dIzetbegovic] = await Promise.all([
       loadJSON("data/units.json"),
       loadJSON("data/parties.json"),
       loadJSON("data/agencies.json"),
@@ -483,6 +483,9 @@ async function boot() {
       loadJSON("data/dialogue/bogicevic.json"),
       loadJSON("data/dialogue/tupurkovski.json"),
       loadJSON("data/dialogue/racan.json"),
+      loadJSON("data/dialogue/gligorov.json"),
+      loadJSON("data/dialogue/bucin.json"),
+      loadJSON("data/dialogue/izetbegovic.json"),
     ]);
 
     const catalogs = {
@@ -491,7 +494,7 @@ async function boot() {
       agencies,
       documents,
       desks: desks.desks || desks,
-      dialogues: [dMarkovic, dKadijevic, dJovic, dMesic, dDrnovsek, dKucan, dTudman, dMarkovicLate, dKadijevicLate, dBogicevic, dTupurkovski, dRacan],
+      dialogues: [dMarkovic, dKadijevic, dJovic, dMesic, dDrnovsek, dKucan, dTudman, dMarkovicLate, dKadijevicLate, dBogicevic, dTupurkovski, dRacan, dGligorov, dBucin, dIzetbegovic],
     };
     const catalogEvents = flattenActs([act1, act2, act3, act4, act5]);
 
