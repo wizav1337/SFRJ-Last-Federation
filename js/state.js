@@ -528,6 +528,30 @@ export const CORE_FLAGS = [
   "finance_trade_corridor",
   "fer_trade_liaison",
   "fer_trade_desk",
+  "transport_corridor_open",
+  "transport_schedule_soft",
+  "transport_telecom_link",
+  "transport_reform_support",
+  "transport_harden_priority",
+  "transport_siv_bind",
+  "transport_quiet_paper",
+  "confederal_transport_memo",
+  "desk_event_transport_open_seen",
+  "desk_event_transport_spring_seen",
+  "desk_event_transport_autumn_seen",
+  "desk_event_finance_transport_bind_seen",
+  "desk_event_transport_pleb_seen",
+  "desk_event_fer_transport_liaison_seen",
+  "desk_event_transport_spring91_seen",
+  "desk_event_transport_memo_seen",
+  "dialogue_slokar",
+  "dialogue_slokar_corridor",
+  "dialogue_markovic_transport",
+  "talked_slokar",
+  "finance_transport_liaison",
+  "finance_transport_corridor",
+  "fer_transport_liaison",
+  "fer_transport_corridor",
 ];
 
 const BOOLEAN_FEDERAL = new Set(["skj_leading_role"]);
@@ -557,6 +581,7 @@ export function defaultFederal() {
     food_security: 50,
     energy_security: 50,
     internal_market: 50,
+    transport_links: 50,
     assembly_function: 50,
     inter_republic_trade: 57,
     international_standing: 49,
@@ -638,7 +663,7 @@ export function createNewState(catalogs) {
     attention_month: "",
     attention_spent_desks: 0,
     attention_spent_reforms: 0,
-    save_schema: 17,
+    save_schema: 18,
   };
 }
 

@@ -812,6 +812,10 @@
   "desk.posture.shelf_soft": "Meke police",
   "desk.posture.price_corridor": "Cjenovni koridor",
   "desk.posture.harden_controls": "Tvrđe kontrole",
+  "desk.posture.corridor_open": "Otvoreni koridori",
+  "desk.posture.schedule_soft": "Meki raspored",
+  "desk.posture.telecom_link": "Telekom veza",
+  "desk.posture.harden_priority": "Tvrđi prioriteti",
   "desk.chip.market_calm": "Mir",
   "desk.chip.shelf_soft": "Police",
   "desk.chip.price_corridor": "Cijene",
@@ -823,5 +827,12 @@
   "path.tradeReform": "Trgovina: potpora reformi",
   "path.tradeMemo": "memorandum Trgovine uz konfederalni stol",
   "path.nazmi": "glas Mustafe Nazmija (Trgovina)",
-  "path.markovicTrade": "Marković o Trgovini"
+  "path.markovicTrade": "Marković o Trgovini",
+  "path.transportCorridor": "Promet: otvoreni koridori",
+  "path.transportSchedule": "Promet: meki raspored",
+  "path.transportTelecom": "Promet: telekom veza",
+  "path.transportReform": "Promet: potpora reformi",
+  "path.transportMemo": "memorandum Prometa uz konfederalni stol",
+  "path.slokar": "glas Jožeta Slokara (Promet)",
+  "path.markovicTransport": "Marković o Prometu"
 }

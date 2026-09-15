@@ -460,7 +460,7 @@ async function boot() {
     setI18n(hr, en);
     fillChrome();
 
-    const [units, parties, agencies, act1, act2, act3, act4, act5, documents, desks, dMarkovic, dKadijevic, dJovic, dMesic, dDrnovsek, dKucan, dTudman, dMarkovicLate, dKadijevicLate, dBogicevic, dTupurkovski, dRacan, dGligorov, dBucin, dIzetbegovic, dBulatovic, dMesicLate, dJovicLate, dLoncar, dBuzadzic, dBajramovic, dKostic, dGracanin, dGacic, dMirjanic, dSanto, dNazmi] = await Promise.all([
+    const [units, parties, agencies, act1, act2, act3, act4, act5, documents, desks, dMarkovic, dKadijevic, dJovic, dMesic, dDrnovsek, dKucan, dTudman, dMarkovicLate, dKadijevicLate, dBogicevic, dTupurkovski, dRacan, dGligorov, dBucin, dIzetbegovic, dBulatovic, dMesicLate, dJovicLate, dLoncar, dBuzadzic, dBajramovic, dKostic, dGracanin, dGacic, dMirjanic, dSanto, dNazmi, dSlokar] = await Promise.all([
       loadJSON("data/units.json"),
       loadJSON("data/parties.json"),
       loadJSON("data/agencies.json"),
@@ -498,6 +498,7 @@ async function boot() {
       loadJSON("data/dialogue/mirjanic.json"),
       loadJSON("data/dialogue/santo.json"),
       loadJSON("data/dialogue/nazmi.json"),
+      loadJSON("data/dialogue/slokar.json"),
     ]);
 
     const catalogs = {
@@ -506,7 +507,7 @@ async function boot() {
       agencies,
       documents,
       desks: desks.desks || desks,
-      dialogues: [dMarkovic, dKadijevic, dJovic, dMesic, dDrnovsek, dKucan, dTudman, dMarkovicLate, dKadijevicLate, dBogicevic, dTupurkovski, dRacan, dGligorov, dBucin, dIzetbegovic, dBulatovic, dMesicLate, dJovicLate, dLoncar, dBuzadzic, dBajramovic, dKostic, dGracanin, dGacic, dMirjanic, dSanto, dNazmi],
+      dialogues: [dMarkovic, dKadijevic, dJovic, dMesic, dDrnovsek, dKucan, dTudman, dMarkovicLate, dKadijevicLate, dBogicevic, dTupurkovski, dRacan, dGligorov, dBucin, dIzetbegovic, dBulatovic, dMesicLate, dJovicLate, dLoncar, dBuzadzic, dBajramovic, dKostic, dGracanin, dGacic, dMirjanic, dSanto, dNazmi, dSlokar],
     };
     const catalogEvents = flattenActs([act1, act2, act3, act4, act5]);
 

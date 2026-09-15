@@ -2268,6 +2268,95 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_transport_open",
+      "date": "1990-03-02",
+      "act": 1,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Promet: savezni sekretarijat za promet i veze",
+      "location": "Beograd — Savezni sekretarijat za promet i veze",
+      "briefing": "Savezni sekretarijat za promet i veze stoji kao mirnodopski sloj: koridori, meki rasporedi, telekom veze, potpora reformi. To nije JNA, TO, FER, Trgovina ni Industrija — nego prometni i komunikacijski šalter. Marković ostaje predsjednik SIV-a. Tihi papir ne postavlja player_used_jna_threat. Nema rata; nema vojne logistike kao borbe.",
+      "constitutional_note": "Promet ne zamjenjuje Predsjedništvo ni SIV; civilni lanac ostaje politički.",
+      "documents": [
+        "1974_presidency",
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "markovic_mandate_strong",
+          "multiparty_wave",
+          "siv_austerity_stance",
+          "fer_trade_open",
+          "transport_corridor_open",
+          "skj_renounced_monopoly",
+          "finance_transfers_open"
+        ]
+      },
+      "choices": [
+        {
+          "id": "open_corridor",
+          "label": "Otvori šalter: otvoreni koridori.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "transport": {
+                "posture": "corridor_open"
+              }
+            },
+            "federal.transport_links": 3,
+            "federal.legitimacy": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "transport_corridor_open",
+              "desk_event_transport_open_seen",
+              "transport_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "open_schedule",
+          "label": "Meki raspored — međurepublički kanal.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "transport": {
+                "posture": "schedule_soft"
+              }
+            },
+            "federal.transport_links": 2,
+            "federal.inter_republic_trade": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "transport_schedule_soft",
+              "desk_event_transport_open_seen",
+              "transport_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "open_reform",
+          "label": "Potpora reformi uz Markovića.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "transport": {
+                "posture": "reform_support"
+              }
+            },
+            "federal.transport_links": 2,
+            "federal.reform_momentum": 2,
+            "federal.siv_authority": 1,
+            "flags_add": [
+              "transport_reform_support",
+              "desk_event_transport_open_seen",
+              "transport_quiet_paper",
+              "markovic_mandate_strong"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

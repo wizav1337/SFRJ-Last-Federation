@@ -647,3 +647,41 @@ Akcije: `soft_federal_line` → `skj_soft_federation`; `hard_unity_rhetoric` →
 ### Preostali 1990 SIV sekretarijati bez šaltera
 
 - promet i veze; razvoj; prava i uprava
+
+
+
+## Dodatak — Pass 18 `expand/pass18-transport`
+
+Šalter **Savezni sekretarijat za promet i veze** (`transport`, agencija `transport`); produbljeni Financije, SIV i FER; glas Jožeta Slokara (Službeni list 20/1989); Marković revisit Prometa; kartice čina I–V; `save_schema` 18; smoke proširen. Mirnodopski sloj (otvoreni koridori / meki raspored / telekom veza / potpora reformi / tvrđi prioriteti) — **nije** zamjena za JNA, TO, FER, Trgovinu ni Industriju. Nema vojne logistike kao borbe.
+
+### Nova / proširena kartica
+
+| Spis | Datum | Napomena |
+|---|---|---|
+| `desk_transport_open` | 1990-03-02 | Otvaranje šaltera |
+| `desk_transport_spring` | 1990-05-18 | Proljetna postava |
+| `desk_transport_autumn` | 1990-09-26 | Jesen: pritisak |
+| `desk_finance_transport_bind` | 1990-10-20 | Financije ↔ Promet |
+| `desk_transport_before_pleb` | 1990-12-18 | Pred plebiscitom |
+| `desk_fer_transport_liaison` | 1990-12-29 | FER ↔ Promet koridori |
+| `desk_transport_spring91` | 1991-03-28 | Proljeće 1991.; bez čina VI |
+| `confederal_transport_memo` | 1991-05-07 | Memo uz konfederalni stol; I–G **nije** dostupan |
+
+### Razgovori
+
+- `slokar.json` — Jože Slokar (savezni sekretar za promet i veze)
+- `markovic.json` — `revisit_transport` (SIV × Promet)
+
+### Šalteri
+
+- **transport**: `corridor_open` → `transport_corridor_open`; `schedule_soft` → `transport_schedule_soft`; `telecom_link` → `transport_telecom_link`; `reform_support` → `transport_reform_support`; `harden_priority` → `transport_harden_priority`
+- **finance** `liaison_transport` / `accept_transport_corridor`
+- **siv** `bind_transport` → `transport_siv_bind`
+- **fer** `liaison_transport` / `accept_transport_corridor` (ne sudara se s `fer_trade_open`)
+- Soft-lock: `harden_priority` sukobljava se s `confederal_talks_open`
+- Tihi prometni papir **ne** postavlja `player_used_jna_threat`
+- `federal.transport_links` default 50
+
+### Preostali 1990 SIV sekretarijati bez šaltera
+
+- razvoj; prava i uprava

@@ -93,3 +93,4 @@ Default UI language remains Croatian (ijekavica). IDs and flags stay English. `d
 - **Pass 15** (`expand/pass15-agriculture`): Poljoprivreda desk, Mirjanić, deepen Finance/SIV/Fond, gated cards, save_schema 15
 - **Pass 16** (`expand/pass16-industry`): Industrija desk, Santo, deepen Finance/SIV/FER, gated cards, save_schema 16
 - **Pass 17** (`expand/pass17-trade`): Trgovina (unutarnja) desk, Mustafa Nazmi, deepen Finance/SIV/FER, gated cards, save_schema 17
+- **Pass 18** (`expand/pass18-transport`): Promet i veze desk, Jože Slokar, deepen Finance/SIV/FER, gated cards, save_schema 18

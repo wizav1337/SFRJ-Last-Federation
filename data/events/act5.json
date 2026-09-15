@@ -3742,6 +3742,165 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_transport_spring91",
+      "date": "1991-03-28",
+      "act": 5,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Proljeće 1991.: prometni papir",
+      "location": "Beograd — Savezni sekretarijat za promet i veze",
+      "briefing": "Proljeće 1991.: Promet nudi papirni put — otvoreni koridori, reforma ili meki raspored. Bez čina VI. Tihi papir ne postavlja player_used_jna_threat. Nema rata.",
+      "constitutional_note": "Slice A: peacetime only; no Act VI.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_transport_open_seen",
+          "transport_corridor_open",
+          "transport_reform_support",
+          "transport_siv_bind",
+          "dialogue_markovic_transport",
+          "desk_event_transport_pleb_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "s91_corridor",
+          "label": "Otvoreni koridori — papirni put.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "transport": {
+                "posture": "corridor_open"
+              }
+            },
+            "federal.transport_links": 3,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "transport_corridor_open",
+              "desk_event_transport_spring91_seen",
+              "transport_quiet_paper"
+            ],
+            "flags_remove": [
+              "transport_harden_priority"
+            ]
+          }
+        },
+        {
+          "id": "s91_reform",
+          "label": "Reformski prometni paket.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "transport": {
+                "posture": "reform_support"
+              }
+            },
+            "federal.reform_momentum": 2,
+            "federal.transport_links": 2,
+            "flags_add": [
+              "transport_reform_support",
+              "desk_event_transport_spring91_seen",
+              "transport_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "s91_schedule",
+          "label": "Meki raspored.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "transport": {
+                "posture": "schedule_soft"
+              }
+            },
+            "federal.transport_links": 2,
+            "federal.inter_republic_trade": 1,
+            "flags_add": [
+              "transport_schedule_soft",
+              "desk_event_transport_spring91_seen",
+              "transport_quiet_paper"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "confederal_transport_memo",
+      "date": "1991-05-07",
+      "act": 5,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Memorandum Prometa uz konfederalni stol",
+      "location": "Beograd — konfederalni prometni stol",
+      "briefing": "Uz konfederalni stol stiže memo Prometa: koridori i reformski paket kao jamstvo da prometni šalter ne lomi pregovore. Izetbegović–Gligorov nacrt **nije** dostupan papir — samo isključenje. Nema rata.",
+      "constitutional_note": "I–G nije prihvatljiv papir na ovom stolu; memo Prometa ne priznaje secesiju.",
+      "documents": [
+        "1974_presidency"
+      ],
+      "requires": {
+        "flags_any": [
+          "confederal_talks_open",
+          "desk_event_transport_open_seen",
+          "transport_corridor_open",
+          "transport_reform_support",
+          "transport_siv_bind",
+          "dialogue_markovic_transport"
+        ]
+      },
+      "choices": [
+        {
+          "id": "memo_corridor",
+          "label": "Priloži memo: koridori uz stol.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 2,
+            "federal.war_risk": -2,
+            "federal.presidency_cohesion": 1,
+            "federal.transport_links": 2,
+            "flags_add": [
+              "confederal_transport_memo",
+              "transport_corridor_open",
+              "desk_event_transport_memo_seen",
+              "transport_quiet_paper"
+            ],
+            "flags_remove": [
+              "transport_harden_priority"
+            ]
+          }
+        },
+        {
+          "id": "memo_reform",
+          "label": "Priloži reformski prometni paket.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 2,
+            "federal.reform_momentum": 2,
+            "federal.siv_authority": 1,
+            "flags_add": [
+              "confederal_transport_memo",
+              "transport_reform_support",
+              "desk_event_transport_memo_seen",
+              "transport_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "memo_hold",
+          "label": "Zadrži Promet izvan stola.",
+          "legal": "political",
+          "effects": {
+            "federal.war_risk": 1,
+            "flags_add": [
+              "desk_event_transport_memo_seen"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

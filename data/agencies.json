@@ -209,6 +209,16 @@
       "competence": "unutarnja trgovina / meki koridori / smirenje cijena / police u republikama / potpora reformi (Pass 17 šalter)",
       "dissolve_legal": "presidency_decree",
       "short": "Trgovina"
+    },
+    {
+      "id": "transport",
+      "name": "Savezni sekretarijat za promet i veze",
+      "kind": "secretariat",
+      "desk": "SIV",
+      "status": "active",
+      "competence": "promet i veze / koridori / meki rasporedi / telekom veze / potpora reformi (Pass 18 šalter)",
+      "dissolve_legal": "presidency_decree",
+      "short": "Promet"
     }
   ]
 }

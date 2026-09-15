@@ -2410,6 +2410,162 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_transport_before_pleb",
+      "date": "1990-12-18",
+      "act": 4,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Promet pred savjetodavnim plebiscitom",
+      "location": "Beograd — Savezni sekretarijat za promet i veze",
+      "briefing": "Pred zimskim pritiscima: Promet može držati otvorene koridore, potporu reformi ili telekom vezu. Bez vojnog jezika. Nema rata.",
+      "constitutional_note": "Plebiscitni kontekst ne otvara frontu na prometnom šalteru.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_transport_open_seen",
+          "transport_corridor_open",
+          "transport_reform_support",
+          "desk_event_transport_autumn_seen",
+          "dialogue_slokar"
+        ]
+      },
+      "choices": [
+        {
+          "id": "pleb_corridor",
+          "label": "Otvoreni koridori pred glasanjem.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "transport": {
+                "posture": "corridor_open"
+              }
+            },
+            "federal.transport_links": 2,
+            "federal.legitimacy": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "transport_corridor_open",
+              "desk_event_transport_pleb_seen",
+              "transport_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "pleb_reform",
+          "label": "Reformski paket prometa.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "transport": {
+                "posture": "reform_support"
+              }
+            },
+            "federal.reform_momentum": 2,
+            "federal.transport_links": 2,
+            "flags_add": [
+              "transport_reform_support",
+              "desk_event_transport_pleb_seen",
+              "transport_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "pleb_telecom",
+          "label": "Telekom veza.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "transport": {
+                "posture": "telecom_link"
+              }
+            },
+            "federal.transport_links": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "transport_telecom_link",
+              "desk_event_transport_pleb_seen",
+              "transport_quiet_paper"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_fer_transport_liaison",
+      "date": "1990-12-29",
+      "act": 4,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "FER ↔ Promet: prekogranični koridori",
+      "location": "Beograd — FER / Promet",
+      "briefing": "FER i Promet mogu dijeliti prekogranične koridore — rasporedi i veze bez fronte. Tihi papir. Nema rata. Ne zamjenjuje fer_trade_open.",
+      "constitutional_note": "Kanal ne čini Markovića predsjednikom Jugoslavije.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_transport_open_seen",
+          "fer_trade_open",
+          "transport_telecom_link",
+          "fer_transport_liaison",
+          "desk_event_transport_pleb_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "fer_link",
+          "label": "Otvori FER–Promet kanal.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "fer": {
+                "posture": "trade_open"
+              },
+              "transport": {
+                "posture": "telecom_link"
+              }
+            },
+            "federal.transport_links": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "fer_transport_liaison",
+              "transport_telecom_link",
+              "desk_event_fer_transport_liaison_seen",
+              "transport_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "fer_accept",
+          "label": "Prihvati prometni koridor u FER-u.",
+          "legal": "political",
+          "effects": {
+            "federal.transport_links": 2,
+            "federal.reform_momentum": 1,
+            "flags_add": [
+              "fer_transport_corridor",
+              "transport_telecom_link",
+              "desk_event_fer_transport_liaison_seen",
+              "transport_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "fer_hold",
+          "label": "Zadrži odvojene šaltere.",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "desk_event_fer_transport_liaison_seen"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

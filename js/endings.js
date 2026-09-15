@@ -345,6 +345,13 @@ function pathNotes(state) {
   if (state.flags.confederal_trade_memo) notes.push(t("path.tradeMemo"));
   if (state.flags.talked_nazmi || state.flags.dialogue_nazmi) notes.push(t("path.nazmi"));
   if (state.flags.dialogue_markovic_trade) notes.push(t("path.markovicTrade"));
+  if (state.flags.transport_corridor_open) notes.push(t("path.transportCorridor"));
+  else if (state.flags.transport_schedule_soft) notes.push(t("path.transportSchedule"));
+  else if (state.flags.transport_telecom_link) notes.push(t("path.transportTelecom"));
+  else if (state.flags.transport_reform_support) notes.push(t("path.transportReform"));
+  if (state.flags.confederal_transport_memo) notes.push(t("path.transportMemo"));
+  if (state.flags.talked_slokar || state.flags.dialogue_slokar) notes.push(t("path.slokar"));
+  if (state.flags.dialogue_markovic_transport) notes.push(t("path.markovicTransport"));
   const stack = confederalStackDepth(state);
   if (stack >= 3) notes.push(t("path.stackDepth", { n: stack }));
   return notes;
