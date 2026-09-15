@@ -1,0 +1,292 @@
+{
+  "id": "nazmi",
+  "speaker": "Mustafa Nazmi",
+  "title": "savezni sekretar za unutarnju trgovinu",
+  "desk": "trade",
+  "available_from": "1990-08-01",
+  "unlock": {
+    "flags_any": [
+      "trade_market_calm",
+      "trade_shelf_soft",
+      "trade_price_corridor",
+      "trade_reform_support",
+      "trade_harden_controls",
+      "desk_event_trade_open_seen",
+      "fer_trade_open",
+      "multiparty_wave"
+    ]
+  },
+  "nodes": {
+    "start": {
+      "text": "Mustafa Nazmi prima u Saveznom sekretarijatu za unutarnju trgovinu. Ekonomist s kosovskog kruga — glas iz Službenog lista. „Unutarnja trgovina je mirnodopski resor: smirenje tržišta, meke police, cjenovni koridor, potpora reformi ili tvrđe kontrole — sve papir. Marković ostaje predsjednik SIV-a. Ja držim kanal prema republikama i FER-u. Što želite od sekretarijata?“",
+      "choices": [
+        {
+          "id": "calm",
+          "label": "Smirenje tržišta — unutarnji mir i police.",
+          "next": "calm_done",
+          "effects": {
+            "desk_add": {
+              "trade": {
+                "loyalty": 4,
+                "agenda_tension": -3
+              },
+              "siv": {
+                "loyalty": 1
+              }
+            },
+            "federal.internal_market": 4,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "talked_nazmi",
+              "dialogue_nazmi",
+              "dialogue_nazmi_calm",
+              "trade_market_calm",
+              "trade_quiet_paper"
+            ],
+            "flags_remove": [
+              "trade_harden_controls"
+            ],
+            "desk_set": {
+              "trade": {
+                "posture": "market_calm"
+              }
+            }
+          }
+        },
+        {
+          "id": "shelves",
+          "label": "Meke police — međurepublički kanal.",
+          "next": "shelves_done",
+          "effects": {
+            "desk_add": {
+              "trade": {
+                "capacity": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.internal_market": 3,
+            "federal.inter_republic_trade": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "talked_nazmi",
+              "dialogue_nazmi",
+              "trade_shelf_soft",
+              "trade_quiet_paper"
+            ],
+            "flags_remove": [
+              "trade_harden_controls"
+            ],
+            "desk_set": {
+              "trade": {
+                "posture": "shelf_soft"
+              }
+            }
+          }
+        },
+        {
+          "id": "price",
+          "label": "Cjenovni koridor — savezni okvir cijena.",
+          "next": "price_done",
+          "effects": {
+            "desk_add": {
+              "trade": {
+                "loyalty": 3,
+                "capacity": 2
+              }
+            },
+            "federal.internal_market": 3,
+            "federal.inflation": -1,
+            "RS.federal_trust": 1,
+            "BA.living_standard": 1,
+            "flags_add": [
+              "talked_nazmi",
+              "dialogue_nazmi",
+              "trade_price_corridor",
+              "trade_quiet_paper"
+            ],
+            "desk_set": {
+              "trade": {
+                "posture": "price_corridor"
+              }
+            }
+          }
+        },
+        {
+          "id": "harden",
+          "label": "Tvrđe kontrole — pritisak na tokove.",
+          "next": "harden_done",
+          "effects": {
+            "desk_add": {
+              "trade": {
+                "capacity": 4,
+                "agenda_tension": 5,
+                "loyalty": -2
+              }
+            },
+            "federal.internal_market": 1,
+            "federal.war_risk": 1,
+            "federal.legitimacy": -1,
+            "flags_add": [
+              "talked_nazmi",
+              "dialogue_nazmi",
+              "trade_harden_controls",
+              "trade_market_calm"
+            ],
+            "flags_remove": [
+              "trade_shelf_soft"
+            ],
+            "desk_set": {
+              "trade": {
+                "posture": "harden_controls"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "calm_done": {
+      "text": "„Smirenje tržišta drži stol mirnim. Nema rata.“",
+      "choices": [
+        {
+          "id": "end_calm",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "shelves_done": {
+      "text": "„Police su meke. Nema čina VI.“",
+      "choices": [
+        {
+          "id": "end_shelves",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "price_done": {
+      "text": "„Cjenovni koridor stoji. Unutarnja trgovina — papir, ne fronta.“",
+      "choices": [
+        {
+          "id": "end_price",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "harden_done": {
+      "text": "„Kontrole su tvrđe. To diže napetost — i dalje papir, ne fronta.“",
+      "choices": [
+        {
+          "id": "end_harden",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "revisit_press": {
+      "text": "Mustafa Nazmi ponovo: „Potpora reformi, meke police ili cjenovni koridor. Bez priznanja secesije. Bez rata.“",
+      "choices": [
+        {
+          "id": "reform",
+          "label": "Potpora Markovićevoj reformi.",
+          "next": null,
+          "effects": {
+            "federal.internal_market": 2,
+            "federal.reform_momentum": 2,
+            "federal.siv_authority": 1,
+            "flags_add": [
+              "dialogue_nazmi",
+              "trade_reform_support",
+              "trade_quiet_paper",
+              "markovic_mandate_strong"
+            ],
+            "desk_set": {
+              "trade": {
+                "posture": "reform_support"
+              }
+            }
+          }
+        },
+        {
+          "id": "soft_again",
+          "label": "Meke police — međurepublički kanal.",
+          "next": null,
+          "effects": {
+            "federal.internal_market": 2,
+            "federal.inter_republic_trade": 1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "dialogue_nazmi",
+              "trade_shelf_soft",
+              "trade_quiet_paper"
+            ],
+            "flags_remove": [
+              "trade_harden_controls"
+            ],
+            "desk_set": {
+              "trade": {
+                "posture": "shelf_soft"
+              }
+            }
+          }
+        },
+        {
+          "id": "fer_back",
+          "label": "Vrati meki cjenovni koridor uz FER.",
+          "next": null,
+          "effects": {
+            "federal.internal_market": 2,
+            "federal.war_risk": -1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "dialogue_nazmi",
+              "trade_price_corridor",
+              "fer_trade_liaison",
+              "trade_quiet_paper"
+            ],
+            "flags_remove": [
+              "trade_harden_controls"
+            ],
+            "desk_set": {
+              "trade": {
+                "posture": "price_corridor"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "entries": [
+    {
+      "id": "start",
+      "node": "start",
+      "once": true,
+      "priority": 10
+    },
+    {
+      "id": "revisit_press",
+      "node": "revisit_press",
+      "once": true,
+      "priority": 6,
+      "require_done": true,
+      "available_from": "1990-11-01",
+      "unlock": {
+        "flags_any": [
+          "trade_market_calm",
+          "trade_shelf_soft",
+          "trade_price_corridor",
+          "trade_reform_support",
+          "fer_trade_liaison",
+          "desk_event_trade_open_seen"
+        ]
+      }
+    }
+  ]
+}

@@ -610,3 +610,40 @@ Akcije: `soft_federal_line` → `skj_soft_federation`; `hard_unity_rhetoric` →
 - Marković = predsjednik **SIV-a**; Jović ≠ Milošević; Titograd ostaje Titograd
 - Nema priznanja secesije; ID-ovi i zastavice engleski; UI hrvatski (ijekavica)
 
+
+
+## Dodatak — Pass 17 `expand/pass17-trade`
+
+Šalter **Savezni sekretarijat za unutarnju trgovinu** (`trade`, agencija `trade`); produbljeni Financije, SIV i FER; glas Mustafe Nazmija (Službeni list 20/1989); Marković revisit Trgovine; kartice čina I–V; `save_schema` 17; smoke proširen. Mirnodopski sloj (smirenje tržišta / meke police / cjenovni koridor / potpora reformi / tvrđe kontrole) — **nije** zamjena za FER, Financije, Industriju ni Poljoprivredu.
+
+### Nova / proširena kartica
+
+| Spis | Datum | Napomena |
+|---|---|---|
+| `desk_trade_open` | 1990-02-28 | Otvaranje šaltera |
+| `desk_trade_spring` | 1990-05-16 | Proljetna postava |
+| `desk_trade_autumn` | 1990-09-24 | Jesen: pritisak |
+| `desk_finance_trade_bind` | 1990-10-18 | Financije ↔ Trgovina |
+| `desk_trade_before_pleb` | 1990-12-16 | Pred plebiscitom |
+| `desk_fer_trade_liaison` | 1990-12-27 | FER ↔ Trgovina šav |
+| `desk_trade_spring91` | 1991-03-26 | Proljeće 1991.; bez čina VI |
+| `confederal_trade_memo` | 1991-05-05 | Memo uz konfederalni stol; I–G **nije** dostupan |
+
+### Razgovori
+
+- `nazmi.json` — Mustafa Nazmi (savezni sekretar za unutarnju trgovinu)
+- `markovic.json` — `revisit_trade` (SIV × Trgovina)
+
+### Šalteri
+
+- **trade**: `market_calm` → `trade_market_calm`; `shelf_soft` → `trade_shelf_soft`; `price_corridor` → `trade_price_corridor`; `reform_support` → `trade_reform_support`; `harden_controls` → `trade_harden_controls`
+- **finance** `liaison_trade` / `accept_trade_corridor`
+- **siv** `bind_trade` → `trade_siv_bind`
+- **fer** `liaison_domestic_trade` / `accept_trade_desk` (ne sudara se s `fer_trade_open`)
+- Soft-lock: `harden_controls` sukobljava se s `confederal_talks_open`
+- Tihi trgovački papir **ne** postavlja `player_used_jna_threat`
+- `federal.internal_market` default 50
+
+### Preostali 1990 SIV sekretarijati bez šaltera
+
+- promet i veze; razvoj; prava i uprava

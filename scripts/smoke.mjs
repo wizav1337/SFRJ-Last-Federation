@@ -58,14 +58,14 @@ catalogs.dialogues = [
   "markovic", "markovic_late", "mesic", "tudman",
   "bogicevic", "tupurkovski", "racan",
   "gligorov", "bucin", "izetbegovic", "bulatovic",
-  "mesic_late", "jovic_late", "loncar", "buzadzic", "bajramovic", "kostic", "gracanin", "gacic", "mirjanic", "santo",
+  "mesic_late", "jovic_late", "loncar", "buzadzic", "bajramovic", "kostic", "gracanin", "gacic", "mirjanic", "santo", "nazmi",
 ].map((id) => readJSON(`data/dialogue/${id}.json`));
 
 const acts = ["act1", "act2", "act3", "act4", "act5"].map((a) => readJSON(`data/events/${a}.json`));
 const flat = flattenActs(acts);
 
 const state = createNewState(catalogs);
-assert(state.save_schema === 16, "save_schema 16");
+assert(state.save_schema === 17, "save_schema 17");
 assert(state.attention_spent_desks === 0 && state.attention_spent_reforms === 0, "spend counters");
 
 initDesks(state, catalogs);
@@ -75,7 +75,7 @@ assert(cap === 3 || cap === 4, "attention cap");
 assert(state.attention_left === cap, "attention granted");
 
 const desks = listDesks(catalogs);
-assert(desks.length >= 22, "at least 22 desks (industry)");
+assert(desks.length >= 23, "at least 23 desks (trade)");
 assert(desks.some((d) => d.id === "labor"), "labor desk present");
 assert(state.desks.labor?.posture === "social_peace", "labor default posture");
 assert(desks.some((d) => d.id === "agriculture"), "agriculture desk present");
@@ -232,6 +232,19 @@ assert(indHardRaw?.conflict_warn, "industry harden conflict_warn in catalog");
 assert(isHardlineConflictAction("industry", indHardRaw), "industry harden is hardline conflict");
 assert(!(actionsForDesk(state, catalogs, "industry").find((a) => a.id === "set_grid_stable")?.effects?.flags_add || []).includes("player_used_jna_threat"), "quiet industry must not set threat");
 assert(state.federal.energy_security === 50, "energy_security default 50");
+
+assert(desks.some((d) => d.id === "trade"), "trade desk present");
+assert(state.desks.trade?.posture === "market_calm", "trade default posture");
+assert(actionsForDesk(state, catalogs, "trade").some((a) => a.id === "set_market_calm"), "trade market_calm");
+assert(actionsForDesk(state, catalogs, "trade").some((a) => a.id === "harden_controls"), "trade harden_controls");
+assert(actionsForDesk(state, catalogs, "siv").some((a) => a.id === "bind_trade"), "siv bind_trade");
+assert(actionsForDesk(state, catalogs, "finance").some((a) => a.id === "liaison_trade"), "finance liaison_trade");
+assert(actionsForDesk(state, catalogs, "fer").some((a) => a.id === "liaison_domestic_trade"), "fer liaison_domestic_trade");
+const tradeHardRaw = catalogs.desks.find((d) => d.id === "trade").actions.find((a) => a.id === "harden_controls");
+assert(tradeHardRaw?.conflict_warn, "trade harden conflict_warn in catalog");
+assert(isHardlineConflictAction("trade", tradeHardRaw), "trade harden is hardline conflict");
+assert(!(actionsForDesk(state, catalogs, "trade").find((a) => a.id === "set_market_calm")?.effects?.flags_add || []).includes("player_used_jna_threat"), "quiet trade must not set threat");
+assert(state.federal.internal_market === 50, "internal_market default 50");
 
 assert(state.desks.sdb?.posture === "civilian_leash", "sdb default posture");
 const sdbActs = actionsForDesk(state, catalogs, "sdb");
@@ -428,6 +441,7 @@ assert(!(gracanin.nodes.start.choices || []).some((c) => /priznaj seces|priznanj
 assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_labor"), "markovic labor revisit");
 assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_agriculture"), "markovic agriculture revisit");
 assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_industry"), "markovic industry revisit");
+assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_trade"), "markovic trade revisit");
 const gacic = catalogs.dialogues.find((d) => d.id === "gacic");
 assert(gacic && /Gačić|Rad|socijal/i.test(JSON.stringify(gacic)), "gacic labor language");
 assert(!(gacic.nodes.start.choices || []).some((c) => /priznaj seces|priznanje neovisnosti/i.test(c.label || "")), "gacic no secession recognition");
@@ -437,6 +451,9 @@ assert(!(mirjanic.nodes.start.choices || []).some((c) => /priznaj seces|priznanj
 const santo = catalogs.dialogues.find((d) => d.id === "santo");
 assert(santo && /Santo|energetik|industri/i.test(JSON.stringify(santo)), "santo industry language");
 assert(!(santo.nodes.start.choices || []).some((c) => /priznaj seces|priznanje neovisnosti/i.test(c.label || "")), "santo no secession recognition");
+const nazmi = catalogs.dialogues.find((d) => d.id === "nazmi");
+assert(nazmi && /Nazmi|Mustafa|trgovin/i.test(JSON.stringify(nazmi)), "nazmi trade language");
+assert(!(nazmi.nodes.start.choices || []).some((c) => /priznaj seces|priznanje neovisnosti/i.test(c.label || "")), "nazmi no secession recognition");
 
 const bul = catalogs.dialogues.find((d) => d.id === "bulatovic");
 assert(bul && /Titograd/i.test(JSON.stringify(bul)), "bulatovic Titograd");
@@ -478,6 +495,9 @@ assert(!(agriMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.t
 const indMemo = flat.find((e) => e.id === "confederal_industry_memo");
 assert(indMemo && /Izetbegović–Gligorov|I–G/i.test((indMemo.briefing || "") + (indMemo.constitutional_note || "")), "industry memo excludes I-G");
 assert(!(indMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.test(c.label || "")), "no accept I-G on industry memo");
+const tradeMemo = flat.find((e) => e.id === "confederal_trade_memo");
+assert(tradeMemo && /Izetbegović–Gligorov|I–G/i.test((tradeMemo.briefing || "") + (tradeMemo.constitutional_note || "")), "trade memo excludes I-G");
+assert(!(tradeMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.test(c.label || "")), "no accept I-G on trade memo");
 
 
 // Slice A end date invariant
@@ -501,4 +521,5 @@ console.log("smoke OK", {
   pass14: ["labor", "gacic", "revisit_labor", "liaison_labor", "bind_labor", "confederal_labor_memo"],
   pass15: ["agriculture", "mirjanic", "revisit_agriculture", "liaison_agriculture", "bind_agriculture", "confederal_agriculture_memo"],
   pass16: ["industry", "santo", "revisit_industry", "liaison_industry", "bind_industry", "confederal_industry_memo"],
+  pass17: ["trade", "nazmi", "revisit_trade", "liaison_trade", "liaison_domestic_trade", "bind_trade", "confederal_trade_memo"],
 });

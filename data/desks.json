@@ -261,7 +261,7 @@
       "name": "SIV",
       "name_hr": "Savezno izvršno vijeće",
       "kind": "constitutional",
-      "briefing": "Predsjednik SIV-a (Marković) nije predsjednik Jugoslavije. Stav SIV-a (štednja / poticaj / tehnokratski) vuče inflaciju, trgovinu i reformski zamah svakog mjeseca. Pass 13: bind_sdb — SIV civilni nadzor nad službom. Pass 14: bind_labor — SIV kanal prema saveznom radu. Pass 15: bind_agriculture — SIV kanal prema poljoprivredi.",
+      "briefing": "Predsjednik SIV-a (Marković) nije predsjednik Jugoslavije. Stav SIV-a (štednja / poticaj / tehnokratski) vuče inflaciju, trgovinu i reformski zamah svakog mjeseca. Pass 13: bind_sdb — SIV civilni nadzor nad službom. Pass 14: bind_labor — SIV kanal prema saveznom radu. Pass 15: bind_agriculture — SIV kanal prema poljoprivredi. Pass 16: bind_industry — SIV kanal prema industriji. Pass 17: bind_trade — SIV kanal prema unutarnjoj trgovini.",
       "stats": {
         "loyalty": 58,
         "capacity": 62,
@@ -612,6 +612,55 @@
             ],
             "flags_remove": [
               "industry_harden_ration"
+            ]
+          }
+        },
+        {
+          "id": "bind_trade",
+          "label": "SIV kanal prema Trgovini: unutarnje tržište i reforma.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "desk_event_trade_open_seen",
+              "trade_market_calm",
+              "trade_reform_support",
+              "trade_siv_bind",
+              "dialogue_markovic_trade"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "siv": {
+                "posture": "technocrat"
+              },
+              "trade": {
+                "posture": "reform_support"
+              }
+            },
+            "desk_add": {
+              "siv": {
+                "loyalty": 2,
+                "capacity": 2
+              },
+              "trade": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.siv_authority": 2,
+            "federal.internal_market": 3,
+            "federal.reform_momentum": 2,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "trade_siv_bind",
+              "trade_reform_support",
+              "trade_quiet_paper",
+              "markovic_mandate_strong"
+            ],
+            "flags_remove": [
+              "trade_harden_controls"
             ]
           }
         }
@@ -1442,7 +1491,7 @@
       "name": "Financije",
       "name_hr": "Savezni sekretarijat za financije",
       "kind": "secretariat",
-      "briefing": "Savezni proračun i transferi. Smrzavanje ili otvaranje fondova vuče životni standard, carine i put Markovića. Pass 8: ciljani kanali (finance_target) i meki koridor (finance_soft_corridor) — mirnodopski, bez fronte. Pass 14: liaison_labor / accept_labor_corridor — plaće i transferi uz Rad. Pass 15: liaison_agriculture / accept_agriculture_corridor — hrana i nabava uz Poljoprivredu.",
+      "briefing": "Savezni proračun i transferi. Smrzavanje ili otvaranje fondova vuče životni standard, carine i put Markovića. Pass 8: ciljani kanali (finance_target) i meki koridor (finance_soft_corridor) — mirnodopski, bez fronte. Pass 14: liaison_labor / accept_labor_corridor — plaće i transferi uz Rad. Pass 15: liaison_agriculture / accept_agriculture_corridor — hrana i nabava uz Poljoprivredu. Pass 16: liaison_industry / accept_industry_corridor — energija i fondovi uz Industriju. Pass 17: liaison_trade / accept_trade_corridor — unutarnje police i cijene uz Trgovinu.",
       "stats": {
         "loyalty": 54,
         "capacity": 58,
@@ -1833,6 +1882,80 @@
               "finance_industry_corridor",
               "industry_plant_soft",
               "industry_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "liaison_trade",
+          "label": "Veza Financije–Trgovina: cijene i fondovi.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "desk_event_trade_open_seen",
+              "trade_shelf_soft",
+              "trade_market_calm",
+              "trade_reform_support"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "finance": {
+                "posture": "target"
+              },
+              "trade": {
+                "posture": "shelf_soft"
+              }
+            },
+            "desk_add": {
+              "finance": {
+                "capacity": 2
+              },
+              "trade": {
+                "capacity": 2,
+                "agenda_tension": -1
+              }
+            },
+            "federal.internal_market": 2,
+            "federal.inter_republic_trade": 1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "finance_trade_liaison",
+              "trade_shelf_soft",
+              "trade_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "accept_trade_corridor",
+          "label": "Prihvati unutarnji trgovački koridor u knjigama.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "trade_shelf_soft",
+              "finance_trade_liaison",
+              "desk_event_trade_open_seen"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "finance": {
+                "loyalty": 2
+              },
+              "trade": {
+                "loyalty": 2
+              }
+            },
+            "federal.internal_market": 2,
+            "federal.inter_republic_trade": 1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "finance_trade_corridor",
+              "trade_shelf_soft",
+              "trade_quiet_paper"
             ]
           }
         }
@@ -2838,7 +2961,7 @@
       "name": "FER",
       "name_hr": "Savezni sekretarijat za vanjske ekonomske odnose",
       "kind": "secretariat",
-      "briefing": "FER nosi trgovinu, sučelje MMF-a sa SIV-om i carinske koridore. Marković je predsjednik SIV-a — FER izvršava, ne zamjenjuje. Postave (otvorena trgovina / linija MMF / tvrde carine) diraju inter_republic_trade, hard_currency, imf_pressure, international_standing i zastavice customs_war_* / imf_standby / fer_*.",
+      "briefing": "FER nosi vanjsku trgovinu, sučelje MMF-a sa SIV-om i carinske koridore. Marković je predsjednik SIV-a — FER izvršava, ne zamjenjuje. Postave (otvorena trgovina / linija MMF / tvrde carine) diraju inter_republic_trade, hard_currency, imf_pressure, international_standing i zastavice customs_war_* / imf_standby / fer_*. Pass 16: liaison_industry / accept_industry_energy — energetsko-trgovački kanal. Pass 17: liaison_domestic_trade / accept_trade_desk — šav unutarnje–vanjske trgovine (ne zamjenjuje fer_trade_open).",
       "stats": {
         "loyalty": 55,
         "capacity": 50,
@@ -3062,6 +3185,86 @@
               "fer_industry_energy",
               "industry_output_support",
               "industry_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "liaison_domestic_trade",
+          "label": "FER–Trgovina: šav unutarnje–vanjske trgovine.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "desk_event_trade_open_seen",
+              "trade_price_corridor",
+              "trade_market_calm",
+              "trade_shelf_soft",
+              "fer_trade_open"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "fer": {
+                "posture": "trade_open"
+              },
+              "trade": {
+                "posture": "price_corridor"
+              }
+            },
+            "desk_add": {
+              "fer": {
+                "loyalty": 2,
+                "agenda_tension": -1
+              },
+              "trade": {
+                "loyalty": 2,
+                "agenda_tension": -2
+              }
+            },
+            "federal.internal_market": 2,
+            "federal.inter_republic_trade": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "fer_trade_liaison",
+              "trade_price_corridor",
+              "trade_quiet_paper"
+            ],
+            "flags_remove": [
+              "trade_harden_controls"
+            ]
+          }
+        },
+        {
+          "id": "accept_trade_desk",
+          "label": "Prihvati unutarnji trgovački desk u FER-u.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "fer_trade_liaison",
+              "trade_price_corridor",
+              "desk_event_trade_open_seen"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "fer": {
+                "capacity": 2
+              },
+              "trade": {
+                "capacity": 2
+              }
+            },
+            "federal.internal_market": 2,
+            "federal.reform_momentum": 1,
+            "RS.federal_trust": 1,
+            "BA.federal_trust": 1,
+            "flags_add": [
+              "fer_trade_desk",
+              "trade_price_corridor",
+              "trade_quiet_paper"
             ]
           }
         }
@@ -5328,6 +5531,242 @@
               "industry_siv_bind",
               "industry_reform_support",
               "industry_quiet_paper",
+              "markovic_mandate_strong"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "trade",
+      "agency_id": "trade",
+      "name": "Trgovina",
+      "name_hr": "Savezni sekretarijat za unutarnju trgovinu",
+      "kind": "secretariat",
+      "briefing": "Savezni sekretarijat za unutarnju trgovinu: meki koridori unutarnjeg tržišta, smirenje cijena, police u republikama, potpora reformi — papir i okvir, ne fronta. Ne zamjenjuje FER (vanjska ekonomija), Financije, Industriju ni Poljoprivredu. Marković ostaje predsjednik SIV-a. Tihi papir ne postavlja player_used_jna_threat. Nema rata.",
+      "stats": {
+        "loyalty": 54,
+        "capacity": 52,
+        "agenda_tension": 38
+      },
+      "posture_default": "market_calm",
+      "postures": [
+        "market_calm",
+        "shelf_soft",
+        "price_corridor",
+        "reform_support",
+        "harden_controls"
+      ],
+      "actions": [
+        {
+          "id": "set_market_calm",
+          "label": "Smirenje tržišta: unutarnji mir i police.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "trade": {
+                "posture": "market_calm"
+              }
+            },
+            "desk_add": {
+              "trade": {
+                "loyalty": 4,
+                "agenda_tension": -4,
+                "capacity": 2
+              },
+              "siv": {
+                "loyalty": 1
+              }
+            },
+            "federal.internal_market": 5,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "SI.living_standard": 1,
+            "HR.living_standard": 1,
+            "flags_add": [
+              "trade_market_calm",
+              "trade_quiet_paper"
+            ],
+            "flags_remove": [
+              "trade_harden_controls"
+            ]
+          }
+        },
+        {
+          "id": "soft_shelves",
+          "label": "Meke police: trgovinski kanal među republikama.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "trade": {
+                "posture": "shelf_soft"
+              }
+            },
+            "desk_add": {
+              "trade": {
+                "capacity": 3,
+                "agenda_tension": -2
+              },
+              "finance": {
+                "capacity": 1
+              },
+              "fer": {
+                "capacity": 1
+              }
+            },
+            "federal.internal_market": 3,
+            "federal.inter_republic_trade": 2,
+            "federal.hard_currency": 1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "trade_shelf_soft",
+              "trade_quiet_paper"
+            ],
+            "flags_remove": [
+              "trade_harden_controls"
+            ]
+          }
+        },
+        {
+          "id": "price_corridor",
+          "label": "Cjenovni koridor: savezni okvir cijena.",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_set": {
+              "trade": {
+                "posture": "price_corridor"
+              }
+            },
+            "desk_add": {
+              "trade": {
+                "loyalty": 3,
+                "capacity": 2
+              },
+              "finance": {
+                "loyalty": 1
+              }
+            },
+            "federal.internal_market": 3,
+            "federal.inflation": -2,
+            "federal.federal_budget": -1,
+            "RS.federal_trust": 2,
+            "BA.living_standard": 1,
+            "HR.federal_trust": 1,
+            "flags_add": [
+              "trade_price_corridor",
+              "trade_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "support_reform",
+          "label": "Potpora reformi: unutarnji trgovački paket uz Markovića.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "trade": {
+                "posture": "reform_support"
+              }
+            },
+            "desk_add": {
+              "trade": {
+                "loyalty": 3,
+                "capacity": 3
+              },
+              "siv": {
+                "capacity": 2,
+                "loyalty": 2
+              }
+            },
+            "federal.internal_market": 3,
+            "federal.reform_momentum": 3,
+            "federal.siv_authority": 2,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "trade_reform_support",
+              "trade_quiet_paper",
+              "markovic_mandate_strong"
+            ]
+          }
+        },
+        {
+          "id": "harden_controls",
+          "label": "Tvrđe kontrole — pritisak na unutarnje tokove.",
+          "cost": {
+            "reform": 1
+          },
+          "conflict_warn": true,
+          "effects": {
+            "desk_set": {
+              "trade": {
+                "posture": "harden_controls"
+              }
+            },
+            "desk_add": {
+              "trade": {
+                "loyalty": -2,
+                "capacity": 4,
+                "agenda_tension": 7
+              },
+              "fer": {
+                "agenda_tension": 2
+              }
+            },
+            "federal.internal_market": 1,
+            "federal.legitimacy": -1,
+            "federal.war_risk": 1,
+            "SI.federal_trust": -2,
+            "HR.federal_trust": -2,
+            "flags_add": [
+              "trade_harden_controls",
+              "trade_market_calm"
+            ],
+            "flags_remove": [
+              "trade_shelf_soft"
+            ]
+          }
+        },
+        {
+          "id": "bind_siv",
+          "label": "Veži trgovinu uz SIV kanal — zajednički papir.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "trade": {
+                "posture": "reform_support"
+              },
+              "siv": {
+                "posture": "technocrat"
+              }
+            },
+            "desk_add": {
+              "trade": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              },
+              "siv": {
+                "loyalty": 2,
+                "capacity": 1
+              }
+            },
+            "federal.internal_market": 2,
+            "federal.siv_authority": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "trade_siv_bind",
+              "trade_reform_support",
+              "trade_quiet_paper",
               "markovic_mandate_strong"
             ]
           }

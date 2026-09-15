@@ -2254,6 +2254,162 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_trade_before_pleb",
+      "date": "1990-12-16",
+      "act": 4,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Trgovina pred savjetodavnim plebiscitom",
+      "location": "Beograd — Savezni sekretarijat za unutarnju trgovinu",
+      "briefing": "Pred zimskim pritiscima: Trgovina može držati smirenje tržišta, potporu reformi ili cjenovni koridor. Bez vojnog jezika. Nema rata.",
+      "constitutional_note": "Plebiscitni kontekst ne otvara frontu na trgovačkom šalteru.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_trade_open_seen",
+          "trade_market_calm",
+          "trade_reform_support",
+          "desk_event_trade_autumn_seen",
+          "dialogue_nazmi"
+        ]
+      },
+      "choices": [
+        {
+          "id": "pleb_calm",
+          "label": "Smirenje tržišta pred glasanjem.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "trade": {
+                "posture": "market_calm"
+              }
+            },
+            "federal.internal_market": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "trade_market_calm",
+              "desk_event_trade_pleb_seen",
+              "trade_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "pleb_reform",
+          "label": "Reformski paket trgovine.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "trade": {
+                "posture": "reform_support"
+              }
+            },
+            "federal.reform_momentum": 2,
+            "federal.internal_market": 2,
+            "flags_add": [
+              "trade_reform_support",
+              "desk_event_trade_pleb_seen",
+              "trade_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "pleb_price",
+          "label": "Cjenovni koridor.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "trade": {
+                "posture": "price_corridor"
+              }
+            },
+            "federal.internal_market": 2,
+            "federal.inflation": -1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "trade_price_corridor",
+              "desk_event_trade_pleb_seen",
+              "trade_quiet_paper"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_fer_trade_liaison",
+      "date": "1990-12-27",
+      "act": 4,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "FER ↔ Trgovina: unutarnje–vanjski šav",
+      "location": "Beograd — FER / Trgovina",
+      "briefing": "FER i Trgovina mogu dijeliti šav unutarnje–vanjske trgovine — police bez fronte. Tihi papir. Nema rata. Ne zamjenjuje fer_trade_open.",
+      "constitutional_note": "Kanal ne čini Markovića predsjednikom Jugoslavije.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_trade_open_seen",
+          "fer_trade_open",
+          "trade_price_corridor",
+          "fer_trade_liaison",
+          "desk_event_trade_pleb_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "fer_link",
+          "label": "Otvori FER–Trgovina kanal.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "fer": {
+                "posture": "trade_open"
+              },
+              "trade": {
+                "posture": "price_corridor"
+              }
+            },
+            "federal.internal_market": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "fer_trade_liaison",
+              "trade_price_corridor",
+              "desk_event_fer_trade_liaison_seen",
+              "trade_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "fer_accept",
+          "label": "Prihvati unutarnji desk u FER-u.",
+          "legal": "political",
+          "effects": {
+            "federal.internal_market": 2,
+            "federal.reform_momentum": 1,
+            "flags_add": [
+              "fer_trade_desk",
+              "trade_price_corridor",
+              "desk_event_fer_trade_liaison_seen",
+              "trade_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "fer_hold",
+          "label": "Zadrži odvojene šaltere.",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "desk_event_fer_trade_liaison_seen"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

@@ -3583,6 +3583,165 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_trade_spring91",
+      "date": "1991-03-26",
+      "act": 5,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Proljeće 1991.: trgovački papir",
+      "location": "Beograd — Savezni sekretarijat za unutarnju trgovinu",
+      "briefing": "Proljeće 1991.: Trgovina nudi papirni put — smirenje tržišta, reforma ili meke police. Bez čina VI. Tihi papir ne postavlja player_used_jna_threat. Nema rata.",
+      "constitutional_note": "Slice A: peacetime only; no Act VI.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_trade_open_seen",
+          "trade_market_calm",
+          "trade_reform_support",
+          "trade_siv_bind",
+          "dialogue_markovic_trade",
+          "desk_event_trade_pleb_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "s91_calm",
+          "label": "Smirenje tržišta — papirni put.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "trade": {
+                "posture": "market_calm"
+              }
+            },
+            "federal.internal_market": 3,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "trade_market_calm",
+              "desk_event_trade_spring91_seen",
+              "trade_quiet_paper"
+            ],
+            "flags_remove": [
+              "trade_harden_controls"
+            ]
+          }
+        },
+        {
+          "id": "s91_reform",
+          "label": "Reformski unutarnji trgovački paket.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "trade": {
+                "posture": "reform_support"
+              }
+            },
+            "federal.reform_momentum": 2,
+            "federal.internal_market": 2,
+            "flags_add": [
+              "trade_reform_support",
+              "desk_event_trade_spring91_seen",
+              "trade_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "s91_shelves",
+          "label": "Meke police.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "trade": {
+                "posture": "shelf_soft"
+              }
+            },
+            "federal.internal_market": 2,
+            "federal.inter_republic_trade": 1,
+            "flags_add": [
+              "trade_shelf_soft",
+              "desk_event_trade_spring91_seen",
+              "trade_quiet_paper"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "confederal_trade_memo",
+      "date": "1991-05-05",
+      "act": 5,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Memorandum Trgovine uz konfederalni stol",
+      "location": "Beograd — konfederalni trgovački stol",
+      "briefing": "Uz konfederalni stol stiže memo Trgovine: unutarnje tržište i reformski paket kao jamstvo da trgovački šalter ne lomi pregovore. Izetbegović–Gligorov nacrt **nije** dostupan papir — samo isključenje. Nema rata.",
+      "constitutional_note": "I–G nije prihvatljiv papir na ovom stolu; memo Trgovine ne priznaje secesiju.",
+      "documents": [
+        "1974_presidency"
+      ],
+      "requires": {
+        "flags_any": [
+          "confederal_talks_open",
+          "desk_event_trade_open_seen",
+          "trade_market_calm",
+          "trade_reform_support",
+          "trade_siv_bind",
+          "dialogue_markovic_trade"
+        ]
+      },
+      "choices": [
+        {
+          "id": "memo_calm",
+          "label": "Priloži memo: unutarnje tržište uz stol.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 2,
+            "federal.war_risk": -2,
+            "federal.presidency_cohesion": 1,
+            "federal.internal_market": 2,
+            "flags_add": [
+              "confederal_trade_memo",
+              "trade_market_calm",
+              "desk_event_trade_memo_seen",
+              "trade_quiet_paper"
+            ],
+            "flags_remove": [
+              "trade_harden_controls"
+            ]
+          }
+        },
+        {
+          "id": "memo_reform",
+          "label": "Priloži reformski unutarnji trgovački paket.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 2,
+            "federal.reform_momentum": 2,
+            "federal.siv_authority": 1,
+            "flags_add": [
+              "confederal_trade_memo",
+              "trade_reform_support",
+              "desk_event_trade_memo_seen",
+              "trade_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "memo_hold",
+          "label": "Zadrži Trgovinu izvan stola.",
+          "legal": "political",
+          "effects": {
+            "federal.war_risk": 1,
+            "flags_add": [
+              "desk_event_trade_memo_seen"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

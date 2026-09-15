@@ -2863,6 +2863,167 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_trade_autumn",
+      "date": "1990-09-24",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Jesen: pritisak na trgovački šalter",
+      "location": "Beograd — Savezni sekretarijat za unutarnju trgovinu",
+      "briefing": "Jesen 1990.: republike i police pritiskaju saveznu unutarnju trgovinu. Može se držati smirenje tržišta, potpora reformi ili tvrđe kontrole. Tihi papir ne postavlja player_used_jna_threat.",
+      "constitutional_note": "Tvrđe kontrole dižu napetost, ne otvaraju frontu.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_trade_open_seen",
+          "desk_event_trade_spring_seen",
+          "trade_market_calm",
+          "trade_reform_support",
+          "multiparty_wave"
+        ]
+      },
+      "choices": [
+        {
+          "id": "autumn_calm",
+          "label": "Drži smirenje tržišta.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "trade": {
+                "posture": "market_calm"
+              }
+            },
+            "federal.internal_market": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "trade_market_calm",
+              "desk_event_trade_autumn_seen",
+              "trade_quiet_paper"
+            ],
+            "flags_remove": [
+              "trade_harden_controls"
+            ]
+          }
+        },
+        {
+          "id": "autumn_reform",
+          "label": "Pojačaj potporu reformi.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "trade": {
+                "posture": "reform_support"
+              }
+            },
+            "federal.reform_momentum": 2,
+            "federal.internal_market": 2,
+            "flags_add": [
+              "trade_reform_support",
+              "desk_event_trade_autumn_seen",
+              "trade_quiet_paper",
+              "markovic_mandate_strong"
+            ]
+          }
+        },
+        {
+          "id": "autumn_harden",
+          "label": "Tvrđe kontrole.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "trade": {
+                "posture": "harden_controls"
+              }
+            },
+            "federal.internal_market": 1,
+            "federal.legitimacy": -1,
+            "federal.war_risk": 1,
+            "SI.federal_trust": -1,
+            "HR.federal_trust": -1,
+            "flags_add": [
+              "trade_harden_controls",
+              "desk_event_trade_autumn_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_finance_trade_bind",
+      "date": "1990-10-18",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Financije ↔ Trgovina: unutarnji kanal",
+      "location": "Beograd — Financije / Trgovina",
+      "briefing": "Financije i Trgovina mogu dijeliti nabavni koridor — knjige i unutarnje tržište. Mirnodopski papir. Nema rata.",
+      "constitutional_note": "Kanal ne mijenja ustavni položaj Predsjedništva.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_trade_open_seen",
+          "trade_shelf_soft",
+          "trade_market_calm",
+          "finance_transfers_open",
+          "desk_event_trade_autumn_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "bind_channel",
+          "label": "Otvori Financije–Trgovina kanal.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "finance": {
+                "posture": "target"
+              },
+              "trade": {
+                "posture": "shelf_soft"
+              }
+            },
+            "federal.internal_market": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "finance_trade_liaison",
+              "trade_shelf_soft",
+              "desk_event_finance_trade_bind_seen",
+              "trade_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "bind_soft",
+          "label": "Meki koridor — bez tvrde ruke.",
+          "legal": "political",
+          "effects": {
+            "federal.internal_market": 2,
+            "federal.inter_republic_trade": 1,
+            "flags_add": [
+              "finance_trade_corridor",
+              "trade_shelf_soft",
+              "desk_event_finance_trade_bind_seen",
+              "trade_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "bind_hold",
+          "label": "Zadrži odvojene knjige.",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "desk_event_finance_trade_bind_seen"
+            ]
+          }
+        }
+      ]
     }
   ]
 }
