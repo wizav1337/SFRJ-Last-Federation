@@ -2566,6 +2566,162 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_development_before_pleb",
+      "date": "1990-12-20",
+      "act": 4,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Razvoj pred savjetodavnim plebiscitom",
+      "location": "Beograd — Savezni sekretarijat za razvoj",
+      "briefing": "Pred zimskim pritiscima: Razvoj može držati otvoreni plan, usklađivanje reforme ili južnu ravnotežu. Bez vojnog jezika. Nema rata.",
+      "constitutional_note": "Plebiscitni kontekst ne otvara frontu na razvojnom šalteru.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_development_open_seen",
+          "development_plan_open",
+          "development_reform_align",
+          "desk_event_development_autumn_seen",
+          "dialogue_marendic"
+        ]
+      },
+      "choices": [
+        {
+          "id": "pleb_plan",
+          "label": "Otvoreni plan pred glasanjem.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "development": {
+                "posture": "plan_open"
+              }
+            },
+            "federal.development_plan": 2,
+            "federal.legitimacy": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "development_plan_open",
+              "desk_event_development_pleb_seen",
+              "development_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "pleb_reform",
+          "label": "Reformski paket razvoja.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "development": {
+                "posture": "reform_align"
+              }
+            },
+            "federal.reform_momentum": 2,
+            "federal.development_plan": 2,
+            "flags_add": [
+              "development_reform_align",
+              "desk_event_development_pleb_seen",
+              "development_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "pleb_south",
+          "label": "Južna ravnoteža.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "development": {
+                "posture": "south_balance"
+              }
+            },
+            "federal.development_plan": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "development_south_balance",
+              "desk_event_development_pleb_seen",
+              "development_quiet_paper"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_fond_development_liaison",
+      "date": "1990-12-31",
+      "act": 4,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Fond ↔ Razvoj: južni razvojni kanal",
+      "location": "Beograd — Fond / Razvoj",
+      "briefing": "Fond i Razvoj mogu dijeliti južni razvojni kanal — plan i jug bez fronte. Tihi papir. Nema rata. Ne zamjenjuje fond_open_south.",
+      "constitutional_note": "Kanal ne čini Markovića predsjednikom Jugoslavije.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_development_open_seen",
+          "fond_open_south",
+          "development_south_balance",
+          "fond_development_liaison",
+          "desk_event_development_pleb_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "fond_link",
+          "label": "Otvori Fond–Razvoj kanal.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "fond": {
+                "posture": "open_south"
+              },
+              "development": {
+                "posture": "south_balance"
+              }
+            },
+            "federal.development_plan": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "fond_development_liaison",
+              "development_south_balance",
+              "desk_event_fond_development_liaison_seen",
+              "development_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "fond_accept",
+          "label": "Prihvati razvojni plan u Fondu.",
+          "legal": "political",
+          "effects": {
+            "federal.development_plan": 2,
+            "federal.reform_momentum": 1,
+            "flags_add": [
+              "fond_development_plan",
+              "development_south_balance",
+              "desk_event_fond_development_liaison_seen",
+              "development_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "fond_hold",
+          "label": "Zadrži odvojene šaltere.",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "desk_event_fond_development_liaison_seen"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

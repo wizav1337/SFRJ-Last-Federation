@@ -59,6 +59,7 @@ const POSTURE_FLAG_MAP = {
   industry: { grid_stable: "industry_grid_stable", plant_soft: "industry_plant_soft", output_support: "industry_output_support", reform_support: "industry_reform_support", harden_ration: "industry_harden_ration" },
   trade: { market_calm: "trade_market_calm", shelf_soft: "trade_shelf_soft", price_corridor: "trade_price_corridor", reform_support: "trade_reform_support", harden_controls: "trade_harden_controls" },
   transport: { corridor_open: "transport_corridor_open", schedule_soft: "transport_schedule_soft", telecom_link: "transport_telecom_link", reform_support: "transport_reform_support", harden_priority: "transport_harden_priority" },
+  development: { plan_open: "development_plan_open", regional_soft: "development_regional_soft", reform_align: "development_reform_align", south_balance: "development_south_balance", harden_plan: "development_harden_plan" },
 };
 
 export function initDesks(state, catalog) {
@@ -174,6 +175,7 @@ export function deskConflictWarnings(state) {
   if (state.flags.industry_harden_ration || state.desks?.industry?.posture === "harden_ration") hard.push("industry");
   if (state.flags.trade_harden_controls || state.desks?.trade?.posture === "harden_controls") hard.push("trade");
   if (state.flags.transport_harden_priority || state.desks?.transport?.posture === "harden_priority") hard.push("transport");
+  if (state.flags.development_harden_plan || state.desks?.development?.posture === "harden_plan") hard.push("development");
   if (!hard.length && !state.flags.desk_conflict_soft_lock && !state.flags.desk_conflict_hard_conf) return [];
   const out = [];
   if (hard.length || state.flags.desk_conflict_hard_conf) {
@@ -214,6 +216,7 @@ export function isHardlineConflictAction(deskId, action) {
     industry: ["harden_ration"],
     trade: ["harden_controls"],
     transport: ["harden_priority"],
+    development: ["harden_plan"],
   };
   return (hard[deskId] || []).includes(posture);
 }
@@ -1031,6 +1034,33 @@ export function applyDeskMonthlyPosture(state, scale = 1) {
     if (state.flags.transport_siv_bind) {
       f.siv_authority = clamp(f.siv_authority + 0.1 * s);
       f.transport_links = clamp((f.transport_links ?? 50) + 0.1 * s);
+    }
+  }
+
+  const development = state.desks.development;
+  if (development) {
+    if (development.posture === "plan_open" || state.flags.development_plan_open) {
+      f.development_plan = clamp((f.development_plan ?? 50) + 0.25 * s);
+      f.war_risk = clamp(f.war_risk - 0.05 * s);
+      development.loyalty = clamp(development.loyalty + 0.1 * s);
+    } else if (development.posture === "regional_soft" || state.flags.development_regional_soft) {
+      f.development_plan = clamp((f.development_plan ?? 50) + 0.2 * s);
+      f.legitimacy = clamp(f.legitimacy + 0.05 * s);
+    } else if (development.posture === "reform_align" || state.flags.development_reform_align) {
+      f.development_plan = clamp((f.development_plan ?? 50) + 0.15 * s);
+      f.reform_momentum = clamp(f.reform_momentum + 0.15 * s);
+      development.capacity = clamp(development.capacity + 0.1 * s);
+    } else if (development.posture === "south_balance" || state.flags.development_south_balance) {
+      f.development_plan = clamp((f.development_plan ?? 50) + 0.15 * s);
+      f.legitimacy = clamp(f.legitimacy + 0.05 * s);
+    } else if (development.posture === "harden_plan" || state.flags.development_harden_plan) {
+      f.development_plan = clamp((f.development_plan ?? 50) - 0.1 * s);
+      f.war_risk = clamp(f.war_risk + 0.08 * s);
+      development.agenda_tension = clamp(development.agenda_tension + 0.15 * s);
+    }
+    if (state.flags.development_siv_bind) {
+      f.siv_authority = clamp(f.siv_authority + 0.1 * s);
+      f.development_plan = clamp((f.development_plan ?? 50) + 0.1 * s);
     }
   }
 

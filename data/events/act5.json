@@ -3901,6 +3901,165 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_development_spring91",
+      "date": "1991-03-30",
+      "act": 5,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Proljeće 1991.: razvojni papir",
+      "location": "Beograd — Savezni sekretarijat za razvoj",
+      "briefing": "Proljeće 1991.: Razvoj nudi papirni put — otvoreni plan, reforma ili meki regionalni programi. Bez čina VI. Tihi papir ne postavlja player_used_jna_threat. Nema rata.",
+      "constitutional_note": "Slice A: peacetime only; no Act VI.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_development_open_seen",
+          "development_plan_open",
+          "development_reform_align",
+          "development_siv_bind",
+          "dialogue_markovic_development",
+          "desk_event_development_pleb_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "s91_plan",
+          "label": "Otvoreni plan — papirni put.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "development": {
+                "posture": "plan_open"
+              }
+            },
+            "federal.development_plan": 3,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "development_plan_open",
+              "desk_event_development_spring91_seen",
+              "development_quiet_paper"
+            ],
+            "flags_remove": [
+              "development_harden_plan"
+            ]
+          }
+        },
+        {
+          "id": "s91_reform",
+          "label": "Reformski razvojni paket.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "development": {
+                "posture": "reform_align"
+              }
+            },
+            "federal.reform_momentum": 2,
+            "federal.development_plan": 2,
+            "flags_add": [
+              "development_reform_align",
+              "desk_event_development_spring91_seen",
+              "development_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "s91_regional",
+          "label": "Meki regionalni programi.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "development": {
+                "posture": "regional_soft"
+              }
+            },
+            "federal.development_plan": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "development_regional_soft",
+              "desk_event_development_spring91_seen",
+              "development_quiet_paper"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "confederal_development_memo",
+      "date": "1991-05-09",
+      "act": 5,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Memorandum Razvoja uz konfederalni stol",
+      "location": "Beograd — konfederalni razvojni stol",
+      "briefing": "Uz konfederalni stol stiže memo Razvoja: plan i reformski paket kao jamstvo da razvojni šalter ne lomi pregovore. Izetbegović–Gligorov nacrt **nije** dostupan papir — samo isključenje. Nema rata.",
+      "constitutional_note": "I–G nije prihvatljiv papir na ovom stolu; memo Razvoja ne priznaje secesiju.",
+      "documents": [
+        "1974_presidency"
+      ],
+      "requires": {
+        "flags_any": [
+          "confederal_talks_open",
+          "desk_event_development_open_seen",
+          "development_plan_open",
+          "development_reform_align",
+          "development_siv_bind",
+          "dialogue_markovic_development"
+        ]
+      },
+      "choices": [
+        {
+          "id": "memo_plan",
+          "label": "Priloži memo: plan uz stol.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 2,
+            "federal.war_risk": -2,
+            "federal.presidency_cohesion": 1,
+            "federal.development_plan": 2,
+            "flags_add": [
+              "confederal_development_memo",
+              "development_plan_open",
+              "desk_event_development_memo_seen",
+              "development_quiet_paper"
+            ],
+            "flags_remove": [
+              "development_harden_plan"
+            ]
+          }
+        },
+        {
+          "id": "memo_reform",
+          "label": "Priloži reformski razvojni paket.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 2,
+            "federal.reform_momentum": 2,
+            "federal.siv_authority": 1,
+            "flags_add": [
+              "confederal_development_memo",
+              "development_reform_align",
+              "desk_event_development_memo_seen",
+              "development_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "memo_hold",
+          "label": "Zadrži Razvoj izvan stola.",
+          "legal": "political",
+          "effects": {
+            "federal.war_risk": 1,
+            "flags_add": [
+              "desk_event_development_memo_seen"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

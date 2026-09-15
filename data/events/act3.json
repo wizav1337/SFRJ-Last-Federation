@@ -3185,6 +3185,167 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_development_autumn",
+      "date": "1990-09-28",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Jesen: pritisak na razvojni šalter",
+      "location": "Beograd — Savezni sekretarijat za razvoj",
+      "briefing": "Jesen 1990.: republike i jug pritiskaju savezni razvoj. Može se držati otvoreni plan, usklađivanje reforme ili tvrđi plan. Tihi papir ne postavlja player_used_jna_threat.",
+      "constitutional_note": "Tvrđi plan diže napetost, ne otvara frontu.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_development_open_seen",
+          "desk_event_development_spring_seen",
+          "development_plan_open",
+          "development_reform_align",
+          "multiparty_wave"
+        ]
+      },
+      "choices": [
+        {
+          "id": "autumn_plan",
+          "label": "Drži otvoreni plan.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "development": {
+                "posture": "plan_open"
+              }
+            },
+            "federal.development_plan": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "development_plan_open",
+              "desk_event_development_autumn_seen",
+              "development_quiet_paper"
+            ],
+            "flags_remove": [
+              "development_harden_plan"
+            ]
+          }
+        },
+        {
+          "id": "autumn_reform",
+          "label": "Pojačaj usklađivanje reforme.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "development": {
+                "posture": "reform_align"
+              }
+            },
+            "federal.reform_momentum": 2,
+            "federal.development_plan": 2,
+            "flags_add": [
+              "development_reform_align",
+              "desk_event_development_autumn_seen",
+              "development_quiet_paper",
+              "markovic_mandate_strong"
+            ]
+          }
+        },
+        {
+          "id": "autumn_harden",
+          "label": "Tvrđi plan.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "development": {
+                "posture": "harden_plan"
+              }
+            },
+            "federal.development_plan": 1,
+            "federal.legitimacy": -1,
+            "federal.war_risk": 1,
+            "SI.federal_trust": -1,
+            "HR.federal_trust": -1,
+            "flags_add": [
+              "development_harden_plan",
+              "desk_event_development_autumn_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_finance_development_bind",
+      "date": "1990-10-22",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Financije ↔ Razvoj: planski kanal",
+      "location": "Beograd — Financije / Razvoj",
+      "briefing": "Financije i Razvoj mogu dijeliti planski kanal — knjige i razvojni okvir. Mirnodopski papir. Nema rata.",
+      "constitutional_note": "Kanal ne mijenja ustavni položaj Predsjedništva.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_development_open_seen",
+          "development_regional_soft",
+          "development_plan_open",
+          "finance_transfers_open",
+          "desk_event_development_autumn_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "bind_channel",
+          "label": "Otvori Financije–Razvoj kanal.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "finance": {
+                "posture": "target"
+              },
+              "development": {
+                "posture": "regional_soft"
+              }
+            },
+            "federal.development_plan": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "finance_development_liaison",
+              "development_regional_soft",
+              "desk_event_finance_development_bind_seen",
+              "development_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "bind_soft",
+          "label": "Meki plan — bez tvrde ruke.",
+          "legal": "political",
+          "effects": {
+            "federal.development_plan": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "finance_development_plan",
+              "development_regional_soft",
+              "desk_event_finance_development_bind_seen",
+              "development_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "bind_hold",
+          "label": "Zadrži odvojene knjige.",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "desk_event_finance_development_bind_seen"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

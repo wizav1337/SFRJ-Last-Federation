@@ -58,14 +58,14 @@ catalogs.dialogues = [
   "markovic", "markovic_late", "mesic", "tudman",
   "bogicevic", "tupurkovski", "racan",
   "gligorov", "bucin", "izetbegovic", "bulatovic",
-  "mesic_late", "jovic_late", "loncar", "buzadzic", "bajramovic", "kostic", "gracanin", "gacic", "mirjanic", "santo", "nazmi", "slokar",
+  "mesic_late", "jovic_late", "loncar", "buzadzic", "bajramovic", "kostic", "gracanin", "gacic", "mirjanic", "santo", "nazmi", "slokar", "marendic",
 ].map((id) => readJSON(`data/dialogue/${id}.json`));
 
 const acts = ["act1", "act2", "act3", "act4", "act5"].map((a) => readJSON(`data/events/${a}.json`));
 const flat = flattenActs(acts);
 
 const state = createNewState(catalogs);
-assert(state.save_schema === 18, "save_schema 18");
+assert(state.save_schema === 19, "save_schema 19");
 assert(state.attention_spent_desks === 0 && state.attention_spent_reforms === 0, "spend counters");
 
 initDesks(state, catalogs);
@@ -75,7 +75,7 @@ assert(cap === 3 || cap === 4, "attention cap");
 assert(state.attention_left === cap, "attention granted");
 
 const desks = listDesks(catalogs);
-assert(desks.length >= 24, "at least 24 desks (transport)");
+assert(desks.length >= 25, "at least 25 desks (development)");
 assert(desks.some((d) => d.id === "labor"), "labor desk present");
 assert(state.desks.labor?.posture === "social_peace", "labor default posture");
 assert(desks.some((d) => d.id === "agriculture"), "agriculture desk present");
@@ -257,6 +257,18 @@ assert(transportHardRaw?.conflict_warn, "transport harden conflict_warn in catal
 assert(isHardlineConflictAction("transport", transportHardRaw), "transport harden is hardline conflict");
 assert(!(actionsForDesk(state, catalogs, "transport").find((a) => a.id === "set_corridor_open")?.effects?.flags_add || []).includes("player_used_jna_threat"), "quiet transport must not set threat");
 assert(state.federal.transport_links === 50, "transport_links default 50");
+assert(desks.some((d) => d.id === "development"), "development desk present");
+assert(state.desks.development?.posture === "plan_open", "development default posture");
+assert(actionsForDesk(state, catalogs, "development").some((a) => a.id === "set_plan_open"), "development set_plan_open");
+assert(actionsForDesk(state, catalogs, "development").some((a) => a.id === "harden_plan"), "development harden_plan");
+assert(actionsForDesk(state, catalogs, "siv").some((a) => a.id === "bind_development"), "siv bind_development");
+assert(actionsForDesk(state, catalogs, "finance").some((a) => a.id === "liaison_development"), "finance liaison_development");
+assert(actionsForDesk(state, catalogs, "fond").some((a) => a.id === "liaison_development"), "fond liaison_development");
+const developmentHardRaw = catalogs.desks.find((d) => d.id === "development").actions.find((a) => a.id === "harden_plan");
+assert(developmentHardRaw?.conflict_warn, "development harden conflict_warn in catalog");
+assert(isHardlineConflictAction("development", developmentHardRaw), "development harden is hardline conflict");
+assert(!(actionsForDesk(state, catalogs, "development").find((a) => a.id === "set_plan_open")?.effects?.flags_add || []).includes("player_used_jna_threat"), "quiet development must not set threat");
+assert(state.federal.development_plan === 50, "development_plan default 50");
 
 assert(state.desks.sdb?.posture === "civilian_leash", "sdb default posture");
 const sdbActs = actionsForDesk(state, catalogs, "sdb");
@@ -455,6 +467,7 @@ assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_agricu
 assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_industry"), "markovic industry revisit");
 assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_trade"), "markovic trade revisit");
 assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_transport"), "markovic transport revisit");
+assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_development"), "markovic development revisit");
 const gacic = catalogs.dialogues.find((d) => d.id === "gacic");
 assert(gacic && /Gačić|Rad|socijal/i.test(JSON.stringify(gacic)), "gacic labor language");
 assert(!(gacic.nodes.start.choices || []).some((c) => /priznaj seces|priznanje neovisnosti/i.test(c.label || "")), "gacic no secession recognition");
@@ -470,6 +483,9 @@ assert(!(nazmi.nodes.start.choices || []).some((c) => /priznaj seces|priznanje n
 const slokar = catalogs.dialogues.find((d) => d.id === "slokar");
 assert(slokar && /Slokar|Jože|promet|veze/i.test(JSON.stringify(slokar)), "slokar transport language");
 assert(!(slokar.nodes.start.choices || []).some((c) => /priznaj seces|priznanje neovisnosti/i.test(c.label || "")), "slokar no secession recognition");
+const marendic = catalogs.dialogues.find((d) => d.id === "marendic");
+assert(marendic && /Marendić|Marendic|Božo|razvoj/i.test(JSON.stringify(marendic)), "marendic development language");
+assert(!(marendic.nodes.start.choices || []).some((c) => /priznaj seces|priznanje neovisnosti/i.test(c.label || "")), "marendic no secession recognition");
 
 const bul = catalogs.dialogues.find((d) => d.id === "bulatovic");
 assert(bul && /Titograd/i.test(JSON.stringify(bul)), "bulatovic Titograd");
@@ -517,6 +533,9 @@ assert(!(tradeMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.
 const transportMemo = flat.find((e) => e.id === "confederal_transport_memo");
 assert(transportMemo && /Izetbegović–Gligorov|I–G/i.test((transportMemo.briefing || "") + (transportMemo.constitutional_note || "")), "transport memo excludes I-G");
 assert(!(transportMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.test(c.label || "")), "no accept I-G on transport memo");
+const developmentMemo = flat.find((e) => e.id === "confederal_development_memo");
+assert(developmentMemo && /Izetbegović–Gligorov|I–G/i.test((developmentMemo.briefing || "") + (developmentMemo.constitutional_note || "")), "development memo excludes I-G");
+assert(!(developmentMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.test(c.label || "")), "no accept I-G on development memo");
 
 
 // Slice A end date invariant
@@ -542,4 +561,5 @@ console.log("smoke OK", {
   pass16: ["industry", "santo", "revisit_industry", "liaison_industry", "bind_industry", "confederal_industry_memo"],
   pass17: ["trade", "nazmi", "revisit_trade", "liaison_trade", "liaison_domestic_trade", "bind_trade", "confederal_trade_memo"],
   pass18: ["transport", "slokar", "revisit_transport", "liaison_transport", "bind_transport", "confederal_transport_memo"],
+  pass19: ["development", "marendic", "revisit_development", "liaison_development", "bind_development", "confederal_development_memo"],
 });

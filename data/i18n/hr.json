@@ -834,5 +834,12 @@
   "path.transportReform": "Promet: potpora reformi",
   "path.transportMemo": "memorandum Prometa uz konfederalni stol",
   "path.slokar": "glas Jožeta Slokara (Promet)",
-  "path.markovicTransport": "Marković o Prometu"
+  "path.markovicTransport": "Marković o Prometu",
+  "path.developmentPlan": "Razvoj: otvoreni plan",
+  "path.developmentRegional": "Razvoj: meki regionalni programi",
+  "path.developmentReform": "Razvoj: usklađivanje reforme",
+  "path.developmentSouth": "Razvoj: južna ravnoteža",
+  "path.developmentMemo": "memorandum Razvoja uz konfederalni stol",
+  "path.marendic": "glas Bože Marendića (Razvoj)",
+  "path.markovicDevelopment": "Marković o Razvoju"
 }

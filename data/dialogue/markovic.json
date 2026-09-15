@@ -1193,6 +1193,86 @@
           }
         }
       ]
+    },
+    "revisit_development": {
+      "text": "Marković — predsjednik SIV-a — gleda Razvoj. „Božo Marendić drži sekretarijat; otvoreni plan i usklađivanje reforme smiruju; tvrđi plan diže rizik. Ja ne vodim regionalne programe — tražim papir koji SIV može čitati. Nema rata.“",
+      "choices": [
+        {
+          "id": "dev_plan",
+          "label": "Otvoreni plan — SIV iznad zastoja u razvoju.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 2,
+            "federal.development_plan": 4,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "dialogue_markovic_development",
+              "development_plan_open",
+              "development_siv_bind",
+              "markovic_mandate_strong",
+              "development_quiet_paper"
+            ],
+            "flags_remove": [
+              "development_harden_plan"
+            ],
+            "desk_set": {
+              "development": {
+                "posture": "plan_open"
+              },
+              "siv": {
+                "posture": "technocrat"
+              }
+            }
+          }
+        },
+        {
+          "id": "dev_reform",
+          "label": "Razvojni paket uz reformu — potpora Markoviću.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 2,
+            "federal.development_plan": 3,
+            "federal.reform_momentum": 3,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "dialogue_markovic_development",
+              "development_reform_align",
+              "development_siv_bind",
+              "development_quiet_paper",
+              "markovic_mandate_strong"
+            ],
+            "desk_set": {
+              "development": {
+                "posture": "reform_align"
+              }
+            }
+          }
+        },
+        {
+          "id": "dev_south",
+          "label": "Južna ravnoteža — meki kanal uz Fond.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 1,
+            "federal.development_plan": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "dialogue_markovic_development",
+              "development_south_balance",
+              "development_quiet_paper"
+            ],
+            "flags_remove": [
+              "development_harden_plan"
+            ],
+            "desk_set": {
+              "development": {
+                "posture": "south_balance"
+              }
+            }
+          }
+        }
+      ]
     }
   },
   "entries": [
@@ -1439,6 +1519,26 @@
           "transport_siv_bind",
           "desk_event_transport_open_seen",
           "dialogue_slokar"
+        ]
+      }
+    },
+    {
+      "id": "revisit_development",
+      "node": "revisit_development",
+      "once": true,
+      "priority": 7,
+      "require_done": true,
+      "available_from": "1991-02-01",
+      "unlock": {
+        "flags_any": [
+          "development_plan_open",
+          "development_regional_soft",
+          "development_reform_align",
+          "development_south_balance",
+          "development_harden_plan",
+          "development_siv_bind",
+          "desk_event_development_open_seen",
+          "dialogue_marendic"
         ]
       }
     }
