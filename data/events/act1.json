@@ -1313,6 +1313,97 @@
       ]
     },
     {
+      "id": "desk_const_court_open",
+      "date": "1990-03-12",
+      "act": 1,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Ustavni sud: docket ili prazan pečat",
+      "location": "Beograd — Ustavni sud Jugoslavije",
+      "briefing": "Ustavni sud sada ima šalter. Otvorite docket, vežite ga uz pravosuđe, ili pustite zastoj. Nema ratnih suđenja; samo mirovni papir. Marković ostaje predsjednik SIV-a; sud ne zamjenjuje Predsjedništvo.",
+      "constitutional_note": "Ustavni sud ocjenjuje ustavnost akata — nije vojska i nije SIV.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "markovic_mandate_strong",
+          "multiparty_wave",
+          "justice_constitutional_line",
+          "skj_renounced_monopoly",
+          "presidency_mediation_active"
+        ]
+      },
+      "choices": [
+        {
+          "id": "docket_open",
+          "label": "Otvori docket — ustavne tužbe na stolu.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "docket_open"
+              }
+            },
+            "federal.legitimacy": 3,
+            "federal.assembly_function": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "const_court_docket_open",
+              "desk_event_const_court_open_seen"
+            ],
+            "flags_remove": [
+              "const_court_stalled",
+              "const_court_yields"
+            ]
+          }
+        },
+        {
+          "id": "bind_open",
+          "label": "Odmah veži sud uz pravosuđe.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "bind_justice"
+              },
+              "justice": {
+                "posture": "constitutional"
+              }
+            },
+            "federal.legitimacy": 2,
+            "federal.presidency_cohesion": 2,
+            "flags_add": [
+              "const_court_bind_justice",
+              "const_court_docket_open",
+              "desk_event_const_court_open_seen"
+            ],
+            "flags_remove": [
+              "const_court_stalled"
+            ]
+          }
+        },
+        {
+          "id": "stall_open",
+          "label": "Pusti zastoj — sud šuti.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "stall"
+              }
+            },
+            "federal.legitimacy": -2,
+            "flags_add": [
+              "const_court_stalled",
+              "desk_event_const_court_open_seen"
+            ],
+            "flags_remove": [
+              "const_court_docket_open"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "to_inventory",
       "date": "1990-03-15",
       "act": 1,

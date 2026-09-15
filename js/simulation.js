@@ -204,6 +204,15 @@ export function buildMonthlyReport(state, before, months) {
   if (state.flags.confederal_ssip_memo) drivers.push("memorandum SSIP uz konfederalni stol");
   if (state.flags.talked_loncar) drivers.push("glas Lončara (SSIP)");
   if (state.flags.dialogue_markovic_ssip) drivers.push("Marković o SSIP");
+  if (state.desks?.const_court?.posture === "docket_open" || state.flags.const_court_docket_open) drivers.push("Ustavni sud: docket otvoren");
+  if (state.desks?.const_court?.posture === "bind_justice" || state.flags.const_court_bind_justice) drivers.push("Ustavni sud vezan uz pravosuđe");
+  if (state.desks?.const_court?.posture === "stall" || state.flags.const_court_stalled) drivers.push("Ustavni sud u zastoju");
+  if (state.desks?.const_court?.posture === "yield_republics" || state.flags.const_court_yields) drivers.push("Ustavni sud ustupa republikama");
+  if (state.flags.justice_refer_court) drivers.push("Pravosuđe upućuje sudu");
+  if (state.flags.ssup_docket_watch) drivers.push("SSUP nadzor docketa");
+  if (state.flags.confederal_const_court_memo) drivers.push("memorandum Ustavnog suda uz konfederalni stol");
+  if (state.flags.talked_buzadzic) drivers.push("glas Buzadžića (Ustavni sud)");
+  if (state.flags.dialogue_markovic_const_court) drivers.push("Marković o Ustavnom sudu");
 
 
   return {

@@ -757,6 +757,95 @@
       ]
     },
     {
+      "id": "desk_const_court_autumn",
+      "date": "1990-09-14",
+      "act": 3,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Jesen 1990.: docket, zastoj ili ustupanje",
+      "location": "Beograd — Ustavni sud",
+      "briefing": "Republike pišu ustave. Ustavni sud može držati docket, stati, ili ustupiti Saborima. Tvrdo ustupanje kida legitimnost. I–G nije na stolu. Nema fronte.",
+      "constitutional_note": "Ocjenjivanje ustavnosti nije priznanje secesije. Titograd ostaje Titograd.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "const_court_docket_open",
+          "const_court_bind_justice",
+          "desk_event_const_court_open_seen",
+          "talked_buzadzic",
+          "justice_refer_court"
+        ]
+      },
+      "choices": [
+        {
+          "id": "hold_docket",
+          "label": "Drži docket otvorenim.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "docket_open"
+              }
+            },
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "const_court_docket_open",
+              "desk_event_const_court_autumn_seen"
+            ],
+            "flags_remove": [
+              "const_court_stalled",
+              "const_court_yields"
+            ]
+          }
+        },
+        {
+          "id": "stall_aut",
+          "label": "Zastoj docketa — sud šuti.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "stall"
+              }
+            },
+            "federal.legitimacy": -3,
+            "federal.assembly_function": -2,
+            "flags_add": [
+              "const_court_stalled",
+              "desk_event_const_court_autumn_seen"
+            ],
+            "flags_remove": [
+              "const_court_docket_open"
+            ]
+          }
+        },
+        {
+          "id": "yield_aut",
+          "label": "Ustupi republikama — savezni sud se povlači.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "yield_republics"
+              }
+            },
+            "federal.legitimacy": -4,
+            "SI.federal_trust": -3,
+            "HR.federal_trust": -3,
+            "flags_add": [
+              "const_court_yields",
+              "desk_event_const_court_autumn_seen"
+            ],
+            "flags_remove": [
+              "const_court_docket_open",
+              "const_court_bind_justice"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_fond_autumn",
       "date": "1990-09-20",
       "act": 3,
@@ -1593,6 +1682,85 @@
             "SI.federal_trust": -8,
             "HR.federal_trust": -6,
             "SI.secession_readiness": 5
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_justice_court_bind",
+      "date": "1990-10-22",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Pravosuđe × Ustavni sud: bind kanal",
+      "location": "Beograd — pravosuđe / Ustavni sud",
+      "briefing": "Možete spregnuti sekretarijat i sud u jedan ustavni kanal. Soft put jača E3 stog ako je stol otvoren. Nema ratnih suđenja. Marković = SIV.",
+      "constitutional_note": "Bind kanal nije izvanredno stanje.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "justice_refer_court",
+          "const_court_docket_open",
+          "dialogue_buzadzic_docket",
+          "dialogue_buzadzic_bind",
+          "desk_event_justice_refer_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "bind",
+          "label": "Spreži pravosuđe i sud (bind).",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "bind_justice"
+              },
+              "justice": {
+                "posture": "constitutional"
+              }
+            },
+            "federal.legitimacy": 3,
+            "federal.presidency_cohesion": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "justice_court_bind",
+              "const_court_bind_justice",
+              "desk_event_justice_bind_seen"
+            ],
+            "flags_remove": [
+              "justice_hard_line",
+              "const_court_stalled"
+            ]
+          }
+        },
+        {
+          "id": "memo",
+          "label": "Samo meki legitimacijski memo.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 2,
+            "federal.presidency_cohesion": 1,
+            "flags_add": [
+              "const_court_soft_memo",
+              "desk_event_justice_bind_seen"
+            ]
+          }
+        },
+        {
+          "id": "hard_annul",
+          "label": "Tvrda ocjena republikanskog akta (papir).",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": -1,
+            "federal.presidency_cohesion": -2,
+            "SI.secession_readiness": 2,
+            "HR.secession_readiness": 2,
+            "flags_add": [
+              "const_court_annul_hard",
+              "const_court_docket_open",
+              "desk_event_justice_bind_seen"
+            ]
           }
         }
       ]

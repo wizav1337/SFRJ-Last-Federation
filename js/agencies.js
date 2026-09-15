@@ -82,6 +82,12 @@ export function syncAgenciesFromFlags(state) {
   if (state.flags.ssip_ec_channel || state.flags.ssip_siv_bind) {
     setAgencyStatus(state, "ssip", "active");
   }
+  if (state.flags.const_court_stalled || state.flags.const_court_yields) {
+    setAgencyStatus(state, "const_court", "weakened");
+  }
+  if (state.flags.const_court_docket_open || state.flags.const_court_bind_justice) {
+    setAgencyStatus(state, "const_court", "active");
+  }
 }
 
 export function legalLabel(legal) {
@@ -152,6 +158,14 @@ export function deskVoteModifiers(state) {
   if (f.ssip_paralyzed) {
     softAgainst += 1;
     notes.push("vote.mod.ssipWeak");
+  }
+  if (f.const_court_docket_open || f.const_court_bind_justice) {
+    softFor += 1;
+    notes.push("vote.mod.constCourt");
+  }
+  if (f.const_court_stalled || f.const_court_yields) {
+    softAgainst += 1;
+    notes.push("vote.mod.constCourtWeak");
   }
   if (f.ssrn_paralyzed || f.ssrn_party_capture) {
     softAgainst += 1;

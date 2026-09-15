@@ -72,6 +72,11 @@ function deskDialogueElectionBias(unit, spec, state) {
   // Justice (Pass 4)
   if (f.justice_constitutional_line || f.justice_arbitrate_line) d += 1;
   if (f.justice_hard_line && (id === "SI" || id === "HR")) d -= 2;
+  // Constitutional Court (Pass 10)
+  if (f.const_court_docket_open || f.const_court_bind_justice || f.justice_refer_court) d += 1;
+  if (f.const_court_yields && (id === "SI" || id === "HR")) d -= 2;
+  if (f.const_court_stalled) d -= 1;
+  if (f.ssup_docket_watch && id === "HR") d += 1;
   if (f.dialogue_drnovsek_spring || f.dialogue_drnovsek_eve) d += id === "SI" ? 1 : 0;
   // Fond (Pass 7)
   if (f.fond_open_south || f.siv_fond_bind) d += (id === "MK" || id === "ME" || id === "BA" || id === "XK") ? 2 : 0;

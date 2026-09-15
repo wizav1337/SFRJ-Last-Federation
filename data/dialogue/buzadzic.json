@@ -1,0 +1,255 @@
+{
+  "id": "buzadzic",
+  "speaker": "Milovan Buzadžić",
+  "title": "v. d. predsjednika Ustavnog suda Jugoslavije",
+  "desk": "const_court",
+  "available_from": "1990-08-01",
+  "unlock": {
+    "flags_any": [
+      "const_court_docket_open",
+      "const_court_bind_justice",
+      "const_court_stalled",
+      "justice_refer_court",
+      "justice_constitutional_line",
+      "desk_event_const_court_open_seen",
+      "multiparty_wave"
+    ]
+  },
+  "nodes": {
+    "start": {
+      "text": "Buzadžić prima u Ustavnom sudu. „Imam docket, zastoj, ustupanje republikama ili vezu s pravosuđem. Nema ratnih suđenja. Samo papir koji drži ili kida savez. Što želite od suda?“",
+      "choices": [
+        {
+          "id": "open_docket",
+          "label": "Otvori docket — ustavne tužbe na saveznom stolu.",
+          "next": "docket",
+          "effects": {
+            "desk_add": {
+              "const_court": {
+                "loyalty": 4,
+                "capacity": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.legitimacy": 3,
+            "federal.assembly_function": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "talked_buzadzic",
+              "dialogue_buzadzic_docket",
+              "const_court_docket_open"
+            ],
+            "flags_remove": [
+              "const_court_stalled",
+              "const_court_yields"
+            ],
+            "desk_set": {
+              "const_court": {
+                "posture": "docket_open"
+              }
+            }
+          }
+        },
+        {
+          "id": "bind_j",
+          "label": "Veži sud uz savezno pravosuđe.",
+          "next": "bind",
+          "effects": {
+            "desk_add": {
+              "const_court": {
+                "loyalty": 3
+              },
+              "justice": {
+                "loyalty": 2
+              }
+            },
+            "federal.legitimacy": 2,
+            "federal.presidency_cohesion": 2,
+            "flags_add": [
+              "talked_buzadzic",
+              "dialogue_buzadzic_bind",
+              "const_court_bind_justice",
+              "const_court_docket_open"
+            ],
+            "flags_remove": [
+              "const_court_stalled",
+              "const_court_yields"
+            ],
+            "desk_set": {
+              "const_court": {
+                "posture": "bind_justice"
+              },
+              "justice": {
+                "posture": "constitutional"
+              }
+            }
+          }
+        },
+        {
+          "id": "stall_talk",
+          "label": "Pusti zastoj — sud šuti.",
+          "next": "stall",
+          "effects": {
+            "desk_add": {
+              "const_court": {
+                "agenda_tension": 5,
+                "loyalty": -2
+              }
+            },
+            "federal.legitimacy": -2,
+            "flags_add": [
+              "talked_buzadzic",
+              "dialogue_buzadzic_stall",
+              "const_court_stalled"
+            ],
+            "flags_remove": [
+              "const_court_docket_open"
+            ],
+            "desk_set": {
+              "const_court": {
+                "posture": "stall"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "docket": {
+      "text": "„Docket je otvoren. Ocjenjujemo ustavnost — ne držimo barikade. Nema čina VI.“",
+      "choices": [
+        {
+          "id": "end_docket",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {
+            "federal.war_risk": -1
+          }
+        }
+      ]
+    },
+    "bind": {
+      "text": "Sud i sekretarijat dijele kanal. Marković ostaje SIV; mi držimo papir.",
+      "choices": [
+        {
+          "id": "end_bind",
+          "label": "Izađi.",
+          "next": null,
+          "effects": {
+            "federal.legitimacy": 1
+          }
+        }
+      ]
+    },
+    "stall": {
+      "text": "Zastoj jede legitimnost. Republike pišu svoje ustave dok Beograd šuti.",
+      "choices": [
+        {
+          "id": "end_stall",
+          "label": "Zatvori.",
+          "next": null,
+          "effects": {
+            "federal.assembly_function": -1
+          }
+        }
+      ]
+    },
+    "revisit_justice": {
+      "text": "Buzadžić ponovno: „Ako pravosuđe uputi spise, docket živi. Ako ustupimo republikama, savezni sud postaje prazan pečat. E3 i dalje traži Predsjedništvo koje se može sastati — mi samo držimo ustavni jezik.“",
+      "choices": [
+        {
+          "id": "keep_bind",
+          "label": "Drži vezu sud–pravosuđe.",
+          "next": null,
+          "effects": {
+            "federal.legitimacy": 2,
+            "federal.presidency_cohesion": 2,
+            "flags_add": [
+              "dialogue_buzadzic_revisit",
+              "const_court_bind_justice",
+              "justice_court_bind"
+            ],
+            "flags_remove": [
+              "const_court_yields",
+              "const_court_stalled"
+            ],
+            "desk_set": {
+              "const_court": {
+                "posture": "bind_justice"
+              },
+              "justice": {
+                "posture": "constitutional"
+              }
+            }
+          }
+        },
+        {
+          "id": "soft_memo",
+          "label": "Pošalji meki legitimacijski memo Predsjedništvu.",
+          "next": null,
+          "effects": {
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "dialogue_buzadzic_revisit",
+              "const_court_soft_memo",
+              "const_court_docket_open"
+            ],
+            "desk_set": {
+              "const_court": {
+                "posture": "docket_open"
+              }
+            }
+          }
+        },
+        {
+          "id": "yield_talk",
+          "label": "Ustupi republikama — sud se povlači.",
+          "next": null,
+          "effects": {
+            "federal.legitimacy": -3,
+            "SI.federal_trust": -2,
+            "HR.federal_trust": -2,
+            "flags_add": [
+              "dialogue_buzadzic_revisit",
+              "const_court_yields"
+            ],
+            "flags_remove": [
+              "const_court_docket_open",
+              "const_court_bind_justice"
+            ],
+            "desk_set": {
+              "const_court": {
+                "posture": "yield_republics"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "entries": [
+    {
+      "id": "start",
+      "node": "start",
+      "once": true
+    },
+    {
+      "id": "revisit_justice",
+      "node": "revisit_justice",
+      "once": true,
+      "priority": 2,
+      "require_done": true,
+      "available_from": "1990-11-01",
+      "unlock": {
+        "flags_any": [
+          "const_court_docket_open",
+          "const_court_bind_justice",
+          "justice_refer_court",
+          "justice_court_bind",
+          "desk_event_justice_refer_seen",
+          "talked_buzadzic"
+        ]
+      }
+    }
+  ]
+}

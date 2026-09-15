@@ -468,6 +468,86 @@
           }
         }
       ]
+    },
+    "revisit_const_court": {
+      "text": "Marković — predsjednik SIV-a — gleda Ustavni sud. „Buzadžić drži docket. Ako sud vežete uz pravosuđe, dobivam ustavni jezik uz knjige. Ako zastane ili ustupi republikama, gubim savezni pečat. Ne tražim krunu — tražim papir koji ne smeta SIV-u. Nema ratnih suđenja.“",
+      "choices": [
+        {
+          "id": "court_with_justice",
+          "label": "Veži sud uz pravosuđe — docket uz SIV knjige.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 2,
+            "federal.legitimacy": 3,
+            "federal.presidency_cohesion": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "dialogue_markovic_const_court",
+              "const_court_bind_justice",
+              "const_court_docket_open",
+              "markovic_mandate_strong"
+            ],
+            "flags_remove": [
+              "const_court_stalled",
+              "const_court_yields"
+            ],
+            "desk_set": {
+              "const_court": {
+                "posture": "bind_justice"
+              },
+              "justice": {
+                "posture": "constitutional"
+              },
+              "siv": {
+                "posture": "technocrat"
+              }
+            }
+          }
+        },
+        {
+          "id": "court_docket",
+          "label": "Ostavi otvoren docket — bez tvrde ocjene.",
+          "next": null,
+          "effects": {
+            "federal.legitimacy": 2,
+            "federal.assembly_function": 1,
+            "flags_add": [
+              "dialogue_markovic_const_court",
+              "const_court_docket_open"
+            ],
+            "flags_remove": [
+              "const_court_stalled"
+            ],
+            "desk_set": {
+              "const_court": {
+                "posture": "docket_open"
+              }
+            }
+          }
+        },
+        {
+          "id": "court_starve",
+          "label": "Neka sud zastane — SIV nosi papir sam.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 1,
+            "federal.legitimacy": -2,
+            "flags_add": [
+              "dialogue_markovic_const_court",
+              "const_court_stalled"
+            ],
+            "flags_remove": [
+              "const_court_docket_open",
+              "const_court_bind_justice"
+            ],
+            "desk_set": {
+              "const_court": {
+                "posture": "stall"
+              }
+            }
+          }
+        }
+      ]
     }
   },
   "entries": [
@@ -541,6 +621,24 @@
           "ssip_paralyzed",
           "ssip_siv_bind",
           "desk_event_ssip_open_seen"
+        ]
+      }
+    },
+    {
+      "id": "revisit_const_court",
+      "node": "revisit_const_court",
+      "once": true,
+      "priority": 6,
+      "require_done": true,
+      "available_from": "1991-01-15",
+      "unlock": {
+        "flags_any": [
+          "const_court_docket_open",
+          "const_court_bind_justice",
+          "const_court_stalled",
+          "const_court_yields",
+          "justice_refer_court",
+          "desk_event_const_court_open_seen"
         ]
       }
     }

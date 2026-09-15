@@ -90,6 +90,10 @@ function rawControl(state, id) {
   if (state.flags.ssp_isolation) n -= 0.5;
   if (state.flags.dialogue_jovic_late_quorum) n += 0.5;
   if (state.flags.dialogue_mesic_late_duty && id === "HR") n += 1;
+  if (state.flags.const_court_docket_open || state.flags.const_court_bind_justice) n += 1;
+  if (state.flags.const_court_stalled || state.flags.const_court_yields) n -= 1;
+  if (state.flags.justice_refer_court) n += 0.5;
+  if (state.flags.ssup_docket_watch) n += 0.5;
   return n;
 }
 
