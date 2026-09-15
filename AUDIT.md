@@ -534,3 +534,41 @@ Akcije: `soft_federal_line` → `skj_soft_federation`; `hard_unity_rhetoric` →
 - Marković = predsjednik **SIV-a**; Jović ≠ Milošević; Titograd ostaje Titograd
 - ID-ovi i zastavice engleski; UI hrvatski (ijekavica)
 
+## Dodatak — Pass 13 `expand/pass13-sdb`
+
+Šalter **Služba državne sigurnosti / SDB** (`sdb`, agencija `sdb`); produbljeni SSUP i SIV; glas Gračanina (SSUP kanal); Marković revisit SDB; kartice čina I–V; `save_schema` 13; smoke proširen. Servisni sloj (civilni uze / promatranje / dosjei / Knin / zategnuti uze) — **nije** zamjena za šalter SSUP (unutarnji poslovi).
+
+### Nova / proširena kartica
+
+| Spis | Datum | Napomena |
+|---|---|---|
+| `desk_sdb_open` | 1990-02-20 | Otvaranje šaltera: uze / promatranje / dosjei |
+| `desk_sdb_spring` | 1990-05-05 | Proljetna postava SDB |
+| `desk_sdb_autumn` | 1990-09-12 | Jesen: pritisak na servis |
+| `desk_ssup_sdb_bind` | 1990-10-05 | SSUP ↔ SDB kanal |
+| `desk_sdb_before_pleb` | 1990-12-10 | Pred savjetodavnim plebiscitom |
+| `desk_siv_sdb_leash` | 1990-12-16 | SIV civilni nadzor nad SDB |
+| `desk_sdb_spring91` | 1991-03-18 | Proljeće 1991. papirni put; bez čina VI |
+| `confederal_sdb_memo` | 1991-04-28 | Memo SDB uz konfederalni stol; I–G **nije** dostupan |
+
+### Razgovori
+
+- `gracanin.json` — Petar Gračanin (SSUP kanal prema SDB); uze / promatranje / zategni; revisit dosjei/Knin
+- `markovic.json` — `revisit_sdb` (SIV × SDB)
+
+### Šalteri
+
+- **sdb**: `civilian_leash` → `sdb_civilian_leash`; `observe_line` → `sdb_observe_line`; `dossier_share` → `sdb_dossier_channel` / `sdb_files_shared`; `knin_watch` → `sdb_knin_watch`; `tight_leash` → `sdb_leash_tight`
+- **ssup** `liaison_sdb` → `ssup_sdb_liaison`; `accept_sdb_channel` → `ssup_sdb_channel`
+- **siv** `bind_sdb` → `sdb_siv_bind`
+- Soft-lock: `tight_leash` / `knin_watch` sukobljava se s `confederal_talks_open`
+- Tihi SDB papir **ne** postavlja `player_used_jna_threat`
+- Postojeće SSUP akcije `sdb_leash` / `sdb_leash_tight` / `sdb_share_files` ostaju
+
+### Pravila koja nisu dirana
+
+- E3: otvorena povelja (≥4) + Predsjedništvo koje se može sastati; sjedenje Mesića ≠ blokada; blokada isključuje E3
+- Nema čina VI; nema lipanjskog rata; Izetbegović–Gligorov **nije** prihvatljiv papir (samo isključenje)
+- Marković = predsjednik **SIV-a**; Jović ≠ Milošević; Titograd ostaje Titograd
+- Nema priznanja secesije; ID-ovi i zastavice engleski; UI hrvatski (ijekavica)
+

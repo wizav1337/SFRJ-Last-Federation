@@ -261,7 +261,7 @@
       "name": "SIV",
       "name_hr": "Savezno izvršno vijeće",
       "kind": "constitutional",
-      "briefing": "Predsjednik SIV-a (Marković) nije predsjednik Jugoslavije. Stav SIV-a (štednja / poticaj / tehnokratski) vuče inflaciju, trgovinu i reformski zamah svakog mjeseca.",
+      "briefing": "Predsjednik SIV-a (Marković) nije predsjednik Jugoslavije. Stav SIV-a (štednja / poticaj / tehnokratski) vuče inflaciju, trgovinu i reformski zamah svakog mjeseca. Pass 13: bind_sdb — SIV civilni nadzor nad službom.",
       "stats": {
         "loyalty": 58,
         "capacity": 62,
@@ -417,6 +417,54 @@
             ],
             "flags_remove": [
               "markovic_starved"
+            ]
+          }
+        },
+        {
+          "id": "bind_sdb",
+          "label": "SIV nadzor nad SDB: civilni uze uz knjige.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "desk_event_sdb_open_seen",
+              "sdb_civilian_leash",
+              "sdb_siv_bind",
+              "dialogue_markovic_sdb"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "siv": {
+                "posture": "technocrat"
+              },
+              "sdb": {
+                "posture": "civilian_leash"
+              }
+            },
+            "desk_add": {
+              "siv": {
+                "loyalty": 2,
+                "capacity": 2
+              },
+              "sdb": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.siv_authority": 2,
+            "federal.sdb_control": 3,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "sdb_siv_bind",
+              "sdb_civilian_leash",
+              "sdb_quiet_paper",
+              "markovic_mandate_strong"
+            ],
+            "flags_remove": [
+              "sdb_leash_tight"
             ]
           }
         }
@@ -673,7 +721,7 @@
       "name": "SSUP",
       "name_hr": "Savezni sekretarijat za unutarnje poslove",
       "kind": "secretariat",
-      "briefing": "Savezni unutarnji poslovi i kanal SDB. Meka, promatračka ili tvrda linija mijenja napetost u HR/BA. Uze Predsjedništva nad SDB-om (leash) i dijeljenje dosjea mijenjaju putove prema E3/E5 — nije kazalište rata. Pass 10: mirni nadzor docketa i veza sa sudom — bez ratnih uze. Pass 11: mirni dosje pokrajinskih sjedala — bez ratnih uze.",
+      "briefing": "Savezni unutarnji poslovi i kanal SDB. Meka, promatračka ili tvrda linija mijenja napetost u HR/BA. Uze Predsjedništva nad SDB-om (leash) i dijeljenje dosjea mijenjaju putove prema E3/E5 — nije kazalište rata. Pass 10: mirni nadzor docketa i veza sa sudom — bez ratnih uze. Pass 11: mirni dosje pokrajinskih sjedala — bez ratnih uze. Pass 13: veza SSUP–SDB (liaison_sdb / accept_sdb_channel) — servisni sloj ostaje na šalteru SDB.",
       "stats": {
         "loyalty": 52,
         "capacity": 48,
@@ -1018,6 +1066,71 @@
             ],
             "flags_remove": [
               "ssup_hard_line"
+            ]
+          }
+        },
+        {
+          "id": "liaison_sdb",
+          "label": "SSUP–SDB veza: civilni kanal bez tvrde ruke.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "desk_event_sdb_open_seen",
+              "sdb_civilian_leash",
+              "sdb_observe_line",
+              "dialogue_gracanin"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "ssup": {
+                "loyalty": 2,
+                "capacity": 2
+              },
+              "sdb": {
+                "loyalty": 2
+              }
+            },
+            "federal.sdb_control": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "ssup_sdb_liaison",
+              "sdb_ssup_bind",
+              "sdb_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "accept_sdb_channel",
+          "label": "Prihvati SDB dosjee u SSUP kanal.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "sdb_dossier_channel",
+              "sdb_files_shared",
+              "desk_event_sdb_open_seen"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "ssup": {
+                "capacity": 3
+              },
+              "sdb": {
+                "loyalty": 2,
+                "capacity": 1
+              }
+            },
+            "federal.sdb_control": 3,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "ssup_sdb_channel",
+              "sdb_files_shared",
+              "sdb_quiet_paper"
             ]
           }
         }
@@ -3676,6 +3789,242 @@
             "flags_add": [
               "ssno_siv_bind",
               "markovic_mandate_strong"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "sdb",
+      "agency_id": "sdb",
+      "name": "SDB",
+      "name_hr": "Služba državne sigurnosti",
+      "kind": "force",
+      "briefing": "Služba državne sigurnosti (SDB) kao savezni servis: civilni uze, promatračka linija, dijeljenje dosjea, tihi nadzor Knina i zategnuti uze — papir i dosjei, ne fronta. Ne zamjenjuje šalter SSUP (unutarnji poslovi); SDB je servisni sloj. Marković ostaje predsjednik SIV-a. Tihi papir ne postavlja player_used_jna_threat. Nema rata.",
+      "stats": {
+        "loyalty": 52,
+        "capacity": 55,
+        "agenda_tension": 40
+      },
+      "posture_default": "civilian_leash",
+      "postures": [
+        "civilian_leash",
+        "observe_line",
+        "dossier_share",
+        "knin_watch",
+        "tight_leash"
+      ],
+      "actions": [
+        {
+          "id": "set_civilian_leash",
+          "label": "Civilni uze SDB: Predsjedništvo i SIV iznad službe.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "civilian_leash"
+              }
+            },
+            "desk_add": {
+              "sdb": {
+                "loyalty": 4,
+                "agenda_tension": -3,
+                "capacity": 2
+              },
+              "ssup": {
+                "loyalty": 2,
+                "agenda_tension": -1
+              }
+            },
+            "federal.sdb_control": 5,
+            "federal.legitimacy": 2,
+            "federal.presidency_cohesion": 2,
+            "federal.war_risk": -2,
+            "flags_add": [
+              "sdb_civilian_leash",
+              "sdb_quiet_paper"
+            ],
+            "flags_remove": [
+              "sdb_leash_tight"
+            ]
+          }
+        },
+        {
+          "id": "set_observe_line",
+          "label": "Promatračka linija: dosjei bez tvrde ruke.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "observe_line"
+              }
+            },
+            "desk_add": {
+              "sdb": {
+                "capacity": 3,
+                "agenda_tension": -2
+              },
+              "ssup": {
+                "capacity": 1
+              }
+            },
+            "federal.sdb_control": 3,
+            "federal.legitimacy": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "sdb_observe_line",
+              "ssup_observe_line",
+              "sdb_quiet_paper"
+            ],
+            "flags_remove": [
+              "sdb_leash_tight",
+              "ssup_hard_line"
+            ]
+          }
+        },
+        {
+          "id": "share_dossiers",
+          "label": "Podijeli dosjee Predsjedništvu i SIV-u — papir, ne racija.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "dossier_share"
+              }
+            },
+            "desk_add": {
+              "sdb": {
+                "loyalty": 2,
+                "capacity": 4
+              },
+              "siv": {
+                "capacity": 2
+              },
+              "presidency": {
+                "capacity": 1
+              }
+            },
+            "federal.sdb_control": 3,
+            "federal.siv_authority": 2,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "sdb_files_shared",
+              "sdb_dossier_channel",
+              "sdb_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "knin_watch",
+          "label": "Tihi nadzor Knina: promatranje, ne intervencija.",
+          "cost": {
+            "reform": 1
+          },
+          "conflict_warn": true,
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "knin_watch"
+              }
+            },
+            "desk_add": {
+              "sdb": {
+                "capacity": 3,
+                "agenda_tension": 4
+              },
+              "ssup": {
+                "agenda_tension": 2
+              }
+            },
+            "federal.sdb_control": 4,
+            "federal.war_risk": 1,
+            "HR.federal_trust": -2,
+            "SI.federal_trust": -1,
+            "flags_add": [
+              "sdb_knin_watch",
+              "ssup_knin_watch",
+              "sdb_observe_line"
+            ]
+          }
+        },
+        {
+          "id": "tighten_leash",
+          "label": "Zategni uze SDB — tvrđi servisni držaj.",
+          "cost": {
+            "reform": 1
+          },
+          "conflict_warn": true,
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "tight_leash"
+              }
+            },
+            "desk_add": {
+              "sdb": {
+                "loyalty": -2,
+                "capacity": 5,
+                "agenda_tension": 6
+              },
+              "ssup": {
+                "agenda_tension": 3
+              }
+            },
+            "federal.sdb_control": 6,
+            "federal.legitimacy": -1,
+            "federal.war_risk": 2,
+            "HR.federal_trust": -2,
+            "SI.federal_trust": -2,
+            "flags_add": [
+              "sdb_leash_tight",
+              "sdb_civilian_leash"
+            ],
+            "flags_remove": [
+              "sdb_observe_line"
+            ]
+          }
+        },
+        {
+          "id": "bind_ssup",
+          "label": "Veži SDB uz SSUP kanal — zajednički papir.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "observe_line"
+              },
+              "ssup": {
+                "posture": "observe"
+              }
+            },
+            "desk_add": {
+              "sdb": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              },
+              "ssup": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.sdb_control": 2,
+            "federal.legitimacy": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "sdb_ssup_bind",
+              "ssup_sdb_liaison",
+              "sdb_observe_line",
+              "ssup_observe_line",
+              "sdb_quiet_paper"
             ]
           }
         }

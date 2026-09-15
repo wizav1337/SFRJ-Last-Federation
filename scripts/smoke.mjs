@@ -57,14 +57,14 @@ catalogs.dialogues = [
   "markovic", "markovic_late", "mesic", "tudman",
   "bogicevic", "tupurkovski", "racan",
   "gligorov", "bucin", "izetbegovic", "bulatovic",
-  "mesic_late", "jovic_late", "loncar", "buzadzic", "bajramovic", "kostic",
+  "mesic_late", "jovic_late", "loncar", "buzadzic", "bajramovic", "kostic", "gracanin",
 ].map((id) => readJSON(`data/dialogue/${id}.json`));
 
 const acts = ["act1", "act2", "act3", "act4", "act5"].map((a) => readJSON(`data/events/${a}.json`));
 const flat = flattenActs(acts);
 
 const state = createNewState(catalogs);
-assert(state.save_schema === 12, "save_schema 12");
+assert(state.save_schema === 13, "save_schema 13");
 assert(state.attention_spent_desks === 0 && state.attention_spent_reforms === 0, "spend counters");
 
 initDesks(state, catalogs);
@@ -74,7 +74,7 @@ assert(cap === 3 || cap === 4, "attention cap");
 assert(state.attention_left === cap, "attention granted");
 
 const desks = listDesks(catalogs);
-assert(desks.length >= 18, "at least 18 desks (ssno)");
+assert(desks.length >= 19, "at least 19 desks (sdb)");
 assert(desks.some((d) => d.id === "justice"), "justice desk present");
 assert(desks.some((d) => d.id === "skj"), "skj desk present");
 assert(desks.some((d) => d.id === "assembly"), "assembly desk present");
@@ -189,6 +189,30 @@ assert(counselRes.ok, "apply counsel_presidency");
 assert(state.flags.ssno_chair_counsel, "flag ssno_chair_counsel after action");
 assert(state.desks.ssno?.posture === "chair_counsel", "posture chair_counsel after action");
 assert(!state.flags.player_used_jna_threat, "quiet SSNO counsel must not set player_used_jna_threat");
+state.attention_left = cap;
+state.attention_spent_desks = 0;
+state.attention_spent_reforms = 0;
+
+assert(desks.some((d) => d.id === "sdb"), "sdb desk present");
+assert(state.desks.sdb?.posture === "civilian_leash", "sdb default posture");
+const sdbActs = actionsForDesk(state, catalogs, "sdb");
+assert(sdbActs.some((a) => a.id === "set_civilian_leash"), "sdb set_civilian_leash");
+assert(sdbActs.some((a) => a.id === "set_observe_line"), "sdb set_observe_line");
+assert(sdbActs.some((a) => a.id === "share_dossiers"), "sdb share_dossiers");
+assert(sdbActs.some((a) => a.id === "knin_watch"), "sdb knin_watch");
+assert(sdbActs.some((a) => a.id === "tighten_leash"), "sdb tighten_leash");
+assert(sdbActs.some((a) => a.id === "bind_ssup"), "sdb bind_ssup");
+assert(actionsForDesk(state, catalogs, "ssup").some((a) => a.id === "liaison_sdb"), "ssup liaison_sdb");
+assert(actionsForDesk(state, catalogs, "ssup").some((a) => a.id === "accept_sdb_channel"), "ssup accept_sdb_channel");
+assert(actionsForDesk(state, catalogs, "siv").some((a) => a.id === "bind_sdb"), "siv bind_sdb");
+state.attention_left = 4;
+const obsAct = sdbActs.find((a) => a.id === "set_observe_line");
+assert(obsAct, "set_observe_line action object");
+const obsRes = applyDeskAction(state, catalogs, "sdb", "set_observe_line");
+assert(obsRes.ok, "apply set_observe_line");
+assert(state.flags.sdb_observe_line, "flag sdb_observe_line after action");
+assert(state.desks.sdb?.posture === "observe_line", "posture observe_line after action");
+assert(!state.flags.player_used_jna_threat, "quiet SDB observe must not set player_used_jna_threat");
 state.attention_left = cap;
 state.attention_spent_desks = 0;
 state.attention_spent_reforms = 0;
@@ -309,6 +333,14 @@ for (const id of [
   "desk_to_ssno_liaison",
   "desk_ssno_spring91",
   "confederal_ssno_memo",
+  "desk_sdb_open",
+  "desk_sdb_spring",
+  "desk_sdb_autumn",
+  "desk_ssup_sdb_bind",
+  "desk_sdb_before_pleb",
+  "desk_siv_sdb_leash",
+  "desk_sdb_spring91",
+  "confederal_sdb_memo",
 ]) {
   assert(ids.has(id), "event " + id);
 }
@@ -335,6 +367,7 @@ assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_ssip")
 assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_const_court"), "markovic const_court revisit");
 assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_provinces"), "markovic provinces revisit");
 assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_ssno"), "markovic ssno revisit");
+assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_sdb"), "markovic sdb revisit");
 const kadijevic = catalogs.dialogues.find((d) => d.id === "kadijevic");
 assert(kadijevic && (kadijevic.entries || []).some((e) => e.id === "revisit_ssno"), "kadijevic ssno revisit");
 assert(kadijevic && /SSNO|doktrin|inventur/i.test(JSON.stringify(kadijevic.nodes.revisit_ssno || {})), "kadijevic ssno language");
@@ -350,6 +383,9 @@ const bajramovic = catalogs.dialogues.find((d) => d.id === "bajramovic");
 assert(bajramovic && /Bajramović|Kosovo|sjedalo/i.test(JSON.stringify(bajramovic)), "bajramovic language");
 const kostic = catalogs.dialogues.find((d) => d.id === "kostic");
 assert(kostic && /Kostić|Vojvodina|sjedalo/i.test(JSON.stringify(kostic)), "kostic language");
+const gracanin = catalogs.dialogues.find((d) => d.id === "gracanin");
+assert(gracanin && /Gračanin|SDB|uze/i.test(JSON.stringify(gracanin)), "gracanin SDB language");
+assert(!(gracanin.nodes.start.choices || []).some((c) => /priznaj seces|priznanje neovisnosti/i.test(c.label || "")), "gracanin no secession recognition");
 const bul = catalogs.dialogues.find((d) => d.id === "bulatovic");
 assert(bul && /Titograd/i.test(JSON.stringify(bul)), "bulatovic Titograd");
 assert(!/Podgorica/i.test(JSON.stringify(bul)), "bulatovic not Podgorica");
@@ -378,6 +414,9 @@ assert(!(provMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.t
 const ssnoMemo = flat.find((e) => e.id === "confederal_ssno_memo");
 assert(ssnoMemo && /Izetbegović–Gligorov|I–G/i.test((ssnoMemo.briefing || "") + (ssnoMemo.constitutional_note || "")), "ssno memo excludes I-G");
 assert(!(ssnoMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.test(c.label || "")), "no accept I-G on ssno memo");
+const sdbMemo = flat.find((e) => e.id === "confederal_sdb_memo");
+assert(sdbMemo && /Izetbegović–Gligorov|I–G/i.test((sdbMemo.briefing || "") + (sdbMemo.constitutional_note || "")), "sdb memo excludes I-G");
+assert(!(sdbMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.test(c.label || "")), "no accept I-G on sdb memo");
 
 // Slice A end date invariant
 assert(!ids.has("june_war") && !flat.some((e) => (e.date || "") > "1991-05-15" && e.id !== "slice_close"), "no post-15 May cards");
@@ -396,4 +435,5 @@ console.log("smoke OK", {
   pass10: ["const_court", "buzadzic", "revisit_const_court", "refer_to_court", "docket_watch"],
   pass11: ["provinces", "bajramovic", "kostic", "revisit_provinces", "independent_votes", "province_dossier"],
   pass12: ["ssno", "revisit_ssno", "bind_ssno_doctrine", "liaison_ssno", "confederal_ssno_memo"],
+  pass13: ["sdb", "gracanin", "revisit_sdb", "liaison_sdb", "bind_sdb", "confederal_sdb_memo"],
 });

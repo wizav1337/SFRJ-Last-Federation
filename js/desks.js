@@ -53,6 +53,7 @@ const POSTURE_FLAG_MAP = {
   const_court: { docket_open: "const_court_docket_open", stall: "const_court_stalled", yield_republics: "const_court_yields", bind_justice: "const_court_bind_justice" },
   provinces: { bloc_aligned: "provinces_bloc_tight", observe: "provinces_observe", vote_independent: "provinces_vote_independently", mediate_seats: "provinces_mediate" },
   ssno: { doctrine_federal: "ssno_doctrine_federal", inventory_audit: "ssno_inventory_audit", to_coordinate: "ssno_to_coordinate", chair_counsel: "ssno_chair_counsel" },
+  sdb: { civilian_leash: "sdb_civilian_leash", observe_line: "sdb_observe_line", dossier_share: "sdb_dossier_channel", knin_watch: "sdb_knin_watch", tight_leash: "sdb_leash_tight" },
 };
 
 export function initDesks(state, catalog) {
@@ -75,7 +76,7 @@ export function initDesks(state, catalog) {
   if (state.attention_left == null) state.attention_left = 0;
   if (!state.attention_month) state.attention_month = "";
   // Save migration: Pass 3 schema (shared attention + multi-visit dialogue)
-  if (state.save_schema == null || state.save_schema < 12) state.save_schema = 12;
+  if (state.save_schema == null || state.save_schema < 13) state.save_schema = 13;
   syncDeskFlagsFromPosture(state);
 }
 
@@ -162,6 +163,7 @@ export function deskConflictWarnings(state) {
   if (state.flags.const_court_yields || state.flags.const_court_stalled || state.desks?.const_court?.posture === "yield_republics" || state.desks?.const_court?.posture === "stall") hard.push("const_court");
   if (state.flags.provinces_bloc_tight || state.desks?.provinces?.posture === "bloc_aligned") hard.push("provinces");
   if (state.flags.ssno_inventory_audit || state.desks?.ssno?.posture === "inventory_audit") hard.push("ssno");
+  if (state.flags.sdb_leash_tight || state.desks?.sdb?.posture === "tight_leash") hard.push("sdb");
   if (!hard.length && !state.flags.desk_conflict_soft_lock && !state.flags.desk_conflict_hard_conf) return [];
   const out = [];
   if (hard.length || state.flags.desk_conflict_hard_conf) {
@@ -196,6 +198,7 @@ export function isHardlineConflictAction(deskId, action) {
     const_court: ["yield_republics", "stall"],
     provinces: ["bloc_aligned"],
     ssno: ["inventory_audit"],
+    sdb: ["tight_leash", "knin_watch"],
   };
   return (hard[deskId] || []).includes(posture);
 }
@@ -846,6 +849,38 @@ export function applyDeskMonthlyPosture(state, scale = 1) {
       (state.flags.const_court_yields || state.flags.const_court_stalled ? 1 : 0) +
       (state.flags.provinces_bloc_tight ? 1 : 0) +
       (state.flags.ssno_inventory_audit ? 1 : 0);
+
+  const sdb = state.desks.sdb;
+  if (sdb) {
+    if (sdb.posture === "civilian_leash" || state.flags.sdb_civilian_leash) {
+      f.sdb_control = clamp(f.sdb_control + 0.25 * s);
+      f.war_risk = clamp(f.war_risk - 0.1 * s);
+      sdb.loyalty = clamp(sdb.loyalty + 0.1 * s);
+    } else if (sdb.posture === "observe_line" || state.flags.sdb_observe_line) {
+      f.sdb_control = clamp(f.sdb_control + 0.15 * s);
+      f.war_risk = clamp(f.war_risk - 0.05 * s);
+    } else if (sdb.posture === "dossier_share" || state.flags.sdb_dossier_channel) {
+      f.sdb_control = clamp(f.sdb_control + 0.2 * s);
+      f.legitimacy = clamp(f.legitimacy + 0.1 * s);
+      sdb.capacity = clamp(sdb.capacity + 0.1 * s);
+    } else if (sdb.posture === "knin_watch" || state.flags.sdb_knin_watch) {
+      f.sdb_control = clamp(f.sdb_control + 0.3 * s);
+      f.war_risk = clamp(f.war_risk + 0.15 * s);
+      sdb.agenda_tension = clamp(sdb.agenda_tension + 0.15 * s);
+    } else if (sdb.posture === "tight_leash" || state.flags.sdb_leash_tight) {
+      f.sdb_control = clamp(f.sdb_control + 0.4 * s);
+      f.war_risk = clamp(f.war_risk + 0.2 * s);
+      f.legitimacy = clamp(f.legitimacy - 0.1 * s);
+    }
+    if (state.flags.ssup_sdb_liaison || state.flags.sdb_ssup_bind) {
+      f.sdb_control = clamp(f.sdb_control + 0.1 * s);
+    }
+    if (state.flags.sdb_siv_bind) {
+      f.siv_authority = clamp(f.siv_authority + 0.1 * s);
+      f.sdb_control = clamp(f.sdb_control + 0.1 * s);
+    }
+  }
+
     if (hardCount >= 2) {
       f.war_risk = clamp(f.war_risk + 0.35 * s * hardCount);
       f.presidency_cohesion = clamp(f.presidency_cohesion - 0.2 * s);
@@ -892,6 +927,7 @@ export function confederalStackDepth(state) {
   if (f.confederal_const_court_memo || f.const_court_docket_open || f.const_court_bind_justice) n += 1;
   if (f.confederal_provinces_memo || f.provinces_mediate || f.provinces_vote_independently || f.presidency_province_quorum) n += 1;
   if (f.confederal_ssno_memo || f.ssno_doctrine_federal || f.ssno_chair_counsel || f.jna_ssno_doctrine_bind) n += 1;
+  if (f.confederal_sdb_memo || f.sdb_civilian_leash || f.sdb_observe_line || f.sdb_siv_bind) n += 1;
   if (f.dialogue_mesic_late_duty || f.dialogue_mesic_late_conf) n += 1;
   if (f.dialogue_jovic_late_quorum) n += 1;
   return n;
@@ -1024,6 +1060,14 @@ export function syncDeskFlagsFromPosture(state) {
     state.flags.ssno_inventory_audit = ssnoD.posture === "inventory_audit";
     state.flags.ssno_to_coordinate = ssnoD.posture === "to_coordinate";
     state.flags.ssno_chair_counsel = ssnoD.posture === "chair_counsel";
+  }
+  const sdbD = state.desks.sdb;
+  if (sdbD) {
+    state.flags.sdb_civilian_leash = sdbD.posture === "civilian_leash" || state.flags.sdb_civilian_leash;
+    state.flags.sdb_observe_line = sdbD.posture === "observe_line";
+    state.flags.sdb_dossier_channel = sdbD.posture === "dossier_share" || state.flags.sdb_dossier_channel;
+    state.flags.sdb_knin_watch = sdbD.posture === "knin_watch";
+    state.flags.sdb_leash_tight = sdbD.posture === "tight_leash";
   }
 }
 

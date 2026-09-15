@@ -1805,6 +1805,93 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_sdb_spring",
+      "date": "1990-05-05",
+      "act": 2,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "SDB: proljetna postava uziza",
+      "location": "Beograd — SDB",
+      "briefing": "Nakon proljetnih listića SDB traži držaj: meki uze, Knin na oku ili zategnuti servis. Sve papir. Nema fronte. Marković = predsjednik SIV-a.",
+      "constitutional_note": "Servis ne smije samostalno otvoriti intervenciju.",
+      "documents": [
+        "1974_presidency"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_sdb_open_seen",
+          "sdb_civilian_leash",
+          "sdb_observe_line",
+          "multiparty_wave",
+          "slovenia_elections_done",
+          "croatia_elections_done"
+        ]
+      },
+      "choices": [
+        {
+          "id": "spring_leash",
+          "label": "Drži civilni uze.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "civilian_leash"
+              }
+            },
+            "federal.sdb_control": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "sdb_civilian_leash",
+              "desk_event_sdb_spring_seen",
+              "sdb_quiet_paper"
+            ],
+            "flags_remove": [
+              "sdb_leash_tight"
+            ]
+          }
+        },
+        {
+          "id": "spring_knin",
+          "label": "Tihi nadzor Knina.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "knin_watch"
+              }
+            },
+            "federal.sdb_control": 3,
+            "federal.war_risk": 1,
+            "HR.federal_trust": -1,
+            "flags_add": [
+              "sdb_knin_watch",
+              "ssup_knin_watch",
+              "desk_event_sdb_spring_seen"
+            ]
+          }
+        },
+        {
+          "id": "spring_tight",
+          "label": "Zategni uze — tvrđi servis.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "sdb": {
+                "posture": "tight_leash"
+              }
+            },
+            "federal.sdb_control": 4,
+            "federal.war_risk": 2,
+            "flags_add": [
+              "sdb_leash_tight",
+              "sdb_civilian_leash",
+              "desk_event_sdb_spring_seen"
+            ]
+          }
+        }
+      ]
     }
   ]
 }
