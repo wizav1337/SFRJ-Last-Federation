@@ -2090,6 +2090,95 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_industry_open",
+      "date": "1990-02-22",
+      "act": 1,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Industrija: savezni sekretarijat za energetiku",
+      "location": "Beograd — Savezni sekretarijat za energetiku i industriju",
+      "briefing": "Savezni sekretarijat za energetiku i industriju stoji kao mirnodopski sloj: stabilnost mreže, output, meka nabava za postrojenja, potpora reformi. To nije Financije, FER, Poljoprivreda ni Rad — nego energetsko-industrijski šalter. Marković ostaje predsjednik SIV-a. Tihi papir ne postavlja player_used_jna_threat. Nema rata.",
+      "constitutional_note": "Industrija ne zamjenjuje Predsjedništvo ni SIV; civilni lanac ostaje politički.",
+      "documents": [
+        "1974_presidency",
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "markovic_mandate_strong",
+          "multiparty_wave",
+          "siv_austerity_stance",
+          "fer_trade_open",
+          "industry_grid_stable",
+          "skj_renounced_monopoly",
+          "finance_transfers_open"
+        ]
+      },
+      "choices": [
+        {
+          "id": "open_grid",
+          "label": "Otvori šalter: stabilna mreža.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "industry": {
+                "posture": "grid_stable"
+              }
+            },
+            "federal.energy_security": 3,
+            "federal.legitimacy": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "industry_grid_stable",
+              "desk_event_industry_open_seen",
+              "industry_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "open_plant",
+          "label": "Meka nabava za postrojenja — trgovinski kanal.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "industry": {
+                "posture": "plant_soft"
+              }
+            },
+            "federal.energy_security": 2,
+            "federal.inter_republic_trade": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "industry_plant_soft",
+              "desk_event_industry_open_seen",
+              "industry_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "open_reform",
+          "label": "Potpora reformi uz Markovića.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "industry": {
+                "posture": "reform_support"
+              }
+            },
+            "federal.energy_security": 2,
+            "federal.reform_momentum": 2,
+            "federal.siv_authority": 1,
+            "flags_add": [
+              "industry_reform_support",
+              "desk_event_industry_open_seen",
+              "industry_quiet_paper",
+              "markovic_mandate_strong"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

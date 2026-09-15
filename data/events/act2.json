@@ -2062,6 +2062,91 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_industry_spring",
+      "date": "1990-05-10",
+      "act": 2,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Proljetna postava Industrije",
+      "location": "Beograd — Savezni sekretarijat za energetiku i industriju",
+      "briefing": "Proljeće 1990.: šalter industrije traži jasniju postavu — stabilna mreža, meka nabava za postrojenja ili potpora outputu. Tihi papir. Nema rata.",
+      "constitutional_note": "Industrija ostaje u SIV lancu; bez vojnog jezika.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_industry_open_seen",
+          "industry_grid_stable",
+          "industry_plant_soft",
+          "industry_reform_support",
+          "markovic_mandate_strong"
+        ]
+      },
+      "choices": [
+        {
+          "id": "spring_grid",
+          "label": "Drži stabilnu mrežu.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "industry": {
+                "posture": "grid_stable"
+              }
+            },
+            "federal.energy_security": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "industry_grid_stable",
+              "desk_event_industry_spring_seen",
+              "industry_quiet_paper"
+            ],
+            "flags_remove": [
+              "industry_harden_ration"
+            ]
+          }
+        },
+        {
+          "id": "spring_plant",
+          "label": "Meka nabava uz Financije / FER.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "industry": {
+                "posture": "plant_soft"
+              }
+            },
+            "federal.energy_security": 2,
+            "federal.hard_currency": 1,
+            "flags_add": [
+              "industry_plant_soft",
+              "desk_event_industry_spring_seen",
+              "industry_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "spring_output",
+          "label": "Potpora outputu.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "industry": {
+                "posture": "output_support"
+              }
+            },
+            "federal.energy_security": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "industry_output_support",
+              "desk_event_industry_spring_seen",
+              "industry_quiet_paper"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

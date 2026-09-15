@@ -2099,6 +2099,161 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_industry_before_pleb",
+      "date": "1990-12-13",
+      "act": 4,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Industrija pred savjetodavnim plebiscitom",
+      "location": "Beograd — Savezni sekretarijat za energetiku i industriju",
+      "briefing": "Pred zimskim pritiscima: Industrija može držati stabilnu mrežu, potporu reformi ili potporu outputu. Bez vojnog jezika. Nema rata.",
+      "constitutional_note": "Plebiscitni kontekst ne otvara frontu na industrijskom šalteru.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_industry_open_seen",
+          "industry_grid_stable",
+          "industry_reform_support",
+          "desk_event_industry_autumn_seen",
+          "dialogue_santo"
+        ]
+      },
+      "choices": [
+        {
+          "id": "pleb_grid",
+          "label": "Stabilna mreža pred glasanjem.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "industry": {
+                "posture": "grid_stable"
+              }
+            },
+            "federal.energy_security": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "industry_grid_stable",
+              "desk_event_industry_pleb_seen",
+              "industry_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "pleb_reform",
+          "label": "Reformski paket industrije.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "industry": {
+                "posture": "reform_support"
+              }
+            },
+            "federal.reform_momentum": 2,
+            "federal.energy_security": 2,
+            "flags_add": [
+              "industry_reform_support",
+              "desk_event_industry_pleb_seen",
+              "industry_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "pleb_output",
+          "label": "Potpora outputu.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "industry": {
+                "posture": "output_support"
+              }
+            },
+            "federal.energy_security": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "industry_output_support",
+              "desk_event_industry_pleb_seen",
+              "industry_quiet_paper"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_fer_industry_liaison",
+      "date": "1990-12-21",
+      "act": 4,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "FER ↔ Industrija: energetsko-trgovački kanal",
+      "location": "Beograd — FER / Industrija",
+      "briefing": "FER i Industrija mogu dijeliti energetsko-trgovački kanal — postrojenja bez fronte. Tihi papir. Nema rata.",
+      "constitutional_note": "Kanal ne čini Markovića predsjednikom Jugoslavije.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_industry_open_seen",
+          "fer_trade_open",
+          "industry_output_support",
+          "fer_industry_liaison",
+          "desk_event_industry_pleb_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "fer_link",
+          "label": "Otvori FER–Industrija kanal.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "fer": {
+                "posture": "trade_open"
+              },
+              "industry": {
+                "posture": "output_support"
+              }
+            },
+            "federal.energy_security": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "fer_industry_liaison",
+              "industry_output_support",
+              "desk_event_fer_industry_liaison_seen",
+              "industry_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "fer_accept",
+          "label": "Prihvati energetski koridor u FER-u.",
+          "legal": "political",
+          "effects": {
+            "federal.energy_security": 2,
+            "federal.reform_momentum": 1,
+            "flags_add": [
+              "fer_industry_energy",
+              "industry_output_support",
+              "desk_event_fer_industry_liaison_seen",
+              "industry_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "fer_hold",
+          "label": "Zadrži odvojene šaltere.",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "desk_event_fer_industry_liaison_seen"
+            ]
+          }
+        }
+      ]
     }
   ]
 }
