@@ -35,6 +35,8 @@ export function recomputeWarRisk(state) {
   if (state.flags.agriculture_harden_quota) w += 1;
   if (state.flags.industry_grid_stable || state.flags.industry_quiet_paper) w -= 1;
   if (state.flags.industry_harden_ration) w += 1;
+  if (state.flags.trade_market_calm || state.flags.trade_quiet_paper) w -= 1;
+  if (state.flags.trade_harden_controls) w += 1;
   if (state.flags.ssup_observe_line) w -= 0.5;
   if (state.flags.dialogue_kucan_charter) w -= 1;
   if (state.flags.confederal_stack_memo) w -= 0.5;
@@ -167,6 +169,12 @@ export function buildMonthlyReport(state, before, months) {
   if (state.flags.industry_reform_support || state.desks?.industry?.posture === "reform_support") drivers.push("Industrija: potpora reformi");
   if (state.flags.industry_harden_ration || state.desks?.industry?.posture === "harden_ration") drivers.push("Industrija: tvrđe racije");
   if (state.flags.confederal_industry_memo) drivers.push("memorandum Industrije uz konfederalni stol");
+  if (state.flags.trade_market_calm || state.desks?.trade?.posture === "market_calm") drivers.push("Trgovina: smirenje tržišta");
+  if (state.flags.trade_shelf_soft || state.desks?.trade?.posture === "shelf_soft") drivers.push("Trgovina: meke police");
+  if (state.flags.trade_price_corridor || state.desks?.trade?.posture === "price_corridor") drivers.push("Trgovina: cjenovni koridor");
+  if (state.flags.trade_reform_support || state.desks?.trade?.posture === "reform_support") drivers.push("Trgovina: potpora reformi");
+  if (state.flags.trade_harden_controls || state.desks?.trade?.posture === "harden_controls") drivers.push("Trgovina: tvrđe kontrole");
+  if (state.flags.confederal_trade_memo) drivers.push("memorandum Trgovine uz konfederalni stol");
   if (state.flags.ssup_observe_line) drivers.push("SSUP u promatračkoj postavi");
   if (state.flags.confederal_stack_memo) drivers.push("memorandum konfederalnog stoga");
   if (state.flags.dialogue_kucan_charter) drivers.push("Kučan: potpis na konfederalnoj traci");

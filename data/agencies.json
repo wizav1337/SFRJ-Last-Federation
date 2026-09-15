@@ -199,6 +199,16 @@
       "competence": "energetika / industrijski output / meka nabava za postrojenja / potpora reformi (Pass 16 šalter)",
       "dissolve_legal": "presidency_decree",
       "short": "Industrija"
+    },
+    {
+      "id": "trade",
+      "name": "Savezni sekretarijat za unutarnju trgovinu",
+      "kind": "secretariat",
+      "desk": "SIV",
+      "status": "active",
+      "competence": "unutarnja trgovina / meki koridori / smirenje cijena / police u republikama / potpora reformi (Pass 17 šalter)",
+      "dissolve_legal": "presidency_decree",
+      "short": "Trgovina"
     }
   ]
 }

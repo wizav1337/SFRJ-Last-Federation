@@ -57,6 +57,7 @@ const POSTURE_FLAG_MAP = {
   labor: { social_peace: "labor_social_peace", strike_cool: "labor_strike_cool", reform_support: "labor_reform_support", wage_corridor: "labor_wage_corridor", harden_line: "labor_harden_line" },
   agriculture: { food_security: "agriculture_food_security", procurement_soft: "agriculture_procurement_soft", farm_relief: "agriculture_farm_relief", reform_support: "agriculture_reform_support", harden_quota: "agriculture_harden_quota" },
   industry: { grid_stable: "industry_grid_stable", plant_soft: "industry_plant_soft", output_support: "industry_output_support", reform_support: "industry_reform_support", harden_ration: "industry_harden_ration" },
+  trade: { market_calm: "trade_market_calm", shelf_soft: "trade_shelf_soft", price_corridor: "trade_price_corridor", reform_support: "trade_reform_support", harden_controls: "trade_harden_controls" },
 };
 
 export function initDesks(state, catalog) {
@@ -169,6 +170,8 @@ export function deskConflictWarnings(state) {
   if (state.flags.sdb_leash_tight || state.desks?.sdb?.posture === "tight_leash") hard.push("sdb");
   if (state.flags.labor_harden_line || state.desks?.labor?.posture === "harden_line") hard.push("labor");
   if (state.flags.agriculture_harden_quota || state.desks?.agriculture?.posture === "harden_quota") hard.push("agriculture");
+  if (state.flags.industry_harden_ration || state.desks?.industry?.posture === "harden_ration") hard.push("industry");
+  if (state.flags.trade_harden_controls || state.desks?.trade?.posture === "harden_controls") hard.push("trade");
   if (!hard.length && !state.flags.desk_conflict_soft_lock && !state.flags.desk_conflict_hard_conf) return [];
   const out = [];
   if (hard.length || state.flags.desk_conflict_hard_conf) {
@@ -207,6 +210,7 @@ export function isHardlineConflictAction(deskId, action) {
     labor: ["harden_line"],
     agriculture: ["harden_quota"],
     industry: ["harden_ration"],
+    trade: ["harden_controls"],
   };
   return (hard[deskId] || []).includes(posture);
 }
@@ -973,6 +977,33 @@ export function applyDeskMonthlyPosture(state, scale = 1) {
     }
   }
 
+  const trade = state.desks.trade;
+  if (trade) {
+    if (trade.posture === "market_calm" || state.flags.trade_market_calm) {
+      f.internal_market = clamp((f.internal_market ?? 50) + 0.25 * s);
+      f.legitimacy = clamp(f.legitimacy + 0.1 * s);
+      trade.loyalty = clamp(trade.loyalty + 0.1 * s);
+    } else if (trade.posture === "shelf_soft" || state.flags.trade_shelf_soft) {
+      f.internal_market = clamp((f.internal_market ?? 50) + 0.2 * s);
+      f.inter_republic_trade = clamp(f.inter_republic_trade + 0.1 * s);
+    } else if (trade.posture === "price_corridor" || state.flags.trade_price_corridor) {
+      f.internal_market = clamp((f.internal_market ?? 50) + 0.15 * s);
+      f.inflation = clamp(f.inflation - 0.1 * s);
+    } else if (trade.posture === "reform_support" || state.flags.trade_reform_support) {
+      f.internal_market = clamp((f.internal_market ?? 50) + 0.15 * s);
+      f.reform_momentum = clamp(f.reform_momentum + 0.15 * s);
+      trade.capacity = clamp(trade.capacity + 0.1 * s);
+    } else if (trade.posture === "harden_controls" || state.flags.trade_harden_controls) {
+      f.internal_market = clamp((f.internal_market ?? 50) - 0.1 * s);
+      f.war_risk = clamp(f.war_risk + 0.15 * s);
+      trade.agenda_tension = clamp(trade.agenda_tension + 0.15 * s);
+    }
+    if (state.flags.trade_siv_bind) {
+      f.siv_authority = clamp(f.siv_authority + 0.1 * s);
+      f.internal_market = clamp((f.internal_market ?? 50) + 0.1 * s);
+    }
+  }
+
   // Pass 3: confederal stack — Kučan/Jović/Mesić/mediation quietly supports E3 path
   const confStack = confederalStackDepth(state);
   if (confStack >= 2 && state.flags.confederal_talks_open) {
@@ -1017,6 +1048,7 @@ export function confederalStackDepth(state) {
   if (f.confederal_labor_memo || f.labor_social_peace || f.labor_reform_support || f.labor_siv_bind) n += 1;
   if (f.confederal_agriculture_memo || f.agriculture_food_security || f.agriculture_reform_support || f.agriculture_siv_bind) n += 1;
   if (f.confederal_industry_memo || f.industry_grid_stable || f.industry_reform_support || f.industry_siv_bind) n += 1;
+  if (f.confederal_trade_memo || f.trade_market_calm || f.trade_reform_support || f.trade_siv_bind) n += 1;
   if (f.dialogue_mesic_late_duty || f.dialogue_mesic_late_conf) n += 1;
   if (f.dialogue_jovic_late_quorum) n += 1;
   return n;
@@ -1182,6 +1214,14 @@ export function syncDeskFlagsFromPosture(state) {
     state.flags.industry_reform_support = indD.posture === "reform_support" || state.flags.industry_reform_support;
     state.flags.industry_harden_ration = indD.posture === "harden_ration";
   }
+  const tradeD = state.desks.trade;
+  if (tradeD) {
+    state.flags.trade_market_calm = tradeD.posture === "market_calm" || state.flags.trade_market_calm;
+    state.flags.trade_shelf_soft = tradeD.posture === "shelf_soft" || state.flags.trade_shelf_soft;
+    state.flags.trade_price_corridor = tradeD.posture === "price_corridor" || state.flags.trade_price_corridor;
+    state.flags.trade_reform_support = tradeD.posture === "reform_support" || state.flags.trade_reform_support;
+    state.flags.trade_harden_controls = tradeD.posture === "harden_controls";
+  }
 }
 
 /** Compact strip chips for UI — id + short posture label + tone. */
@@ -1191,8 +1231,8 @@ export function deskStatusChips(state, catalog) {
     const rt = deskRuntime(state, d.id);
     const posture = rt?.posture || d.posture_default || "default";
     let tone = "neutral";
-    if (["alert", "hard", "hardline", "inventory", "fragment", "political", "freeze", "hard_unity", "stalled", "customs_hard", "rubber_stamp", "politicized", "party_capture", "paralyzed", "isolation", "yield_republics", "stall", "bloc_aligned", "harden_line", "harden_quota", "harden_ration", "tight_leash", "knin_watch", "inventory_audit"].includes(posture)) tone = "warn";
-    if (["garrison", "mediate", "soft", "coordinate", "tight", "open", "technocrat", "observe", "constitutional", "arbitrate", "soft_federal", "cede_siv", "trade_open", "imf_line", "session_open", "open_south", "target_mk_me", "mass_front_open", "civic_forum", "nonaligned", "ec_track", "docket_open", "bind_justice", "ec_dialogue", "vote_independent", "mediate_seats", "social_peace", "strike_cool", "reform_support", "wage_corridor", "food_security", "procurement_soft", "farm_relief", "grid_stable", "plant_soft", "output_support", "civilian_leash", "observe_line", "doctrine_federal"].includes(posture)) tone = "good";
+    if (["alert", "hard", "hardline", "inventory", "fragment", "political", "freeze", "hard_unity", "stalled", "customs_hard", "rubber_stamp", "politicized", "party_capture", "paralyzed", "isolation", "yield_republics", "stall", "bloc_aligned", "harden_line", "harden_quota", "harden_ration", "harden_controls", "tight_leash", "knin_watch", "inventory_audit"].includes(posture)) tone = "warn";
+    if (["garrison", "mediate", "soft", "coordinate", "tight", "open", "technocrat", "observe", "constitutional", "arbitrate", "soft_federal", "cede_siv", "trade_open", "imf_line", "session_open", "open_south", "target_mk_me", "mass_front_open", "civic_forum", "nonaligned", "ec_track", "docket_open", "bind_justice", "ec_dialogue", "vote_independent", "mediate_seats", "social_peace", "strike_cool", "reform_support", "wage_corridor", "food_security", "procurement_soft", "farm_relief", "grid_stable", "plant_soft", "output_support", "market_calm", "shelf_soft", "price_corridor", "civilian_leash", "observe_line", "doctrine_federal"].includes(posture)) tone = "good";
     return {
       id: d.id,
       name: d.name,

@@ -338,6 +338,13 @@ function pathNotes(state) {
   if (state.flags.confederal_industry_memo) notes.push(t("path.industryMemo"));
   if (state.flags.talked_santo || state.flags.dialogue_santo) notes.push(t("path.santo"));
   if (state.flags.dialogue_markovic_industry) notes.push(t("path.markovicIndustry"));
+  if (state.flags.trade_market_calm) notes.push(t("path.tradeCalm"));
+  else if (state.flags.trade_shelf_soft) notes.push(t("path.tradeShelves"));
+  else if (state.flags.trade_price_corridor) notes.push(t("path.tradePrice"));
+  else if (state.flags.trade_reform_support) notes.push(t("path.tradeReform"));
+  if (state.flags.confederal_trade_memo) notes.push(t("path.tradeMemo"));
+  if (state.flags.talked_nazmi || state.flags.dialogue_nazmi) notes.push(t("path.nazmi"));
+  if (state.flags.dialogue_markovic_trade) notes.push(t("path.markovicTrade"));
   const stack = confederalStackDepth(state);
   if (stack >= 3) notes.push(t("path.stackDepth", { n: stack }));
   return notes;

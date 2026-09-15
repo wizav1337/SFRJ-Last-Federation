@@ -2179,6 +2179,95 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_trade_open",
+      "date": "1990-02-28",
+      "act": 1,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Trgovina: savezni sekretarijat za unutarnju trgovinu",
+      "location": "Beograd — Savezni sekretarijat za unutarnju trgovinu",
+      "briefing": "Savezni sekretarijat za unutarnju trgovinu stoji kao mirnodopski sloj: meki koridori, smirenje cijena, police u republikama, potpora reformi. To nije FER, Financije, Industrija ni Poljoprivreda — nego unutarnji trgovački šalter. Marković ostaje predsjednik SIV-a. Tihi papir ne postavlja player_used_jna_threat. Nema rata.",
+      "constitutional_note": "Trgovina ne zamjenjuje Predsjedništvo ni SIV; civilni lanac ostaje politički.",
+      "documents": [
+        "1974_presidency",
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "markovic_mandate_strong",
+          "multiparty_wave",
+          "siv_austerity_stance",
+          "fer_trade_open",
+          "trade_market_calm",
+          "skj_renounced_monopoly",
+          "finance_transfers_open"
+        ]
+      },
+      "choices": [
+        {
+          "id": "open_calm",
+          "label": "Otvori šalter: smirenje tržišta.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "trade": {
+                "posture": "market_calm"
+              }
+            },
+            "federal.internal_market": 3,
+            "federal.legitimacy": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "trade_market_calm",
+              "desk_event_trade_open_seen",
+              "trade_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "open_shelves",
+          "label": "Meke police — međurepublički kanal.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "trade": {
+                "posture": "shelf_soft"
+              }
+            },
+            "federal.internal_market": 2,
+            "federal.inter_republic_trade": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "trade_shelf_soft",
+              "desk_event_trade_open_seen",
+              "trade_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "open_reform",
+          "label": "Potpora reformi uz Markovića.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "trade": {
+                "posture": "reform_support"
+              }
+            },
+            "federal.internal_market": 2,
+            "federal.reform_momentum": 2,
+            "federal.siv_authority": 1,
+            "flags_add": [
+              "trade_reform_support",
+              "desk_event_trade_open_seen",
+              "trade_quiet_paper",
+              "markovic_mandate_strong"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

@@ -2147,6 +2147,92 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_trade_spring",
+      "date": "1990-05-16",
+      "act": 2,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Proljetna postava Trgovine",
+      "location": "Beograd — Savezni sekretarijat za unutarnju trgovinu",
+      "briefing": "Proljeće 1990.: šalter unutarnje trgovine traži jasniju postavu — smirenje tržišta, meke police ili cjenovni koridor. Tihi papir. Nema rata.",
+      "constitutional_note": "Trgovina ostaje u SIV lancu; bez vojnog jezika.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_trade_open_seen",
+          "trade_market_calm",
+          "trade_shelf_soft",
+          "trade_reform_support",
+          "markovic_mandate_strong"
+        ]
+      },
+      "choices": [
+        {
+          "id": "spring_calm",
+          "label": "Drži smirenje tržišta.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "trade": {
+                "posture": "market_calm"
+              }
+            },
+            "federal.internal_market": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "trade_market_calm",
+              "desk_event_trade_spring_seen",
+              "trade_quiet_paper"
+            ],
+            "flags_remove": [
+              "trade_harden_controls"
+            ]
+          }
+        },
+        {
+          "id": "spring_shelves",
+          "label": "Meke police uz Financije / FER.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "trade": {
+                "posture": "shelf_soft"
+              }
+            },
+            "federal.internal_market": 2,
+            "federal.hard_currency": 1,
+            "flags_add": [
+              "trade_shelf_soft",
+              "desk_event_trade_spring_seen",
+              "trade_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "spring_price",
+          "label": "Cjenovni koridor.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "trade": {
+                "posture": "price_corridor"
+              }
+            },
+            "federal.internal_market": 2,
+            "federal.inflation": -1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "trade_price_corridor",
+              "desk_event_trade_spring_seen",
+              "trade_quiet_paper"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

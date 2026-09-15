@@ -807,5 +807,21 @@
   "path.industryReform": "Industrija: potpora reformi",
   "path.industryMemo": "memorandum Industrije uz konfederalni stol",
   "path.santo": "glas Santa (Industrija)",
-  "path.markovicIndustry": "Marković o Industriji"
+  "path.markovicIndustry": "Marković o Industriji",
+  "desk.posture.market_calm": "Smirenje tržišta",
+  "desk.posture.shelf_soft": "Meke police",
+  "desk.posture.price_corridor": "Cjenovni koridor",
+  "desk.posture.harden_controls": "Tvrđe kontrole",
+  "desk.chip.market_calm": "Mir",
+  "desk.chip.shelf_soft": "Police",
+  "desk.chip.price_corridor": "Cijene",
+  "desk.chip.harden_controls": "Kontrole",
+  "ency.timelinePass17": "šalter Trgovina; Mustafa Nazmi; produbljeni Financije/SIV/FER; gated kartice; save_schema 17",
+  "path.tradeCalm": "Trgovina: smirenje tržišta",
+  "path.tradeShelves": "Trgovina: meke police",
+  "path.tradePrice": "Trgovina: cjenovni koridor",
+  "path.tradeReform": "Trgovina: potpora reformi",
+  "path.tradeMemo": "memorandum Trgovine uz konfederalni stol",
+  "path.nazmi": "glas Mustafe Nazmija (Trgovina)",
+  "path.markovicTrade": "Marković o Trgovini"
 }

@@ -1033,6 +1033,86 @@
           }
         }
       ]
+    },
+    "revisit_trade": {
+      "text": "Marković — predsjednik SIV-a — gleda Trgovinu. „Mustafa Nazmi drži sekretarijat; smirenje tržišta i potpora reformi smiruju; tvrđe kontrole dižu rizik. Ja ne vodim police — tražim papir koji SIV može čitati. Nema rata.“",
+      "choices": [
+        {
+          "id": "tr_calm",
+          "label": "Smirenje tržišta — SIV iznad nestašice na policama.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 2,
+            "federal.internal_market": 4,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "dialogue_markovic_trade",
+              "trade_market_calm",
+              "trade_siv_bind",
+              "markovic_mandate_strong",
+              "trade_quiet_paper"
+            ],
+            "flags_remove": [
+              "trade_harden_controls"
+            ],
+            "desk_set": {
+              "trade": {
+                "posture": "market_calm"
+              },
+              "siv": {
+                "posture": "technocrat"
+              }
+            }
+          }
+        },
+        {
+          "id": "tr_reform",
+          "label": "Unutarnji trgovački paket uz reformu — potpora Markoviću.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 2,
+            "federal.internal_market": 3,
+            "federal.reform_momentum": 3,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "dialogue_markovic_trade",
+              "trade_reform_support",
+              "trade_siv_bind",
+              "trade_quiet_paper",
+              "markovic_mandate_strong"
+            ],
+            "desk_set": {
+              "trade": {
+                "posture": "reform_support"
+              }
+            }
+          }
+        },
+        {
+          "id": "tr_price",
+          "label": "Cjenovni koridor — meki kanal.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 1,
+            "federal.internal_market": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "dialogue_markovic_trade",
+              "trade_price_corridor",
+              "trade_quiet_paper"
+            ],
+            "flags_remove": [
+              "trade_harden_controls"
+            ],
+            "desk_set": {
+              "trade": {
+                "posture": "price_corridor"
+              }
+            }
+          }
+        }
+      ]
     }
   },
   "entries": [
@@ -1239,6 +1319,26 @@
           "industry_siv_bind",
           "desk_event_industry_open_seen",
           "dialogue_santo"
+        ]
+      }
+    },
+    {
+      "id": "revisit_trade",
+      "node": "revisit_trade",
+      "once": true,
+      "priority": 7,
+      "require_done": true,
+      "available_from": "1991-02-01",
+      "unlock": {
+        "flags_any": [
+          "trade_market_calm",
+          "trade_shelf_soft",
+          "trade_price_corridor",
+          "trade_reform_support",
+          "trade_harden_controls",
+          "trade_siv_bind",
+          "desk_event_trade_open_seen",
+          "dialogue_nazmi"
         ]
       }
     }
