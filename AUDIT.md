@@ -385,3 +385,39 @@ Akcije: `soft_federal_line` → `skj_soft_federation`; `hard_unity_rhetoric` →
 - `player_used_jna_threat` samo na namjernim tvrdim granama
 - ID-ovi i zastavice engleski; UI hrvatski (ijekavica)
 
+
+## Dodatak — Pass 9 `expand/pass9-ssip-loncar`
+
+Šalter **Savezni sekretarijat za inostrane poslove / SSIP** (`ssip`, agencija `ssip`); produbljeni TO i NBJ; glas Lončara; Marković revisit SSIP; kartice čina I–V; `save_schema` 9; smoke proširen.
+
+### Nova / proširena kartica
+
+| Spis | Datum | Napomena |
+|---|---|---|
+| `desk_ssip_open` | 1990-03-05 | SSIP: EEZ dijalog / Nesvrstani / tihi bilaterali |
+| `desk_to_nby_couple` | 1990-04-28 | TO–NBJ papirni koridor; inventura ekskluzivnost nepromijenjena |
+| `desk_ssip_siv_bind` | 1990-05-22 | SSIP–SIV veza; Marković = SIV |
+| `desk_ssip_embassy` | 1990-08-28 | Embassies memo; I–G samo isključenje |
+| `desk_ssip_nam_autumn` | 1990-10-15 | Ostatak Nesvrstanih / FER couple |
+| `desk_ssip_before_pleb` | 1990-12-18 | Pred plebiscitom; bez auto-sjedenja Mesića |
+| `desk_ssip_spring91` | 1991-03-05 | Proljeće 1991.; bez čina VI |
+| `confederal_ssip_memo` | 1991-04-24 | SSIP + konfederalni stol; I–G **nije** dostupan |
+
+### Razgovori
+
+- `loncar.json` — Budimir Lončar; EEZ / NAM / bilaterali; revisit SIV veza
+- `markovic.json` — `revisit_ssip` (SSIP/SIV zastavice)
+
+### Šalteri
+
+- **ssip**: `ec_dialogue` → `ssip_ec_channel`; `nonaligned_hold` → `ssip_nonaligned_hold`; `bilateral_quiet` → `ssip_bilateral_quiet`; `paralyzed` → `ssip_paralyzed`; `bind_siv` → `ssip_siv_bind`; `couple_fer` → `ssip_fer_couple`
+- **to** `shared_reserve_pool` → `to_shared_reserve`; `liaison_nby` → `to_nby_liaison`
+- **nby** `imf_align` → `nby_imf_align`; `diplomatic_fx` → `nby_diplomatic_fx`
+
+### Pravila koja nisu dirana
+
+- E3: otvorena povelja (≥4) + Predsjedništvo koje se može sastati; sjedenje Mesića ≠ blokada; blokada isključuje E3
+- Nema čina VI; nema lipanjskog rata; Izetbegović–Gligorov **nije** prihvatljiv papir (samo isključenje)
+- Marković = predsjednik **SIV-a**; Jović ≠ Milošević; Titograd ostaje Titograd
+- Nema priznanja secesije; `to_inventory_ordered` ekskluzivnost nepromijenjena
+- ID-ovi i zastavice engleski; UI hrvatski (ijekavica)

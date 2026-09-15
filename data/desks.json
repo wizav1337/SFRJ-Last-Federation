@@ -1064,7 +1064,7 @@
       "name": "TO",
       "name_hr": "Teritorijalna obrana",
       "kind": "force",
-      "briefing": "Republikanska teritorijalna obrana: zalihe, inventura i koordinacija sa JNA. Savezna inventura ili republikanski držaj mijenja napetost u SI/HR i put prema naredbi o neregularnim formacijama — bez otvaranja fronte.",
+      "briefing": "Republikanska teritorijalna obrana: zalihe, inventura i koordinacija sa JNA. Savezna inventura ili republikanski držaj mijenja napetost u SI/HR i put prema naredbi o neregularnim formacijama — bez otvaranja fronte. Pass 9: zajednički rezervni fond (to_shared_reserve) i veza TO–NBJ (to_nby_liaison) — mirnodopski, bez fronte.",
       "stats": {
         "loyalty": 48,
         "capacity": 52,
@@ -1194,6 +1194,60 @@
               "to_quiet_audit"
             ]
           }
+        },
+        {
+          "id": "shared_reserve_pool",
+          "label": "Zajednički rezervni fond TO: papirni koridor, ne oduzimanje.",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_add": {
+              "to": {
+                "capacity": 4,
+                "loyalty": 2,
+                "agenda_tension": 2
+              },
+              "jna": {
+                "loyalty": 1
+              }
+            },
+            "SI.to_control": -2,
+            "HR.to_control": -2,
+            "federal.jna_obedience_to_civilian": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "to_shared_reserve"
+            ],
+            "flags_remove": [
+              "to_republic_hold"
+            ]
+          }
+        },
+        {
+          "id": "liaison_nby",
+          "label": "Veži TO logistiku uz NBJ knjige (mirnodopski, bez fronte).",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_add": {
+              "to": {
+                "capacity": 3,
+                "agenda_tension": 1
+              },
+              "nby": {
+                "loyalty": 2,
+                "capacity": 1
+              }
+            },
+            "federal.hard_currency": 1,
+            "federal.siv_authority": 1,
+            "flags_add": [
+              "to_nby_liaison"
+            ]
+          }
         }
       ]
     },
@@ -1203,7 +1257,7 @@
       "name": "NBJ",
       "name_hr": "Narodna banka Jugoslavije",
       "kind": "constitutional",
-      "briefing": "Dinar, rezerve i usklađivanje republikanskih banaka. Tvrdi ili labavi stav NBJ-a vuče inflaciju, tvrdu valutu i težinu Markovićeva programa — ne zamjenjuje SIV, ali drži knjigu.",
+      "briefing": "Dinar, rezerve i usklađivanje republikanskih banaka. Tvrdi ili labavi stav NBJ-a vuče inflaciju, tvrdu valutu i težinu Markovićeva programa — ne zamjenjuje SIV, ali drži knjigu. Pass 9: usklađivanje s MMF (nby_imf_align) i diplomatski FX (nby_diplomatic_fx).",
       "stats": {
         "loyalty": 56,
         "capacity": 60,
@@ -1330,6 +1384,60 @@
             ],
             "flags_remove": [
               "nby_tight_dinar"
+            ]
+          }
+        },
+        {
+          "id": "imf_align",
+          "label": "Uskladi dinar s linijom MMF/FER (papir, ne diktat).",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_add": {
+              "nby": {
+                "loyalty": 2,
+                "capacity": 2,
+                "agenda_tension": 2
+              },
+              "fer": {
+                "loyalty": 1
+              }
+            },
+            "federal.inflation": -2,
+            "federal.reform_momentum": 2,
+            "federal.hard_currency": 1,
+            "flags_add": [
+              "nby_imf_align"
+            ],
+            "flags_remove": [
+              "nby_fragment_risk"
+            ]
+          }
+        },
+        {
+          "id": "diplomatic_fx",
+          "label": "Tihi FX koridor za diplomatske misije (SSIP/SSP).",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_add": {
+              "nby": {
+                "capacity": 3,
+                "agenda_tension": 2
+              },
+              "ssip": {
+                "capacity": 2,
+                "loyalty": 1
+              }
+            },
+            "federal.international_standing": 2,
+            "federal.hard_currency": -1,
+            "flags_add": [
+              "nby_diplomatic_fx",
+              "ssip_bilateral_quiet"
             ]
           }
         }
@@ -2277,6 +2385,216 @@
                 "posture": "technocrat"
               }
             }
+          }
+        }
+      ]
+    },
+    {
+      "id": "ssip",
+      "agency_id": "ssip",
+      "name": "SSIP",
+      "name_hr": "Savezni sekretarijat za inostrane poslove",
+      "kind": "secretariat",
+      "briefing": "Lončarov šalter vanjske politike: EEZ dijalog, ostatak Nesvrstanih, tihi bilaterali ili paraliza. Postave diraju legitimnost, federal_trust, reform_momentum i zastavice ssip_*. Lagano veže FER/MMF/carine kad postoje. Nema priznanja secesije; nema rata. Marković ostaje predsjednik SIV-a — SSIP ne zamjenjuje SIV. SSP ostaje širi diplomatski strip; SSIP je operativni kanal.",
+      "stats": {
+        "loyalty": 54,
+        "capacity": 52,
+        "agenda_tension": 34
+      },
+      "posture_default": "ec_dialogue",
+      "postures": [
+        "ec_dialogue",
+        "nonaligned_hold",
+        "bilateral_quiet",
+        "paralyzed"
+      ],
+      "actions": [
+        {
+          "id": "ec_dialogue",
+          "label": "EEZ dijalog: nota i kanal, ne priznanje secesije.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "ec_dialogue"
+              }
+            },
+            "desk_add": {
+              "ssip": {
+                "capacity": 4,
+                "agenda_tension": 2,
+                "loyalty": 2
+              }
+            },
+            "federal.international_standing": 4,
+            "federal.legitimacy": 2,
+            "federal.reform_momentum": 2,
+            "SI.federal_trust": 2,
+            "HR.federal_trust": 2,
+            "flags_add": [
+              "ssip_ec_channel",
+              "ec_troika_watching"
+            ],
+            "flags_remove": [
+              "ssip_paralyzed"
+            ]
+          }
+        },
+        {
+          "id": "nonaligned_hold",
+          "label": "Drži ostatak Nesvrstanih: stari jezik kao štit.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "nonaligned_hold"
+              }
+            },
+            "desk_add": {
+              "ssip": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.international_standing": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "ssip_nonaligned_hold"
+            ],
+            "flags_remove": [
+              "ssip_paralyzed",
+              "ssip_ec_channel"
+            ]
+          }
+        },
+        {
+          "id": "bilateral_quiet",
+          "label": "Tihi bilaterali: demarše bez javne scene.",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "bilateral_quiet"
+              }
+            },
+            "desk_add": {
+              "ssip": {
+                "capacity": 3,
+                "loyalty": 2
+              }
+            },
+            "federal.international_standing": 3,
+            "federal.inter_republic_trade": 1,
+            "flags_add": [
+              "ssip_bilateral_quiet"
+            ],
+            "flags_remove": [
+              "ssip_paralyzed"
+            ]
+          }
+        },
+        {
+          "id": "paralyze",
+          "label": "Paraliziraj SSIP: prazan sekretarijat, bez demarši.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "paralyzed"
+              }
+            },
+            "desk_add": {
+              "ssip": {
+                "capacity": -4,
+                "loyalty": -3,
+                "agenda_tension": 5
+              }
+            },
+            "federal.international_standing": -4,
+            "federal.legitimacy": -2,
+            "federal.reform_momentum": -1,
+            "flags_add": [
+              "ssip_paralyzed"
+            ],
+            "flags_remove": [
+              "ssip_ec_channel",
+              "ssip_nonaligned_hold",
+              "ssip_bilateral_quiet",
+              "ssip_siv_bind"
+            ]
+          }
+        },
+        {
+          "id": "bind_siv",
+          "label": "Veži SSIP uz SIV knjige (Marković = predsjednik SIV-a).",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_add": {
+              "ssip": {
+                "loyalty": 2,
+                "agenda_tension": -2
+              },
+              "siv": {
+                "loyalty": 2,
+                "capacity": 2
+              }
+            },
+            "federal.siv_authority": 3,
+            "federal.reform_momentum": 2,
+            "federal.legitimacy": 1,
+            "federal.international_standing": 2,
+            "flags_add": [
+              "ssip_siv_bind",
+              "ssip_ec_channel"
+            ],
+            "flags_remove": [
+              "ssip_paralyzed"
+            ],
+            "desk_set": {
+              "ssip": {
+                "posture": "ec_dialogue"
+              },
+              "siv": {
+                "posture": "technocrat"
+              }
+            }
+          }
+        },
+        {
+          "id": "couple_fer",
+          "label": "Lagano veži SSIP uz FER/MMF/carinski papir (ako postoji).",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_add": {
+              "ssip": {
+                "capacity": 2
+              },
+              "fer": {
+                "loyalty": 1,
+                "capacity": 1
+              }
+            },
+            "federal.international_standing": 2,
+            "federal.reform_momentum": 1,
+            "flags_add": [
+              "ssip_fer_couple"
+            ],
+            "flags_remove": [
+              "ssip_paralyzed"
+            ]
           }
         }
       ]

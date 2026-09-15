@@ -76,6 +76,12 @@ export function syncAgenciesFromFlags(state) {
   if (state.flags.ssp_isolation) {
     setAgencyStatus(state, "ssp", "weakened");
   }
+  if (state.flags.ssip_paralyzed) {
+    setAgencyStatus(state, "ssip", "weakened");
+  }
+  if (state.flags.ssip_ec_channel || state.flags.ssip_siv_bind) {
+    setAgencyStatus(state, "ssip", "active");
+  }
 }
 
 export function legalLabel(legal) {
@@ -138,6 +144,14 @@ export function deskVoteModifiers(state) {
   if (f.ssrn_civic_forum || f.ssrn_siv_bind) {
     softFor += 1;
     notes.push("vote.mod.ssrnForum");
+  }
+  if (f.ssip_ec_channel || f.ssip_siv_bind) {
+    softFor += 1;
+    notes.push("vote.mod.ssipChannel");
+  }
+  if (f.ssip_paralyzed) {
+    softAgainst += 1;
+    notes.push("vote.mod.ssipWeak");
   }
   if (f.ssrn_paralyzed || f.ssrn_party_capture) {
     softAgainst += 1;

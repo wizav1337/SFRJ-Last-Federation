@@ -1,0 +1,223 @@
+{
+  "id": "loncar",
+  "speaker": "Budimir Lončar",
+  "title": "Savezni sekretar za inostrane poslove",
+  "desk": "ssip",
+  "available_from": "1990-08-01",
+  "unlock": {
+    "flags_any": [
+      "ssip_ec_channel",
+      "ssip_nonaligned_hold",
+      "ssip_bilateral_quiet",
+      "ssip_siv_bind",
+      "ssp_ec_track",
+      "ssp_nam_bridge",
+      "markovic_mandate_strong",
+      "desk_event_ssip_open_seen"
+    ]
+  },
+  "nodes": {
+    "start": {
+      "text": "Lončar prima u saveznom sekretarijatu. „Imam EEZ dijalog, ostatak Nesvrstanih, ili tihe bilaterale. Ne priznajem secesiju. Ne otvaram frontu. Marković vodi SIV — ja držim note. Što želite od SSIP-a?“",
+      "choices": [
+        {
+          "id": "ec_channel",
+          "label": "Otvori EEZ kanal: nota, ne priznanje.",
+          "next": "ec",
+          "effects": {
+            "desk_add": {
+              "ssip": {
+                "loyalty": 4,
+                "capacity": 3,
+                "agenda_tension": 2
+              }
+            },
+            "federal.international_standing": 4,
+            "federal.legitimacy": 2,
+            "federal.reform_momentum": 2,
+            "SI.federal_trust": 2,
+            "HR.federal_trust": 2,
+            "flags_add": [
+              "talked_loncar",
+              "dialogue_loncar_ec",
+              "ssip_ec_channel",
+              "ec_troika_watching"
+            ],
+            "flags_remove": [
+              "ssip_paralyzed"
+            ],
+            "desk_set": {
+              "ssip": {
+                "posture": "ec_dialogue"
+              }
+            }
+          }
+        },
+        {
+          "id": "nam_hold",
+          "label": "Drži Nesvrstane kao štit — stari jezik.",
+          "next": "nam",
+          "effects": {
+            "desk_add": {
+              "ssip": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.international_standing": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "talked_loncar",
+              "dialogue_loncar_nam",
+              "ssip_nonaligned_hold"
+            ],
+            "flags_remove": [
+              "ssip_paralyzed"
+            ],
+            "desk_set": {
+              "ssip": {
+                "posture": "nonaligned_hold"
+              }
+            }
+          }
+        },
+        {
+          "id": "quiet_bilateral",
+          "label": "Tihi bilaterali — demarše bez scene.",
+          "next": "bilat",
+          "effects": {
+            "desk_add": {
+              "ssip": {
+                "capacity": 3,
+                "loyalty": 2
+              }
+            },
+            "federal.international_standing": 3,
+            "flags_add": [
+              "talked_loncar",
+              "dialogue_loncar_bilateral",
+              "ssip_bilateral_quiet"
+            ],
+            "flags_remove": [
+              "ssip_paralyzed"
+            ],
+            "desk_set": {
+              "ssip": {
+                "posture": "bilateral_quiet"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ec": {
+      "text": "„EEZ čita note. Nema priznanja. Nema čina VI. Samo kanal.“",
+      "choices": [
+        {
+          "id": "end_ec",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {
+            "federal.war_risk": -1
+          }
+        }
+      ]
+    },
+    "nam": {
+      "text": "Nesvrstani ostaju jezik, ne zid. Lončar ne mijenja Markovićev SIV.",
+      "choices": [
+        {
+          "id": "end_nam",
+          "label": "Izađi.",
+          "next": null,
+          "effects": {
+            "federal.legitimacy": 1
+          }
+        }
+      ]
+    },
+    "bilat": {
+      "text": "Tihe demarše idu. Embassies memo, ne fronta.",
+      "choices": [
+        {
+          "id": "end_bilat",
+          "label": "Zatvori.",
+          "next": null,
+          "effects": {
+            "federal.international_standing": 1
+          }
+        }
+      ]
+    },
+    "revisit_siv": {
+      "text": "Lončar ponovno: „Ako SSIP vežete uz SIV, Marković dobiva vanjski jezik uz knjige. Ako me paralizirate, ostajem prazan pečat.“",
+      "choices": [
+        {
+          "id": "bind_siv_talk",
+          "label": "Veži SSIP uz SIV — Marković = SIV, ne kruna.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 3,
+            "federal.international_standing": 2,
+            "federal.reform_momentum": 2,
+            "flags_add": [
+              "dialogue_loncar_siv",
+              "ssip_siv_bind",
+              "ssip_ec_channel"
+            ],
+            "flags_remove": [
+              "ssip_paralyzed"
+            ],
+            "desk_set": {
+              "ssip": {
+                "posture": "ec_dialogue"
+              },
+              "siv": {
+                "posture": "technocrat"
+              }
+            }
+          }
+        },
+        {
+          "id": "keep_quiet",
+          "label": "Ostavi tihe bilaterale — bez veze uz SIV.",
+          "next": null,
+          "effects": {
+            "flags_add": [
+              "dialogue_loncar_siv",
+              "ssip_bilateral_quiet"
+            ],
+            "desk_set": {
+              "ssip": {
+                "posture": "bilateral_quiet"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "entries": [
+    {
+      "id": "start",
+      "node": "start",
+      "once": true
+    },
+    {
+      "id": "revisit_siv",
+      "node": "revisit_siv",
+      "once": true,
+      "priority": 2,
+      "require_done": true,
+      "available_from": "1990-11-01",
+      "unlock": {
+        "flags_any": [
+          "ssip_ec_channel",
+          "ssip_siv_bind",
+          "markovic_mandate_strong",
+          "desk_event_ssip_siv_seen"
+        ]
+      }
+    }
+  ]
+}

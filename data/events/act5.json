@@ -960,6 +960,79 @@
       ]
     },
     {
+      "id": "desk_ssip_spring91",
+      "date": "1991-03-05",
+      "act": 5,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "SSIP proljeće 1991.: kanal bez čina VI",
+      "location": "Beograd — SSIP",
+      "briefing": "Proljeće 1991. SSIP drži EEZ dijalog ili ostatak Nesvrstanih. Odsječak A staje 15. svibnja — nema čina VI, nema rata. Lončar i Marković (SIV) dijele papir, ne krunu.",
+      "constitutional_note": "Nema lipanjskog rata u ovom odsječku. Nema priznanja secesije.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "ssip_ec_channel",
+          "ssip_siv_bind",
+          "ssip_nonaligned_hold",
+          "dialogue_loncar_ec",
+          "dialogue_markovic_ssip",
+          "desk_event_ssip_pleb_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "spring_ec",
+          "label": "Drži EEZ dijalog do svibnja — bez priznanja.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "ec_dialogue"
+              }
+            },
+            "federal.international_standing": 3,
+            "federal.reform_momentum": 1,
+            "flags_add": [
+              "ssip_ec_channel",
+              "desk_event_ssip_spring_seen"
+            ]
+          }
+        },
+        {
+          "id": "spring_nam",
+          "label": "Vrati težinu na Nesvrstane.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "nonaligned_hold"
+              }
+            },
+            "flags_add": [
+              "ssip_nonaligned_hold",
+              "desk_event_ssip_spring_seen"
+            ],
+            "federal.legitimacy": 1
+          }
+        },
+        {
+          "id": "spring_fer",
+          "label": "Veži SSIP uz FER/MMF papir (lagano).",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "ssip_fer_couple",
+              "ssip_ec_channel",
+              "desk_event_ssip_spring_seen"
+            ],
+            "federal.reform_momentum": 2,
+            "federal.international_standing": 1
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_fond_spring91",
       "date": "1991-03-08",
       "act": 5,
@@ -1627,6 +1700,89 @@
                 "posture": "hard"
               }
             }
+          }
+        }
+      ]
+    },
+    {
+      "id": "confederal_ssip_memo",
+      "date": "1991-04-24",
+      "act": 5,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Memorandum: SSIP uz konfederalni stol",
+      "location": "Beograd — Predsjedništvo",
+      "briefing": "Ako je konfederalni stol otvoren, SSIP može dati diplomatski pečat — EEZ nota ili tihi bilaterali. Izetbegović–Gligorov (I–G) nije prihvatljiv papir: samo isključenje. E3 i dalje traži otvorenu povelju i Predsjedništvo koje se može sastati. Marković = SIV; Jović ≠ Milošević; Titograd ostaje Titograd.",
+      "constitutional_note": "Izetbegović–Gligorov nacrt NIJE dostupan izbor. Blokada Predsjedništva isključuje E3. Nema priznanja secesije.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "confederal_talks_open",
+          "ssip_ec_channel",
+          "ssip_siv_bind",
+          "ssip_bilateral_quiet",
+          "presidency_quorum_guard",
+          "desk_event_ssip_spring_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "ec_memo_conf",
+          "label": "Veži EEZ dijalog uz otvoreni konfederalni stol (bez I–G).",
+          "legal": "presidency_decree",
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "ec_dialogue"
+              },
+              "presidency": {
+                "posture": "mediate"
+              }
+            },
+            "federal.presidency_cohesion": 3,
+            "federal.international_standing": 2,
+            "federal.legitimacy": 2,
+            "charter_signatures_add": 1,
+            "flags_add": [
+              "confederal_ssip_memo",
+              "ssip_ec_channel",
+              "confederal_talks_open",
+              "desk_event_ssip_memo_seen"
+            ],
+            "flags_remove": [
+              "presidency_deadlock"
+            ]
+          }
+        },
+        {
+          "id": "bilat_memo",
+          "label": "Tihi bilaterali kao štit uz stol — bez I–G.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "bilateral_quiet"
+              }
+            },
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "confederal_ssip_memo",
+              "ssip_bilateral_quiet",
+              "desk_event_ssip_memo_seen"
+            ]
+          }
+        },
+        {
+          "id": "refuse_ig_ssip",
+          "label": "Zapiši: I–G nije papir; SSIP ne potpisuje taj okvir.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "confederal_ssip_memo",
+              "desk_event_ssip_memo_seen",
+              "gligorov_refused_ig_frame"
+            ]
           }
         }
       ]

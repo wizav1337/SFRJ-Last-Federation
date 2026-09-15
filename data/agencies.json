@@ -152,6 +152,15 @@
       "status": "active",
       "competence": "transferi prema MK, ME, BA, XK",
       "dissolve_legal": "assembly_statute"
+    },
+    {
+      "id": "ssip",
+      "name": "Savezni sekretarijat za inostrane poslove",
+      "kind": "secretariat",
+      "desk": "SIV",
+      "status": "active",
+      "competence": "operativna diplomacija; Lončarov kanal; EEZ dijalog; ostatak Nesvrstanih; tihi bilaterali",
+      "dissolve_legal": "assembly_statute"
     }
   ]
 }

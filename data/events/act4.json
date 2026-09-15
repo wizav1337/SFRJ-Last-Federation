@@ -798,6 +798,82 @@
       ]
     },
     {
+      "id": "desk_ssip_before_pleb",
+      "date": "1990-12-18",
+      "act": 4,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "SSIP pred plebiscitom: nota bez secesije",
+      "location": "Beograd — SSIP",
+      "briefing": "Pred slovenačkim plebiscitom SSIP može držati EEZ kanal ili tihe bilaterale. Plebiscit je savjetodavni uvod — nije proglašenje. Nema auto-sjedenja Mesića. Nema priznanja.",
+      "constitutional_note": "Diplomatska nota nije priznanje neovisnosti. Marković = SIV; Jović ≠ Milošević.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "ssip_ec_channel",
+          "ssip_siv_bind",
+          "ssip_bilateral_quiet",
+          "talked_loncar",
+          "desk_event_ssip_siv_seen",
+          "desk_event_ssip_embassy_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "hold_channel",
+          "label": "Drži EEZ kanal — bez priznanja.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "ec_dialogue"
+              }
+            },
+            "federal.international_standing": 2,
+            "SI.federal_trust": 2,
+            "flags_add": [
+              "ssip_ec_channel",
+              "desk_event_ssip_pleb_seen"
+            ]
+          }
+        },
+        {
+          "id": "quiet_before",
+          "label": "Tihi bilaterali pred glasovanje.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "bilateral_quiet"
+              }
+            },
+            "flags_add": [
+              "ssip_bilateral_quiet",
+              "desk_event_ssip_pleb_seen"
+            ],
+            "federal.international_standing": 1
+          }
+        },
+        {
+          "id": "paralyze_winter",
+          "label": "Paraliziraj SSIP zimi — prazan pečat.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "paralyzed"
+              }
+            },
+            "federal.international_standing": -3,
+            "flags_add": [
+              "ssip_paralyzed",
+              "desk_event_ssip_pleb_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "ec_troika_note",
       "date": "1990-12-20",
       "act": 4,

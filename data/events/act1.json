@@ -976,6 +976,85 @@
       ]
     },
     {
+      "id": "desk_ssip_open",
+      "date": "1990-03-05",
+      "act": 1,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "SSIP: Lončarov kanal ili prazan pečat",
+      "location": "Beograd — Savezni sekretarijat za inostrane poslove",
+      "briefing": "SSIP sada ima šalter. Otvorite EEZ dijalog, držite ostatak Nesvrstanih, ili tihe bilaterale. Nema priznanja secesije; nema fronte. Marković ostaje predsjednik SIV-a; Lončar drži note.",
+      "constitutional_note": "SSIP je savezni sekretarijat pod SIV-om, ne Predsjedništvo i ne kruna.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "markovic_mandate_strong",
+          "multiparty_wave",
+          "ssp_ec_track",
+          "ssp_quiet_demarche",
+          "skj_renounced_monopoly"
+        ]
+      },
+      "choices": [
+        {
+          "id": "ec_open",
+          "label": "Otvori EEZ dijalog (nota, ne priznanje).",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "ec_dialogue"
+              }
+            },
+            "federal.international_standing": 3,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "ssip_ec_channel",
+              "desk_event_ssip_open_seen",
+              "ec_troika_watching"
+            ],
+            "flags_remove": [
+              "ssip_paralyzed"
+            ]
+          }
+        },
+        {
+          "id": "nam_open",
+          "label": "Drži Nesvrstane kao štit.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "nonaligned_hold"
+              }
+            },
+            "federal.international_standing": 2,
+            "flags_add": [
+              "ssip_nonaligned_hold",
+              "desk_event_ssip_open_seen"
+            ]
+          }
+        },
+        {
+          "id": "bilat_open",
+          "label": "Tihi bilaterali — demarše bez scene.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "bilateral_quiet"
+              }
+            },
+            "federal.international_standing": 2,
+            "flags_add": [
+              "ssip_bilateral_quiet",
+              "desk_event_ssip_open_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_fond_open",
       "date": "1990-03-08",
       "act": 1,

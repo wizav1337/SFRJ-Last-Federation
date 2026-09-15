@@ -278,6 +278,17 @@ function pathNotes(state) {
   if (state.flags.talked_mesic_late) notes.push(t("path.talkMesicLate"));
   if (state.flags.talked_jovic_late) notes.push(t("path.talkJovicLate"));
   if (state.flags.dialogue_markovic_ssrn) notes.push(t("path.markovicSsrn"));
+  if (state.flags.ssip_ec_channel) notes.push(t("path.ssipEc"));
+  else if (state.flags.ssip_nonaligned_hold) notes.push(t("path.ssipNam"));
+  else if (state.flags.ssip_bilateral_quiet) notes.push(t("path.ssipBilat"));
+  else if (state.flags.ssip_paralyzed) notes.push(t("path.ssipParalyzed"));
+  if (state.flags.ssip_siv_bind) notes.push(t("path.ssipSiv"));
+  if (state.flags.to_shared_reserve) notes.push(t("path.toReserve"));
+  if (state.flags.to_nby_liaison) notes.push(t("path.toNby"));
+  if (state.flags.nby_imf_align) notes.push(t("path.nbyImf"));
+  if (state.flags.confederal_ssip_memo) notes.push(t("path.ssipMemo"));
+  if (state.flags.talked_loncar) notes.push(t("path.loncar"));
+  if (state.flags.dialogue_markovic_ssip) notes.push(t("path.markovicSsip"));
   const stack = confederalStackDepth(state);
   if (stack >= 3) notes.push(t("path.stackDepth", { n: stack }));
   return notes;
