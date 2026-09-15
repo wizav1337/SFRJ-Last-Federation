@@ -3024,6 +3024,167 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_transport_autumn",
+      "date": "1990-09-26",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Jesen: pritisak na prometni šalter",
+      "location": "Beograd — Savezni sekretarijat za promet i veze",
+      "briefing": "Jesen 1990.: republike i koridori pritiskaju savezni promet i veze. Može se držati otvorene koridore, potpora reformi ili tvrđi prioriteti. Tihi papir ne postavlja player_used_jna_threat.",
+      "constitutional_note": "Tvrđi prioriteti dižu napetost, ne otvaraju frontu.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_transport_open_seen",
+          "desk_event_transport_spring_seen",
+          "transport_corridor_open",
+          "transport_reform_support",
+          "multiparty_wave"
+        ]
+      },
+      "choices": [
+        {
+          "id": "autumn_corridor",
+          "label": "Drži otvorene koridore.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "transport": {
+                "posture": "corridor_open"
+              }
+            },
+            "federal.transport_links": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "transport_corridor_open",
+              "desk_event_transport_autumn_seen",
+              "transport_quiet_paper"
+            ],
+            "flags_remove": [
+              "transport_harden_priority"
+            ]
+          }
+        },
+        {
+          "id": "autumn_reform",
+          "label": "Pojačaj potporu reformi.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "transport": {
+                "posture": "reform_support"
+              }
+            },
+            "federal.reform_momentum": 2,
+            "federal.transport_links": 2,
+            "flags_add": [
+              "transport_reform_support",
+              "desk_event_transport_autumn_seen",
+              "transport_quiet_paper",
+              "markovic_mandate_strong"
+            ]
+          }
+        },
+        {
+          "id": "autumn_harden",
+          "label": "Tvrđi prioriteti.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "transport": {
+                "posture": "harden_priority"
+              }
+            },
+            "federal.transport_links": 1,
+            "federal.legitimacy": -1,
+            "federal.war_risk": 1,
+            "SI.federal_trust": -1,
+            "HR.federal_trust": -1,
+            "flags_add": [
+              "transport_harden_priority",
+              "desk_event_transport_autumn_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_finance_transport_bind",
+      "date": "1990-10-20",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Financije ↔ Promet: koridorski kanal",
+      "location": "Beograd — Financije / Promet",
+      "briefing": "Financije i Promet mogu dijeliti koridorski kanal — knjige i prometne veze. Mirnodopski papir. Nema rata.",
+      "constitutional_note": "Kanal ne mijenja ustavni položaj Predsjedništva.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_transport_open_seen",
+          "transport_schedule_soft",
+          "transport_corridor_open",
+          "finance_transfers_open",
+          "desk_event_transport_autumn_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "bind_channel",
+          "label": "Otvori Financije–Promet kanal.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "finance": {
+                "posture": "target"
+              },
+              "transport": {
+                "posture": "schedule_soft"
+              }
+            },
+            "federal.transport_links": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "finance_transport_liaison",
+              "transport_schedule_soft",
+              "desk_event_finance_transport_bind_seen",
+              "transport_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "bind_soft",
+          "label": "Meki koridor — bez tvrde ruke.",
+          "legal": "political",
+          "effects": {
+            "federal.transport_links": 2,
+            "federal.inter_republic_trade": 1,
+            "flags_add": [
+              "finance_transport_corridor",
+              "transport_schedule_soft",
+              "desk_event_finance_transport_bind_seen",
+              "transport_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "bind_hold",
+          "label": "Zadrži odvojene knjige.",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "desk_event_finance_transport_bind_seen"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

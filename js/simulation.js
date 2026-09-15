@@ -175,6 +175,12 @@ export function buildMonthlyReport(state, before, months) {
   if (state.flags.trade_reform_support || state.desks?.trade?.posture === "reform_support") drivers.push("Trgovina: potpora reformi");
   if (state.flags.trade_harden_controls || state.desks?.trade?.posture === "harden_controls") drivers.push("Trgovina: tvrđe kontrole");
   if (state.flags.confederal_trade_memo) drivers.push("memorandum Trgovine uz konfederalni stol");
+  if (state.flags.transport_corridor_open || state.desks?.transport?.posture === "corridor_open") drivers.push("Promet: otvoreni koridori");
+  if (state.flags.transport_schedule_soft || state.desks?.transport?.posture === "schedule_soft") drivers.push("Promet: meki raspored");
+  if (state.flags.transport_telecom_link || state.desks?.transport?.posture === "telecom_link") drivers.push("Promet: telekom veza");
+  if (state.flags.transport_reform_support || state.desks?.transport?.posture === "reform_support") drivers.push("Promet: potpora reformi");
+  if (state.flags.transport_harden_priority || state.desks?.transport?.posture === "harden_priority") drivers.push("Promet: tvrđi prioriteti");
+  if (state.flags.confederal_transport_memo) drivers.push("memorandum Prometa uz konfederalni stol");
   if (state.flags.ssup_observe_line) drivers.push("SSUP u promatračkoj postavi");
   if (state.flags.confederal_stack_memo) drivers.push("memorandum konfederalnog stoga");
   if (state.flags.dialogue_kucan_charter) drivers.push("Kučan: potpis na konfederalnoj traci");

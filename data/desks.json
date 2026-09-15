@@ -261,7 +261,7 @@
       "name": "SIV",
       "name_hr": "Savezno izvršno vijeće",
       "kind": "constitutional",
-      "briefing": "Predsjednik SIV-a (Marković) nije predsjednik Jugoslavije. Stav SIV-a (štednja / poticaj / tehnokratski) vuče inflaciju, trgovinu i reformski zamah svakog mjeseca. Pass 13: bind_sdb — SIV civilni nadzor nad službom. Pass 14: bind_labor — SIV kanal prema saveznom radu. Pass 15: bind_agriculture — SIV kanal prema poljoprivredi. Pass 16: bind_industry — SIV kanal prema industriji. Pass 17: bind_trade — SIV kanal prema unutarnjoj trgovini.",
+      "briefing": "Predsjednik SIV-a (Marković) nije predsjednik Jugoslavije. Stav SIV-a (štednja / poticaj / tehnokratski) vuče inflaciju, trgovinu i reformski zamah svakog mjeseca. Pass 13: bind_sdb — SIV civilni nadzor nad službom. Pass 14: bind_labor — SIV kanal prema saveznom radu. Pass 15: bind_agriculture — SIV kanal prema poljoprivredi. Pass 16: bind_industry — SIV kanal prema industriji. Pass 17: bind_trade — SIV kanal prema unutarnjoj trgovini. Pass 18: bind_transport — SIV kanal prema prometu i vezama.",
       "stats": {
         "loyalty": 58,
         "capacity": 62,
@@ -661,6 +661,55 @@
             ],
             "flags_remove": [
               "trade_harden_controls"
+            ]
+          }
+        },
+        {
+          "id": "bind_transport",
+          "label": "SIV kanal prema Prometu: koridori i veze.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "desk_event_transport_open_seen",
+              "transport_corridor_open",
+              "transport_reform_support",
+              "transport_siv_bind",
+              "dialogue_markovic_transport"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "siv": {
+                "posture": "technocrat"
+              },
+              "transport": {
+                "posture": "reform_support"
+              }
+            },
+            "desk_add": {
+              "siv": {
+                "loyalty": 2,
+                "capacity": 2
+              },
+              "transport": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.siv_authority": 2,
+            "federal.transport_links": 3,
+            "federal.reform_momentum": 2,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "transport_siv_bind",
+              "transport_reform_support",
+              "transport_quiet_paper",
+              "markovic_mandate_strong"
+            ],
+            "flags_remove": [
+              "transport_harden_priority"
             ]
           }
         }
@@ -1491,7 +1540,7 @@
       "name": "Financije",
       "name_hr": "Savezni sekretarijat za financije",
       "kind": "secretariat",
-      "briefing": "Savezni proračun i transferi. Smrzavanje ili otvaranje fondova vuče životni standard, carine i put Markovića. Pass 8: ciljani kanali (finance_target) i meki koridor (finance_soft_corridor) — mirnodopski, bez fronte. Pass 14: liaison_labor / accept_labor_corridor — plaće i transferi uz Rad. Pass 15: liaison_agriculture / accept_agriculture_corridor — hrana i nabava uz Poljoprivredu. Pass 16: liaison_industry / accept_industry_corridor — energija i fondovi uz Industriju. Pass 17: liaison_trade / accept_trade_corridor — unutarnje police i cijene uz Trgovinu.",
+      "briefing": "Savezni proračun i transferi. Smrzavanje ili otvaranje fondova vuče životni standard, carine i put Markovića. Pass 8: ciljani kanali (finance_target) i meki koridor (finance_soft_corridor) — mirnodopski, bez fronte. Pass 14: liaison_labor / accept_labor_corridor — plaće i transferi uz Rad. Pass 15: liaison_agriculture / accept_agriculture_corridor — hrana i nabava uz Poljoprivredu. Pass 16: liaison_industry / accept_industry_corridor — energija i fondovi uz Industriju. Pass 17: liaison_trade / accept_trade_corridor — unutarnje police i cijene uz Trgovinu. Pass 18: liaison_transport / accept_transport_corridor — koridori i rasporedi uz Promet.",
       "stats": {
         "loyalty": 54,
         "capacity": 58,
@@ -1956,6 +2005,80 @@
               "finance_trade_corridor",
               "trade_shelf_soft",
               "trade_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "liaison_transport",
+          "label": "Veza Financije–Promet: koridori i fondovi.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "desk_event_transport_open_seen",
+              "transport_schedule_soft",
+              "transport_corridor_open",
+              "transport_reform_support"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "finance": {
+                "posture": "target"
+              },
+              "transport": {
+                "posture": "schedule_soft"
+              }
+            },
+            "desk_add": {
+              "finance": {
+                "capacity": 2
+              },
+              "transport": {
+                "capacity": 2,
+                "agenda_tension": -1
+              }
+            },
+            "federal.transport_links": 2,
+            "federal.inter_republic_trade": 1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "finance_transport_liaison",
+              "transport_schedule_soft",
+              "transport_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "accept_transport_corridor",
+          "label": "Prihvati prometni koridor u knjigama.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "transport_schedule_soft",
+              "finance_transport_liaison",
+              "desk_event_transport_open_seen"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "finance": {
+                "loyalty": 2
+              },
+              "transport": {
+                "loyalty": 2
+              }
+            },
+            "federal.transport_links": 2,
+            "federal.inter_republic_trade": 1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "finance_transport_corridor",
+              "transport_schedule_soft",
+              "transport_quiet_paper"
             ]
           }
         }
@@ -2961,7 +3084,7 @@
       "name": "FER",
       "name_hr": "Savezni sekretarijat za vanjske ekonomske odnose",
       "kind": "secretariat",
-      "briefing": "FER nosi vanjsku trgovinu, sučelje MMF-a sa SIV-om i carinske koridore. Marković je predsjednik SIV-a — FER izvršava, ne zamjenjuje. Postave (otvorena trgovina / linija MMF / tvrde carine) diraju inter_republic_trade, hard_currency, imf_pressure, international_standing i zastavice customs_war_* / imf_standby / fer_*. Pass 16: liaison_industry / accept_industry_energy — energetsko-trgovački kanal. Pass 17: liaison_domestic_trade / accept_trade_desk — šav unutarnje–vanjske trgovine (ne zamjenjuje fer_trade_open).",
+      "briefing": "FER nosi vanjsku trgovinu, sučelje MMF-a sa SIV-om i carinske koridore. Marković je predsjednik SIV-a — FER izvršava, ne zamjenjuje. Postave (otvorena trgovina / linija MMF / tvrde carine) diraju inter_republic_trade, hard_currency, imf_pressure, international_standing i zastavice customs_war_* / imf_standby / fer_*. Pass 16: liaison_industry / accept_industry_energy — energetsko-trgovački kanal. Pass 17: liaison_domestic_trade / accept_trade_desk — šav unutarnje–vanjske trgovine (ne zamjenjuje fer_trade_open). Pass 18: liaison_transport / accept_transport_corridor — prekogranični koridori uz Promet.",
       "stats": {
         "loyalty": 55,
         "capacity": 50,
@@ -3265,6 +3388,86 @@
               "fer_trade_desk",
               "trade_price_corridor",
               "trade_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "liaison_transport",
+          "label": "FER–Promet: prekogranični koridori.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "desk_event_transport_open_seen",
+              "transport_telecom_link",
+              "transport_corridor_open",
+              "transport_schedule_soft",
+              "fer_trade_open"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "fer": {
+                "posture": "trade_open"
+              },
+              "transport": {
+                "posture": "telecom_link"
+              }
+            },
+            "desk_add": {
+              "fer": {
+                "loyalty": 2,
+                "agenda_tension": -1
+              },
+              "transport": {
+                "loyalty": 2,
+                "agenda_tension": -2
+              }
+            },
+            "federal.transport_links": 2,
+            "federal.inter_republic_trade": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "fer_transport_liaison",
+              "transport_telecom_link",
+              "transport_quiet_paper"
+            ],
+            "flags_remove": [
+              "transport_harden_priority"
+            ]
+          }
+        },
+        {
+          "id": "accept_transport_corridor",
+          "label": "Prihvati prometni koridor u FER-u.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "fer_transport_liaison",
+              "transport_telecom_link",
+              "desk_event_transport_open_seen"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "fer": {
+                "capacity": 2
+              },
+              "transport": {
+                "capacity": 2
+              }
+            },
+            "federal.transport_links": 2,
+            "federal.reform_momentum": 1,
+            "RS.federal_trust": 1,
+            "BA.federal_trust": 1,
+            "flags_add": [
+              "fer_transport_corridor",
+              "transport_telecom_link",
+              "transport_quiet_paper"
             ]
           }
         }
@@ -5767,6 +5970,242 @@
               "trade_siv_bind",
               "trade_reform_support",
               "trade_quiet_paper",
+              "markovic_mandate_strong"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "transport",
+      "agency_id": "transport",
+      "name": "Promet",
+      "name_hr": "Savezni sekretarijat za promet i veze",
+      "kind": "secretariat",
+      "briefing": "Savezni sekretarijat za promet i veze: koridori, meki rasporedi, telekom veze, potpora reformi — papir i okvir, ne fronta. Ne zamjenjuje JNA, TO, FER, Trgovinu ni Industriju. Marković ostaje predsjednik SIV-a. Tihi papir ne postavlja player_used_jna_threat. Nema rata; nema vojne logistike kao borbe.",
+      "stats": {
+        "loyalty": 54,
+        "capacity": 52,
+        "agenda_tension": 38
+      },
+      "posture_default": "corridor_open",
+      "postures": [
+        "corridor_open",
+        "schedule_soft",
+        "telecom_link",
+        "reform_support",
+        "harden_priority"
+      ],
+      "actions": [
+        {
+          "id": "set_corridor_open",
+          "label": "Otvoreni koridori: prometni mir među republikama.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "transport": {
+                "posture": "corridor_open"
+              }
+            },
+            "desk_add": {
+              "transport": {
+                "loyalty": 4,
+                "agenda_tension": -4,
+                "capacity": 2
+              },
+              "siv": {
+                "loyalty": 1
+              }
+            },
+            "federal.transport_links": 5,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "SI.living_standard": 1,
+            "HR.living_standard": 1,
+            "flags_add": [
+              "transport_corridor_open",
+              "transport_quiet_paper"
+            ],
+            "flags_remove": [
+              "transport_harden_priority"
+            ]
+          }
+        },
+        {
+          "id": "soft_schedule",
+          "label": "Meki raspored: prometni kanal među republikama.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "transport": {
+                "posture": "schedule_soft"
+              }
+            },
+            "desk_add": {
+              "transport": {
+                "capacity": 3,
+                "agenda_tension": -2
+              },
+              "finance": {
+                "capacity": 1
+              },
+              "fer": {
+                "capacity": 1
+              }
+            },
+            "federal.transport_links": 3,
+            "federal.inter_republic_trade": 2,
+            "federal.hard_currency": 1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "transport_schedule_soft",
+              "transport_quiet_paper"
+            ],
+            "flags_remove": [
+              "transport_harden_priority"
+            ]
+          }
+        },
+        {
+          "id": "telecom_link",
+          "label": "Telekom veza: savezni okvir komunikacija.",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_set": {
+              "transport": {
+                "posture": "telecom_link"
+              }
+            },
+            "desk_add": {
+              "transport": {
+                "loyalty": 3,
+                "capacity": 2
+              },
+              "finance": {
+                "loyalty": 1
+              }
+            },
+            "federal.transport_links": 3,
+            "federal.legitimacy": 1,
+            "federal.federal_budget": -1,
+            "RS.federal_trust": 2,
+            "BA.federal_trust": 1,
+            "HR.federal_trust": 1,
+            "flags_add": [
+              "transport_telecom_link",
+              "transport_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "support_reform",
+          "label": "Potpora reformi: prometni paket uz Markovića.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "transport": {
+                "posture": "reform_support"
+              }
+            },
+            "desk_add": {
+              "transport": {
+                "loyalty": 3,
+                "capacity": 3
+              },
+              "siv": {
+                "capacity": 2,
+                "loyalty": 2
+              }
+            },
+            "federal.transport_links": 3,
+            "federal.reform_momentum": 3,
+            "federal.siv_authority": 2,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "transport_reform_support",
+              "transport_quiet_paper",
+              "markovic_mandate_strong"
+            ]
+          }
+        },
+        {
+          "id": "harden_priority",
+          "label": "Tvrđi prioriteti — pritisak na prometne tokove.",
+          "cost": {
+            "reform": 1
+          },
+          "conflict_warn": true,
+          "effects": {
+            "desk_set": {
+              "transport": {
+                "posture": "harden_priority"
+              }
+            },
+            "desk_add": {
+              "transport": {
+                "loyalty": -2,
+                "capacity": 4,
+                "agenda_tension": 7
+              },
+              "fer": {
+                "agenda_tension": 2
+              }
+            },
+            "federal.transport_links": 1,
+            "federal.legitimacy": -1,
+            "federal.war_risk": 1,
+            "SI.federal_trust": -2,
+            "HR.federal_trust": -2,
+            "flags_add": [
+              "transport_harden_priority",
+              "transport_corridor_open"
+            ],
+            "flags_remove": [
+              "transport_schedule_soft"
+            ]
+          }
+        },
+        {
+          "id": "bind_siv",
+          "label": "Veži promet uz SIV kanal — zajednički papir.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "transport": {
+                "posture": "reform_support"
+              },
+              "siv": {
+                "posture": "technocrat"
+              }
+            },
+            "desk_add": {
+              "transport": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              },
+              "siv": {
+                "loyalty": 2,
+                "capacity": 1
+              }
+            },
+            "federal.transport_links": 2,
+            "federal.siv_authority": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "transport_siv_bind",
+              "transport_reform_support",
+              "transport_quiet_paper",
               "markovic_mandate_strong"
             ]
           }

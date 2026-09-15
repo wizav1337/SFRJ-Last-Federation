@@ -58,14 +58,14 @@ catalogs.dialogues = [
   "markovic", "markovic_late", "mesic", "tudman",
   "bogicevic", "tupurkovski", "racan",
   "gligorov", "bucin", "izetbegovic", "bulatovic",
-  "mesic_late", "jovic_late", "loncar", "buzadzic", "bajramovic", "kostic", "gracanin", "gacic", "mirjanic", "santo", "nazmi",
+  "mesic_late", "jovic_late", "loncar", "buzadzic", "bajramovic", "kostic", "gracanin", "gacic", "mirjanic", "santo", "nazmi", "slokar",
 ].map((id) => readJSON(`data/dialogue/${id}.json`));
 
 const acts = ["act1", "act2", "act3", "act4", "act5"].map((a) => readJSON(`data/events/${a}.json`));
 const flat = flattenActs(acts);
 
 const state = createNewState(catalogs);
-assert(state.save_schema === 17, "save_schema 17");
+assert(state.save_schema === 18, "save_schema 18");
 assert(state.attention_spent_desks === 0 && state.attention_spent_reforms === 0, "spend counters");
 
 initDesks(state, catalogs);
@@ -75,7 +75,7 @@ assert(cap === 3 || cap === 4, "attention cap");
 assert(state.attention_left === cap, "attention granted");
 
 const desks = listDesks(catalogs);
-assert(desks.length >= 23, "at least 23 desks (trade)");
+assert(desks.length >= 24, "at least 24 desks (transport)");
 assert(desks.some((d) => d.id === "labor"), "labor desk present");
 assert(state.desks.labor?.posture === "social_peace", "labor default posture");
 assert(desks.some((d) => d.id === "agriculture"), "agriculture desk present");
@@ -245,6 +245,18 @@ assert(tradeHardRaw?.conflict_warn, "trade harden conflict_warn in catalog");
 assert(isHardlineConflictAction("trade", tradeHardRaw), "trade harden is hardline conflict");
 assert(!(actionsForDesk(state, catalogs, "trade").find((a) => a.id === "set_market_calm")?.effects?.flags_add || []).includes("player_used_jna_threat"), "quiet trade must not set threat");
 assert(state.federal.internal_market === 50, "internal_market default 50");
+assert(desks.some((d) => d.id === "transport"), "transport desk present");
+assert(state.desks.transport?.posture === "corridor_open", "transport default posture");
+assert(actionsForDesk(state, catalogs, "transport").some((a) => a.id === "set_corridor_open"), "transport corridor_open");
+assert(actionsForDesk(state, catalogs, "transport").some((a) => a.id === "harden_priority"), "transport harden_priority");
+assert(actionsForDesk(state, catalogs, "siv").some((a) => a.id === "bind_transport"), "siv bind_transport");
+assert(actionsForDesk(state, catalogs, "finance").some((a) => a.id === "liaison_transport"), "finance liaison_transport");
+assert(actionsForDesk(state, catalogs, "fer").some((a) => a.id === "liaison_transport"), "fer liaison_transport");
+const transportHardRaw = catalogs.desks.find((d) => d.id === "transport").actions.find((a) => a.id === "harden_priority");
+assert(transportHardRaw?.conflict_warn, "transport harden conflict_warn in catalog");
+assert(isHardlineConflictAction("transport", transportHardRaw), "transport harden is hardline conflict");
+assert(!(actionsForDesk(state, catalogs, "transport").find((a) => a.id === "set_corridor_open")?.effects?.flags_add || []).includes("player_used_jna_threat"), "quiet transport must not set threat");
+assert(state.federal.transport_links === 50, "transport_links default 50");
 
 assert(state.desks.sdb?.posture === "civilian_leash", "sdb default posture");
 const sdbActs = actionsForDesk(state, catalogs, "sdb");
@@ -442,6 +454,7 @@ assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_labor"
 assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_agriculture"), "markovic agriculture revisit");
 assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_industry"), "markovic industry revisit");
 assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_trade"), "markovic trade revisit");
+assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_transport"), "markovic transport revisit");
 const gacic = catalogs.dialogues.find((d) => d.id === "gacic");
 assert(gacic && /Gačić|Rad|socijal/i.test(JSON.stringify(gacic)), "gacic labor language");
 assert(!(gacic.nodes.start.choices || []).some((c) => /priznaj seces|priznanje neovisnosti/i.test(c.label || "")), "gacic no secession recognition");
@@ -454,6 +467,9 @@ assert(!(santo.nodes.start.choices || []).some((c) => /priznaj seces|priznanje n
 const nazmi = catalogs.dialogues.find((d) => d.id === "nazmi");
 assert(nazmi && /Nazmi|Mustafa|trgovin/i.test(JSON.stringify(nazmi)), "nazmi trade language");
 assert(!(nazmi.nodes.start.choices || []).some((c) => /priznaj seces|priznanje neovisnosti/i.test(c.label || "")), "nazmi no secession recognition");
+const slokar = catalogs.dialogues.find((d) => d.id === "slokar");
+assert(slokar && /Slokar|Jože|promet|veze/i.test(JSON.stringify(slokar)), "slokar transport language");
+assert(!(slokar.nodes.start.choices || []).some((c) => /priznaj seces|priznanje neovisnosti/i.test(c.label || "")), "slokar no secession recognition");
 
 const bul = catalogs.dialogues.find((d) => d.id === "bulatovic");
 assert(bul && /Titograd/i.test(JSON.stringify(bul)), "bulatovic Titograd");
@@ -498,6 +514,9 @@ assert(!(indMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.te
 const tradeMemo = flat.find((e) => e.id === "confederal_trade_memo");
 assert(tradeMemo && /Izetbegović–Gligorov|I–G/i.test((tradeMemo.briefing || "") + (tradeMemo.constitutional_note || "")), "trade memo excludes I-G");
 assert(!(tradeMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.test(c.label || "")), "no accept I-G on trade memo");
+const transportMemo = flat.find((e) => e.id === "confederal_transport_memo");
+assert(transportMemo && /Izetbegović–Gligorov|I–G/i.test((transportMemo.briefing || "") + (transportMemo.constitutional_note || "")), "transport memo excludes I-G");
+assert(!(transportMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.test(c.label || "")), "no accept I-G on transport memo");
 
 
 // Slice A end date invariant
@@ -522,4 +541,5 @@ console.log("smoke OK", {
   pass15: ["agriculture", "mirjanic", "revisit_agriculture", "liaison_agriculture", "bind_agriculture", "confederal_agriculture_memo"],
   pass16: ["industry", "santo", "revisit_industry", "liaison_industry", "bind_industry", "confederal_industry_memo"],
   pass17: ["trade", "nazmi", "revisit_trade", "liaison_trade", "liaison_domestic_trade", "bind_trade", "confederal_trade_memo"],
+  pass18: ["transport", "slokar", "revisit_transport", "liaison_transport", "bind_transport", "confederal_transport_memo"],
 });

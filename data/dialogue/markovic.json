@@ -1113,6 +1113,86 @@
           }
         }
       ]
+    },
+    "revisit_transport": {
+      "text": "Marković — predsjednik SIV-a — gleda Promet. „Jože Slokar drži sekretarijat; otvoreni koridori i potpora reformi smiruju; tvrđi prioriteti dižu rizik. Ja ne vodim rasporede — tražim papir koji SIV može čitati. Nema rata.“",
+      "choices": [
+        {
+          "id": "tr_corridor",
+          "label": "Otvoreni koridori — SIV iznad zastoja na putevima.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 2,
+            "federal.transport_links": 4,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "dialogue_markovic_transport",
+              "transport_corridor_open",
+              "transport_siv_bind",
+              "markovic_mandate_strong",
+              "transport_quiet_paper"
+            ],
+            "flags_remove": [
+              "transport_harden_priority"
+            ],
+            "desk_set": {
+              "transport": {
+                "posture": "corridor_open"
+              },
+              "siv": {
+                "posture": "technocrat"
+              }
+            }
+          }
+        },
+        {
+          "id": "tr_reform",
+          "label": "Prometni paket uz reformu — potpora Markoviću.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 2,
+            "federal.transport_links": 3,
+            "federal.reform_momentum": 3,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "dialogue_markovic_transport",
+              "transport_reform_support",
+              "transport_siv_bind",
+              "transport_quiet_paper",
+              "markovic_mandate_strong"
+            ],
+            "desk_set": {
+              "transport": {
+                "posture": "reform_support"
+              }
+            }
+          }
+        },
+        {
+          "id": "tr_telecom",
+          "label": "Telekom veza — meki kanal.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 1,
+            "federal.transport_links": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "dialogue_markovic_transport",
+              "transport_telecom_link",
+              "transport_quiet_paper"
+            ],
+            "flags_remove": [
+              "transport_harden_priority"
+            ],
+            "desk_set": {
+              "transport": {
+                "posture": "telecom_link"
+              }
+            }
+          }
+        }
+      ]
     }
   },
   "entries": [
@@ -1339,6 +1419,26 @@
           "trade_siv_bind",
           "desk_event_trade_open_seen",
           "dialogue_nazmi"
+        ]
+      }
+    },
+    {
+      "id": "revisit_transport",
+      "node": "revisit_transport",
+      "once": true,
+      "priority": 7,
+      "require_done": true,
+      "available_from": "1991-02-01",
+      "unlock": {
+        "flags_any": [
+          "transport_corridor_open",
+          "transport_schedule_soft",
+          "transport_telecom_link",
+          "transport_reform_support",
+          "transport_harden_priority",
+          "transport_siv_bind",
+          "desk_event_transport_open_seen",
+          "dialogue_slokar"
         ]
       }
     }

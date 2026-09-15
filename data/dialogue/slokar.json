@@ -1,0 +1,291 @@
+{
+  "id": "slokar",
+  "speaker": "Jože Slokar",
+  "title": "savezni sekretar za promet i veze",
+  "desk": "transport",
+  "available_from": "1990-08-01",
+  "unlock": {
+    "flags_any": [
+      "transport_corridor_open",
+      "transport_schedule_soft",
+      "transport_telecom_link",
+      "transport_reform_support",
+      "transport_harden_priority",
+      "desk_event_transport_open_seen",
+      "fer_trade_open",
+      "multiparty_wave"
+    ]
+  },
+  "nodes": {
+    "start": {
+      "text": "Jože Slokar prima u Saveznom sekretarijatu za promet i veze. Glas iz Službenog lista 20/1989 — „za saobraćaj i veze“. „Promet i veze su mirnodopski resor: otvoreni koridori, meki rasporedi, telekom veze, potpora reformi ili tvrđi prioriteti — sve papir. Marković ostaje predsjednik SIV-a. Ja držim kanal prema republikama i FER-u. Što želite od sekretarijata?“",
+      "choices": [
+        {
+          "id": "corridor",
+          "label": "Otvoreni koridori — prometni mir.",
+          "next": "corridor_done",
+          "effects": {
+            "desk_add": {
+              "transport": {
+                "loyalty": 4,
+                "agenda_tension": -3
+              },
+              "siv": {
+                "loyalty": 1
+              }
+            },
+            "federal.transport_links": 4,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "talked_slokar",
+              "dialogue_slokar",
+              "dialogue_slokar_corridor",
+              "transport_corridor_open",
+              "transport_quiet_paper"
+            ],
+            "flags_remove": [
+              "transport_harden_priority"
+            ],
+            "desk_set": {
+              "transport": {
+                "posture": "corridor_open"
+              }
+            }
+          }
+        },
+        {
+          "id": "schedule",
+          "label": "Meki raspored — međurepublički kanal.",
+          "next": "schedule_done",
+          "effects": {
+            "desk_add": {
+              "transport": {
+                "capacity": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.transport_links": 3,
+            "federal.inter_republic_trade": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "talked_slokar",
+              "dialogue_slokar",
+              "transport_schedule_soft",
+              "transport_quiet_paper"
+            ],
+            "flags_remove": [
+              "transport_harden_priority"
+            ],
+            "desk_set": {
+              "transport": {
+                "posture": "schedule_soft"
+              }
+            }
+          }
+        },
+        {
+          "id": "telecom",
+          "label": "Telekom veza — savezni okvir komunikacija.",
+          "next": "telecom_done",
+          "effects": {
+            "desk_add": {
+              "transport": {
+                "loyalty": 3,
+                "capacity": 2
+              }
+            },
+            "federal.transport_links": 3,
+            "RS.federal_trust": 1,
+            "BA.federal_trust": 1,
+            "flags_add": [
+              "talked_slokar",
+              "dialogue_slokar",
+              "transport_telecom_link",
+              "transport_quiet_paper"
+            ],
+            "desk_set": {
+              "transport": {
+                "posture": "telecom_link"
+              }
+            }
+          }
+        },
+        {
+          "id": "harden",
+          "label": "Tvrđi prioriteti — pritisak na tokove.",
+          "next": "harden_done",
+          "effects": {
+            "desk_add": {
+              "transport": {
+                "capacity": 4,
+                "agenda_tension": 5,
+                "loyalty": -2
+              }
+            },
+            "federal.transport_links": 1,
+            "federal.war_risk": 1,
+            "federal.legitimacy": -1,
+            "flags_add": [
+              "talked_slokar",
+              "dialogue_slokar",
+              "transport_harden_priority",
+              "transport_corridor_open"
+            ],
+            "flags_remove": [
+              "transport_schedule_soft"
+            ],
+            "desk_set": {
+              "transport": {
+                "posture": "harden_priority"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "corridor_done": {
+      "text": "„Koridori su otvoreni. Stol miran. Nema rata.“",
+      "choices": [
+        {
+          "id": "end_corridor",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "schedule_done": {
+      "text": "„Raspored je mek. Nema čina VI.“",
+      "choices": [
+        {
+          "id": "end_schedule",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "telecom_done": {
+      "text": "„Telekom veza stoji. Promet i veze — papir, ne fronta.“",
+      "choices": [
+        {
+          "id": "end_telecom",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "harden_done": {
+      "text": "„Prioriteti su tvrđi. To diže napetost — i dalje papir, ne fronta.“",
+      "choices": [
+        {
+          "id": "end_harden",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "revisit_press": {
+      "text": "Jože Slokar ponovo: „Potpora reformi, meki raspored ili telekom veza. Bez priznanja secesije. Bez rata.“",
+      "choices": [
+        {
+          "id": "reform",
+          "label": "Potpora Markovićevoj reformi.",
+          "next": null,
+          "effects": {
+            "federal.transport_links": 2,
+            "federal.reform_momentum": 2,
+            "federal.siv_authority": 1,
+            "flags_add": [
+              "dialogue_slokar",
+              "transport_reform_support",
+              "transport_quiet_paper",
+              "markovic_mandate_strong"
+            ],
+            "desk_set": {
+              "transport": {
+                "posture": "reform_support"
+              }
+            }
+          }
+        },
+        {
+          "id": "soft_again",
+          "label": "Meki raspored — međurepublički kanal.",
+          "next": null,
+          "effects": {
+            "federal.transport_links": 2,
+            "federal.inter_republic_trade": 1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "dialogue_slokar",
+              "transport_schedule_soft",
+              "transport_quiet_paper"
+            ],
+            "flags_remove": [
+              "transport_harden_priority"
+            ],
+            "desk_set": {
+              "transport": {
+                "posture": "schedule_soft"
+              }
+            }
+          }
+        },
+        {
+          "id": "fer_back",
+          "label": "Vrati meku telekom vezu uz FER.",
+          "next": null,
+          "effects": {
+            "federal.transport_links": 2,
+            "federal.war_risk": -1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "dialogue_slokar",
+              "transport_telecom_link",
+              "fer_transport_liaison",
+              "transport_quiet_paper"
+            ],
+            "flags_remove": [
+              "transport_harden_priority"
+            ],
+            "desk_set": {
+              "transport": {
+                "posture": "telecom_link"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "entries": [
+    {
+      "id": "start",
+      "node": "start",
+      "once": true,
+      "priority": 10
+    },
+    {
+      "id": "revisit_press",
+      "node": "revisit_press",
+      "once": true,
+      "priority": 6,
+      "require_done": true,
+      "available_from": "1990-11-01",
+      "unlock": {
+        "flags_any": [
+          "transport_corridor_open",
+          "transport_schedule_soft",
+          "transport_telecom_link",
+          "transport_reform_support",
+          "fer_transport_liaison",
+          "desk_event_transport_open_seen"
+        ]
+      }
+    }
+  ]
+}

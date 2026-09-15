@@ -2233,6 +2233,91 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_transport_spring",
+      "date": "1990-05-18",
+      "act": 2,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Proljetna postava Prometa",
+      "location": "Beograd — Savezni sekretarijat za promet i veze",
+      "briefing": "Proljeće 1990.: šalter prometa i veza traži jasniju postavu — otvoreni koridori, meki raspored ili telekom veza. Tihi papir. Nema rata.",
+      "constitutional_note": "Promet ostaje u SIV lancu; bez vojnog jezika.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_transport_open_seen",
+          "transport_corridor_open",
+          "transport_schedule_soft",
+          "transport_reform_support",
+          "markovic_mandate_strong"
+        ]
+      },
+      "choices": [
+        {
+          "id": "spring_corridor",
+          "label": "Drži otvorene koridore.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "transport": {
+                "posture": "corridor_open"
+              }
+            },
+            "federal.transport_links": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "transport_corridor_open",
+              "desk_event_transport_spring_seen",
+              "transport_quiet_paper"
+            ],
+            "flags_remove": [
+              "transport_harden_priority"
+            ]
+          }
+        },
+        {
+          "id": "spring_schedule",
+          "label": "Meki raspored uz Financije / FER.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "transport": {
+                "posture": "schedule_soft"
+              }
+            },
+            "federal.transport_links": 2,
+            "federal.hard_currency": 1,
+            "flags_add": [
+              "transport_schedule_soft",
+              "desk_event_transport_spring_seen",
+              "transport_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "spring_telecom",
+          "label": "Telekom veza.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "transport": {
+                "posture": "telecom_link"
+              }
+            },
+            "federal.transport_links": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "transport_telecom_link",
+              "desk_event_transport_spring_seen",
+              "transport_quiet_paper"
+            ]
+          }
+        }
+      ]
     }
   ]
 }
