@@ -170,6 +170,15 @@
       "status": "active",
       "competence": "operativna diplomacija; Lončarov kanal; EEZ dijalog; ostatak Nesvrstanih; tihi bilaterali",
       "dissolve_legal": "assembly_statute"
+    },
+    {
+      "id": "labor",
+      "name": "Savezni sekretarijat za rad",
+      "kind": "secretariat",
+      "desk": "SIV",
+      "status": "active",
+      "competence": "rad / socijalni mir / štrajkovi / potpora Markovićevoj reformi (Pass 14 šalter)",
+      "dissolve_legal": "presidency_decree"
     }
   ]
 }

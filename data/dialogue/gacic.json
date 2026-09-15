@@ -1,0 +1,248 @@
+{
+  "id": "gacic",
+  "speaker": "Radiša Gačić",
+  "title": "savezni sekretar za rad",
+  "desk": "labor",
+  "available_from": "1990-08-01",
+  "unlock": {
+    "flags_any": [
+      "labor_social_peace",
+      "labor_strike_cool",
+      "labor_reform_support",
+      "labor_harden_line",
+      "desk_event_labor_open_seen",
+      "ssrn_mass_front",
+      "multiparty_wave"
+    ]
+  },
+  "nodes": {
+    "start": {
+      "text": "Gačić prima u Saveznom sekretarijatu za rad. „Rad je mirnodopski resor: socijalni mir, hlađenje štrajkova, potpora reformi ili tvrđi držaj — sve papir. Marković ostaje predsjednik SIV-a. Ja držim kanal prema sindikatima i SSRN-u. Što želite od sekretarijata?“",
+      "choices": [
+        {
+          "id": "peace",
+          "label": "Socijalni mir — dogovor umjesto ulice.",
+          "next": "peace_done",
+          "effects": {
+            "desk_add": {
+              "labor": {
+                "loyalty": 4,
+                "agenda_tension": -3
+              },
+              "siv": {
+                "loyalty": 1
+              }
+            },
+            "federal.labor_peace": 4,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "talked_gacic",
+              "dialogue_gacic",
+              "dialogue_gacic_peace",
+              "labor_social_peace",
+              "labor_quiet_paper"
+            ],
+            "flags_remove": [
+              "labor_harden_line"
+            ],
+            "desk_set": {
+              "labor": {
+                "posture": "social_peace"
+              }
+            }
+          }
+        },
+        {
+          "id": "cool",
+          "label": "Hladi štrajkove — pregovori, ne represija.",
+          "next": "cool_done",
+          "effects": {
+            "desk_add": {
+              "labor": {
+                "capacity": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.labor_peace": 3,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "talked_gacic",
+              "dialogue_gacic",
+              "labor_strike_cool",
+              "labor_quiet_paper"
+            ],
+            "flags_remove": [
+              "labor_harden_line"
+            ],
+            "desk_set": {
+              "labor": {
+                "posture": "strike_cool"
+              }
+            }
+          }
+        },
+        {
+          "id": "harden",
+          "label": "Tvrđi radni držaj — pritisak na sindikate.",
+          "next": "harden_done",
+          "effects": {
+            "desk_add": {
+              "labor": {
+                "capacity": 4,
+                "agenda_tension": 5,
+                "loyalty": -2
+              }
+            },
+            "federal.labor_peace": 1,
+            "federal.war_risk": 1,
+            "federal.legitimacy": -1,
+            "flags_add": [
+              "talked_gacic",
+              "dialogue_gacic",
+              "labor_harden_line",
+              "labor_social_peace"
+            ],
+            "flags_remove": [
+              "labor_strike_cool"
+            ],
+            "desk_set": {
+              "labor": {
+                "posture": "harden_line"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "peace_done": {
+      "text": "„Mir drži ulicu van šaltera. Nema rata.“",
+      "choices": [
+        {
+          "id": "end_peace",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "cool_done": {
+      "text": "„Štrajkove hladimo pregovorom. Nema čina VI.“",
+      "choices": [
+        {
+          "id": "end_cool",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "harden_done": {
+      "text": "„Držaj je tvrđi. To diže napetost — i dalje papir, ne fronta.“",
+      "choices": [
+        {
+          "id": "end_harden",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "revisit_press": {
+      "text": "Gačić ponovo: „Plaćni koridor, potpora reformi ili veza sa SSRN-om. Bez priznanja secesije. Bez rata.“",
+      "choices": [
+        {
+          "id": "wage",
+          "label": "Plaćni koridor — savezni okvir plaća.",
+          "next": null,
+          "effects": {
+            "federal.labor_peace": 2,
+            "federal.inflation": -1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "dialogue_gacic",
+              "labor_wage_corridor",
+              "labor_quiet_paper"
+            ],
+            "desk_set": {
+              "labor": {
+                "posture": "wage_corridor"
+              }
+            }
+          }
+        },
+        {
+          "id": "reform",
+          "label": "Potpora Markovićevoj reformi.",
+          "next": null,
+          "effects": {
+            "federal.labor_peace": 2,
+            "federal.reform_momentum": 2,
+            "federal.siv_authority": 1,
+            "flags_add": [
+              "dialogue_gacic",
+              "labor_reform_support",
+              "labor_quiet_paper",
+              "markovic_mandate_strong"
+            ],
+            "desk_set": {
+              "labor": {
+                "posture": "reform_support"
+              }
+            }
+          }
+        },
+        {
+          "id": "ssrn_back",
+          "label": "Vrati meki socijalni mir uz SSRN.",
+          "next": null,
+          "effects": {
+            "federal.labor_peace": 2,
+            "federal.war_risk": -1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "dialogue_gacic",
+              "labor_social_peace",
+              "ssrn_labor_liaison",
+              "labor_quiet_paper"
+            ],
+            "flags_remove": [
+              "labor_harden_line"
+            ],
+            "desk_set": {
+              "labor": {
+                "posture": "social_peace"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "entries": [
+    {
+      "id": "start",
+      "node": "start",
+      "once": true,
+      "priority": 10
+    },
+    {
+      "id": "revisit_press",
+      "node": "revisit_press",
+      "once": true,
+      "priority": 6,
+      "require_done": true,
+      "available_from": "1990-11-01",
+      "unlock": {
+        "flags_any": [
+          "labor_social_peace",
+          "labor_strike_cool",
+          "labor_reform_support",
+          "labor_wage_corridor",
+          "ssrn_labor_liaison",
+          "desk_event_labor_open_seen"
+        ]
+      }
+    }
+  ]
+}

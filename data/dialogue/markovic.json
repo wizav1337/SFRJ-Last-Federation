@@ -793,6 +793,86 @@
           }
         }
       ]
+    },
+    "revisit_labor": {
+      "text": "Marković — predsjednik SIV-a — gleda Rad. „Gačić drži sekretarijat; socijalni mir i potpora reformi smiruju; tvrđi držaj diže rizik. Ja ne vodim ulicu — tražim papir koji SIV može čitati. Nema rata.“",
+      "choices": [
+        {
+          "id": "labor_peace",
+          "label": "Socijalni mir — SIV iznad ulice.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 2,
+            "federal.labor_peace": 4,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "dialogue_markovic_labor",
+              "labor_social_peace",
+              "labor_siv_bind",
+              "markovic_mandate_strong",
+              "labor_quiet_paper"
+            ],
+            "flags_remove": [
+              "labor_harden_line"
+            ],
+            "desk_set": {
+              "labor": {
+                "posture": "social_peace"
+              },
+              "siv": {
+                "posture": "technocrat"
+              }
+            }
+          }
+        },
+        {
+          "id": "labor_reform",
+          "label": "Radni paket uz reformu — potpora Markoviću.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 2,
+            "federal.labor_peace": 3,
+            "federal.reform_momentum": 3,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "dialogue_markovic_labor",
+              "labor_reform_support",
+              "labor_siv_bind",
+              "labor_quiet_paper",
+              "markovic_mandate_strong"
+            ],
+            "desk_set": {
+              "labor": {
+                "posture": "reform_support"
+              }
+            }
+          }
+        },
+        {
+          "id": "labor_cool",
+          "label": "Hladi štrajkove — meki kanal.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 1,
+            "federal.labor_peace": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "dialogue_markovic_labor",
+              "labor_strike_cool",
+              "labor_quiet_paper"
+            ],
+            "flags_remove": [
+              "labor_harden_line"
+            ],
+            "desk_set": {
+              "labor": {
+                "posture": "strike_cool"
+              }
+            }
+          }
+        }
+      ]
     }
   },
   "entries": [
@@ -940,6 +1020,25 @@
           "sdb_siv_bind",
           "desk_event_sdb_open_seen",
           "dialogue_gracanin"
+        ]
+      }
+    },
+    {
+      "id": "revisit_labor",
+      "node": "revisit_labor",
+      "once": true,
+      "priority": 7,
+      "require_done": true,
+      "available_from": "1991-02-01",
+      "unlock": {
+        "flags_any": [
+          "labor_social_peace",
+          "labor_strike_cool",
+          "labor_reform_support",
+          "labor_harden_line",
+          "labor_siv_bind",
+          "desk_event_labor_open_seen",
+          "dialogue_gacic"
         ]
       }
     }

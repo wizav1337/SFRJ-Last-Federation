@@ -1913,6 +1913,94 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_labor_open",
+      "date": "1990-02-18",
+      "act": 1,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Rad: savezni sekretarijat za socijalni mir",
+      "location": "Beograd — Savezni sekretarijat za rad",
+      "briefing": "Savezni sekretarijat za rad stoji kao mirnodopski sloj: socijalni mir, štrajkovi, potpora reformi. To nije Financije ni SSRN — nego radni šalter. Marković ostaje predsjednik SIV-a. Tihi papir ne postavlja player_used_jna_threat. Nema rata.",
+      "constitutional_note": "Rad ne zamjenjuje Predsjedništvo ni SIV; civilni lanac ostaje politički.",
+      "documents": [
+        "1974_presidency",
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "markovic_mandate_strong",
+          "multiparty_wave",
+          "siv_austerity_stance",
+          "ssrn_mass_front",
+          "labor_social_peace",
+          "skj_renounced_monopoly",
+          "finance_transfers_open"
+        ]
+      },
+      "choices": [
+        {
+          "id": "open_peace",
+          "label": "Otvori šalter: socijalni mir.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "labor": {
+                "posture": "social_peace"
+              }
+            },
+            "federal.labor_peace": 3,
+            "federal.legitimacy": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "labor_social_peace",
+              "desk_event_labor_open_seen",
+              "labor_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "open_cool",
+          "label": "Hladi štrajkove — pregovori.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "labor": {
+                "posture": "strike_cool"
+              }
+            },
+            "federal.labor_peace": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "labor_strike_cool",
+              "desk_event_labor_open_seen",
+              "labor_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "open_reform",
+          "label": "Potpora reformi uz Markovića.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "labor": {
+                "posture": "reform_support"
+              }
+            },
+            "federal.labor_peace": 2,
+            "federal.reform_momentum": 2,
+            "federal.siv_authority": 1,
+            "flags_add": [
+              "labor_reform_support",
+              "desk_event_labor_open_seen",
+              "labor_quiet_paper",
+              "markovic_mandate_strong"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

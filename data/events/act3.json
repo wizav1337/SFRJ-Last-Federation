@@ -2380,6 +2380,167 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_labor_autumn",
+      "date": "1990-09-14",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Jesen: pritisak na radni šalter",
+      "location": "Beograd — Savezni sekretarijat za rad",
+      "briefing": "Jesen 1990.: republike i sindikati pritiskaju savezni rad. Može se držati mir, potpora reformi ili tvrđi držaj. Tihi papir ne postavlja player_used_jna_threat.",
+      "constitutional_note": "Tvrđi držaj diže napetost, ne otvara frontu.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_labor_open_seen",
+          "desk_event_labor_spring_seen",
+          "labor_social_peace",
+          "labor_reform_support",
+          "multiparty_wave"
+        ]
+      },
+      "choices": [
+        {
+          "id": "autumn_peace",
+          "label": "Drži socijalni mir.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "labor": {
+                "posture": "social_peace"
+              }
+            },
+            "federal.labor_peace": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "labor_social_peace",
+              "desk_event_labor_autumn_seen",
+              "labor_quiet_paper"
+            ],
+            "flags_remove": [
+              "labor_harden_line"
+            ]
+          }
+        },
+        {
+          "id": "autumn_reform",
+          "label": "Pojačaj potporu reformi.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "labor": {
+                "posture": "reform_support"
+              }
+            },
+            "federal.reform_momentum": 2,
+            "federal.labor_peace": 2,
+            "flags_add": [
+              "labor_reform_support",
+              "desk_event_labor_autumn_seen",
+              "labor_quiet_paper",
+              "markovic_mandate_strong"
+            ]
+          }
+        },
+        {
+          "id": "autumn_harden",
+          "label": "Tvrđi radni držaj.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "labor": {
+                "posture": "harden_line"
+              }
+            },
+            "federal.labor_peace": 1,
+            "federal.legitimacy": -1,
+            "federal.war_risk": 1,
+            "SI.federal_trust": -1,
+            "HR.federal_trust": -1,
+            "flags_add": [
+              "labor_harden_line",
+              "desk_event_labor_autumn_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_finance_labor_bind",
+      "date": "1990-10-08",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Financije ↔ Rad: plaćni kanal",
+      "location": "Beograd — Financije / Rad",
+      "briefing": "Financije i Rad mogu dijeliti plaćni koridor — knjige i socijalni mir. Mirnodopski papir. Nema rata.",
+      "constitutional_note": "Kanal ne mijenja ustavni položaj Predsjedništva.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_labor_open_seen",
+          "labor_wage_corridor",
+          "labor_social_peace",
+          "finance_transfers_open",
+          "desk_event_labor_autumn_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "bind_channel",
+          "label": "Otvori Financije–Rad kanal.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "finance": {
+                "posture": "target"
+              },
+              "labor": {
+                "posture": "wage_corridor"
+              }
+            },
+            "federal.labor_peace": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "finance_labor_liaison",
+              "labor_wage_corridor",
+              "desk_event_finance_labor_bind_seen",
+              "labor_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "bind_soft",
+          "label": "Meki koridor — bez tvrde ruke.",
+          "legal": "political",
+          "effects": {
+            "federal.labor_peace": 2,
+            "federal.inflation": -1,
+            "flags_add": [
+              "finance_labor_corridor",
+              "labor_wage_corridor",
+              "desk_event_finance_labor_bind_seen",
+              "labor_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "bind_hold",
+          "label": "Zadrži odvojene knjige.",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "desk_event_finance_labor_bind_seen"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

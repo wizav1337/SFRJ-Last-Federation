@@ -432,6 +432,30 @@ export const CORE_FLAGS = [
   "talked_gracanin",
   "ssup_sdb_liaison",
   "ssup_sdb_channel",
+  "labor_social_peace",
+  "labor_strike_cool",
+  "labor_reform_support",
+  "labor_wage_corridor",
+  "labor_harden_line",
+  "labor_siv_bind",
+  "labor_quiet_paper",
+  "confederal_labor_memo",
+  "desk_event_labor_open_seen",
+  "desk_event_labor_spring_seen",
+  "desk_event_labor_autumn_seen",
+  "desk_event_finance_labor_bind_seen",
+  "desk_event_labor_pleb_seen",
+  "desk_event_ssrn_labor_liaison_seen",
+  "desk_event_labor_spring91_seen",
+  "desk_event_labor_memo_seen",
+  "dialogue_gacic",
+  "dialogue_gacic_peace",
+  "dialogue_markovic_labor",
+  "talked_gacic",
+  "finance_labor_liaison",
+  "finance_labor_corridor",
+  "ssrn_labor_liaison",
+  "ssrn_labor_channel",
 ];
 
 const BOOLEAN_FEDERAL = new Set(["skj_leading_role"]);
@@ -457,6 +481,7 @@ export function defaultFederal() {
     jna_cohesion: 74,
     jna_obedience_to_civilian: 58,
     sdb_control: 54,
+    labor_peace: 50,
     assembly_function: 50,
     inter_republic_trade: 57,
     international_standing: 49,
@@ -538,7 +563,7 @@ export function createNewState(catalogs) {
     attention_month: "",
     attention_spent_desks: 0,
     attention_spent_reforms: 0,
-    save_schema: 13,
+    save_schema: 14,
   };
 }
 

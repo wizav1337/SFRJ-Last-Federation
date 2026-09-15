@@ -1892,6 +1892,91 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_labor_spring",
+      "date": "1990-05-06",
+      "act": 2,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Proljetna postava Rada",
+      "location": "Beograd — Savezni sekretarijat za rad",
+      "briefing": "Proljeće 1990.: šalter rada traži jasniju postavu — mir, hlađenje štrajkova ili plaćni koridor. Tihi papir. Nema rata.",
+      "constitutional_note": "Rad ostaje u SIV lancu; bez vojnog jezika.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_labor_open_seen",
+          "labor_social_peace",
+          "labor_strike_cool",
+          "labor_reform_support",
+          "markovic_mandate_strong"
+        ]
+      },
+      "choices": [
+        {
+          "id": "spring_peace",
+          "label": "Drži socijalni mir.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "labor": {
+                "posture": "social_peace"
+              }
+            },
+            "federal.labor_peace": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "labor_social_peace",
+              "desk_event_labor_spring_seen",
+              "labor_quiet_paper"
+            ],
+            "flags_remove": [
+              "labor_harden_line"
+            ]
+          }
+        },
+        {
+          "id": "spring_wage",
+          "label": "Plaćni koridor uz Financije.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "labor": {
+                "posture": "wage_corridor"
+              }
+            },
+            "federal.labor_peace": 2,
+            "federal.inflation": -1,
+            "flags_add": [
+              "labor_wage_corridor",
+              "desk_event_labor_spring_seen",
+              "labor_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "spring_cool",
+          "label": "Hladi štrajkove.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "labor": {
+                "posture": "strike_cool"
+              }
+            },
+            "federal.labor_peace": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "labor_strike_cool",
+              "desk_event_labor_spring_seen",
+              "labor_quiet_paper"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

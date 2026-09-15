@@ -261,7 +261,7 @@
       "name": "SIV",
       "name_hr": "Savezno izvršno vijeće",
       "kind": "constitutional",
-      "briefing": "Predsjednik SIV-a (Marković) nije predsjednik Jugoslavije. Stav SIV-a (štednja / poticaj / tehnokratski) vuče inflaciju, trgovinu i reformski zamah svakog mjeseca. Pass 13: bind_sdb — SIV civilni nadzor nad službom.",
+      "briefing": "Predsjednik SIV-a (Marković) nije predsjednik Jugoslavije. Stav SIV-a (štednja / poticaj / tehnokratski) vuče inflaciju, trgovinu i reformski zamah svakog mjeseca. Pass 13: bind_sdb — SIV civilni nadzor nad službom. Pass 14: bind_labor — SIV kanal prema saveznom radu.",
       "stats": {
         "loyalty": 58,
         "capacity": 62,
@@ -465,6 +465,55 @@
             ],
             "flags_remove": [
               "sdb_leash_tight"
+            ]
+          }
+        },
+        {
+          "id": "bind_labor",
+          "label": "SIV kanal prema Radu: reforma i socijalni mir.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "desk_event_labor_open_seen",
+              "labor_social_peace",
+              "labor_reform_support",
+              "labor_siv_bind",
+              "dialogue_markovic_labor"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "siv": {
+                "posture": "technocrat"
+              },
+              "labor": {
+                "posture": "reform_support"
+              }
+            },
+            "desk_add": {
+              "siv": {
+                "loyalty": 2,
+                "capacity": 2
+              },
+              "labor": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.siv_authority": 2,
+            "federal.labor_peace": 3,
+            "federal.reform_momentum": 2,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "labor_siv_bind",
+              "labor_reform_support",
+              "labor_quiet_paper",
+              "markovic_mandate_strong"
+            ],
+            "flags_remove": [
+              "labor_harden_line"
             ]
           }
         }
@@ -1295,7 +1344,7 @@
       "name": "Financije",
       "name_hr": "Savezni sekretarijat za financije",
       "kind": "secretariat",
-      "briefing": "Savezni proračun i transferi. Smrzavanje ili otvaranje fondova vuče životni standard, carine i put Markovića. Pass 8: ciljani kanali (finance_target) i meki koridor (finance_soft_corridor) — mirnodopski, bez fronte.",
+      "briefing": "Savezni proračun i transferi. Smrzavanje ili otvaranje fondova vuče životni standard, carine i put Markovića. Pass 8: ciljani kanali (finance_target) i meki koridor (finance_soft_corridor) — mirnodopski, bez fronte. Pass 14: liaison_labor / accept_labor_corridor — plaće i transferi uz Rad.",
       "stats": {
         "loyalty": 54,
         "capacity": 58,
@@ -1464,6 +1513,80 @@
             "flags_remove": [
               "finance_transfer_freeze",
               "finance_target"
+            ]
+          }
+        },
+        {
+          "id": "liaison_labor",
+          "label": "Veza Financije–Rad: plaće i fondovi.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "desk_event_labor_open_seen",
+              "labor_wage_corridor",
+              "labor_social_peace",
+              "labor_reform_support"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "finance": {
+                "posture": "target"
+              },
+              "labor": {
+                "posture": "wage_corridor"
+              }
+            },
+            "desk_add": {
+              "finance": {
+                "capacity": 2
+              },
+              "labor": {
+                "capacity": 2,
+                "agenda_tension": -1
+              }
+            },
+            "federal.labor_peace": 2,
+            "federal.federal_budget": 1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "finance_labor_liaison",
+              "labor_wage_corridor",
+              "labor_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "accept_labor_corridor",
+          "label": "Prihvati plaćni koridor Rada u knjigama.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "labor_wage_corridor",
+              "finance_labor_liaison",
+              "desk_event_labor_open_seen"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "finance": {
+                "loyalty": 2
+              },
+              "labor": {
+                "loyalty": 2
+              }
+            },
+            "federal.labor_peace": 2,
+            "federal.inflation": -1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "finance_labor_corridor",
+              "labor_wage_corridor",
+              "labor_quiet_paper"
             ]
           }
         }
@@ -2785,7 +2908,7 @@
       "name": "SSRN",
       "name_hr": "Socijalistički savez radnog naroda / SSRN",
       "kind": "socio_political",
-      "briefing": "Masovni front SSRN — ljuštura izbornog stroja i građanskog foruma. Postave (otvoreni front / stranačko zarobljavanje / građanski forum / paraliza) diraju legitimnost, skj_hold i zastavice ssrn_*. Veza uz SIV (ssrn_siv_bind) ne čini Markovića predsjednikom Jugoslavije. Mirnodopski šalter; bez fronte.",
+      "briefing": "Masovni front SSRN — ljuštura izbornog stroja i građanskog foruma. Postave (otvoreni front / stranačko zarobljavanje / građanski forum / paraliza) diraju legitimnost, skj_hold i zastavice ssrn_*. Veza uz SIV (ssrn_siv_bind) ne čini Markovića predsjednikom Jugoslavije. Mirnodopski šalter; bez fronte. Pass 14: liaison_labor / accept_labor_channel — masovni front × Rad.",
       "stats": {
         "loyalty": 48,
         "capacity": 45,
@@ -2960,6 +3083,82 @@
                 "posture": "technocrat"
               }
             }
+          }
+        },
+        {
+          "id": "liaison_labor",
+          "label": "SSRN–Rad: kanal socijalnog mira.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "desk_event_labor_open_seen",
+              "labor_social_peace",
+              "labor_strike_cool",
+              "ssrn_mass_front"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "ssrn": {
+                "posture": "mass_front_open"
+              },
+              "labor": {
+                "posture": "social_peace"
+              }
+            },
+            "desk_add": {
+              "ssrn": {
+                "loyalty": 2,
+                "agenda_tension": -2
+              },
+              "labor": {
+                "loyalty": 2,
+                "agenda_tension": -2
+              }
+            },
+            "federal.labor_peace": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "ssrn_labor_liaison",
+              "labor_social_peace",
+              "labor_quiet_paper"
+            ],
+            "flags_remove": [
+              "labor_harden_line"
+            ]
+          }
+        },
+        {
+          "id": "accept_labor_channel",
+          "label": "Prihvati radni kanal u masovnom frontu.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "ssrn_labor_liaison",
+              "labor_reform_support",
+              "desk_event_labor_open_seen"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "ssrn": {
+                "capacity": 2
+              },
+              "labor": {
+                "capacity": 2
+              }
+            },
+            "federal.labor_peace": 2,
+            "federal.reform_momentum": 1,
+            "flags_add": [
+              "ssrn_labor_channel",
+              "labor_reform_support",
+              "labor_quiet_paper"
+            ]
           }
         }
       ]
@@ -4025,6 +4224,238 @@
               "sdb_observe_line",
               "ssup_observe_line",
               "sdb_quiet_paper"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "labor",
+      "agency_id": "labor",
+      "name": "Rad",
+      "name_hr": "Savezni sekretarijat za rad",
+      "kind": "secretariat",
+      "briefing": "Savezni sekretarijat za rad: socijalni mir, rizik štrajka, potpora Markovićevoj reformi, savezni legitimitet i povjerenje republika — papir i okvir, ne fronta. Ne zamjenjuje Financije ni SSRN. Marković ostaje predsjednik SIV-a. Tihi papir ne postavlja player_used_jna_threat. Nema rata.",
+      "stats": {
+        "loyalty": 54,
+        "capacity": 52,
+        "agenda_tension": 38
+      },
+      "posture_default": "social_peace",
+      "postures": [
+        "social_peace",
+        "strike_cool",
+        "reform_support",
+        "wage_corridor",
+        "harden_line"
+      ],
+      "actions": [
+        {
+          "id": "set_social_peace",
+          "label": "Socijalni mir: dogovor umjesto ulice.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "labor": {
+                "posture": "social_peace"
+              }
+            },
+            "desk_add": {
+              "labor": {
+                "loyalty": 4,
+                "agenda_tension": -4,
+                "capacity": 2
+              },
+              "siv": {
+                "loyalty": 1
+              }
+            },
+            "federal.labor_peace": 5,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "SI.federal_trust": 1,
+            "HR.federal_trust": 1,
+            "flags_add": [
+              "labor_social_peace",
+              "labor_quiet_paper"
+            ],
+            "flags_remove": [
+              "labor_harden_line"
+            ]
+          }
+        },
+        {
+          "id": "cool_strikes",
+          "label": "Hladi štrajkove: pregovori, ne represija.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "labor": {
+                "posture": "strike_cool"
+              }
+            },
+            "desk_add": {
+              "labor": {
+                "capacity": 3,
+                "agenda_tension": -3
+              },
+              "ssrn": {
+                "agenda_tension": -2
+              }
+            },
+            "federal.labor_peace": 4,
+            "federal.legitimacy": 1,
+            "federal.war_risk": -1,
+            "BA.interethnic_tension": -1,
+            "flags_add": [
+              "labor_strike_cool",
+              "labor_quiet_paper"
+            ],
+            "flags_remove": [
+              "labor_harden_line"
+            ]
+          }
+        },
+        {
+          "id": "support_reform",
+          "label": "Potpora reformi: radni paket uz Markovića.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "labor": {
+                "posture": "reform_support"
+              }
+            },
+            "desk_add": {
+              "labor": {
+                "loyalty": 3,
+                "capacity": 3
+              },
+              "siv": {
+                "capacity": 2,
+                "loyalty": 2
+              }
+            },
+            "federal.labor_peace": 3,
+            "federal.reform_momentum": 3,
+            "federal.siv_authority": 2,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "labor_reform_support",
+              "labor_quiet_paper",
+              "markovic_mandate_strong"
+            ]
+          }
+        },
+        {
+          "id": "wage_corridor",
+          "label": "Plaćni koridor: savezni okvir plaća.",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_set": {
+              "labor": {
+                "posture": "wage_corridor"
+              }
+            },
+            "desk_add": {
+              "labor": {
+                "capacity": 4,
+                "agenda_tension": 2
+              },
+              "finance": {
+                "capacity": 2
+              }
+            },
+            "federal.labor_peace": 2,
+            "federal.inflation": -2,
+            "federal.legitimacy": 1,
+            "SI.living_standard": -1,
+            "HR.living_standard": -1,
+            "flags_add": [
+              "labor_wage_corridor",
+              "labor_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "harden_line",
+          "label": "Tvrđi radni držaj — pritisak na sindikate.",
+          "cost": {
+            "reform": 1
+          },
+          "conflict_warn": true,
+          "effects": {
+            "desk_set": {
+              "labor": {
+                "posture": "harden_line"
+              }
+            },
+            "desk_add": {
+              "labor": {
+                "loyalty": -2,
+                "capacity": 4,
+                "agenda_tension": 7
+              },
+              "ssrn": {
+                "agenda_tension": 3
+              }
+            },
+            "federal.labor_peace": 1,
+            "federal.legitimacy": -1,
+            "federal.war_risk": 1,
+            "SI.federal_trust": -2,
+            "HR.federal_trust": -2,
+            "flags_add": [
+              "labor_harden_line",
+              "labor_social_peace"
+            ],
+            "flags_remove": [
+              "labor_strike_cool"
+            ]
+          }
+        },
+        {
+          "id": "bind_siv",
+          "label": "Veži rad uz SIV kanal — zajednički papir.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "labor": {
+                "posture": "reform_support"
+              },
+              "siv": {
+                "posture": "technocrat"
+              }
+            },
+            "desk_add": {
+              "labor": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              },
+              "siv": {
+                "loyalty": 2,
+                "capacity": 1
+              }
+            },
+            "federal.labor_peace": 2,
+            "federal.siv_authority": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "labor_siv_bind",
+              "labor_reform_support",
+              "labor_quiet_paper",
+              "markovic_mandate_strong"
             ]
           }
         }

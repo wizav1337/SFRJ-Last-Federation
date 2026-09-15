@@ -572,3 +572,41 @@ Akcije: `soft_federal_line` → `skj_soft_federation`; `hard_unity_rhetoric` →
 - Marković = predsjednik **SIV-a**; Jović ≠ Milošević; Titograd ostaje Titograd
 - Nema priznanja secesije; ID-ovi i zastavice engleski; UI hrvatski (ijekavica)
 
+## Dodatak — Pass 14 `expand/pass14-labor`
+
+Šalter **Savezni sekretarijat za rad** (`labor`, agencija `labor`); produbljeni Financije, SIV i SSRN; glas Gačića (savezni sekretar za rad); Marković revisit Rada; kartice čina I–V; `save_schema` 14; smoke proširen. Mirnodopski sloj (socijalni mir / štrajkovi / potpora reformi / plaćni koridor / tvrđi držaj) — **nije** zamjena za Financije ni SSRN. (SSI nije postojao kao samostalni savezni sekretarijat 1990.)
+
+### Nova / proširena kartica
+
+| Spis | Datum | Napomena |
+|---|---|---|
+| `desk_labor_open` | 1990-02-18 | Otvaranje šaltera: mir / štrajk / reforma |
+| `desk_labor_spring` | 1990-05-06 | Proljetna postava Rada |
+| `desk_labor_autumn` | 1990-09-14 | Jesen: pritisak na radni šalter |
+| `desk_finance_labor_bind` | 1990-10-08 | Financije ↔ Rad kanal |
+| `desk_labor_before_pleb` | 1990-12-09 | Pred savjetodavnim plebiscitom |
+| `desk_ssrn_labor_liaison` | 1990-12-17 | SSRN ↔ Rad masovni front |
+| `desk_labor_spring91` | 1991-03-16 | Proljeće 1991. papirni put; bez čina VI |
+| `confederal_labor_memo` | 1991-04-26 | Memo Rada uz konfederalni stol; I–G **nije** dostupan |
+
+### Razgovori
+
+- `gacic.json` — Radiša Gačić (savezni sekretar za rad); mir / štrajk / tvrđi držaj; revisit plaće/reforma/SSRN
+- `markovic.json` — `revisit_labor` (SIV × Rad)
+
+### Šalteri
+
+- **labor**: `social_peace` → `labor_social_peace`; `strike_cool` → `labor_strike_cool`; `reform_support` → `labor_reform_support`; `wage_corridor` → `labor_wage_corridor`; `harden_line` → `labor_harden_line`
+- **finance** `liaison_labor` → `finance_labor_liaison`; `accept_labor_corridor` → `finance_labor_corridor`
+- **siv** `bind_labor` → `labor_siv_bind`
+- **ssrn** `liaison_labor` → `ssrn_labor_liaison`; `accept_labor_channel` → `ssrn_labor_channel`
+- Soft-lock: `harden_line` sukobljava se s `confederal_talks_open`
+- Tihi radni papir **ne** postavlja `player_used_jna_threat`
+
+### Pravila koja nisu dirana
+
+- E3: otvorena povelja (≥4) + Predsjedništvo koje se može sastati; sjedenje Mesića ≠ blokada; blokada isključuje E3
+- Nema čina VI; nema lipanjskog rata; Izetbegović–Gligorov **nije** prihvatljiv papir (samo isključenje)
+- Marković = predsjednik **SIV-a**; Jović ≠ Milošević; Titograd ostaje Titograd
+- Nema priznanja secesije; ID-ovi i zastavice engleski; UI hrvatski (ijekavica)
+

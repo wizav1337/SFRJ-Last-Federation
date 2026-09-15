@@ -3106,6 +3106,165 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_labor_spring91",
+      "date": "1991-03-16",
+      "act": 5,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Proljeće 1991.: radni papir",
+      "location": "Beograd — Savezni sekretarijat za rad",
+      "briefing": "Proljeće 1991.: Rad nudi papirni put — mir, reforma ili plaćni koridor. Bez čina VI. Tihi papir ne postavlja player_used_jna_threat. Nema rata.",
+      "constitutional_note": "Slice A: peacetime only; no Act VI.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_labor_open_seen",
+          "labor_social_peace",
+          "labor_reform_support",
+          "labor_siv_bind",
+          "dialogue_markovic_labor",
+          "desk_event_labor_pleb_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "s91_peace",
+          "label": "Socijalni mir — papirni put.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "labor": {
+                "posture": "social_peace"
+              }
+            },
+            "federal.labor_peace": 3,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "labor_social_peace",
+              "desk_event_labor_spring91_seen",
+              "labor_quiet_paper"
+            ],
+            "flags_remove": [
+              "labor_harden_line"
+            ]
+          }
+        },
+        {
+          "id": "s91_reform",
+          "label": "Reformski radni paket.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "labor": {
+                "posture": "reform_support"
+              }
+            },
+            "federal.reform_momentum": 2,
+            "federal.labor_peace": 2,
+            "flags_add": [
+              "labor_reform_support",
+              "desk_event_labor_spring91_seen",
+              "labor_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "s91_wage",
+          "label": "Plaćni koridor.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "labor": {
+                "posture": "wage_corridor"
+              }
+            },
+            "federal.labor_peace": 2,
+            "federal.inflation": -1,
+            "flags_add": [
+              "labor_wage_corridor",
+              "desk_event_labor_spring91_seen",
+              "labor_quiet_paper"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "confederal_labor_memo",
+      "date": "1991-04-26",
+      "act": 5,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Memorandum Rada uz konfederalni stol",
+      "location": "Beograd — konfederalni radni stol",
+      "briefing": "Uz konfederalni stol stiže memo Rada: socijalni mir i reformski paket kao jamstvo da radni šalter ne lomi pregovore. Izetbegović–Gligorov nacrt **nije** dostupan papir — samo isključenje. Nema rata.",
+      "constitutional_note": "I–G nije prihvatljiv papir na ovom stolu; memo Rada ne priznaje secesiju.",
+      "documents": [
+        "1974_presidency"
+      ],
+      "requires": {
+        "flags_any": [
+          "confederal_talks_open",
+          "desk_event_labor_open_seen",
+          "labor_social_peace",
+          "labor_reform_support",
+          "labor_siv_bind",
+          "dialogue_markovic_labor"
+        ]
+      },
+      "choices": [
+        {
+          "id": "memo_peace",
+          "label": "Priloži memo: socijalni mir uz stol.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 2,
+            "federal.war_risk": -2,
+            "federal.presidency_cohesion": 1,
+            "federal.labor_peace": 2,
+            "flags_add": [
+              "confederal_labor_memo",
+              "labor_social_peace",
+              "desk_event_labor_memo_seen",
+              "labor_quiet_paper"
+            ],
+            "flags_remove": [
+              "labor_harden_line"
+            ]
+          }
+        },
+        {
+          "id": "memo_reform",
+          "label": "Priloži reformski radni paket.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 2,
+            "federal.reform_momentum": 2,
+            "federal.siv_authority": 1,
+            "flags_add": [
+              "confederal_labor_memo",
+              "labor_reform_support",
+              "desk_event_labor_memo_seen",
+              "labor_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "memo_hold",
+          "label": "Zadrži Rad izvan stola.",
+          "legal": "political",
+          "effects": {
+            "federal.war_risk": 1,
+            "flags_add": [
+              "desk_event_labor_memo_seen"
+            ]
+          }
+        }
+      ]
     }
   ]
 }
