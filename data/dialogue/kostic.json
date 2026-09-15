@@ -1,0 +1,84 @@
+{
+  "id": "kostic",
+  "speaker": "Jugoslav Kostić",
+  "title": "član Predsjedništva SFRJ (sjedalo SAP Vojvodina)",
+  "desk": "provinces",
+  "available_from": "1990-06-01",
+  "unlock": {
+    "flags_any": [
+      "provinces_vote_independently",
+      "provinces_mediate",
+      "provinces_observe",
+      "provinces_bloc_tight",
+      "desk_event_provinces_open_seen",
+      "presidency_province_voice",
+      "presidency_province_quorum",
+      "multiparty_wave"
+    ]
+  },
+  "nodes": {
+    "start": {
+      "text": "Kostić u Novom Sadu / Beogradu. „Vojvodina ima sjedalo. Default je srpska mašina. Možete tražiti neovisni glas, promatranje, medijaciju ili tvrdu usklađenost. Nema rata — samo tko broji osam stolaca.“",
+      "choices": [
+        {
+          "id": "indep",
+          "label": "Neovisni glas Vojvodine u Predsjedništvu.",
+          "next": "indep_done",
+          "effects": {
+            "desk_set": { "provinces": { "posture": "vote_independent" } },
+            "desk_add": { "provinces": { "agenda_tension": 4, "capacity": 2 } },
+            "federal.presidency_cohesion": -1,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "RS.federal_trust": -2,
+            "VO.federal_trust": 3,
+            "VO.elite_cohesion": 3,
+            "flags_add": ["talked_kostic", "dialogue_kostic_indep", "provinces_vote_independently"],
+            "flags_remove": ["provinces_bloc_tight"]
+          }
+        },
+        {
+          "id": "observe",
+          "label": "Promatračka postava — bilježi, ne forsira.",
+          "next": "observe_done",
+          "effects": {
+            "desk_set": { "provinces": { "posture": "observe" } },
+            "desk_add": { "provinces": { "capacity": 2 } },
+            "federal.legitimacy": 1,
+            "VO.federal_trust": 1,
+            "flags_add": ["talked_kostic", "dialogue_kostic_observe", "provinces_observe"],
+            "flags_remove": ["provinces_bloc_tight"]
+          }
+        },
+        {
+          "id": "bloc",
+          "label": "Uskladi Vojvodinu sa srpskom linijom.",
+          "next": "bloc_done",
+          "effects": {
+            "desk_set": { "provinces": { "posture": "bloc_aligned" } },
+            "desk_add": { "provinces": { "loyalty": 3 } },
+            "RS.federal_trust": 2,
+            "VO.federal_trust": -1,
+            "flags_add": ["talked_kostic", "dialogue_kostic_bloc", "provinces_bloc_tight"],
+            "flags_remove": ["provinces_vote_independently", "provinces_mediate"]
+          }
+        }
+      ]
+    },
+    "indep_done": {
+      "text": "„Neovisni glas VO ne poništava SIV ni Predsjedništvo. Samo kidanje automatske mašine.“",
+      "choices": [{ "id": "end_i", "label": "Zapiši.", "next": null, "effects": { "federal.legitimacy": 1 } }]
+    },
+    "observe_done": {
+      "text": "Promatrač bilježi. Soft put: manje trenja, sporiji pomak.",
+      "choices": [{ "id": "end_o", "label": "Izađi.", "next": null, "effects": { "federal.war_risk": -1 } }]
+    },
+    "bloc_done": {
+      "text": "Blok ostaje. Aritmetika Predsjedništva predvidljiva za RS liniju.",
+      "choices": [{ "id": "end_b", "label": "Zatvori.", "next": null, "effects": { "federal.presidency_cohesion": 1 } }]
+    }
+  },
+  "entries": [
+    { "id": "start", "node": "start", "once": true }
+  ]
+}

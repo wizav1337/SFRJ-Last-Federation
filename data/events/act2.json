@@ -555,6 +555,105 @@
       ]
     },
     {
+      "id": "desk_provinces_spring",
+      "date": "1990-05-10",
+      "act": 2,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Proljetna aritmetika pokrajinskih sjedala",
+      "location": "Beograd — vijećnica Predsjedništva",
+      "briefing": "Prije ljetnih izbora broje se glasovi. VO i XK mogu ostati pečat, promatrati ili izaći iz automatske mašine. Soft putovi snižavaju war_risk; tvrdi blok drži predvidljivost. Nema izmišljenih smrti; samo papir.",
+      "constitutional_note": "Kvorum Predsjedništva ovisi o tome tko stvarno sjedi i kako glasuje.",
+      "documents": [
+        "1974_provinces"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_provinces_open_seen",
+          "provinces_observe",
+          "provinces_vote_independently",
+          "provinces_bloc_tight",
+          "provinces_mediate",
+          "multiparty_wave",
+          "talked_bajramovic",
+          "talked_kostic"
+        ]
+      },
+      "choices": [
+        {
+          "id": "spring_mediate",
+          "label": "Medijacija sjedala — meki kvorum.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "provinces": {
+                "posture": "mediate_seats"
+              },
+              "presidency": {
+                "posture": "mediate"
+              }
+            },
+            "federal.presidency_cohesion": 3,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "provinces_mediate",
+              "presidency_mediation_active",
+              "desk_event_provinces_spring_seen"
+            ],
+            "flags_remove": [
+              "provinces_bloc_tight",
+              "presidency_hardline"
+            ]
+          }
+        },
+        {
+          "id": "spring_indep",
+          "label": "Neovisni glasovi prije izbora.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "provinces": {
+                "posture": "vote_independent"
+              }
+            },
+            "federal.legitimacy": 2,
+            "federal.presidency_cohesion": -1,
+            "VO.federal_trust": 2,
+            "XK.federal_trust": 2,
+            "flags_add": [
+              "provinces_vote_independently",
+              "desk_event_provinces_spring_seen"
+            ],
+            "flags_remove": [
+              "provinces_bloc_tight"
+            ]
+          }
+        },
+        {
+          "id": "spring_bloc",
+          "label": "Zategni blok — pečat RS.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "provinces": {
+                "posture": "bloc_aligned"
+              }
+            },
+            "RS.federal_trust": 2,
+            "VO.federal_trust": -1,
+            "XK.federal_trust": -1,
+            "flags_add": [
+              "provinces_bloc_tight",
+              "desk_event_provinces_spring_seen"
+            ],
+            "flags_remove": [
+              "provinces_vote_independently"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_siv_fond_bind",
       "date": "1990-05-12",
       "act": 2,
@@ -696,6 +795,86 @@
       ]
     },
     {
+      "id": "desk_justice_refer_court",
+      "date": "1990-05-18",
+      "act": 2,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Pravosuđe upućuje spis Ustavnom sudu",
+      "location": "Beograd — Savezni sekretarijat za pravosuđe",
+      "briefing": "Sekretarijat može uputiti saveznu tužbu Ustavnom sudu ili zadržati spis u političkom kanalu. Nema racije; nema rata. Marković = SIV; Jović ≠ Milošević.",
+      "constitutional_note": "Upućivanje je pravni kanal, ne dekret Predsjedništva.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "const_court_docket_open",
+          "desk_event_const_court_open_seen",
+          "justice_constitutional_line",
+          "justice_arbitrate_line",
+          "markovic_mandate_strong"
+        ]
+      },
+      "choices": [
+        {
+          "id": "refer",
+          "label": "Upući spis sudu — otvori docket.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "docket_open"
+              }
+            },
+            "federal.legitimacy": 2,
+            "federal.assembly_function": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "justice_refer_court",
+              "const_court_docket_open",
+              "desk_event_justice_refer_seen"
+            ],
+            "flags_remove": [
+              "const_court_stalled"
+            ]
+          }
+        },
+        {
+          "id": "bind_ref",
+          "label": "Upući i veži sud–pravosuđe.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "bind_justice"
+              },
+              "justice": {
+                "posture": "constitutional"
+              }
+            },
+            "federal.legitimacy": 3,
+            "federal.presidency_cohesion": 2,
+            "flags_add": [
+              "justice_refer_court",
+              "justice_court_bind",
+              "const_court_bind_justice",
+              "desk_event_justice_refer_seen"
+            ]
+          }
+        },
+        {
+          "id": "hold_pol",
+          "label": "Zadrži spis u političkom kanalu.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "desk_event_justice_refer_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_ssp_isolation",
       "date": "1990-05-18",
       "act": 2,
@@ -774,86 +953,6 @@
             ],
             "flags_remove": [
               "ssp_isolation"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "id": "desk_justice_refer_court",
-      "date": "1990-05-18",
-      "act": 2,
-      "desk": "SIV",
-      "priority": "federal",
-      "title": "Pravosuđe upućuje spis Ustavnom sudu",
-      "location": "Beograd — Savezni sekretarijat za pravosuđe",
-      "briefing": "Sekretarijat može uputiti saveznu tužbu Ustavnom sudu ili zadržati spis u političkom kanalu. Nema racije; nema rata. Marković = SIV; Jović ≠ Milošević.",
-      "constitutional_note": "Upućivanje je pravni kanal, ne dekret Predsjedništva.",
-      "documents": [],
-      "requires": {
-        "flags_any": [
-          "const_court_docket_open",
-          "desk_event_const_court_open_seen",
-          "justice_constitutional_line",
-          "justice_arbitrate_line",
-          "markovic_mandate_strong"
-        ]
-      },
-      "choices": [
-        {
-          "id": "refer",
-          "label": "Upući spis sudu — otvori docket.",
-          "legal": "political",
-          "effects": {
-            "desk_set": {
-              "const_court": {
-                "posture": "docket_open"
-              }
-            },
-            "federal.legitimacy": 2,
-            "federal.assembly_function": 2,
-            "federal.war_risk": -1,
-            "flags_add": [
-              "justice_refer_court",
-              "const_court_docket_open",
-              "desk_event_justice_refer_seen"
-            ],
-            "flags_remove": [
-              "const_court_stalled"
-            ]
-          }
-        },
-        {
-          "id": "bind_ref",
-          "label": "Upući i veži sud–pravosuđe.",
-          "legal": "political",
-          "effects": {
-            "desk_set": {
-              "const_court": {
-                "posture": "bind_justice"
-              },
-              "justice": {
-                "posture": "constitutional"
-              }
-            },
-            "federal.legitimacy": 3,
-            "federal.presidency_cohesion": 2,
-            "flags_add": [
-              "justice_refer_court",
-              "justice_court_bind",
-              "const_court_bind_justice",
-              "desk_event_justice_refer_seen"
-            ]
-          }
-        },
-        {
-          "id": "hold_pol",
-          "label": "Zadrži spis u političkom kanalu.",
-          "legal": "political",
-          "effects": {
-            "federal.legitimacy": 1,
-            "flags_add": [
-              "desk_event_justice_refer_seen"
             ]
           }
         }

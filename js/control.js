@@ -94,6 +94,10 @@ function rawControl(state, id) {
   if (state.flags.const_court_stalled || state.flags.const_court_yields) n -= 1;
   if (state.flags.justice_refer_court) n += 0.5;
   if (state.flags.ssup_docket_watch) n += 0.5;
+  if (state.flags.provinces_vote_independently || state.flags.provinces_mediate) n += 1;
+  if (state.flags.provinces_bloc_tight) n -= 0.5;
+  if (state.flags.presidency_province_quorum) n += 0.5;
+  if (state.flags.ssup_province_dossier) n += 0.5;
   return n;
 }
 

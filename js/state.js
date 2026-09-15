@@ -364,6 +364,30 @@ export const CORE_FLAGS = [
   "dialogue_buzadzic_stall",
   "dialogue_buzadzic_revisit",
   "dialogue_markovic_const_court",
+  "provinces_bloc_tight",
+  "provinces_observe",
+  "provinces_mediate",
+  "presidency_province_voice",
+  "presidency_province_quorum",
+  "ssup_province_dossier",
+  "confederal_provinces_memo",
+  "desk_event_provinces_open_seen",
+  "desk_event_provinces_spring_seen",
+  "desk_event_provinces_autumn_seen",
+  "desk_event_ssup_province_dossier_seen",
+  "desk_event_provinces_pleb_seen",
+  "desk_event_presidency_province_quorum_seen",
+  "desk_event_provinces_spring91_seen",
+  "desk_event_provinces_memo_seen",
+  "talked_bajramovic",
+  "talked_kostic",
+  "dialogue_bajramovic_indep",
+  "dialogue_bajramovic_bloc",
+  "dialogue_bajramovic_mediate",
+  "dialogue_kostic_indep",
+  "dialogue_kostic_observe",
+  "dialogue_kostic_bloc",
+  "dialogue_markovic_provinces",
 ];
 
 const BOOLEAN_FEDERAL = new Set(["skj_leading_role"]);
@@ -470,7 +494,7 @@ export function createNewState(catalogs) {
     attention_month: "",
     attention_spent_desks: 0,
     attention_spent_reforms: 0,
-    save_schema: 10,
+    save_schema: 11,
   };
 }
 

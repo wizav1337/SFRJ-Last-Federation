@@ -298,6 +298,16 @@ function pathNotes(state) {
   if (state.flags.confederal_const_court_memo) notes.push(t("path.constCourtMemo"));
   if (state.flags.talked_buzadzic) notes.push(t("path.buzadzic"));
   if (state.flags.dialogue_markovic_const_court) notes.push(t("path.markovicCourt"));
+  if (state.flags.provinces_vote_independently) notes.push(t("path.provincesIndep"));
+  else if (state.flags.provinces_mediate) notes.push(t("path.provincesMediate"));
+  else if (state.flags.provinces_bloc_tight) notes.push(t("path.provincesBloc"));
+  else if (state.flags.provinces_observe) notes.push(t("path.provincesObserve"));
+  if (state.flags.ssup_province_dossier) notes.push(t("path.ssupProvinceDossier"));
+  if (state.flags.presidency_province_quorum) notes.push(t("path.presidencyProvinceQuorum"));
+  if (state.flags.confederal_provinces_memo) notes.push(t("path.provincesMemo"));
+  if (state.flags.talked_bajramovic) notes.push(t("path.bajramovic"));
+  if (state.flags.talked_kostic) notes.push(t("path.kostic"));
+  if (state.flags.dialogue_markovic_provinces) notes.push(t("path.markovicProvinces"));
   const stack = confederalStackDepth(state);
   if (stack >= 3) notes.push(t("path.stackDepth", { n: stack }));
   return notes;

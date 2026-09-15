@@ -321,6 +321,179 @@
       ]
     },
     {
+      "id": "desk_provinces_before_pleb",
+      "date": "1990-12-11",
+      "act": 4,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Pred savjetodavnim plebiscitom: tko broji sjedala",
+      "location": "Beograd — Predsjedništvo",
+      "briefing": "Prije slovenskog savjetodavnog plebiscita aritmetika Predsjedništva opet pada na VO/XK. Neovisni glasovi ili medijacija drže stol otvorenim; blok sužava. Sjedenje Mesića se ovdje ne postavlja automatski. Nema rata.",
+      "constitutional_note": "Plebiscit je uvod, ne secesija; pokrajinska sjedala i dalje broje u saveznom kvorumu.",
+      "documents": [
+        "1974_provinces"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_provinces_open_seen",
+          "desk_event_provinces_autumn_seen",
+          "provinces_vote_independently",
+          "provinces_mediate",
+          "talked_bajramovic",
+          "talked_kostic",
+          "dialogue_markovic_provinces"
+        ]
+      },
+      "choices": [
+        {
+          "id": "pleb_indep",
+          "label": "Neovisni glasovi pred plebiscitom.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "provinces": {
+                "posture": "vote_independent"
+              }
+            },
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "SI.federal_trust": 1,
+            "flags_add": [
+              "provinces_vote_independently",
+              "desk_event_provinces_pleb_seen"
+            ],
+            "flags_remove": [
+              "provinces_bloc_tight"
+            ]
+          }
+        },
+        {
+          "id": "pleb_mediate",
+          "label": "Medijacija kvoruma s pokrajinama.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "provinces": {
+                "posture": "mediate_seats"
+              },
+              "presidency": {
+                "posture": "mediate"
+              }
+            },
+            "federal.presidency_cohesion": 4,
+            "flags_add": [
+              "provinces_mediate",
+              "presidency_mediation_active",
+              "desk_event_provinces_pleb_seen"
+            ],
+            "flags_remove": [
+              "provinces_bloc_tight"
+            ]
+          }
+        },
+        {
+          "id": "pleb_bloc",
+          "label": "Blok ostaje — predvidljiva mašina.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "provinces": {
+                "posture": "bloc_aligned"
+              }
+            },
+            "federal.presidency_cohesion": 1,
+            "SI.federal_trust": -1,
+            "flags_add": [
+              "provinces_bloc_tight",
+              "desk_event_provinces_pleb_seen"
+            ],
+            "flags_remove": [
+              "provinces_vote_independently"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_const_court_before_pleb",
+      "date": "1990-12-12",
+      "act": 4,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Ustavni sud pred plebiscitom",
+      "location": "Beograd — Ustavni sud",
+      "briefing": "Pred slovenačkim plebiscitom sud može držati docket ili stati. Plebiscit je savjetodavni uvod — nije proglašenje. Nema auto-sjedenja Mesića. Nema priznanja secesije.",
+      "constitutional_note": "Ustavna ocjena nije priznanje neovisnosti. Marković = SIV; Jović ≠ Milošević.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "const_court_docket_open",
+          "const_court_bind_justice",
+          "talked_buzadzic",
+          "desk_event_const_court_autumn_seen",
+          "desk_event_justice_bind_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "hold",
+          "label": "Drži docket pred glasovanje.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "docket_open"
+              }
+            },
+            "federal.legitimacy": 2,
+            "SI.federal_trust": 2,
+            "flags_add": [
+              "const_court_docket_open",
+              "desk_event_const_court_pleb_seen"
+            ]
+          }
+        },
+        {
+          "id": "bind_pleb",
+          "label": "Drži bind s pravosuđem.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "bind_justice"
+              }
+            },
+            "federal.legitimacy": 2,
+            "federal.presidency_cohesion": 1,
+            "flags_add": [
+              "const_court_bind_justice",
+              "desk_event_const_court_pleb_seen"
+            ]
+          }
+        },
+        {
+          "id": "stall_pleb",
+          "label": "Zastoj zimi — prazan pečat.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "stall"
+              }
+            },
+            "federal.legitimacy": -2,
+            "flags_add": [
+              "const_court_stalled",
+              "desk_event_const_court_pleb_seen"
+            ],
+            "flags_remove": [
+              "const_court_docket_open"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "republic_voice_mk",
       "date": "1990-12-12",
       "act": 4,
@@ -405,85 +578,6 @@
             "flags_add": [
               "republic_voice_mk_seen",
               "desk_event_mk_voice_seen"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "id": "desk_const_court_before_pleb",
-      "date": "1990-12-12",
-      "act": 4,
-      "desk": "PRET",
-      "priority": "federal",
-      "title": "Ustavni sud pred plebiscitom",
-      "location": "Beograd — Ustavni sud",
-      "briefing": "Pred slovenačkim plebiscitom sud može držati docket ili stati. Plebiscit je savjetodavni uvod — nije proglašenje. Nema auto-sjedenja Mesića. Nema priznanja secesije.",
-      "constitutional_note": "Ustavna ocjena nije priznanje neovisnosti. Marković = SIV; Jović ≠ Milošević.",
-      "documents": [],
-      "requires": {
-        "flags_any": [
-          "const_court_docket_open",
-          "const_court_bind_justice",
-          "talked_buzadzic",
-          "desk_event_const_court_autumn_seen",
-          "desk_event_justice_bind_seen"
-        ]
-      },
-      "choices": [
-        {
-          "id": "hold",
-          "label": "Drži docket pred glasovanje.",
-          "legal": "political",
-          "effects": {
-            "desk_set": {
-              "const_court": {
-                "posture": "docket_open"
-              }
-            },
-            "federal.legitimacy": 2,
-            "SI.federal_trust": 2,
-            "flags_add": [
-              "const_court_docket_open",
-              "desk_event_const_court_pleb_seen"
-            ]
-          }
-        },
-        {
-          "id": "bind_pleb",
-          "label": "Drži bind s pravosuđem.",
-          "legal": "political",
-          "effects": {
-            "desk_set": {
-              "const_court": {
-                "posture": "bind_justice"
-              }
-            },
-            "federal.legitimacy": 2,
-            "federal.presidency_cohesion": 1,
-            "flags_add": [
-              "const_court_bind_justice",
-              "desk_event_const_court_pleb_seen"
-            ]
-          }
-        },
-        {
-          "id": "stall_pleb",
-          "label": "Zastoj zimi — prazan pečat.",
-          "legal": "political",
-          "effects": {
-            "desk_set": {
-              "const_court": {
-                "posture": "stall"
-              }
-            },
-            "federal.legitimacy": -2,
-            "flags_add": [
-              "const_court_stalled",
-              "desk_event_const_court_pleb_seen"
-            ],
-            "flags_remove": [
-              "const_court_docket_open"
             ]
           }
         }
@@ -648,6 +742,91 @@
       ]
     },
     {
+      "id": "desk_presidency_province_quorum",
+      "date": "1990-12-17",
+      "act": 4,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Predsjedništvo: kvorum s pokrajinskim sjedalima",
+      "location": "Beograd — vijećnica Predsjedništva SFRJ",
+      "briefing": "Produbljenje Predsjedništva: kvorum s VO/XK za stolom, ne kao pečat. Potiče medijaciju ili neovisne glasove. Marković ostaje SIV; ovo je aritmetika Predsjedništva.",
+      "constitutional_note": "Pet od osam — kvorum; pokrajinska sjedala ulaze u broj ako se sastanu.",
+      "documents": [
+        "1974_presidency"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_provinces_open_seen",
+          "provinces_mediate",
+          "provinces_vote_independently",
+          "presidency_mediation_active",
+          "presidency_province_voice",
+          "desk_event_provinces_pleb_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "quorum_yes",
+          "label": "Drži kvorum s pokrajinskim glasovima.",
+          "legal": "presidency_decree",
+          "effects": {
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              },
+              "provinces": {
+                "posture": "mediate_seats"
+              }
+            },
+            "federal.presidency_cohesion": 4,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "VO.federal_trust": 2,
+            "XK.federal_trust": 2,
+            "flags_add": [
+              "presidency_province_quorum",
+              "provinces_mediate",
+              "presidency_mediation_active",
+              "desk_event_presidency_province_quorum_seen"
+            ],
+            "flags_remove": [
+              "presidency_hardline",
+              "provinces_bloc_tight"
+            ]
+          }
+        },
+        {
+          "id": "quorum_voice",
+          "label": "Samo glas pokrajina — bez punog kvorumskog pakta.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "provinces": {
+                "posture": "observe"
+              }
+            },
+            "federal.presidency_cohesion": 2,
+            "flags_add": [
+              "presidency_province_voice",
+              "provinces_observe",
+              "desk_event_presidency_province_quorum_seen"
+            ]
+          }
+        },
+        {
+          "id": "quorum_no",
+          "label": "Odgodi — ostavi aritmetiku kakva jest.",
+          "legal": "political",
+          "effects": {
+            "federal.presidency_cohesion": -1,
+            "flags_add": [
+              "desk_event_presidency_province_quorum_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_presidency_before_pleb",
       "date": "1990-12-18",
       "act": 4,
@@ -716,6 +895,82 @@
             "federal.presidency_cohesion": -2,
             "flags_add": [
               "desk_event_pret_pleb_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_ssip_before_pleb",
+      "date": "1990-12-18",
+      "act": 4,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "SSIP pred plebiscitom: nota bez secesije",
+      "location": "Beograd — SSIP",
+      "briefing": "Pred slovenačkim plebiscitom SSIP može držati EEZ kanal ili tihe bilaterale. Plebiscit je savjetodavni uvod — nije proglašenje. Nema auto-sjedenja Mesića. Nema priznanja.",
+      "constitutional_note": "Diplomatska nota nije priznanje neovisnosti. Marković = SIV; Jović ≠ Milošević.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "ssip_ec_channel",
+          "ssip_siv_bind",
+          "ssip_bilateral_quiet",
+          "talked_loncar",
+          "desk_event_ssip_siv_seen",
+          "desk_event_ssip_embassy_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "hold_channel",
+          "label": "Drži EEZ kanal — bez priznanja.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "ec_dialogue"
+              }
+            },
+            "federal.international_standing": 2,
+            "SI.federal_trust": 2,
+            "flags_add": [
+              "ssip_ec_channel",
+              "desk_event_ssip_pleb_seen"
+            ]
+          }
+        },
+        {
+          "id": "quiet_before",
+          "label": "Tihi bilaterali pred glasovanje.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "bilateral_quiet"
+              }
+            },
+            "flags_add": [
+              "ssip_bilateral_quiet",
+              "desk_event_ssip_pleb_seen"
+            ],
+            "federal.international_standing": 1
+          }
+        },
+        {
+          "id": "paralyze_winter",
+          "label": "Paraliziraj SSIP zimi — prazan pečat.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "paralyzed"
+              }
+            },
+            "federal.international_standing": -3,
+            "flags_add": [
+              "ssip_paralyzed",
+              "desk_event_ssip_pleb_seen"
             ]
           }
         }
@@ -871,82 +1126,6 @@
             ],
             "flags_remove": [
               "presidency_deadlock"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "id": "desk_ssip_before_pleb",
-      "date": "1990-12-18",
-      "act": 4,
-      "desk": "SIV",
-      "priority": "federal",
-      "title": "SSIP pred plebiscitom: nota bez secesije",
-      "location": "Beograd — SSIP",
-      "briefing": "Pred slovenačkim plebiscitom SSIP može držati EEZ kanal ili tihe bilaterale. Plebiscit je savjetodavni uvod — nije proglašenje. Nema auto-sjedenja Mesića. Nema priznanja.",
-      "constitutional_note": "Diplomatska nota nije priznanje neovisnosti. Marković = SIV; Jović ≠ Milošević.",
-      "documents": [],
-      "requires": {
-        "flags_any": [
-          "ssip_ec_channel",
-          "ssip_siv_bind",
-          "ssip_bilateral_quiet",
-          "talked_loncar",
-          "desk_event_ssip_siv_seen",
-          "desk_event_ssip_embassy_seen"
-        ]
-      },
-      "choices": [
-        {
-          "id": "hold_channel",
-          "label": "Drži EEZ kanal — bez priznanja.",
-          "legal": "political",
-          "effects": {
-            "desk_set": {
-              "ssip": {
-                "posture": "ec_dialogue"
-              }
-            },
-            "federal.international_standing": 2,
-            "SI.federal_trust": 2,
-            "flags_add": [
-              "ssip_ec_channel",
-              "desk_event_ssip_pleb_seen"
-            ]
-          }
-        },
-        {
-          "id": "quiet_before",
-          "label": "Tihi bilaterali pred glasovanje.",
-          "legal": "political",
-          "effects": {
-            "desk_set": {
-              "ssip": {
-                "posture": "bilateral_quiet"
-              }
-            },
-            "flags_add": [
-              "ssip_bilateral_quiet",
-              "desk_event_ssip_pleb_seen"
-            ],
-            "federal.international_standing": 1
-          }
-        },
-        {
-          "id": "paralyze_winter",
-          "label": "Paraliziraj SSIP zimi — prazan pečat.",
-          "legal": "political",
-          "effects": {
-            "desk_set": {
-              "ssip": {
-                "posture": "paralyzed"
-              }
-            },
-            "federal.international_standing": -3,
-            "flags_add": [
-              "ssip_paralyzed",
-              "desk_event_ssip_pleb_seen"
             ]
           }
         }

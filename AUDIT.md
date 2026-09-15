@@ -53,7 +53,7 @@ Datumi unutar činova i među činovima sada idu redom (uključujući novi rujan
 | Odricanje vodeće uloge, a kasnije monopol | `allow_list` i dalje zahtijeva `skj_renounced_monopoly`; `allow_anyway` je rupa, ne obnova monopola. |
 | HDZ pobijedi, federacija „disciplinira hrvatski CK“ | Briefing kabineta HDZ: CK više nije vlada. Ako SKH drži Sabor, drugi spis. |
 | Kosovo kao netaknuta autonomija 1974. | Briefing: rez 1989. već je pao; sjedala postoje, nisu slobodni glumci. |
-| VO/XK kao slobodni glasovi | `syncSerbianBloc`: VO i XK prate RS osim zastavice `provinces_vote_independently` (nijedan izbor u ovom odsječku je ne postavlja — namjerno). |
+| VO/XK kao slobodni glasovi | `syncSerbianBloc`: VO i XK prate RS osim zastavice `provinces_vote_independently` (Pass 11: šalter/dijalog/reforme mogu je postaviti; default i dalje blok). |
 
 ### Ton
 Nema borbe, nema Desetodnevnog rata, nema lipanjskih proglašenja kao dovršenog rata, nema izmišljenih zločina. Lipanj je spomenut samo kao spis koji ovdje ne postoji.
@@ -65,7 +65,7 @@ Nema borbe, nema Desetodnevnog rata, nema lipanjskih proglašenja kao dovršenog
 - **Nema čina VI.** Odsječak A i dalje staje 15. svibnja 1991.
 - **Plebiscit ostaje uvod**, ne secesija. Slovenija u travnju 1991. još sjedi u institucijama.
 - **Izetbegović–Gligorov nije premješten u lipanj** — lipnja nema. Samo je skinut s travanjske kartice.
-- **`provinces_vote_independently` nema igračev izbor** u ovom odsječku. Default je srpska mašina. Zastavica postoji da kasniji spis može slomiti blok bez novog sustava.
+- **`provinces_vote_independently`**: default i dalje srpska mašina; Pass 11 daje igračev izbor (šalter `provinces`, dijalog, reforme) bez lomljenja postojeće reforme `pret_provinces`.
 - **`player_used_jna_threat` na premještaju JNA u radionici** ostaje: to je sila, ne govor.
 - **Tihi preraspored JNA** u `barracks_quiet` **ne** postavlja tu zastavicu: nije prijetnja, nije govor.
 - **ID-ovi, ključevi, imena datoteka, zastavice** ostaju engleski.
@@ -456,5 +456,43 @@ Akcije: `soft_federal_line` → `skj_soft_federation`; `hard_unity_rhetoric` →
 - Nema čina VI; nema lipanjskog rata; Izetbegović–Gligorov **nije** prihvatljiv papir (samo isključenje)
 - Marković = predsjednik **SIV-a**; Jović ≠ Milošević; Titograd ostaje Titograd
 - Nema ratnih suđenja; mirovni papir samo
+- ID-ovi i zastavice engleski; UI hrvatski (ijekavica)
+
+## Dodatak — Pass 11 `expand/pass11-provinces`
+
+Šalter **Pokrajinska sjedala** (`provinces`, agencija `provinces`); produbljeni Predsjedništvo i SSUP; glasovi Bajramovića (Kosovo) i Kostića (Vojvodina); Marković revisit sjedala; kartice čina I–V; `save_schema` 11; smoke proširen. Zastavica `provinces_vote_independently` sada ima desk/dijalog/event putove uz postojeću reformu.
+
+### Nova / proširena kartica
+
+| Spis | Datum | Napomena |
+|---|---|---|
+| `desk_provinces_open` | 1990-02-27 | Otvaranje šaltera: blok / promatranje / neovisni glasovi |
+| `desk_provinces_spring` | 1990-05-10 | Proljetna aritmetika sjedala |
+| `desk_provinces_autumn` | 1990-09-18 | Suverenistički pritisak na sjedala |
+| `desk_ssup_province_dossier` | 1990-10-10 | SSUP mirni dosje pokrajinskih sjedala |
+| `desk_provinces_before_pleb` | 1990-12-11 | Pred savjetodavnim plebiscitom |
+| `desk_presidency_province_quorum` | 1990-12-17 | Predsjedništvo: kvorum s VO/XK |
+| `desk_provinces_spring91` | 1991-03-20 | Proljeće 1991. papirni put; bez čina VI |
+| `confederal_provinces_memo` | 1991-04-25 | Memo sjedala uz konfederalni stol; I–G **nije** dostupan |
+
+### Razgovori
+
+- `bajramovic.json` — Sejdo Bajramović (Kosovo sjedalo); neovisni / blok / medijacija
+- `kostic.json` — Jugoslav Kostić (Vojvodina); neovisni / promatranje / blok
+- `markovic.json` — `revisit_provinces` (SIV × sjedala)
+
+### Šalteri
+
+- **provinces**: `bloc_aligned` → `provinces_bloc_tight`; `observe` → `provinces_observe`; `vote_independent` → `provinces_vote_independently`; `mediate_seats` → `provinces_mediate`
+- **presidency** `quorum_with_provinces` → `presidency_province_quorum`; `seat_province_voice` → `presidency_province_voice`
+- **ssup** `province_dossier` → `ssup_province_dossier`
+- Soft-lock: `align_bloc` / `bloc_aligned` sukobljava se s `confederal_talks_open`
+
+### Pravila koja nisu dirana
+
+- E3: otvorena povelja (≥4) + Predsjedništvo koje se može sastati; sjedenje Mesića ≠ blokada; blokada isključuje E3
+- Nema čina VI; nema lipanjskog rata; Izetbegović–Gligorov **nije** prihvatljiv papir (samo isključenje)
+- Marković = predsjednik **SIV-a**; Jović ≠ Milošević; Titograd ostaje Titograd
+- `syncSerbianBloc` i dalje poštuje `provinces_vote_independently`; reforma `pret_provinces` netaknuta
 - ID-ovi i zastavice engleski; UI hrvatski (ijekavica)
 

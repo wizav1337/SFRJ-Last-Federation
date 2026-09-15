@@ -548,6 +548,92 @@
           }
         }
       ]
+    },
+    "revisit_provinces": {
+      "text": "Marković — predsjednik SIV-a — gleda pokrajinska sjedala. „Bajramović i Kostić drže stolce VO/XK. Ako glasaju neovisno, Predsjedništvo više nije automatska srpska mašina — to mi pomaže kad trebam kvorum za reforme, ne krunu. Ako ostanu pečat, SIV gura knjige kroz uži kanal. Medijacija drži koheziju. Nema rata; samo tko sjedi za stolom.“",
+      "choices": [
+        {
+          "id": "prov_indep",
+          "label": "Podrži neovisne glasove VO/XK — širi kvorum uz SIV.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 2,
+            "federal.legitimacy": 2,
+            "federal.presidency_cohesion": -1,
+            "federal.war_risk": -1,
+            "RS.federal_trust": -2,
+            "VO.federal_trust": 2,
+            "XK.federal_trust": 2,
+            "flags_add": [
+              "dialogue_markovic_provinces",
+              "provinces_vote_independently",
+              "markovic_mandate_strong"
+            ],
+            "flags_remove": [
+              "provinces_bloc_tight"
+            ],
+            "desk_set": {
+              "provinces": {
+                "posture": "vote_independent"
+              },
+              "siv": {
+                "posture": "technocrat"
+              }
+            }
+          }
+        },
+        {
+          "id": "prov_mediate",
+          "label": "Medijacija sjedala s Predsjedništvom — meki kvorum.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 1,
+            "federal.presidency_cohesion": 3,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "dialogue_markovic_provinces",
+              "provinces_mediate",
+              "presidency_mediation_active"
+            ],
+            "flags_remove": [
+              "provinces_bloc_tight",
+              "presidency_hardline"
+            ],
+            "desk_set": {
+              "provinces": {
+                "posture": "mediate_seats"
+              },
+              "presidency": {
+                "posture": "mediate"
+              }
+            }
+          }
+        },
+        {
+          "id": "prov_bloc",
+          "label": "Ostavi sjedala u bloku — SIV nosi papir kroz uži kanal.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 1,
+            "federal.legitimacy": -1,
+            "federal.presidency_cohesion": 1,
+            "flags_add": [
+              "dialogue_markovic_provinces",
+              "provinces_bloc_tight"
+            ],
+            "flags_remove": [
+              "provinces_vote_independently",
+              "provinces_mediate"
+            ],
+            "desk_set": {
+              "provinces": {
+                "posture": "bloc_aligned"
+              }
+            }
+          }
+        }
+      ]
     }
   },
   "entries": [
@@ -639,6 +725,24 @@
           "const_court_yields",
           "justice_refer_court",
           "desk_event_const_court_open_seen"
+        ]
+      }
+    },
+    {
+      "id": "revisit_provinces",
+      "node": "revisit_provinces",
+      "once": true,
+      "priority": 7,
+      "require_done": true,
+      "available_from": "1991-02-01",
+      "unlock": {
+        "flags_any": [
+          "provinces_vote_independently",
+          "provinces_mediate",
+          "provinces_bloc_tight",
+          "provinces_observe",
+          "presidency_province_quorum",
+          "desk_event_provinces_open_seen"
         ]
       }
     }

@@ -25,7 +25,7 @@ Desktop-first, 1280×720 minimum.
 - Map of eight 1990 SFRJ units (republics and provinces). Toggle **Raskol** vs **Savezna kontrola**
 - Unit inspector with control band, heat/tension, and trade readout
 - Agency strip + **Reforme** desk (shared attention with desks), including trade corridors and IMF review
-- **Šalteri** (department desks): JNA, SIV, Predsjedništvo, SSUP (SDB leash), SSP, Financije, TO, NBJ, Pravosuđe, **Ostatak SKJ**, Skupština, FER, **Fond** — loyalty / capacity / agenda + actions. Posture chips (overflow-safe) on the agency strip; posture feeds monthly drift, federal control, election weights, Presidency votes, and endings
+- **Šalteri** (department desks): JNA, SIV, Predsjedništvo, SSUP (SDB leash), SSP, Financije, TO, NBJ, Pravosuđe, **Ostatak SKJ**, Skupština, FER, **Fond**, SSRN, SSIP, **Ustavni sud**, **Pokrajinska sjedala** — loyalty / capacity / agenda + actions. Posture chips (overflow-safe) on the agency strip; posture feeds monthly drift, federal control, election weights, Presidency votes, and endings
 - **Razgovori**: multi-visit branching chats — Drnovšek revisits through 15 May 1990; Kučan/Jović/Marković/Mesić/Tuđman/Kadijević; Pass 5–7 add Bogićević, Tupurkovski, Račan, Gligorov, Bućin, Izetbegović (mediation), Bulatović + Marković Fond revisit. Flags + desk stats, not an LLM
 - **Shared attention UX**: reforms and desks burn the same monthly pool (3; 4 if SIV ≥ 60); UI shows spent on desks vs reforms vs remaining
 - **Soft-lock / conflict**: hardline desks + open confederal talks warn on the strip and tax hardline desk actions (+1 attention)
@@ -46,7 +46,7 @@ index.html          shell
 css/                tokens + layout
 js/                 boot, events, map, reforms, desks, dialogue, elections, endings, simulation
 data/events/        Acts I–V
-data/desks.json     department desk stats + actions (15 desks)
+data/desks.json     department desk stats + actions (17 desks)
 data/dialogue/      branching institutional chats (multi-visit entries)
 data/i18n/hr.json   Croatian UI chrome
 data/i18n/en.json   English chrome (Pass 4–5)
@@ -86,3 +86,4 @@ Default UI language remains Croatian (ijekavica). IDs and flags stay English. `d
 - **Pass 8** (`expand/pass8-ssrn-depth`): SSRN desk, deepen SSP/Finance, late Mesić/Jović dialogues + Marković SSRN revisit, gated Act I–V cards, save_schema 8
 - **Pass 9** (`expand/pass9-ssip-loncar`): SSIP (Lončar) desk, deepen TO/NBY, Lončar dialogue + Marković SSIP revisit, gated Act I–V cards, save_schema 9
 - **Pass 10** (`expand/pass10-const-court`): Ustavni sud desk, deepen justice/SSUP, Buzadžić dialogue + Marković court revisit, gated Act I–V cards, save_schema 10
+- **Pass 11** (`expand/pass11-provinces`): Pokrajinska sjedala desk, deepen Presidency/SSUP, Bajramović/Kostić + Marković provinces revisit, gated Act I–V cards, save_schema 11

@@ -213,6 +213,16 @@ export function buildMonthlyReport(state, before, months) {
   if (state.flags.confederal_const_court_memo) drivers.push("memorandum Ustavnog suda uz konfederalni stol");
   if (state.flags.talked_buzadzic) drivers.push("glas Buzadžića (Ustavni sud)");
   if (state.flags.dialogue_markovic_const_court) drivers.push("Marković o Ustavnom sudu");
+  if (state.desks?.provinces?.posture === "bloc_aligned" || state.flags.provinces_bloc_tight) drivers.push("Pokrajinska sjedala: blok usklađen");
+  if (state.desks?.provinces?.posture === "observe" || state.flags.provinces_observe) drivers.push("Pokrajinska sjedala: promatranje");
+  if (state.desks?.provinces?.posture === "vote_independent" || state.flags.provinces_vote_independently) drivers.push("Pokrajinska sjedala: neovisni glasovi");
+  if (state.desks?.provinces?.posture === "mediate_seats" || state.flags.provinces_mediate) drivers.push("Pokrajinska sjedala: medijacija");
+  if (state.flags.ssup_province_dossier) drivers.push("SSUP dosje pokrajinskih sjedala");
+  if (state.flags.presidency_province_quorum) drivers.push("Predsjedništvo: kvorum s pokrajinama");
+  if (state.flags.confederal_provinces_memo) drivers.push("memorandum pokrajinskih sjedala uz konfederalni stol");
+  if (state.flags.talked_bajramovic) drivers.push("glas Bajramovića (Kosovo sjedalo)");
+  if (state.flags.talked_kostic) drivers.push("glas Kostića (Vojvodina sjedalo)");
+  if (state.flags.dialogue_markovic_provinces) drivers.push("Marković o pokrajinskim sjedalima");
 
 
   return {

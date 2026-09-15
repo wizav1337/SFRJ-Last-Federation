@@ -708,6 +708,99 @@
       ]
     },
     {
+      "id": "desk_provinces_open",
+      "date": "1990-02-27",
+      "act": 1,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Pokrajinska sjedala: pečat ili glas",
+      "location": "Beograd — Predsjedništvo SFRJ",
+      "briefing": "Nakon reza 1989. na Kosovu sjedala SAP Vojvodine i SAP Kosova i dalje postoje u Predsjedništvu, ali nisu slobodni glumci po defaultu — prate srpsku mašinu. Otvorite šalter: uskladite blok, promatrajte, dajte neovisne glasove ili medijaciju. Marković ostaje predsjednik SIV-a; sjedala ne zamjenjuju Predsjedništvo. Nema rata.",
+      "constitutional_note": "Osmoro članova Predsjedništva uključuje pokrajinska sjedala; automatske RS linije nisu ustavni tekst.",
+      "documents": [
+        "1974_provinces",
+        "1974_presidency"
+      ],
+      "requires": {
+        "flags_any": [
+          "markovic_mandate_strong",
+          "multiparty_wave",
+          "presidency_mediation_active",
+          "skj_renounced_monopoly",
+          "siv_austerity_stance"
+        ]
+      },
+      "choices": [
+        {
+          "id": "open_observe",
+          "label": "Otvori šalter: promatračka postava sjedala.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "provinces": {
+                "posture": "observe"
+              }
+            },
+            "federal.legitimacy": 2,
+            "federal.presidency_cohesion": 1,
+            "flags_add": [
+              "provinces_observe",
+              "desk_event_provinces_open_seen"
+            ],
+            "flags_remove": [
+              "provinces_bloc_tight"
+            ]
+          }
+        },
+        {
+          "id": "open_indep",
+          "label": "Odmah neovisni glasovi VO/XK.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "provinces": {
+                "posture": "vote_independent"
+              }
+            },
+            "federal.legitimacy": 2,
+            "federal.presidency_cohesion": -1,
+            "federal.war_risk": -1,
+            "RS.federal_trust": -2,
+            "VO.federal_trust": 2,
+            "XK.federal_trust": 2,
+            "flags_add": [
+              "provinces_vote_independently",
+              "desk_event_provinces_open_seen"
+            ],
+            "flags_remove": [
+              "provinces_bloc_tight"
+            ]
+          }
+        },
+        {
+          "id": "open_bloc",
+          "label": "Drži sjedala u srpskoj mašini.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "provinces": {
+                "posture": "bloc_aligned"
+              }
+            },
+            "federal.presidency_cohesion": 2,
+            "RS.federal_trust": 2,
+            "flags_add": [
+              "provinces_bloc_tight",
+              "desk_event_provinces_open_seen"
+            ],
+            "flags_remove": [
+              "provinces_vote_independently"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_justice_open",
       "date": "1990-02-28",
       "act": 1,
@@ -1230,89 +1323,6 @@
       ]
     },
     {
-      "id": "desk_siv_stance",
-      "date": "1990-03-12",
-      "act": 1,
-      "desk": "SIV",
-      "priority": "regional",
-      "title": "SIV: štednja, poticaj ili knjige",
-      "location": "Beograd — Savezno izvršno vijeće",
-      "briefing": "Nakon stand-byja Marković pita Predsjedništvo za stav, ne za krunu. Šalter SIV-a (štednja / poticaj / tehnokrat) već vuče inflaciju i trgovinu u mjesečnom driftu. Ova kartica bira postavu naglas.",
-      "constitutional_note": "Marković je predsjednik SIV-a, ne predsjednik Jugoslavije. Stav SIV-a nije dekret Predsjedništva — ali bez potpore stolca ostaje papir.",
-      "documents": [],
-      "choices": [
-        {
-          "id": "pick_austerity",
-          "label": "Štednja: tvrđi dinar, tanji transferi.",
-          "legal": "assembly_statute",
-          "effects": {
-            "desk_set": {
-              "siv": {
-                "posture": "austerity"
-              }
-            },
-            "federal.inflation": -3,
-            "federal.federal_budget": 2,
-            "flags_add": [
-              "siv_austerity_stance",
-              "desk_event_siv_seen"
-            ],
-            "flags_remove": [
-              "siv_stimulus_stance"
-            ]
-          }
-        },
-        {
-          "id": "pick_stimulus",
-          "label": "Poticaj: koridori i transferi uz mandat.",
-          "legal": "assembly_statute",
-          "effects": {
-            "desk_set": {
-              "siv": {
-                "posture": "stimulus"
-              }
-            },
-            "desk_add": {
-              "siv": {
-                "loyalty": 4
-              }
-            },
-            "federal.inter_republic_trade": 3,
-            "federal.siv_authority": 3,
-            "flags_add": [
-              "siv_stimulus_stance",
-              "markovic_mandate_strong",
-              "desk_event_siv_seen"
-            ],
-            "flags_remove": [
-              "siv_austerity_stance",
-              "markovic_starved"
-            ]
-          }
-        },
-        {
-          "id": "pick_books",
-          "label": "Samo knjige. Tehnokratski stav.",
-          "legal": "political",
-          "effects": {
-            "desk_set": {
-              "siv": {
-                "posture": "technocrat"
-              }
-            },
-            "federal.reform_momentum": 3,
-            "flags_add": [
-              "desk_event_siv_seen"
-            ],
-            "flags_remove": [
-              "siv_austerity_stance",
-              "siv_stimulus_stance"
-            ]
-          }
-        }
-      ]
-    },
-    {
       "id": "desk_const_court_open",
       "date": "1990-03-12",
       "act": 1,
@@ -1398,6 +1408,89 @@
             ],
             "flags_remove": [
               "const_court_docket_open"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_siv_stance",
+      "date": "1990-03-12",
+      "act": 1,
+      "desk": "SIV",
+      "priority": "regional",
+      "title": "SIV: štednja, poticaj ili knjige",
+      "location": "Beograd — Savezno izvršno vijeće",
+      "briefing": "Nakon stand-byja Marković pita Predsjedništvo za stav, ne za krunu. Šalter SIV-a (štednja / poticaj / tehnokrat) već vuče inflaciju i trgovinu u mjesečnom driftu. Ova kartica bira postavu naglas.",
+      "constitutional_note": "Marković je predsjednik SIV-a, ne predsjednik Jugoslavije. Stav SIV-a nije dekret Predsjedništva — ali bez potpore stolca ostaje papir.",
+      "documents": [],
+      "choices": [
+        {
+          "id": "pick_austerity",
+          "label": "Štednja: tvrđi dinar, tanji transferi.",
+          "legal": "assembly_statute",
+          "effects": {
+            "desk_set": {
+              "siv": {
+                "posture": "austerity"
+              }
+            },
+            "federal.inflation": -3,
+            "federal.federal_budget": 2,
+            "flags_add": [
+              "siv_austerity_stance",
+              "desk_event_siv_seen"
+            ],
+            "flags_remove": [
+              "siv_stimulus_stance"
+            ]
+          }
+        },
+        {
+          "id": "pick_stimulus",
+          "label": "Poticaj: koridori i transferi uz mandat.",
+          "legal": "assembly_statute",
+          "effects": {
+            "desk_set": {
+              "siv": {
+                "posture": "stimulus"
+              }
+            },
+            "desk_add": {
+              "siv": {
+                "loyalty": 4
+              }
+            },
+            "federal.inter_republic_trade": 3,
+            "federal.siv_authority": 3,
+            "flags_add": [
+              "siv_stimulus_stance",
+              "markovic_mandate_strong",
+              "desk_event_siv_seen"
+            ],
+            "flags_remove": [
+              "siv_austerity_stance",
+              "markovic_starved"
+            ]
+          }
+        },
+        {
+          "id": "pick_books",
+          "label": "Samo knjige. Tehnokratski stav.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "siv": {
+                "posture": "technocrat"
+              }
+            },
+            "federal.reform_momentum": 3,
+            "flags_add": [
+              "desk_event_siv_seen"
+            ],
+            "flags_remove": [
+              "siv_austerity_stance",
+              "siv_stimulus_stance"
             ]
           }
         }

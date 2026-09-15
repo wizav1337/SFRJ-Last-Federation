@@ -25,6 +25,7 @@
  * Pass 8: SSRN desk + deepen SSP/Finance; late Mesić/Jović; Marković SSRN revisit.
  * Pass 9: SSIP (Lončar) desk + deepen TO/NBY; Lončar dialogue; Marković SSIP revisit.
  * Pass 10: Ustavni sud desk + deepen justice/SSUP; Buzadžić dialogue; Marković court revisit.
+ * Pass 11: Pokrajinska sjedala + deepen presidency/SSUP; Bajramović/Kostić; Marković provinces revisit.
  * Soft-block if already in posture with flag.
  */
 import { clamp, pathAdd } from "./state.js";
@@ -49,6 +50,7 @@ const POSTURE_FLAG_MAP = {
   ssrn: { mass_front_open: "ssrn_mass_front", party_capture: "ssrn_party_capture", civic_forum: "ssrn_civic_forum", paralyzed: "ssrn_paralyzed" },
   ssip: { ec_dialogue: "ssip_ec_channel", nonaligned_hold: "ssip_nonaligned_hold", bilateral_quiet: "ssip_bilateral_quiet", paralyzed: "ssip_paralyzed" },
   const_court: { docket_open: "const_court_docket_open", stall: "const_court_stalled", yield_republics: "const_court_yields", bind_justice: "const_court_bind_justice" },
+  provinces: { bloc_aligned: "provinces_bloc_tight", observe: "provinces_observe", vote_independent: "provinces_vote_independently", mediate_seats: "provinces_mediate" },
 };
 
 export function initDesks(state, catalog) {
@@ -71,7 +73,7 @@ export function initDesks(state, catalog) {
   if (state.attention_left == null) state.attention_left = 0;
   if (!state.attention_month) state.attention_month = "";
   // Save migration: Pass 3 schema (shared attention + multi-visit dialogue)
-  if (state.save_schema == null || state.save_schema < 10) state.save_schema = 10;
+  if (state.save_schema == null || state.save_schema < 11) state.save_schema = 11;
   syncDeskFlagsFromPosture(state);
 }
 
@@ -156,6 +158,7 @@ export function deskConflictWarnings(state) {
   if (state.flags.to_inventory_push || state.desks?.to?.posture === "inventory") hard.push("to");
   if (state.flags.skj_hard_unity || state.desks?.skj?.posture === "hard_unity") hard.push("skj");
   if (state.flags.const_court_yields || state.flags.const_court_stalled || state.desks?.const_court?.posture === "yield_republics" || state.desks?.const_court?.posture === "stall") hard.push("const_court");
+  if (state.flags.provinces_bloc_tight || state.desks?.provinces?.posture === "bloc_aligned") hard.push("provinces");
   if (!hard.length && !state.flags.desk_conflict_soft_lock && !state.flags.desk_conflict_hard_conf) return [];
   const out = [];
   if (hard.length || state.flags.desk_conflict_hard_conf) {
@@ -188,6 +191,7 @@ export function isHardlineConflictAction(deskId, action) {
     nby: ["fragment"],
     skj: ["hard_unity"],
     const_court: ["yield_republics", "stall"],
+    provinces: ["bloc_aligned"],
   };
   return (hard[deskId] || []).includes(posture);
 }
@@ -760,6 +764,39 @@ export function applyDeskMonthlyPosture(state, scale = 1) {
     }
   }
 
+  const provinces = state.desks.provinces;
+  if (provinces) {
+    if (provinces.posture === "vote_independent" || state.flags.provinces_vote_independently) {
+      f.legitimacy = clamp(f.legitimacy + 0.2 * s);
+      f.presidency_cohesion = clamp(f.presidency_cohesion - 0.1 * s);
+      f.war_risk = clamp(f.war_risk - 0.1 * s);
+      if (state.units.VO) state.units.VO.federal_trust = clamp(state.units.VO.federal_trust + 0.15 * s);
+      if (state.units.XK) state.units.XK.federal_trust = clamp(state.units.XK.federal_trust + 0.15 * s);
+      if (state.units.RS) state.units.RS.federal_trust = clamp(state.units.RS.federal_trust - 0.1 * s);
+    } else if (provinces.posture === "mediate_seats" || state.flags.provinces_mediate) {
+      f.presidency_cohesion = clamp(f.presidency_cohesion + 0.35 * s);
+      f.legitimacy = clamp(f.legitimacy + 0.15 * s);
+      f.war_risk = clamp(f.war_risk - 0.1 * s);
+    } else if (provinces.posture === "observe" || state.flags.provinces_observe) {
+      f.legitimacy = clamp(f.legitimacy + 0.1 * s);
+      provinces.capacity = clamp(provinces.capacity + 0.1 * s);
+    } else if (provinces.posture === "bloc_aligned" || state.flags.provinces_bloc_tight) {
+      f.presidency_cohesion = clamp(f.presidency_cohesion + 0.15 * s);
+      if (state.units.VO) state.units.VO.federal_trust = clamp(state.units.VO.federal_trust - 0.1 * s);
+      if (state.units.XK) state.units.XK.federal_trust = clamp(state.units.XK.federal_trust - 0.1 * s);
+      if (state.flags.confederal_talks_open) {
+        f.war_risk = clamp(f.war_risk + 0.2 * s);
+        f.presidency_cohesion = clamp(f.presidency_cohesion - 0.15 * s);
+      }
+    }
+    if (state.flags.ssup_province_dossier) {
+      f.war_risk = clamp(f.war_risk - 0.05 * s);
+    }
+    if (state.flags.presidency_province_quorum) {
+      f.presidency_cohesion = clamp(f.presidency_cohesion + 0.15 * s);
+    }
+  }
+
   // Pass 4: soft-lock drift — hard desks + open confederal talks raise war_risk quietly
   if (state.flags.confederal_talks_open) {
     const hardCount =
@@ -767,7 +804,8 @@ export function applyDeskMonthlyPosture(state, scale = 1) {
       (state.flags.jna_mobilization_alert || state.flags.jna_political_weight ? 1 : 0) +
       (state.flags.ssup_hard_line ? 1 : 0) +
       (state.flags.justice_hard_line ? 1 : 0) +
-      (state.flags.const_court_yields || state.flags.const_court_stalled ? 1 : 0);
+      (state.flags.const_court_yields || state.flags.const_court_stalled ? 1 : 0) +
+      (state.flags.provinces_bloc_tight ? 1 : 0);
     if (hardCount >= 2) {
       f.war_risk = clamp(f.war_risk + 0.35 * s * hardCount);
       f.presidency_cohesion = clamp(f.presidency_cohesion - 0.2 * s);
@@ -812,6 +850,7 @@ export function confederalStackDepth(state) {
   if (f.confederal_ssrn_memo || f.ssrn_civic_forum) n += 1;
   if (f.confederal_ssip_memo || f.ssip_ec_channel) n += 1;
   if (f.confederal_const_court_memo || f.const_court_docket_open || f.const_court_bind_justice) n += 1;
+  if (f.confederal_provinces_memo || f.provinces_mediate || f.provinces_vote_independently || f.presidency_province_quorum) n += 1;
   if (f.dialogue_mesic_late_duty || f.dialogue_mesic_late_conf) n += 1;
   if (f.dialogue_jovic_late_quorum) n += 1;
   return n;
@@ -928,6 +967,15 @@ export function syncDeskFlagsFromPosture(state) {
     state.flags.const_court_yields = courtD.posture === "yield_republics";
     state.flags.const_court_bind_justice = courtD.posture === "bind_justice";
   }
+  const provD = state.desks.provinces;
+  if (provD) {
+    state.flags.provinces_bloc_tight = provD.posture === "bloc_aligned";
+    state.flags.provinces_observe = provD.posture === "observe";
+    state.flags.provinces_mediate = provD.posture === "mediate_seats";
+    // Preserve reform-set independent votes unless posture explicitly aligns or votes independent
+    if (provD.posture === "vote_independent") state.flags.provinces_vote_independently = true;
+    else if (provD.posture === "bloc_aligned") state.flags.provinces_vote_independently = false;
+  }
 }
 
 /** Compact strip chips for UI — id + short posture label + tone. */
@@ -937,8 +985,8 @@ export function deskStatusChips(state, catalog) {
     const rt = deskRuntime(state, d.id);
     const posture = rt?.posture || d.posture_default || "default";
     let tone = "neutral";
-    if (["alert", "hard", "hardline", "inventory", "fragment", "political", "freeze", "hard_unity", "stalled", "customs_hard", "rubber_stamp", "politicized", "party_capture", "paralyzed", "isolation", "yield_republics", "stall"].includes(posture)) tone = "warn";
-    if (["garrison", "mediate", "soft", "coordinate", "tight", "open", "technocrat", "observe", "constitutional", "arbitrate", "soft_federal", "cede_siv", "trade_open", "imf_line", "session_open", "open_south", "target_mk_me", "mass_front_open", "civic_forum", "nonaligned", "ec_track", "docket_open", "bind_justice", "ec_dialogue"].includes(posture)) tone = "good";
+    if (["alert", "hard", "hardline", "inventory", "fragment", "political", "freeze", "hard_unity", "stalled", "customs_hard", "rubber_stamp", "politicized", "party_capture", "paralyzed", "isolation", "yield_republics", "stall", "bloc_aligned"].includes(posture)) tone = "warn";
+    if (["garrison", "mediate", "soft", "coordinate", "tight", "open", "technocrat", "observe", "constitutional", "arbitrate", "soft_federal", "cede_siv", "trade_open", "imf_line", "session_open", "open_south", "target_mk_me", "mass_front_open", "civic_forum", "nonaligned", "ec_track", "docket_open", "bind_justice", "ec_dialogue", "vote_independent", "mediate_seats"].includes(posture)) tone = "good";
     return {
       id: d.id,
       name: d.name,
