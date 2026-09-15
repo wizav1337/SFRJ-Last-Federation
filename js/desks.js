@@ -23,6 +23,7 @@
  * Pass 6: Skupština (assembly) + FER desks; ME/Gligorov voices feed stack.
  * Pass 7: Fond za nerazvijene + deepen JNA/SIV/Presidency; Bulatović voice.
  * Pass 8: SSRN desk + deepen SSP/Finance; late Mesić/Jović; Marković SSRN revisit.
+ * Pass 9: SSIP (Lončar) desk + deepen TO/NBY; Lončar dialogue; Marković SSIP revisit.
  * Soft-block if already in posture with flag.
  */
 import { clamp, pathAdd } from "./state.js";
@@ -45,6 +46,7 @@ const POSTURE_FLAG_MAP = {
   fer: { trade_open: "fer_trade_open", imf_line: "fer_imf_line", customs_hard: "fer_customs_hard" },
   fond: { open_south: "fond_open_south", freeze: "fond_freeze", target_mk_me: "fond_target_mk_me", politicized: "fond_politicized" },
   ssrn: { mass_front_open: "ssrn_mass_front", party_capture: "ssrn_party_capture", civic_forum: "ssrn_civic_forum", paralyzed: "ssrn_paralyzed" },
+  ssip: { ec_dialogue: "ssip_ec_channel", nonaligned_hold: "ssip_nonaligned_hold", bilateral_quiet: "ssip_bilateral_quiet", paralyzed: "ssip_paralyzed" },
 };
 
 export function initDesks(state, catalog) {
@@ -658,7 +660,52 @@ export function applyDeskMonthlyPosture(state, scale = 1) {
     }
   }
 
-    const justice = state.desks.justice;
+
+  const ssip = state.desks.ssip;
+  if (ssip) {
+    if (ssip.posture === "ec_dialogue") {
+      f.international_standing = clamp(f.international_standing + 0.35 * s);
+      f.legitimacy = clamp(f.legitimacy + 0.15 * s);
+      f.reform_momentum = clamp(f.reform_momentum + 0.15 * s);
+      if (state.units.SI) state.units.SI.federal_trust = clamp(state.units.SI.federal_trust + 0.1 * s);
+      if (state.units.HR) state.units.HR.federal_trust = clamp(state.units.HR.federal_trust + 0.1 * s);
+    } else if (ssip.posture === "nonaligned_hold") {
+      f.international_standing = clamp(f.international_standing + 0.2 * s);
+      f.legitimacy = clamp(f.legitimacy + 0.1 * s);
+    } else if (ssip.posture === "bilateral_quiet") {
+      f.international_standing = clamp(f.international_standing + 0.25 * s);
+      f.inter_republic_trade = clamp(f.inter_republic_trade + 0.1 * s);
+    } else if (ssip.posture === "paralyzed") {
+      f.international_standing = clamp(f.international_standing - 0.35 * s);
+      f.legitimacy = clamp(f.legitimacy - 0.2 * s);
+      ssip.capacity = clamp(ssip.capacity - 0.2 * s);
+    }
+    if (state.flags.ssip_siv_bind) {
+      f.siv_authority = clamp(f.siv_authority + 0.2 * s);
+      f.reform_momentum = clamp(f.reform_momentum + 0.1 * s);
+    }
+    if (state.flags.ssip_fer_couple) {
+      f.reform_momentum = clamp(f.reform_momentum + 0.1 * s);
+      f.international_standing = clamp(f.international_standing + 0.1 * s);
+    }
+  }
+
+
+  if (state.flags.to_shared_reserve) {
+    f.jna_obedience_to_civilian = clamp(f.jna_obedience_to_civilian + 0.1 * s);
+    f.war_risk = clamp(f.war_risk - 0.05 * s);
+  }
+  if (state.flags.to_nby_liaison) {
+    f.hard_currency = clamp(f.hard_currency + 0.05 * s);
+  }
+  if (state.flags.nby_imf_align) {
+    f.inflation = clamp(f.inflation - 0.15 * s);
+    f.reform_momentum = clamp(f.reform_momentum + 0.1 * s);
+  }
+  if (state.flags.nby_diplomatic_fx) {
+    f.international_standing = clamp(f.international_standing + 0.1 * s);
+  }
+  const justice = state.desks.justice;
   if (justice) {
     if (justice.posture === "constitutional") {
       f.legitimacy = clamp(f.legitimacy + 0.3 * s);
@@ -726,6 +773,7 @@ export function confederalStackDepth(state) {
   if (f.confederal_fond_memo || f.presidency_south_balance) n += 1;
   if (f.dialogue_bulatovic_soft || f.dialogue_bulatovic_fond) n += 1;
   if (f.confederal_ssrn_memo || f.ssrn_civic_forum) n += 1;
+  if (f.confederal_ssip_memo || f.ssip_ec_channel) n += 1;
   if (f.dialogue_mesic_late_duty || f.dialogue_mesic_late_conf) n += 1;
   if (f.dialogue_jovic_late_quorum) n += 1;
   return n;

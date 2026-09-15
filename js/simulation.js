@@ -191,6 +191,20 @@ export function buildMonthlyReport(state, before, months) {
   if (state.flags.talked_mesic_late) drivers.push("kasni Mesić: dužnost stolca");
   if (state.flags.talked_jovic_late) drivers.push("kasni Jović: kvorum vs blok");
   if (state.flags.dialogue_markovic_ssrn) drivers.push("Marković o SSRN");
+  if (state.desks?.ssip?.posture === "ec_dialogue" || state.flags.ssip_ec_channel) drivers.push("SSIP: EEZ dijalog");
+  if (state.desks?.ssip?.posture === "nonaligned_hold" || state.flags.ssip_nonaligned_hold) drivers.push("SSIP: ostatak Nesvrstanih");
+  if (state.desks?.ssip?.posture === "bilateral_quiet" || state.flags.ssip_bilateral_quiet) drivers.push("SSIP: tihi bilaterali");
+  if (state.desks?.ssip?.posture === "paralyzed" || state.flags.ssip_paralyzed) drivers.push("SSIP paraliziran");
+  if (state.flags.ssip_siv_bind) drivers.push("SSIP vezan uz SIV");
+  if (state.flags.ssip_fer_couple) drivers.push("SSIP vezan uz FER/MMF");
+  if (state.flags.to_shared_reserve) drivers.push("TO: zajednički rezervni fond");
+  if (state.flags.to_nby_liaison) drivers.push("TO–NBJ veza");
+  if (state.flags.nby_imf_align) drivers.push("NBJ: usklađivanje s MMF");
+  if (state.flags.nby_diplomatic_fx) drivers.push("NBJ: diplomatski FX");
+  if (state.flags.confederal_ssip_memo) drivers.push("memorandum SSIP uz konfederalni stol");
+  if (state.flags.talked_loncar) drivers.push("glas Lončara (SSIP)");
+  if (state.flags.dialogue_markovic_ssip) drivers.push("Marković o SSIP");
+
 
   return {
     months: months || 1,

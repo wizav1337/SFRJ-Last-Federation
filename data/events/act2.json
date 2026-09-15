@@ -400,6 +400,91 @@
       ]
     },
     {
+      "id": "desk_to_nby_couple",
+      "date": "1990-04-28",
+      "act": 2,
+      "desk": "PRET",
+      "priority": "regional",
+      "title": "TO–NBJ: papirni koridor zaliha",
+      "location": "Beograd — TO / Narodna banka",
+      "briefing": "Šalteri TO i NBJ mogu se lagano spojiti: zajednički rezervni fond TO ili usklađivanje dinara s MMF. Mirnodopski jezik — bez oduzimanja, bez fronte. Inventura TO ostaje ekskluzivna zastavica (to_inventory_ordered).",
+      "constitutional_note": "TO je republikanska struktura; savezni papir nije racija. NBJ ne zamjenjuje SIV.",
+      "documents": [
+        "all_peoples_defence"
+      ],
+      "requires": {
+        "flags_any": [
+          "to_coordinate_posture",
+          "to_quiet_audit",
+          "to_shared_reserve",
+          "nby_tight_dinar",
+          "nby_reserves_held",
+          "markovic_dinar_program"
+        ]
+      },
+      "choices": [
+        {
+          "id": "shared_pool",
+          "label": "Zajednički rezervni fond TO (papir, ne oduzimanje).",
+          "legal": "presidency_decree",
+          "effects": {
+            "desk_add": {
+              "to": {
+                "capacity": 3
+              },
+              "nby": {
+                "loyalty": 1
+              }
+            },
+            "federal.jna_obedience_to_civilian": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "to_shared_reserve",
+              "desk_event_to_nby_couple_seen"
+            ]
+          }
+        },
+        {
+          "id": "nby_liaison",
+          "label": "Veži TO logistiku uz NBJ knjige.",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "to_nby_liaison",
+              "desk_event_to_nby_couple_seen"
+            ],
+            "federal.hard_currency": 1,
+            "desk_add": {
+              "to": {
+                "capacity": 2
+              },
+              "nby": {
+                "capacity": 2
+              }
+            }
+          }
+        },
+        {
+          "id": "imf_paper",
+          "label": "Uskladi dinar s MMF/FER papira (bez diktata).",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "nby_imf_align",
+              "desk_event_to_nby_couple_seen"
+            ],
+            "federal.inflation": -2,
+            "federal.reform_momentum": 1,
+            "desk_add": {
+              "nby": {
+                "loyalty": 2
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
       "id": "croatia_election",
       "date": "1990-05-06",
       "act": 2,
@@ -836,6 +921,91 @@
           "effects": {
             "flags_add": [
               "desk_event_justice_votes_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_ssip_siv_bind",
+      "date": "1990-05-22",
+      "act": 2,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "SSIP–SIV: vanjski jezik uz knjige",
+      "location": "Beograd — SIV / SSIP",
+      "briefing": "Marković (predsjednik SIV-a) može vezati Lončarov SSIP uz savezne knjige. EEZ dijalog uz reformu — ne priznanje, ne fronta. Jović nije Milošević; Titograd ostaje Titograd.",
+      "constitutional_note": "SSIP izvršava diplomatski kanal; ne zamjenjuje Predsjedništvo ni SIV.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "ssip_ec_channel",
+          "ssip_bilateral_quiet",
+          "ssip_nonaligned_hold",
+          "desk_event_ssip_open_seen",
+          "markovic_mandate_strong",
+          "siv_fond_bind"
+        ]
+      },
+      "choices": [
+        {
+          "id": "bind",
+          "label": "Veži SSIP uz SIV — EEZ dijalog uz knjige.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "ec_dialogue"
+              },
+              "siv": {
+                "posture": "technocrat"
+              }
+            },
+            "federal.siv_authority": 3,
+            "federal.international_standing": 2,
+            "federal.reform_momentum": 2,
+            "flags_add": [
+              "ssip_siv_bind",
+              "ssip_ec_channel",
+              "desk_event_ssip_siv_seen"
+            ],
+            "flags_remove": [
+              "ssip_paralyzed"
+            ]
+          }
+        },
+        {
+          "id": "keep_bilat",
+          "label": "Ostavi tihe bilaterale — SIV odvojeno.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "bilateral_quiet"
+              }
+            },
+            "flags_add": [
+              "ssip_bilateral_quiet",
+              "desk_event_ssip_siv_seen"
+            ]
+          }
+        },
+        {
+          "id": "starve",
+          "label": "Pusti SSIP prazan — SIV nosi papir sam.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "paralyzed"
+              }
+            },
+            "federal.international_standing": -2,
+            "flags_add": [
+              "ssip_paralyzed",
+              "desk_event_ssip_siv_seen"
             ]
           }
         }

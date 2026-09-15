@@ -684,6 +684,79 @@
       ]
     },
     {
+      "id": "desk_ssip_embassy",
+      "date": "1990-08-28",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Embassies memo: tihi bilaterali ljeti",
+      "location": "Beograd — SSIP, kružni memo misijama",
+      "briefing": "Lončar šalje memo misijama: tihi bilaterali ili EEZ nota. Izetbegović–Gligorov (I–G) nije na stolu — samo isključenje ako netko pita. Nema priznanja; nema fronte.",
+      "constitutional_note": "Diplomatski memo nije priznanje secesije. I–G nacrt nije dostupan.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "ssip_ec_channel",
+          "ssip_bilateral_quiet",
+          "ssip_nonaligned_hold",
+          "ssip_siv_bind",
+          "talked_loncar",
+          "desk_event_ssip_open_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "quiet_memo",
+          "label": "Tihi bilaterali — demarše bez javne scene.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "bilateral_quiet"
+              }
+            },
+            "federal.international_standing": 3,
+            "flags_add": [
+              "ssip_bilateral_quiet",
+              "desk_event_ssip_embassy_seen",
+              "nby_diplomatic_fx"
+            ]
+          }
+        },
+        {
+          "id": "ec_memo",
+          "label": "EEZ nota u memo — kanal, ne priznanje.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "ec_dialogue"
+              }
+            },
+            "federal.international_standing": 3,
+            "federal.reform_momentum": 1,
+            "flags_add": [
+              "ssip_ec_channel",
+              "desk_event_ssip_embassy_seen",
+              "ec_troika_watching"
+            ]
+          }
+        },
+        {
+          "id": "refuse_ig_ask",
+          "label": "Zapiši: I–G nije papir; SSIP ne potpisuje taj okvir.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "desk_event_ssip_embassy_seen",
+              "gligorov_refused_ig_frame"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_fond_autumn",
       "date": "1990-09-20",
       "act": 3,
@@ -1257,6 +1330,89 @@
             "desk_set": {
               "presidency": {
                 "posture": "hardline"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_ssip_nam_autumn",
+      "date": "1990-10-15",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "regional",
+      "title": "SSIP jesen: ostatak Nesvrstanih",
+      "location": "Beograd — SSIP",
+      "briefing": "Jesen 1990.: ostatak Nesvrstanih kao štit ili EEZ kolosijek. TO–NBJ veza (ako postoji) može financirati misije. Mirnodopski ton. Marković = SIV.",
+      "constitutional_note": "Nesvrstani jezik nije savezna vojska. Nema fronte.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "ssip_nonaligned_hold",
+          "ssip_ec_channel",
+          "ssp_nam_bridge",
+          "to_nby_liaison",
+          "nby_diplomatic_fx",
+          "desk_event_ssip_embassy_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "hold_nam",
+          "label": "Drži Nesvrstane — štit, ne zid.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "nonaligned_hold"
+              }
+            },
+            "federal.international_standing": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "ssip_nonaligned_hold",
+              "desk_event_ssip_nam_seen"
+            ]
+          }
+        },
+        {
+          "id": "ec_push",
+          "label": "Gurni EEZ dijalog uz FER/MMF papir.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "ec_dialogue"
+              }
+            },
+            "flags_add": [
+              "ssip_ec_channel",
+              "ssip_fer_couple",
+              "desk_event_ssip_nam_seen"
+            ],
+            "federal.reform_momentum": 2,
+            "federal.international_standing": 2
+          }
+        },
+        {
+          "id": "fx_missions",
+          "label": "Diplomatski FX koridor za misije (NBJ).",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "nby_diplomatic_fx",
+              "ssip_bilateral_quiet",
+              "desk_event_ssip_nam_seen"
+            ],
+            "federal.hard_currency": -1,
+            "federal.international_standing": 2,
+            "desk_add": {
+              "nby": {
+                "capacity": 2
+              },
+              "ssip": {
+                "capacity": 2
               }
             }
           }

@@ -57,14 +57,14 @@ catalogs.dialogues = [
   "markovic", "markovic_late", "mesic", "tudman",
   "bogicevic", "tupurkovski", "racan",
   "gligorov", "bucin", "izetbegovic", "bulatovic",
-  "mesic_late", "jovic_late",
+  "mesic_late", "jovic_late", "loncar",
 ].map((id) => readJSON(`data/dialogue/${id}.json`));
 
 const acts = ["act1", "act2", "act3", "act4", "act5"].map((a) => readJSON(`data/events/${a}.json`));
 const flat = flattenActs(acts);
 
 const state = createNewState(catalogs);
-assert(state.save_schema === 8, "save_schema 8");
+assert(state.save_schema === 9, "save_schema 9");
 assert(state.attention_spent_desks === 0 && state.attention_spent_reforms === 0, "spend counters");
 
 initDesks(state, catalogs);
@@ -74,7 +74,7 @@ assert(cap === 3 || cap === 4, "attention cap");
 assert(state.attention_left === cap, "attention granted");
 
 const desks = listDesks(catalogs);
-assert(desks.length >= 14, "at least 14 desks (ssrn)");
+assert(desks.length >= 15, "at least 15 desks (ssip)");
 assert(desks.some((d) => d.id === "justice"), "justice desk present");
 assert(desks.some((d) => d.id === "skj"), "skj desk present");
 assert(desks.some((d) => d.id === "assembly"), "assembly desk present");
@@ -116,6 +116,21 @@ assert(sspDeep.some((a) => a.id === "nam_bridge"), "ssp nam_bridge");
 const finDeep = actionsForDesk(state, catalogs, "finance");
 assert(finDeep.some((a) => a.id === "target_channels"), "finance target_channels");
 assert(finDeep.some((a) => a.id === "soft_corridor"), "finance soft_corridor");
+
+assert(desks.some((d) => d.id === "ssip"), "ssip desk present");
+assert(state.desks.ssip?.posture === "ec_dialogue", "ssip default posture");
+const ssipActs = actionsForDesk(state, catalogs, "ssip");
+assert(ssipActs.some((a) => a.id === "ec_dialogue"), "ssip ec_dialogue");
+assert(ssipActs.some((a) => a.id === "nonaligned_hold"), "ssip nonaligned_hold");
+assert(ssipActs.some((a) => a.id === "bilateral_quiet"), "ssip bilateral_quiet");
+assert(ssipActs.some((a) => a.id === "paralyze"), "ssip paralyze");
+assert(ssipActs.some((a) => a.id === "bind_siv"), "ssip bind_siv");
+const toDeep = actionsForDesk(state, catalogs, "to");
+assert(toDeep.some((a) => a.id === "shared_reserve_pool"), "to shared_reserve_pool");
+assert(toDeep.some((a) => a.id === "liaison_nby"), "to liaison_nby");
+const nbyDeep = actionsForDesk(state, catalogs, "nby");
+assert(nbyDeep.some((a) => a.id === "imf_align"), "nby imf_align");
+assert(nbyDeep.some((a) => a.id === "diplomatic_fx"), "nby diplomatic_fx");
 
 // Spend desk then reform buckets
 assert(spendAttention(state, 1, "desk"), "spend desk");
@@ -201,12 +216,20 @@ for (const id of [
   "desk_ssrn_before_pleb",
   "desk_ssrn_spring91",
   "confederal_ssrn_memo",
+  "desk_ssip_open",
+  "desk_to_nby_couple",
+  "desk_ssip_siv_bind",
+  "desk_ssip_embassy",
+  "desk_ssip_nam_autumn",
+  "desk_ssip_before_pleb",
+  "desk_ssip_spring91",
+  "confederal_ssip_memo",
 ]) {
   assert(ids.has(id), "event " + id);
 }
 
 // Pass 5–6 dialogues present
-for (const id of ["bogicevic", "tupurkovski", "racan", "gligorov", "bucin", "izetbegovic", "bulatovic", "mesic_late", "jovic_late"]) {
+for (const id of ["bogicevic", "tupurkovski", "racan", "gligorov", "bucin", "izetbegovic", "bulatovic", "mesic_late", "jovic_late", "loncar"]) {
   assert(catalogs.dialogues.some((d) => d.id === id), "dialogue " + id);
 }
 const mesicLate = catalogs.dialogues.find((d) => d.id === "mesic_late");
@@ -223,6 +246,10 @@ assert(jovic && (jovic.entries || []).some((e) => e.id === "revisit_skj"), "jovi
 const markovic = catalogs.dialogues.find((d) => d.id === "markovic");
 assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_fond"), "markovic fond revisit");
 assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_ssrn"), "markovic ssrn revisit");
+assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_ssip"), "markovic ssip revisit");
+const loncar = catalogs.dialogues.find((d) => d.id === "loncar");
+assert(loncar && /Lončar|SSIP|EEZ/i.test(JSON.stringify(loncar)), "loncar SSIP language");
+assert(!(loncar.nodes.start.choices || []).some((c) => /priznaj seces|priznanje neovisnosti/i.test(c.label || "")), "loncar no secession recognition");
 const bul = catalogs.dialogues.find((d) => d.id === "bulatovic");
 assert(bul && /Titograd/i.test(JSON.stringify(bul)), "bulatovic Titograd");
 assert(!/Podgorica/i.test(JSON.stringify(bul)), "bulatovic not Podgorica");
@@ -239,6 +266,9 @@ assert(!(fondMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.t
 const ssrnMemo = flat.find((e) => e.id === "confederal_ssrn_memo");
 assert(ssrnMemo && /Izetbegović–Gligorov|I–G/i.test((ssrnMemo.briefing || "") + (ssrnMemo.constitutional_note || "")), "ssrn memo excludes I-G");
 assert(!(ssrnMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.test(c.label || "")), "no accept I-G on ssrn memo");
+const ssipMemo = flat.find((e) => e.id === "confederal_ssip_memo");
+assert(ssipMemo && /Izetbegović–Gligorov|I–G/i.test((ssipMemo.briefing || "") + (ssipMemo.constitutional_note || "")), "ssip memo excludes I-G");
+assert(!(ssipMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.test(c.label || "")), "no accept I-G on ssip memo");
 
 // Slice A end date invariant
 assert(!ids.has("june_war") && !flat.some((e) => (e.date || "") > "1991-05-15" && e.id !== "slice_close"), "no post-15 May cards");
@@ -253,4 +283,5 @@ console.log("smoke OK", {
   pass6: ["assembly", "fer", "gligorov", "bucin", "izetbegovic"],
   pass7: ["fond", "bulatovic", "quiet_redistribute", "bind_fond", "south_balance"],
   pass8: ["ssrn", "mesic_late", "jovic_late", "isolation", "soft_corridor"],
+  pass9: ["ssip", "loncar", "revisit_ssip", "shared_reserve_pool", "imf_align"],
 });

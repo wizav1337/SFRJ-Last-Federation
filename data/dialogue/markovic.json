@@ -395,6 +395,79 @@
           }
         }
       ]
+    },
+    "revisit_ssip": {
+      "text": "Marković — predsjednik SIV-a — gleda SSIP. „Lončar drži note. EEZ dijalog može držati međunarodni položaj uz knjige. Ako sekretarijat paralizirate, gubim vanjski jezik. Ne tražim krunu — tražim kanal koji ne smeta SIV-u. Nema priznanja secesije.“",
+      "choices": [
+        {
+          "id": "ssip_with_siv",
+          "label": "Veži SSIP uz SIV knjige — EEZ dijalog.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 3,
+            "federal.legitimacy": 2,
+            "federal.reform_momentum": 2,
+            "federal.international_standing": 2,
+            "flags_add": [
+              "dialogue_markovic_ssip",
+              "ssip_siv_bind",
+              "ssip_ec_channel",
+              "markovic_mandate_strong"
+            ],
+            "flags_remove": [
+              "ssip_paralyzed"
+            ],
+            "desk_set": {
+              "ssip": {
+                "posture": "ec_dialogue"
+              },
+              "siv": {
+                "posture": "technocrat"
+              }
+            }
+          }
+        },
+        {
+          "id": "ssip_nam",
+          "label": "Pusti Lončara da drži Nesvrstane kao štit.",
+          "next": null,
+          "effects": {
+            "federal.legitimacy": 1,
+            "federal.international_standing": 2,
+            "flags_add": [
+              "dialogue_markovic_ssip",
+              "ssip_nonaligned_hold"
+            ],
+            "flags_remove": [
+              "ssip_paralyzed"
+            ],
+            "desk_set": {
+              "ssip": {
+                "posture": "nonaligned_hold"
+              }
+            }
+          }
+        },
+        {
+          "id": "ssip_starve",
+          "label": "Neka SSIP ostane prazan — SIV nosi papir sam.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 1,
+            "federal.legitimacy": -1,
+            "federal.international_standing": -2,
+            "flags_add": [
+              "dialogue_markovic_ssip",
+              "ssip_paralyzed"
+            ],
+            "desk_set": {
+              "ssip": {
+                "posture": "paralyzed"
+              }
+            }
+          }
+        }
+      ]
     }
   },
   "entries": [
@@ -450,6 +523,24 @@
           "ssrn_paralyzed",
           "ssrn_siv_bind",
           "desk_event_ssrn_open_seen"
+        ]
+      }
+    },
+    {
+      "id": "revisit_ssip",
+      "node": "revisit_ssip",
+      "once": true,
+      "priority": 5,
+      "require_done": true,
+      "available_from": "1990-12-01",
+      "unlock": {
+        "flags_any": [
+          "ssip_ec_channel",
+          "ssip_nonaligned_hold",
+          "ssip_bilateral_quiet",
+          "ssip_paralyzed",
+          "ssip_siv_bind",
+          "desk_event_ssip_open_seen"
         ]
       }
     }

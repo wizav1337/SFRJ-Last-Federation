@@ -46,7 +46,7 @@ index.html          shell
 css/                tokens + layout
 js/                 boot, events, map, reforms, desks, dialogue, elections, endings, simulation
 data/events/        Acts I–V
-data/desks.json     department desk stats + actions (13 desks)
+data/desks.json     department desk stats + actions (15 desks)
 data/dialogue/      branching institutional chats (multi-visit entries)
 data/i18n/hr.json   Croatian UI chrome
 data/i18n/en.json   English chrome (Pass 4–5)
@@ -84,3 +84,4 @@ Default UI language remains Croatian (ijekavica). IDs and flags stay English. `d
 - **Pass 6** (`expand/pass6-assembly-fer`): Skupština + FER desks, Gligorov/Bućin/Izetbegović (mediation-only) dialogues, gated Act I–V cards, monthly/FER coupling, save_schema 6
 - **Pass 7** (`expand/pass7-fond-core`): Fond za nerazvijene desk, deepen JNA/SIV/Presidency, Bulatović + Marković Fond revisit, gated Act I–V cards, save_schema 7
 - **Pass 8** (`expand/pass8-ssrn-depth`): SSRN desk, deepen SSP/Finance, late Mesić/Jović dialogues + Marković SSRN revisit, gated Act I–V cards, save_schema 8
+- **Pass 9** (`expand/pass9-ssip-loncar`): SSIP (Lončar) desk, deepen TO/NBY, Lončar dialogue + Marković SSIP revisit, gated Act I–V cards, save_schema 9
