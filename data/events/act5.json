@@ -1219,6 +1219,79 @@
       ]
     },
     {
+      "id": "desk_const_court_spring91",
+      "date": "1991-03-12",
+      "act": 5,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Ustavni sud proljeće 1991.: papir bez čina VI",
+      "location": "Beograd — Ustavni sud",
+      "briefing": "Proljeće 1991. Sud drži docket ili bind s pravosuđem. Odsječak A staje 15. svibnja — nema čina VI, nema rata. Buzadžić i Marković (SIV) dijele papir, ne krunu.",
+      "constitutional_note": "Nema lipanjskog rata u ovom odsječku. Nema ratnih suđenja.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "const_court_docket_open",
+          "const_court_bind_justice",
+          "dialogue_buzadzic_docket",
+          "dialogue_markovic_const_court",
+          "desk_event_const_court_pleb_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "spring_docket",
+          "label": "Drži docket do svibnja.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "docket_open"
+              }
+            },
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "const_court_docket_open",
+              "desk_event_const_court_spring_seen"
+            ]
+          }
+        },
+        {
+          "id": "spring_bind",
+          "label": "Drži bind sud–pravosuđe.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "bind_justice"
+              }
+            },
+            "federal.legitimacy": 2,
+            "federal.presidency_cohesion": 2,
+            "flags_add": [
+              "const_court_bind_justice",
+              "desk_event_const_court_spring_seen"
+            ]
+          }
+        },
+        {
+          "id": "spring_ssup",
+          "label": "Uz docket dodaj SSUP nadzor (meko).",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "ssup_docket_watch",
+              "const_court_docket_open",
+              "desk_event_const_court_spring_seen"
+            ],
+            "federal.war_risk": -1,
+            "federal.sdb_control": 1
+          }
+        }
+      ]
+    },
+    {
       "id": "confederal_skj_memo",
       "date": "1991-03-18",
       "act": 5,
@@ -1781,6 +1854,88 @@
             "flags_add": [
               "confederal_ssip_memo",
               "desk_event_ssip_memo_seen",
+              "gligorov_refused_ig_frame"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "confederal_const_court_memo",
+      "date": "1991-04-26",
+      "act": 5,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Memorandum: Ustavni sud uz konfederalni stol",
+      "location": "Beograd — Predsjedništvo",
+      "briefing": "Ako je konfederalni stol otvoren, Ustavni sud može dati ustavni pečat — docket ili bind s pravosuđem. Izetbegović–Gligorov (I–G) nije prihvatljiv papir: samo isključenje. E3 i dalje traži otvorenu povelju i Predsjedništvo koje se može sastati. Marković = SIV; Jović ≠ Milošević; Titograd ostaje Titograd.",
+      "constitutional_note": "Izetbegović–Gligorov nacrt NIJE dostupan izbor. Blokada Predsjedništva isključuje E3. Nema ratnih suđenja.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "confederal_talks_open",
+          "const_court_docket_open",
+          "const_court_bind_justice",
+          "presidency_quorum_guard",
+          "desk_event_const_court_spring_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "docket_memo_conf",
+          "label": "Veži docket uz otvoreni konfederalni stol (bez I–G).",
+          "legal": "presidency_decree",
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "docket_open"
+              },
+              "presidency": {
+                "posture": "mediate"
+              }
+            },
+            "federal.presidency_cohesion": 3,
+            "federal.legitimacy": 2,
+            "charter_signatures_add": 1,
+            "flags_add": [
+              "confederal_const_court_memo",
+              "const_court_docket_open",
+              "confederal_talks_open",
+              "desk_event_const_court_memo_seen"
+            ],
+            "flags_remove": [
+              "presidency_deadlock"
+            ]
+          }
+        },
+        {
+          "id": "bind_memo",
+          "label": "Bind sud–pravosuđe kao štit uz stol — bez I–G.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "bind_justice"
+              }
+            },
+            "federal.legitimacy": 2,
+            "federal.presidency_cohesion": 2,
+            "flags_add": [
+              "confederal_const_court_memo",
+              "const_court_bind_justice",
+              "desk_event_const_court_memo_seen"
+            ]
+          }
+        },
+        {
+          "id": "refuse_ig_court",
+          "label": "Zapiši: I–G nije papir; sud ne potpisuje taj okvir.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "confederal_const_court_memo",
+              "desk_event_const_court_memo_seen",
               "gligorov_refused_ig_frame"
             ]
           }

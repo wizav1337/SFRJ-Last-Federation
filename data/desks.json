@@ -498,7 +498,7 @@
       "name": "SSUP",
       "name_hr": "Savezni sekretarijat za unutarnje poslove",
       "kind": "secretariat",
-      "briefing": "Savezni unutarnji poslovi i kanal SDB. Meka, promatračka ili tvrda linija mijenja napetost u HR/BA. Uze Predsjedništva nad SDB-om (leash) i dijeljenje dosjea mijenjaju putove prema E3/E5 — nije kazalište rata.",
+      "briefing": "Savezni unutarnji poslovi i kanal SDB. Meka, promatračka ili tvrda linija mijenja napetost u HR/BA. Uze Predsjedništva nad SDB-om (leash) i dijeljenje dosjea mijenjaju putove prema E3/E5 — nije kazalište rata. Pass 10: mirni nadzor docketa i veza sa sudom — bez ratnih uze.",
       "stats": {
         "loyalty": 52,
         "capacity": 48,
@@ -717,6 +717,84 @@
             "flags_add": [
               "ssup_knin_watch",
               "ssup_observe_line"
+            ],
+            "flags_remove": [
+              "ssup_hard_line"
+            ]
+          }
+        },
+        {
+          "id": "docket_watch",
+          "label": "Tihi nadzor docketa Ustavnog suda — bez racije, s izvješćem.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "const_court_docket_open",
+              "ssup_observe_line",
+              "ssup_soft_line",
+              "desk_event_const_court_open_seen",
+              "sdb_civilian_leash"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "ssup": {
+                "posture": "observe"
+              }
+            },
+            "desk_add": {
+              "ssup": {
+                "capacity": 2
+              },
+              "const_court": {
+                "capacity": 1
+              }
+            },
+            "federal.sdb_control": 2,
+            "federal.legitimacy": 1,
+            "federal.war_risk": -1,
+            "HR.interethnic_tension": -1,
+            "flags_add": [
+              "ssup_docket_watch",
+              "ssup_observe_line"
+            ],
+            "flags_remove": [
+              "ssup_hard_line"
+            ]
+          }
+        },
+        {
+          "id": "court_liaison",
+          "label": "Meka veza SSUP–sud: civilni pečat na ustavnim papirima.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "ssup_docket_watch",
+              "const_court_bind_justice",
+              "sdb_civilian_leash",
+              "ssup_soft_line"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "ssup": {
+                "loyalty": 2,
+                "agenda_tension": -2
+              },
+              "const_court": {
+                "loyalty": 1
+              }
+            },
+            "federal.presidency_cohesion": 1,
+            "federal.legitimacy": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "ssup_court_liaison",
+              "ssup_soft_line"
             ],
             "flags_remove": [
               "ssup_hard_line"
@@ -1449,7 +1527,7 @@
       "name": "Pravosuđe",
       "name_hr": "Savezni sekretarijat za pravosuđe",
       "kind": "secretariat",
-      "briefing": "Savezni pravni sloj: Ustavni sud još postoji na papiru, a sekretarijat drži kanal za ustavne tužbe, arbitražu među republikama i jezik vladavine prava. Nema suđenja za rat — ima papira koji drži ili kida stol. Postava (ustav / arbitraža / tvrdo) mjesečno mijenja legitimnost i napetost, a teži na glasove Predsjedništva.",
+      "briefing": "Savezni pravni sloj: Ustavni sud još postoji na papiru, a sekretarijat drži kanal za ustavne tužbe, arbitražu među republikama i jezik vladavine prava. Nema suđenja za rat — ima papira koji drži ili kida stol. Postava (ustav / arbitraža / tvrdo) mjesečno mijenja legitimnost i napetost, a teži na glasove Predsjedništva. Pass 10: upućivanje Ustavnom sudu i veza bind_justice — papir, ne rat.",
       "stats": {
         "loyalty": 58,
         "capacity": 52,
@@ -1577,6 +1655,87 @@
             "federal.presidency_cohesion": 1,
             "flags_add": [
               "justice_rule_memo"
+            ]
+          }
+        },
+        {
+          "id": "refer_to_court",
+          "label": "Upući spis Ustavnom sudu: savezna tužba, ne racija.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_add": {
+              "justice": {
+                "capacity": 3,
+                "loyalty": 2
+              },
+              "const_court": {
+                "capacity": 2,
+                "agenda_tension": 2
+              }
+            },
+            "desk_set": {
+              "const_court": {
+                "posture": "docket_open"
+              }
+            },
+            "federal.legitimacy": 2,
+            "federal.assembly_function": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "justice_refer_court",
+              "const_court_docket_open"
+            ],
+            "flags_remove": [
+              "const_court_stalled"
+            ]
+          }
+        },
+        {
+          "id": "couple_court_bind",
+          "label": "Spreži pravosuđe s Ustavnim sudom (bind kanal).",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "const_court_docket_open",
+              "justice_constitutional_line",
+              "justice_refer_court",
+              "desk_event_const_court_open_seen"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "justice": {
+                "posture": "constitutional"
+              },
+              "const_court": {
+                "posture": "bind_justice"
+              }
+            },
+            "desk_add": {
+              "justice": {
+                "loyalty": 2
+              },
+              "const_court": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.legitimacy": 3,
+            "federal.presidency_cohesion": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "justice_court_bind",
+              "const_court_bind_justice",
+              "justice_constitutional_line"
+            ],
+            "flags_remove": [
+              "justice_hard_line",
+              "const_court_yields",
+              "const_court_stalled"
             ]
           }
         }
@@ -2594,6 +2753,233 @@
             ],
             "flags_remove": [
               "ssip_paralyzed"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "const_court",
+      "agency_id": "const_court",
+      "name": "Ustavni sud",
+      "name_hr": "Ustavni sud Jugoslavije",
+      "kind": "constitutional",
+      "briefing": "Savezni Ustavni sud na papiru: docket, zastoj, ustupanje republikama ili veza s pravosuđem. Postave diraju legitimnost, assembly_function, presidency_cohesion i federal_trust — meki putovi snižavaju war_risk. Nema ratnih suđenja; samo mirovni papir. Soft-lock na tvrdim granama kad je otvoren konfederalni stol.",
+      "stats": {
+        "loyalty": 56,
+        "capacity": 50,
+        "agenda_tension": 30
+      },
+      "posture_default": "docket_open",
+      "postures": [
+        "docket_open",
+        "stall",
+        "yield_republics",
+        "bind_justice"
+      ],
+      "actions": [
+        {
+          "id": "open_docket",
+          "label": "Otvori docket: ustavne tužbe na saveznom stolu, ne policija.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "docket_open"
+              }
+            },
+            "desk_add": {
+              "const_court": {
+                "loyalty": 3,
+                "capacity": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.legitimacy": 3,
+            "federal.assembly_function": 2,
+            "federal.war_risk": -1,
+            "SI.federal_trust": 1,
+            "HR.federal_trust": 1,
+            "flags_add": [
+              "const_court_docket_open"
+            ],
+            "flags_remove": [
+              "const_court_stalled",
+              "const_court_yields"
+            ]
+          }
+        },
+        {
+          "id": "stall_docket",
+          "label": "Zastoj docketa: sud šuti dok republike pišu ustave.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "stall"
+              }
+            },
+            "desk_add": {
+              "const_court": {
+                "agenda_tension": 6,
+                "loyalty": -2,
+                "capacity": -2
+              }
+            },
+            "federal.legitimacy": -3,
+            "federal.assembly_function": -2,
+            "federal.presidency_cohesion": -1,
+            "flags_add": [
+              "const_court_stalled"
+            ],
+            "flags_remove": [
+              "const_court_docket_open",
+              "const_court_bind_justice"
+            ]
+          }
+        },
+        {
+          "id": "yield_republics",
+          "label": "Ustupi republikama: savezni sud se povlači pred Saborima.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "yield_republics"
+              }
+            },
+            "desk_add": {
+              "const_court": {
+                "agenda_tension": 8,
+                "loyalty": -4,
+                "capacity": -3
+              }
+            },
+            "federal.legitimacy": -4,
+            "federal.assembly_function": -3,
+            "federal.presidency_cohesion": -2,
+            "SI.federal_trust": -3,
+            "HR.federal_trust": -3,
+            "SI.secession_readiness": 2,
+            "HR.secession_readiness": 2,
+            "flags_add": [
+              "const_court_yields"
+            ],
+            "flags_remove": [
+              "const_court_docket_open",
+              "const_court_bind_justice",
+              "const_court_stalled"
+            ]
+          }
+        },
+        {
+          "id": "bind_justice",
+          "label": "Veži sud uz savezno pravosuđe: zajednički ustavni kanal.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "bind_justice"
+              },
+              "justice": {
+                "posture": "constitutional"
+              }
+            },
+            "desk_add": {
+              "const_court": {
+                "loyalty": 3,
+                "agenda_tension": -3
+              },
+              "justice": {
+                "loyalty": 2,
+                "capacity": 2
+              }
+            },
+            "federal.legitimacy": 3,
+            "federal.presidency_cohesion": 2,
+            "federal.assembly_function": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "const_court_bind_justice",
+              "const_court_docket_open",
+              "justice_constitutional_line"
+            ],
+            "flags_remove": [
+              "const_court_stalled",
+              "const_court_yields",
+              "justice_hard_line"
+            ]
+          }
+        },
+        {
+          "id": "soft_legit_memo",
+          "label": "Meki legitimacijski memo Predsjedništvu (prije izvanrednog).",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "const_court_docket_open",
+              "const_court_bind_justice",
+              "justice_constitutional_line",
+              "confederal_talks_open",
+              "multiparty_wave"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "const_court": {
+                "loyalty": 2,
+                "capacity": 1
+              }
+            },
+            "federal.legitimacy": 2,
+            "federal.presidency_cohesion": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "const_court_soft_memo"
+            ]
+          }
+        },
+        {
+          "id": "annul_hard",
+          "label": "Tvrda ocjena: poništi republikanski akt kao protuustavan (papir, ne vojska).",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "docket_open"
+              }
+            },
+            "desk_add": {
+              "const_court": {
+                "agenda_tension": 7,
+                "loyalty": -1
+              }
+            },
+            "federal.legitimacy": -1,
+            "federal.presidency_cohesion": -2,
+            "SI.secession_readiness": 2,
+            "HR.secession_readiness": 2,
+            "SI.federal_trust": -2,
+            "HR.federal_trust": -2,
+            "flags_add": [
+              "const_court_annul_hard",
+              "const_court_docket_open"
+            ],
+            "flags_remove": [
+              "const_court_yields"
             ]
           }
         }

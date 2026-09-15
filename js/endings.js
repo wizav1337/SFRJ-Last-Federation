@@ -289,6 +289,15 @@ function pathNotes(state) {
   if (state.flags.confederal_ssip_memo) notes.push(t("path.ssipMemo"));
   if (state.flags.talked_loncar) notes.push(t("path.loncar"));
   if (state.flags.dialogue_markovic_ssip) notes.push(t("path.markovicSsip"));
+  if (state.flags.const_court_docket_open) notes.push(t("path.constCourtDocket"));
+  else if (state.flags.const_court_bind_justice) notes.push(t("path.constCourtBind"));
+  else if (state.flags.const_court_stalled) notes.push(t("path.constCourtStall"));
+  else if (state.flags.const_court_yields) notes.push(t("path.constCourtYield"));
+  if (state.flags.justice_refer_court) notes.push(t("path.justiceRefer"));
+  if (state.flags.ssup_docket_watch) notes.push(t("path.ssupDocket"));
+  if (state.flags.confederal_const_court_memo) notes.push(t("path.constCourtMemo"));
+  if (state.flags.talked_buzadzic) notes.push(t("path.buzadzic"));
+  if (state.flags.dialogue_markovic_const_court) notes.push(t("path.markovicCourt"));
   const stack = confederalStackDepth(state);
   if (stack >= 3) notes.push(t("path.stackDepth", { n: stack }));
   return notes;

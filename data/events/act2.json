@@ -780,6 +780,86 @@
       ]
     },
     {
+      "id": "desk_justice_refer_court",
+      "date": "1990-05-18",
+      "act": 2,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Pravosuđe upućuje spis Ustavnom sudu",
+      "location": "Beograd — Savezni sekretarijat za pravosuđe",
+      "briefing": "Sekretarijat može uputiti saveznu tužbu Ustavnom sudu ili zadržati spis u političkom kanalu. Nema racije; nema rata. Marković = SIV; Jović ≠ Milošević.",
+      "constitutional_note": "Upućivanje je pravni kanal, ne dekret Predsjedništva.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "const_court_docket_open",
+          "desk_event_const_court_open_seen",
+          "justice_constitutional_line",
+          "justice_arbitrate_line",
+          "markovic_mandate_strong"
+        ]
+      },
+      "choices": [
+        {
+          "id": "refer",
+          "label": "Upući spis sudu — otvori docket.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "docket_open"
+              }
+            },
+            "federal.legitimacy": 2,
+            "federal.assembly_function": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "justice_refer_court",
+              "const_court_docket_open",
+              "desk_event_justice_refer_seen"
+            ],
+            "flags_remove": [
+              "const_court_stalled"
+            ]
+          }
+        },
+        {
+          "id": "bind_ref",
+          "label": "Upući i veži sud–pravosuđe.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "bind_justice"
+              },
+              "justice": {
+                "posture": "constitutional"
+              }
+            },
+            "federal.legitimacy": 3,
+            "federal.presidency_cohesion": 2,
+            "flags_add": [
+              "justice_refer_court",
+              "justice_court_bind",
+              "const_court_bind_justice",
+              "desk_event_justice_refer_seen"
+            ]
+          }
+        },
+        {
+          "id": "hold_pol",
+          "label": "Zadrži spis u političkom kanalu.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "desk_event_justice_refer_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_presidency_after_votes",
       "date": "1990-05-20",
       "act": 2,
@@ -1463,6 +1543,82 @@
             ],
             "flags_remove": [
               "to_inventory_push"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_ssup_docket_watch",
+      "date": "1990-06-22",
+      "act": 2,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "SSUP: tihi nadzor docketa",
+      "location": "Beograd — SSUP / Ustavni sud",
+      "briefing": "SSUP može tiho pratiti docket Ustavnog suda — izvješće, ne racija. Meka linija snižava napetost; tvrda linija smeta ustavnom papiru. Nema ratnih uze.",
+      "constitutional_note": "Nadzor docketa nije izvanredno stanje i nije fronta.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "const_court_docket_open",
+          "desk_event_const_court_open_seen",
+          "ssup_soft_line",
+          "ssup_observe_line",
+          "sdb_civilian_leash",
+          "desk_event_ssup_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "watch",
+          "label": "Tihi nadzor docketa — izvješće Predsjedništvu.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssup": {
+                "posture": "observe"
+              }
+            },
+            "federal.sdb_control": 2,
+            "federal.war_risk": -1,
+            "HR.interethnic_tension": -1,
+            "flags_add": [
+              "ssup_docket_watch",
+              "ssup_observe_line",
+              "desk_event_ssup_docket_seen"
+            ],
+            "flags_remove": [
+              "ssup_hard_line"
+            ]
+          }
+        },
+        {
+          "id": "liaison",
+          "label": "Meka veza SSUP–sud (civilni pečat).",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 1,
+            "federal.presidency_cohesion": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "ssup_court_liaison",
+              "ssup_docket_watch",
+              "ssup_soft_line",
+              "desk_event_ssup_docket_seen"
+            ],
+            "flags_remove": [
+              "ssup_hard_line"
+            ]
+          }
+        },
+        {
+          "id": "ignore",
+          "label": "Ostavi SSUP po strani — sud sam.",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "desk_event_ssup_docket_seen"
             ]
           }
         }

@@ -411,6 +411,85 @@
       ]
     },
     {
+      "id": "desk_const_court_before_pleb",
+      "date": "1990-12-12",
+      "act": 4,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Ustavni sud pred plebiscitom",
+      "location": "Beograd — Ustavni sud",
+      "briefing": "Pred slovenačkim plebiscitom sud može držati docket ili stati. Plebiscit je savjetodavni uvod — nije proglašenje. Nema auto-sjedenja Mesića. Nema priznanja secesije.",
+      "constitutional_note": "Ustavna ocjena nije priznanje neovisnosti. Marković = SIV; Jović ≠ Milošević.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "const_court_docket_open",
+          "const_court_bind_justice",
+          "talked_buzadzic",
+          "desk_event_const_court_autumn_seen",
+          "desk_event_justice_bind_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "hold",
+          "label": "Drži docket pred glasovanje.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "docket_open"
+              }
+            },
+            "federal.legitimacy": 2,
+            "SI.federal_trust": 2,
+            "flags_add": [
+              "const_court_docket_open",
+              "desk_event_const_court_pleb_seen"
+            ]
+          }
+        },
+        {
+          "id": "bind_pleb",
+          "label": "Drži bind s pravosuđem.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "bind_justice"
+              }
+            },
+            "federal.legitimacy": 2,
+            "federal.presidency_cohesion": 1,
+            "flags_add": [
+              "const_court_bind_justice",
+              "desk_event_const_court_pleb_seen"
+            ]
+          }
+        },
+        {
+          "id": "stall_pleb",
+          "label": "Zastoj zimi — prazan pečat.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "const_court": {
+                "posture": "stall"
+              }
+            },
+            "federal.legitimacy": -2,
+            "flags_add": [
+              "const_court_stalled",
+              "desk_event_const_court_pleb_seen"
+            ],
+            "flags_remove": [
+              "const_court_docket_open"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_ssup_before_pleb",
       "date": "1990-12-15",
       "act": 4,

@@ -421,3 +421,40 @@ Akcije: `soft_federal_line` → `skj_soft_federation`; `hard_unity_rhetoric` →
 - Marković = predsjednik **SIV-a**; Jović ≠ Milošević; Titograd ostaje Titograd
 - Nema priznanja secesije; `to_inventory_ordered` ekskluzivnost nepromijenjena
 - ID-ovi i zastavice engleski; UI hrvatski (ijekavica)
+
+## Dodatak — Pass 10 `expand/pass10-const-court`
+
+Šalter **Ustavni sud Jugoslavije** (`const_court`, agencija `const_court`); produbljeni pravosuđe i SSUP; glas Buzadžića (v. d. predsjednika); Marković revisit suda; kartice čina I–V; `save_schema` 10; smoke proširen.
+
+### Nova / proširena kartica
+
+| Spis | Datum | Napomena |
+|---|---|---|
+| `desk_const_court_open` | 1990-03-12 | Ustavni sud: docket / bind / zastoj |
+| `desk_justice_refer_court` | 1990-05-18 | Pravosuđe upućuje spis sudu |
+| `desk_ssup_docket_watch` | 1990-06-22 | SSUP tihi nadzor docketa |
+| `desk_const_court_autumn` | 1990-09-14 | Jesen: docket / zastoj / ustupanje |
+| `desk_justice_court_bind` | 1990-10-22 | Bind kanal pravosuđe×sud |
+| `desk_const_court_before_pleb` | 1990-12-12 | Pred plebiscitom; bez auto-sjedenja Mesića |
+| `desk_const_court_spring91` | 1991-03-12 | Proljeće 1991.; bez čina VI |
+| `confederal_const_court_memo` | 1991-04-26 | Sud + konfederalni stol; I–G **nije** dostupan |
+
+### Razgovori
+
+- `buzadzic.json` — Milovan Buzadžić (v. d. predsjednika); docket / bind / zastoj; revisit justice
+- `markovic.json` — `revisit_const_court` (sud/pravosuđe zastavice)
+
+### Šalteri
+
+- **const_court**: `docket_open` → `const_court_docket_open`; `stall` → `const_court_stalled`; `yield_republics` → `const_court_yields`; `bind_justice` → `const_court_bind_justice`; `soft_legit_memo` → `const_court_soft_memo`; `annul_hard` → `const_court_annul_hard`
+- **justice** `refer_to_court` → `justice_refer_court`; `couple_court_bind` → `justice_court_bind`
+- **ssup** `docket_watch` → `ssup_docket_watch`; `court_liaison` → `ssup_court_liaison`
+
+### Pravila koja nisu dirana
+
+- E3: otvorena povelja (≥4) + Predsjedništvo koje se može sastati; sjedenje Mesića ≠ blokada; blokada isključuje E3
+- Nema čina VI; nema lipanjskog rata; Izetbegović–Gligorov **nije** prihvatljiv papir (samo isključenje)
+- Marković = predsjednik **SIV-a**; Jović ≠ Milošević; Titograd ostaje Titograd
+- Nema ratnih suđenja; mirovni papir samo
+- ID-ovi i zastavice engleski; UI hrvatski (ijekavica)
+
