@@ -96,6 +96,8 @@ function rawControl(state, id) {
   if (state.flags.ssup_docket_watch) n += 0.5;
   if (state.flags.provinces_vote_independently || state.flags.provinces_mediate) n += 1;
   if (state.flags.provinces_bloc_tight) n -= 0.5;
+  if (state.flags.ssno_doctrine_federal || state.flags.ssno_chair_counsel || state.flags.jna_ssno_doctrine_bind) n += 1;
+  if (state.flags.ssno_inventory_audit) n -= 0.5;
   if (state.flags.presidency_province_quorum) n += 0.5;
   if (state.flags.ssup_province_dossier) n += 0.5;
   return n;

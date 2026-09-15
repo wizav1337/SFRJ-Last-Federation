@@ -14,6 +14,39 @@
       "text": "Zima 1991. Kadijević govori o naredbi o neregularnim formacijama i o tome što TO još drži. „Predsjedništvo mora glasati. Pet od osam. Bez pet, štaba neće igrati kazalište — ni u Pakracu.“",
       "choices": [
         {
+          "id": "ssno_late",
+          "label": "SSNO kao ministarstvo: doktrina i inventura do svibnja — bez fronte.",
+          "next": "ssno_late",
+          "effects": {
+            "desk_add": {
+              "ssno": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              },
+              "jna": {
+                "loyalty": 2
+              }
+            },
+            "federal.jna_obedience_to_civilian": 3,
+            "federal.war_risk": -2,
+            "federal.presidency_cohesion": 2,
+            "flags_add": [
+              "talked_kadijevic_late",
+              "dialogue_kadijevic_ssno_late",
+              "ssno_doctrine_federal",
+              "ssno_chair_counsel"
+            ],
+            "desk_set": {
+              "ssno": {
+                "posture": "doctrine_federal"
+              },
+              "jna": {
+                "posture": "garrison"
+              }
+            }
+          }
+        },
+        {
           "id": "quorum_first",
           "label": "Prvo kvorum i civilni lanac. Bez ulične pripravnosti.",
           "next": "quorum",
@@ -144,6 +177,23 @@
             "federal.war_risk": 5,
             "SI.secession_readiness": 3,
             "HR.secession_readiness": 3
+          }
+        }
+      ]
+    },
+    "ssno_late": {
+      "text": "„Dobro. SSNO ostaje papir do 15. svibnja — doktrina, inventura, veza s TO. JNA ne ide na ulicu zbog ministarskog mema. Predsjedništvo i dalje potpisuje. Nema čina VI iz ovog ureda.“",
+      "choices": [
+        {
+          "id": "end_ssno",
+          "label": "Zapiši ministarski put.",
+          "next": null,
+          "effects": {
+            "federal.legitimacy": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "ssno_quiet_paper"
+            ]
           }
         }
       ]

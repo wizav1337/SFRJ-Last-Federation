@@ -87,3 +87,4 @@ Default UI language remains Croatian (ijekavica). IDs and flags stay English. `d
 - **Pass 9** (`expand/pass9-ssip-loncar`): SSIP (Lončar) desk, deepen TO/NBY, Lončar dialogue + Marković SSIP revisit, gated Act I–V cards, save_schema 9
 - **Pass 10** (`expand/pass10-const-court`): Ustavni sud desk, deepen justice/SSUP, Buzadžić dialogue + Marković court revisit, gated Act I–V cards, save_schema 10
 - **Pass 11** (`expand/pass11-provinces`): Pokrajinska sjedala desk, deepen Presidency/SSUP, Bajramović/Kostić + Marković provinces revisit, gated Act I–V cards, save_schema 11
+- **Pass 12** (`expand/pass12-ssno`): SSNO desk, deepen JNA/TO, Kadijević + Marković SSNO revisit, gated Act I–V cards, save_schema 12

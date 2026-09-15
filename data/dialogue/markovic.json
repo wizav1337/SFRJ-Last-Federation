@@ -634,6 +634,85 @@
           }
         }
       ]
+    },
+    "revisit_ssno": {
+      "text": "Marković — predsjednik SIV-a — gleda SSNO. „Kadijević drži ministarstvo narodne obrane. Meni treba inventurni kanal i doktrina koja sluša Predsjedništvo, ne samostalni štab. TO veza smiruje republike; savjet Predsjedništvu drži kvorum. Ja ne zapovijedam JNA — tražim papir koji SIV može čitati. Nema rata; samo tko potpisuje naredbe.“",
+      "choices": [
+        {
+          "id": "ssno_doc",
+          "label": "Podrži saveznu doktrinu SSNO — civilni lanac uz SIV.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 2,
+            "federal.jna_obedience_to_civilian": 3,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -2,
+            "flags_add": [
+              "dialogue_markovic_ssno",
+              "ssno_doctrine_federal",
+              "ssno_siv_bind",
+              "markovic_mandate_strong"
+            ],
+            "desk_set": {
+              "ssno": {
+                "posture": "doctrine_federal"
+              },
+              "siv": {
+                "posture": "technocrat"
+              }
+            }
+          }
+        },
+        {
+          "id": "ssno_counsel",
+          "label": "Savjet Predsjedništvu preko SSNO — meki kvorum.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 1,
+            "federal.presidency_cohesion": 3,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -2,
+            "flags_add": [
+              "dialogue_markovic_ssno",
+              "ssno_chair_counsel",
+              "presidency_mediation_active"
+            ],
+            "flags_remove": [
+              "presidency_hardline"
+            ],
+            "desk_set": {
+              "ssno": {
+                "posture": "chair_counsel"
+              },
+              "presidency": {
+                "posture": "mediate"
+              }
+            }
+          }
+        },
+        {
+          "id": "ssno_inv",
+          "label": "Inventurni kanal — SIV vidi brojke, ne prijetnje.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 2,
+            "federal.legitimacy": 1,
+            "federal.war_risk": -1,
+            "SI.federal_trust": -1,
+            "HR.federal_trust": -1,
+            "flags_add": [
+              "dialogue_markovic_ssno",
+              "ssno_inventory_audit",
+              "ssno_siv_bind"
+            ],
+            "desk_set": {
+              "ssno": {
+                "posture": "inventory_audit"
+              }
+            }
+          }
+        }
+      ]
     }
   },
   "entries": [
@@ -743,6 +822,25 @@
           "provinces_observe",
           "presidency_province_quorum",
           "desk_event_provinces_open_seen"
+        ]
+      }
+    },
+    {
+      "id": "revisit_ssno",
+      "node": "revisit_ssno",
+      "once": true,
+      "priority": 7,
+      "require_done": true,
+      "available_from": "1991-02-01",
+      "unlock": {
+        "flags_any": [
+          "ssno_doctrine_federal",
+          "ssno_inventory_audit",
+          "ssno_to_coordinate",
+          "ssno_chair_counsel",
+          "ssno_siv_bind",
+          "desk_event_ssno_open_seen",
+          "dialogue_kadijevic_ssno"
         ]
       }
     }

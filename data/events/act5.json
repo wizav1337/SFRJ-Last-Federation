@@ -1292,6 +1292,94 @@
       ]
     },
     {
+      "id": "desk_ssno_spring91",
+      "date": "1991-03-15",
+      "act": 5,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Proljeće 1991.: SSNO papirni put",
+      "location": "Beograd — SSNO",
+      "briefing": "Beogradsko ožujsko ozračje je atmosfera, ne inventirane smrti. SSNO i dalje može držati papirni put: doktrina, savjet Predsjedništvu, veza s TO. Bez čina VI; bez rata kao mehanike. Slice A staje 15. svibnja.",
+      "constitutional_note": "Nema izvanrednog stanja iz ove kartice; samo ministarska postava.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "desk_event_ssno_open_seen",
+          "desk_event_ssno_pleb_seen",
+          "ssno_doctrine_federal",
+          "ssno_chair_counsel",
+          "jna_ssno_doctrine_bind",
+          "to_ssno_liaison",
+          "dialogue_markovic_ssno",
+          "dialogue_kadijevic_ssno"
+        ]
+      },
+      "choices": [
+        {
+          "id": "s91_doctrine",
+          "label": "Savezna doktrina do svibnja.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssno": {
+                "posture": "doctrine_federal"
+              }
+            },
+            "federal.jna_obedience_to_civilian": 3,
+            "federal.war_risk": -2,
+            "flags_add": [
+              "ssno_doctrine_federal",
+              "desk_event_ssno_spring91_seen"
+            ]
+          }
+        },
+        {
+          "id": "s91_counsel",
+          "label": "Savjet Predsjedništvu — mirni memo.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssno": {
+                "posture": "chair_counsel"
+              },
+              "presidency": {
+                "posture": "mediate"
+              }
+            },
+            "federal.presidency_cohesion": 3,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -2,
+            "flags_add": [
+              "ssno_chair_counsel",
+              "presidency_mediation_active",
+              "desk_event_ssno_spring91_seen"
+            ],
+            "flags_remove": [
+              "presidency_hardline"
+            ]
+          }
+        },
+        {
+          "id": "s91_to",
+          "label": "Drži SSNO–TO kanal.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssno": {
+                "posture": "to_coordinate"
+              }
+            },
+            "federal.war_risk": -1,
+            "flags_add": [
+              "ssno_to_coordinate",
+              "to_ssno_liaison",
+              "desk_event_ssno_spring91_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "confederal_skj_memo",
       "date": "1991-03-18",
       "act": 5,
@@ -2109,6 +2197,85 @@
               "confederal_const_court_memo",
               "desk_event_const_court_memo_seen",
               "gligorov_refused_ig_frame"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "confederal_ssno_memo",
+      "date": "1991-04-27",
+      "act": 5,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Memorandum: SSNO uz konfederalni stol",
+      "location": "Beograd — SSNO / SIV papiri",
+      "briefing": "Memo stavlja ministarski sloj narodne obrane uz konfederalni stol — kao doktrinu i civilni lanac, ne kao Izetbegović–Gligorov nacrt. I–G nije dostupan papir. Marković ostaje predsjednik SIV-a. Nema rata; Slice A ne ide u lipanj.",
+      "constitutional_note": "Izetbegović–Gligorov nacrt **nije** prihvatljiv izbor na ovoj kartici (samo isključenje). SSNO nije zamjena za I–G.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "confederal_talks_open",
+          "ssno_doctrine_federal",
+          "ssno_chair_counsel",
+          "desk_event_ssno_spring91_seen",
+          "dialogue_markovic_ssno",
+          "jna_ssno_doctrine_bind",
+          "confederal_provinces_memo"
+        ]
+      },
+      "choices": [
+        {
+          "id": "memo_doctrine",
+          "label": "Uvrsti saveznu doktrinu SSNO u konfederalni memo.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssno": {
+                "posture": "doctrine_federal"
+              }
+            },
+            "federal.jna_obedience_to_civilian": 3,
+            "federal.presidency_cohesion": 2,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -2,
+            "federal.international_standing": 1,
+            "flags_add": [
+              "confederal_ssno_memo",
+              "ssno_doctrine_federal",
+              "desk_event_ssno_memo_seen"
+            ]
+          }
+        },
+        {
+          "id": "memo_counsel",
+          "label": "Memo uz savjet Predsjedništvu.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssno": {
+                "posture": "chair_counsel"
+              }
+            },
+            "federal.presidency_cohesion": 3,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "confederal_ssno_memo",
+              "ssno_chair_counsel",
+              "desk_event_ssno_memo_seen"
+            ]
+          }
+        },
+        {
+          "id": "memo_soft",
+          "label": "Meki zapis — SSNO spomenut, bez pakta.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "confederal_ssno_memo",
+              "desk_event_ssno_memo_seen"
             ]
           }
         }

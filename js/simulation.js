@@ -223,6 +223,16 @@ export function buildMonthlyReport(state, before, months) {
   if (state.flags.talked_bajramovic) drivers.push("glas Bajramovića (Kosovo sjedalo)");
   if (state.flags.talked_kostic) drivers.push("glas Kostića (Vojvodina sjedalo)");
   if (state.flags.dialogue_markovic_provinces) drivers.push("Marković o pokrajinskim sjedalima");
+  if (state.desks?.ssno?.posture === "doctrine_federal" || state.flags.ssno_doctrine_federal) drivers.push("SSNO: savezna doktrina");
+  if (state.desks?.ssno?.posture === "inventory_audit" || state.flags.ssno_inventory_audit) drivers.push("SSNO: inventurni kanal");
+  if (state.desks?.ssno?.posture === "to_coordinate" || state.flags.ssno_to_coordinate) drivers.push("SSNO: koordinacija s TO");
+  if (state.desks?.ssno?.posture === "chair_counsel" || state.flags.ssno_chair_counsel) drivers.push("SSNO: savjet Predsjedništvu");
+  if (state.flags.jna_ssno_doctrine_bind) drivers.push("JNA vezana uz doktrinu SSNO");
+  if (state.flags.to_ssno_liaison) drivers.push("TO–SSNO veza");
+  if (state.flags.confederal_ssno_memo) drivers.push("memorandum SSNO uz konfederalni stol");
+  if (state.flags.dialogue_kadijevic_ssno) drivers.push("Kadijević o SSNO");
+  if (state.flags.dialogue_markovic_ssno) drivers.push("Marković o SSNO");
+
 
 
   return {

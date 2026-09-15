@@ -64,7 +64,7 @@ const acts = ["act1", "act2", "act3", "act4", "act5"].map((a) => readJSON(`data/
 const flat = flattenActs(acts);
 
 const state = createNewState(catalogs);
-assert(state.save_schema === 11, "save_schema 11");
+assert(state.save_schema === 12, "save_schema 12");
 assert(state.attention_spent_desks === 0 && state.attention_spent_reforms === 0, "spend counters");
 
 initDesks(state, catalogs);
@@ -74,7 +74,7 @@ assert(cap === 3 || cap === 4, "attention cap");
 assert(state.attention_left === cap, "attention granted");
 
 const desks = listDesks(catalogs);
-assert(desks.length >= 17, "at least 17 desks (provinces)");
+assert(desks.length >= 18, "at least 18 desks (ssno)");
 assert(desks.some((d) => d.id === "justice"), "justice desk present");
 assert(desks.some((d) => d.id === "skj"), "skj desk present");
 assert(desks.some((d) => d.id === "assembly"), "assembly desk present");
@@ -166,6 +166,29 @@ assert(indepRes.ok, "apply independent_votes");
 assert(state.flags.provinces_vote_independently, "flag provinces_vote_independently after action");
 assert(state.desks.provinces?.posture === "vote_independent", "posture vote_independent after action");
 // Reset attention counters so later spend tests stay deterministic
+state.attention_left = cap;
+state.attention_spent_desks = 0;
+state.attention_spent_reforms = 0;
+
+assert(desks.some((d) => d.id === "ssno"), "ssno desk present");
+assert(state.desks.ssno?.posture === "doctrine_federal", "ssno default posture");
+const ssnoActs = actionsForDesk(state, catalogs, "ssno");
+assert(ssnoActs.some((a) => a.id === "set_doctrine_federal"), "ssno set_doctrine_federal");
+assert(ssnoActs.some((a) => a.id === "run_inventory_audit"), "ssno run_inventory_audit");
+assert(ssnoActs.some((a) => a.id === "coordinate_with_to"), "ssno coordinate_with_to");
+assert(ssnoActs.some((a) => a.id === "counsel_presidency"), "ssno counsel_presidency");
+assert(actionsForDesk(state, catalogs, "jna").some((a) => a.id === "bind_ssno_doctrine"), "jna bind_ssno_doctrine");
+assert(actionsForDesk(state, catalogs, "jna").some((a) => a.id === "accept_ssno_inventory"), "jna accept_ssno_inventory");
+assert(actionsForDesk(state, catalogs, "to").some((a) => a.id === "liaison_ssno"), "to liaison_ssno");
+assert(actionsForDesk(state, catalogs, "to").some((a) => a.id === "shared_ssno_paper"), "to shared_ssno_paper");
+state.attention_left = 4;
+const counselAct = ssnoActs.find((a) => a.id === "counsel_presidency");
+assert(counselAct, "counsel_presidency action object");
+const counselRes = applyDeskAction(state, catalogs, "ssno", "counsel_presidency");
+assert(counselRes.ok, "apply counsel_presidency");
+assert(state.flags.ssno_chair_counsel, "flag ssno_chair_counsel after action");
+assert(state.desks.ssno?.posture === "chair_counsel", "posture chair_counsel after action");
+assert(!state.flags.player_used_jna_threat, "quiet SSNO counsel must not set player_used_jna_threat");
 state.attention_left = cap;
 state.attention_spent_desks = 0;
 state.attention_spent_reforms = 0;
@@ -278,6 +301,14 @@ for (const id of [
   "desk_presidency_province_quorum",
   "desk_provinces_spring91",
   "confederal_provinces_memo",
+  "desk_ssno_open",
+  "desk_ssno_spring",
+  "desk_ssno_autumn",
+  "desk_jna_ssno_bind",
+  "desk_ssno_before_pleb",
+  "desk_to_ssno_liaison",
+  "desk_ssno_spring91",
+  "confederal_ssno_memo",
 ]) {
   assert(ids.has(id), "event " + id);
 }
@@ -303,6 +334,12 @@ assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_ssrn")
 assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_ssip"), "markovic ssip revisit");
 assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_const_court"), "markovic const_court revisit");
 assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_provinces"), "markovic provinces revisit");
+assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_ssno"), "markovic ssno revisit");
+const kadijevic = catalogs.dialogues.find((d) => d.id === "kadijevic");
+assert(kadijevic && (kadijevic.entries || []).some((e) => e.id === "revisit_ssno"), "kadijevic ssno revisit");
+assert(kadijevic && /SSNO|doktrin|inventur/i.test(JSON.stringify(kadijevic.nodes.revisit_ssno || {})), "kadijevic ssno language");
+const kadijevicLate = catalogs.dialogues.find((d) => d.id === "kadijevic_late");
+assert(kadijevicLate && (kadijevicLate.nodes.start.choices || []).some((c) => c.id === "ssno_late"), "kadijevic_late ssno choice");
 const loncar = catalogs.dialogues.find((d) => d.id === "loncar");
 assert(loncar && /Lončar|SSIP|EEZ/i.test(JSON.stringify(loncar)), "loncar SSIP language");
 assert(!(loncar.nodes.start.choices || []).some((c) => /priznaj seces|priznanje neovisnosti/i.test(c.label || "")), "loncar no secession recognition");
@@ -338,6 +375,9 @@ assert(!(courtMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.
 const provMemo = flat.find((e) => e.id === "confederal_provinces_memo");
 assert(provMemo && /Izetbegović–Gligorov|I–G/i.test((provMemo.briefing || "") + (provMemo.constitutional_note || "")), "provinces memo excludes I-G");
 assert(!(provMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.test(c.label || "")), "no accept I-G on provinces memo");
+const ssnoMemo = flat.find((e) => e.id === "confederal_ssno_memo");
+assert(ssnoMemo && /Izetbegović–Gligorov|I–G/i.test((ssnoMemo.briefing || "") + (ssnoMemo.constitutional_note || "")), "ssno memo excludes I-G");
+assert(!(ssnoMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.test(c.label || "")), "no accept I-G on ssno memo");
 
 // Slice A end date invariant
 assert(!ids.has("june_war") && !flat.some((e) => (e.date || "") > "1991-05-15" && e.id !== "slice_close"), "no post-15 May cards");
@@ -355,4 +395,5 @@ console.log("smoke OK", {
   pass9: ["ssip", "loncar", "revisit_ssip", "shared_reserve_pool", "imf_align"],
   pass10: ["const_court", "buzadzic", "revisit_const_court", "refer_to_court", "docket_watch"],
   pass11: ["provinces", "bajramovic", "kostic", "revisit_provinces", "independent_votes", "province_dossier"],
+  pass12: ["ssno", "revisit_ssno", "bind_ssno_doctrine", "liaison_ssno", "confederal_ssno_memo"],
 });

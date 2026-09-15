@@ -623,6 +623,98 @@
       ]
     },
     {
+      "id": "desk_ssno_open",
+      "date": "1990-02-22",
+      "act": 1,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "SSNO: ministarski sloj narodne obrane",
+      "location": "Beograd — Savezni sekretarijat za narodnu obranu",
+      "briefing": "Kadijević drži SSNO kao ministarstvo: doktrina, inventurni kanal, veza s TO, savjet Predsjedništvu. To nije šalter JNA (snaga) ni TO (republikanske zalihe) — nego papir između Predsjedništva i štaba. Marković ostaje predsjednik SIV-a. Tihi papir ne postavlja player_used_jna_threat. Nema rata.",
+      "constitutional_note": "Savezni sekretar za narodnu obranu nije zapovjednik Predsjedništva; civilni lanac ostaje u Predsjedništvu SFRJ.",
+      "documents": [
+        "1974_presidency",
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "markovic_mandate_strong",
+          "multiparty_wave",
+          "jna_civilian_chain",
+          "jna_garrison_posture",
+          "skj_renounced_monopoly",
+          "siv_austerity_stance"
+        ]
+      },
+      "choices": [
+        {
+          "id": "open_doctrine",
+          "label": "Otvori šalter: savezna doktrina.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssno": {
+                "posture": "doctrine_federal"
+              }
+            },
+            "federal.jna_obedience_to_civilian": 2,
+            "federal.presidency_cohesion": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "ssno_doctrine_federal",
+              "desk_event_ssno_open_seen"
+            ]
+          }
+        },
+        {
+          "id": "open_counsel",
+          "label": "Savjet Predsjedništvu — ministarski memo.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssno": {
+                "posture": "chair_counsel"
+              },
+              "presidency": {
+                "posture": "mediate"
+              }
+            },
+            "federal.presidency_cohesion": 3,
+            "federal.legitimacy": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "ssno_chair_counsel",
+              "presidency_mediation_active",
+              "desk_event_ssno_open_seen"
+            ],
+            "flags_remove": [
+              "presidency_hardline"
+            ]
+          }
+        },
+        {
+          "id": "open_inventory",
+          "label": "Inventurni kanal — popis, ne racija.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssno": {
+                "posture": "inventory_audit"
+              }
+            },
+            "federal.legitimacy": 1,
+            "federal.war_risk": 1,
+            "SI.federal_trust": -1,
+            "HR.federal_trust": -1,
+            "flags_add": [
+              "ssno_inventory_audit",
+              "desk_event_ssno_open_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_jna_readiness",
       "date": "1990-02-25",
       "act": 1,

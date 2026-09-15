@@ -155,6 +155,96 @@
       ]
     },
     {
+      "id": "desk_ssno_before_pleb",
+      "date": "1990-12-08",
+      "act": 4,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Pred savjetodavnim plebiscitom: SSNO na papiru",
+      "location": "Beograd — SSNO",
+      "briefing": "Prije slovenskog savjetodavnog plebiscita SSNO može učvrstiti doktrinu, savjet Predsjedništvu ili inventuru. Plebiscit je uvod, ne secesija. Nema rata; nema čina VI.",
+      "constitutional_note": "Savjetodavni plebiscit ne daje SSNO ovlasti izvanrednog stanja.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "desk_event_ssno_open_seen",
+          "desk_event_ssno_autumn_seen",
+          "ssno_doctrine_federal",
+          "ssno_chair_counsel",
+          "jna_ssno_doctrine_bind",
+          "dialogue_kadijevic_ssno",
+          "multiparty_wave"
+        ]
+      },
+      "choices": [
+        {
+          "id": "pleb_doctrine",
+          "label": "Učvrsti saveznu doktrinu.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssno": {
+                "posture": "doctrine_federal"
+              }
+            },
+            "federal.jna_obedience_to_civilian": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "ssno_doctrine_federal",
+              "desk_event_ssno_pleb_seen"
+            ]
+          }
+        },
+        {
+          "id": "pleb_counsel",
+          "label": "Savjet Predsjedništvu pred plebiscitom.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssno": {
+                "posture": "chair_counsel"
+              },
+              "presidency": {
+                "posture": "mediate"
+              }
+            },
+            "federal.presidency_cohesion": 3,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -2,
+            "flags_add": [
+              "ssno_chair_counsel",
+              "presidency_mediation_active",
+              "desk_event_ssno_pleb_seen"
+            ],
+            "flags_remove": [
+              "presidency_hardline"
+            ]
+          }
+        },
+        {
+          "id": "pleb_to",
+          "label": "Koordinacija SSNO–TO pred zimu.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssno": {
+                "posture": "to_coordinate"
+              },
+              "to": {
+                "posture": "coordinate"
+              }
+            },
+            "federal.war_risk": -1,
+            "flags_add": [
+              "ssno_to_coordinate",
+              "to_ssno_liaison",
+              "desk_event_ssno_pleb_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "serbia_montenegro_election",
       "date": "1990-12-09",
       "act": 4,
@@ -578,6 +668,77 @@
             "flags_add": [
               "republic_voice_mk_seen",
               "desk_event_mk_voice_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_to_ssno_liaison",
+      "date": "1990-12-14",
+      "act": 4,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "TO ↔ SSNO: ministarski kanal",
+      "location": "Beograd — TO koordinacija / SSNO",
+      "briefing": "Produbljenje TO: veza s SSNO kao ministarskim popisom, ne oduzimanjem. Zajednički papir snižava war_risk. Nema racija; nema player_used_jna_threat.",
+      "constitutional_note": "TO ostaje republikanska u doktrini; SSNO ne federalizira silom u odsječku A.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "desk_event_ssno_open_seen",
+          "ssno_to_coordinate",
+          "to_coordinate_posture",
+          "to_quiet_audit",
+          "desk_event_ssno_pleb_seen",
+          "to_shared_reserve",
+          "dialogue_kadijevic_ssno"
+        ]
+      },
+      "choices": [
+        {
+          "id": "liaison_yes",
+          "label": "Otvori vezu TO–SSNO.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssno": {
+                "posture": "to_coordinate"
+              },
+              "to": {
+                "posture": "coordinate"
+              }
+            },
+            "federal.jna_obedience_to_civilian": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "to_ssno_liaison",
+              "ssno_to_coordinate",
+              "desk_event_to_ssno_liaison_seen"
+            ]
+          }
+        },
+        {
+          "id": "liaison_paper",
+          "label": "Zajednički papir o zalihama.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "to_ssno_shared_paper",
+              "ssno_inventory_audit",
+              "desk_event_to_ssno_liaison_seen"
+            ]
+          }
+        },
+        {
+          "id": "liaison_skip",
+          "label": "Ostavi TO i SSNO bez veze.",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "desk_event_to_ssno_liaison_seen"
             ]
           }
         }
