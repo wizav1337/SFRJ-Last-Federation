@@ -594,6 +594,79 @@
       ]
     },
     {
+      "id": "desk_ssip_embassy",
+      "date": "1990-08-28",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Embassies memo: tihi bilaterali ljeti",
+      "location": "Beograd — SSIP, kružni memo misijama",
+      "briefing": "Lončar šalje memo misijama: tihi bilaterali ili EEZ nota. Izetbegović–Gligorov (I–G) nije na stolu — samo isključenje ako netko pita. Nema priznanja; nema fronte.",
+      "constitutional_note": "Diplomatski memo nije priznanje secesije. I–G nacrt nije dostupan.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "ssip_ec_channel",
+          "ssip_bilateral_quiet",
+          "ssip_nonaligned_hold",
+          "ssip_siv_bind",
+          "talked_loncar",
+          "desk_event_ssip_open_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "quiet_memo",
+          "label": "Tihi bilaterali — demarše bez javne scene.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "bilateral_quiet"
+              }
+            },
+            "federal.international_standing": 3,
+            "flags_add": [
+              "ssip_bilateral_quiet",
+              "desk_event_ssip_embassy_seen",
+              "nby_diplomatic_fx"
+            ]
+          }
+        },
+        {
+          "id": "ec_memo",
+          "label": "EEZ nota u memo — kanal, ne priznanje.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "ec_dialogue"
+              }
+            },
+            "federal.international_standing": 3,
+            "federal.reform_momentum": 1,
+            "flags_add": [
+              "ssip_ec_channel",
+              "desk_event_ssip_embassy_seen",
+              "ec_troika_watching"
+            ]
+          }
+        },
+        {
+          "id": "refuse_ig_ask",
+          "label": "Zapiši: I–G nije papir; SSIP ne potpisuje taj okvir.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "desk_event_ssip_embassy_seen",
+              "gligorov_refused_ig_frame"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_ssp_ec_track",
       "date": "1990-08-28",
       "act": 3,
@@ -684,79 +757,6 @@
       ]
     },
     {
-      "id": "desk_ssip_embassy",
-      "date": "1990-08-28",
-      "act": 3,
-      "desk": "SIV",
-      "priority": "federal",
-      "title": "Embassies memo: tihi bilaterali ljeti",
-      "location": "Beograd — SSIP, kružni memo misijama",
-      "briefing": "Lončar šalje memo misijama: tihi bilaterali ili EEZ nota. Izetbegović–Gligorov (I–G) nije na stolu — samo isključenje ako netko pita. Nema priznanja; nema fronte.",
-      "constitutional_note": "Diplomatski memo nije priznanje secesije. I–G nacrt nije dostupan.",
-      "documents": [],
-      "requires": {
-        "flags_any": [
-          "ssip_ec_channel",
-          "ssip_bilateral_quiet",
-          "ssip_nonaligned_hold",
-          "ssip_siv_bind",
-          "talked_loncar",
-          "desk_event_ssip_open_seen"
-        ]
-      },
-      "choices": [
-        {
-          "id": "quiet_memo",
-          "label": "Tihi bilaterali — demarše bez javne scene.",
-          "legal": "political",
-          "effects": {
-            "desk_set": {
-              "ssip": {
-                "posture": "bilateral_quiet"
-              }
-            },
-            "federal.international_standing": 3,
-            "flags_add": [
-              "ssip_bilateral_quiet",
-              "desk_event_ssip_embassy_seen",
-              "nby_diplomatic_fx"
-            ]
-          }
-        },
-        {
-          "id": "ec_memo",
-          "label": "EEZ nota u memo — kanal, ne priznanje.",
-          "legal": "political",
-          "effects": {
-            "desk_set": {
-              "ssip": {
-                "posture": "ec_dialogue"
-              }
-            },
-            "federal.international_standing": 3,
-            "federal.reform_momentum": 1,
-            "flags_add": [
-              "ssip_ec_channel",
-              "desk_event_ssip_embassy_seen",
-              "ec_troika_watching"
-            ]
-          }
-        },
-        {
-          "id": "refuse_ig_ask",
-          "label": "Zapiši: I–G nije papir; SSIP ne potpisuje taj okvir.",
-          "legal": "political",
-          "effects": {
-            "federal.legitimacy": 1,
-            "flags_add": [
-              "desk_event_ssip_embassy_seen",
-              "gligorov_refused_ig_frame"
-            ]
-          }
-        }
-      ]
-    },
-    {
       "id": "desk_const_court_autumn",
       "date": "1990-09-14",
       "act": 3,
@@ -840,6 +840,98 @@
             "flags_remove": [
               "const_court_docket_open",
               "const_court_bind_justice"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_provinces_autumn",
+      "date": "1990-09-18",
+      "act": 3,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Jesen: suverenistički pritisak na sjedala",
+      "location": "Beograd / Priština / Novi Sad",
+      "briefing": "Republike pišu ustave; pokrajinska sjedala trpe pritisak. Neovisni glasovi ili medijacija drže papirni put; tvrdi blok sužava Predsjedništvo. Bez čina VI.",
+      "constitutional_note": "Suverenost republika ne briše automatski pokrajinska sjedala u saveznom Predsjedništvu.",
+      "documents": [
+        "1974_provinces"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_provinces_open_seen",
+          "desk_event_provinces_spring_seen",
+          "provinces_vote_independently",
+          "provinces_mediate",
+          "talked_bajramovic",
+          "talked_kostic",
+          "multiparty_wave"
+        ]
+      },
+      "choices": [
+        {
+          "id": "autumn_indep",
+          "label": "Drži neovisne glasove pod pritiskom.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "provinces": {
+                "posture": "vote_independent"
+              }
+            },
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "RS.federal_trust": -2,
+            "flags_add": [
+              "provinces_vote_independently",
+              "desk_event_provinces_autumn_seen"
+            ],
+            "flags_remove": [
+              "provinces_bloc_tight"
+            ]
+          }
+        },
+        {
+          "id": "autumn_mediate",
+          "label": "Medijacija Predsjedništva oko sjedala.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "provinces": {
+                "posture": "mediate_seats"
+              }
+            },
+            "federal.presidency_cohesion": 3,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "provinces_mediate",
+              "desk_event_provinces_autumn_seen"
+            ],
+            "flags_remove": [
+              "provinces_bloc_tight"
+            ]
+          }
+        },
+        {
+          "id": "autumn_bloc",
+          "label": "Vrati sjedala u blok.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "provinces": {
+                "posture": "bloc_aligned"
+              }
+            },
+            "federal.presidency_cohesion": 1,
+            "federal.legitimacy": -1,
+            "flags_add": [
+              "provinces_bloc_tight",
+              "desk_event_provinces_autumn_seen"
+            ],
+            "flags_remove": [
+              "provinces_vote_independently",
+              "provinces_mediate"
             ]
           }
         }
@@ -1341,6 +1433,85 @@
             ],
             "flags_remove": [
               "ssrn_siv_bind"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_ssup_province_dossier",
+      "date": "1990-10-10",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "SSUP: mirni dosje pokrajinskih sjedala",
+      "location": "Beograd — Savezni sekretarijat za unutarnje poslove",
+      "briefing": "SSUP može voditi mirni dosje o VO/XK sjedalima — bilježi, ne udara. Veza s promatračkom linijom i civilnim uzom SDB. Nema racija; nema rata.",
+      "constitutional_note": "Civilni nadzor nad SDB-om ostaje u Predsjedništvu; dosje nije vojska.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "desk_event_provinces_open_seen",
+          "ssup_observe_line",
+          "ssup_soft_line",
+          "sdb_civilian_leash",
+          "provinces_observe",
+          "provinces_vote_independently",
+          "multiparty_wave"
+        ]
+      },
+      "choices": [
+        {
+          "id": "dossier_open",
+          "label": "Otvori mirni dosje — SDB bilježi sjedala.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssup": {
+                "posture": "observe"
+              }
+            },
+            "federal.sdb_control": 2,
+            "federal.legitimacy": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "ssup_province_dossier",
+              "ssup_observe_line",
+              "desk_event_ssup_province_dossier_seen"
+            ],
+            "flags_remove": [
+              "ssup_hard_line"
+            ]
+          }
+        },
+        {
+          "id": "dossier_soft",
+          "label": "Meka linija bez dosjea — samo promatranje.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssup": {
+                "posture": "soft"
+              }
+            },
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "ssup_soft_line",
+              "desk_event_ssup_province_dossier_seen"
+            ],
+            "flags_remove": [
+              "ssup_hard_line"
+            ]
+          }
+        },
+        {
+          "id": "dossier_skip",
+          "label": "Odgodi — nema dosjea ovog mjeseca.",
+          "legal": "political",
+          "effects": {
+            "federal.sdb_control": -1,
+            "flags_add": [
+              "desk_event_ssup_province_dossier_seen"
             ]
           }
         }

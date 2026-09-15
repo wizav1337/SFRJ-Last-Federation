@@ -860,6 +860,79 @@
       ]
     },
     {
+      "id": "desk_ssip_spring91",
+      "date": "1991-03-05",
+      "act": 5,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "SSIP proljeće 1991.: kanal bez čina VI",
+      "location": "Beograd — SSIP",
+      "briefing": "Proljeće 1991. SSIP drži EEZ dijalog ili ostatak Nesvrstanih. Odsječak A staje 15. svibnja — nema čina VI, nema rata. Lončar i Marković (SIV) dijele papir, ne krunu.",
+      "constitutional_note": "Nema lipanjskog rata u ovom odsječku. Nema priznanja secesije.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "ssip_ec_channel",
+          "ssip_siv_bind",
+          "ssip_nonaligned_hold",
+          "dialogue_loncar_ec",
+          "dialogue_markovic_ssip",
+          "desk_event_ssip_pleb_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "spring_ec",
+          "label": "Drži EEZ dijalog do svibnja — bez priznanja.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "ec_dialogue"
+              }
+            },
+            "federal.international_standing": 3,
+            "federal.reform_momentum": 1,
+            "flags_add": [
+              "ssip_ec_channel",
+              "desk_event_ssip_spring_seen"
+            ]
+          }
+        },
+        {
+          "id": "spring_nam",
+          "label": "Vrati težinu na Nesvrstane.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssip": {
+                "posture": "nonaligned_hold"
+              }
+            },
+            "flags_add": [
+              "ssip_nonaligned_hold",
+              "desk_event_ssip_spring_seen"
+            ],
+            "federal.legitimacy": 1
+          }
+        },
+        {
+          "id": "spring_fer",
+          "label": "Veži SSIP uz FER/MMF papir (lagano).",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "ssip_fer_couple",
+              "ssip_ec_channel",
+              "desk_event_ssip_spring_seen"
+            ],
+            "federal.reform_momentum": 2,
+            "federal.international_standing": 1
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_to_pakrac",
       "date": "1991-03-05",
       "act": 5,
@@ -955,79 +1028,6 @@
             "flags_add": [
               "desk_event_to_pakrac_seen"
             ]
-          }
-        }
-      ]
-    },
-    {
-      "id": "desk_ssip_spring91",
-      "date": "1991-03-05",
-      "act": 5,
-      "desk": "SIV",
-      "priority": "federal",
-      "title": "SSIP proljeće 1991.: kanal bez čina VI",
-      "location": "Beograd — SSIP",
-      "briefing": "Proljeće 1991. SSIP drži EEZ dijalog ili ostatak Nesvrstanih. Odsječak A staje 15. svibnja — nema čina VI, nema rata. Lončar i Marković (SIV) dijele papir, ne krunu.",
-      "constitutional_note": "Nema lipanjskog rata u ovom odsječku. Nema priznanja secesije.",
-      "documents": [],
-      "requires": {
-        "flags_any": [
-          "ssip_ec_channel",
-          "ssip_siv_bind",
-          "ssip_nonaligned_hold",
-          "dialogue_loncar_ec",
-          "dialogue_markovic_ssip",
-          "desk_event_ssip_pleb_seen"
-        ]
-      },
-      "choices": [
-        {
-          "id": "spring_ec",
-          "label": "Drži EEZ dijalog do svibnja — bez priznanja.",
-          "legal": "political",
-          "effects": {
-            "desk_set": {
-              "ssip": {
-                "posture": "ec_dialogue"
-              }
-            },
-            "federal.international_standing": 3,
-            "federal.reform_momentum": 1,
-            "flags_add": [
-              "ssip_ec_channel",
-              "desk_event_ssip_spring_seen"
-            ]
-          }
-        },
-        {
-          "id": "spring_nam",
-          "label": "Vrati težinu na Nesvrstane.",
-          "legal": "political",
-          "effects": {
-            "desk_set": {
-              "ssip": {
-                "posture": "nonaligned_hold"
-              }
-            },
-            "flags_add": [
-              "ssip_nonaligned_hold",
-              "desk_event_ssip_spring_seen"
-            ],
-            "federal.legitimacy": 1
-          }
-        },
-        {
-          "id": "spring_fer",
-          "label": "Veži SSIP uz FER/MMF papir (lagano).",
-          "legal": "political",
-          "effects": {
-            "flags_add": [
-              "ssip_fer_couple",
-              "ssip_ec_channel",
-              "desk_event_ssip_spring_seen"
-            ],
-            "federal.reform_momentum": 2,
-            "federal.international_standing": 1
           }
         }
       ]
@@ -1355,6 +1355,94 @@
             "flags_add": [
               "skj_dissolved",
               "desk_event_skj_memo_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_provinces_spring91",
+      "date": "1991-03-20",
+      "act": 5,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Proljeće 1991.: papirni put pokrajinskih sjedala",
+      "location": "Beograd — Predsjedništvo",
+      "briefing": "Beogradsko ožujsko ozračje je atmosfera, ne inventirane smrti. Pokrajinska sjedala i dalje mogu držati papirni put: neovisni glasovi, medijacija ili blok. Bez čina VI; bez rata kao mehanike. Slice A staje 15. svibnja.",
+      "constitutional_note": "Nema izvanrednog stanja iz ove kartice; samo postava sjedala.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "desk_event_provinces_open_seen",
+          "desk_event_provinces_pleb_seen",
+          "provinces_vote_independently",
+          "provinces_mediate",
+          "presidency_province_quorum",
+          "talked_bajramovic",
+          "talked_kostic",
+          "dialogue_markovic_provinces"
+        ]
+      },
+      "choices": [
+        {
+          "id": "s91_indep",
+          "label": "Drži neovisne glasove kroz proljeće.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "provinces": {
+                "posture": "vote_independent"
+              }
+            },
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "provinces_vote_independently",
+              "desk_event_provinces_spring91_seen"
+            ],
+            "flags_remove": [
+              "provinces_bloc_tight"
+            ]
+          }
+        },
+        {
+          "id": "s91_mediate",
+          "label": "Medijacija sjedala uz Predsjedništvo.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "provinces": {
+                "posture": "mediate_seats"
+              }
+            },
+            "federal.presidency_cohesion": 3,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "provinces_mediate",
+              "desk_event_provinces_spring91_seen"
+            ],
+            "flags_remove": [
+              "provinces_bloc_tight"
+            ]
+          }
+        },
+        {
+          "id": "s91_bloc",
+          "label": "Vrati blok — uži kanal.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "provinces": {
+                "posture": "bloc_aligned"
+              }
+            },
+            "federal.legitimacy": -1,
+            "flags_add": [
+              "provinces_bloc_tight",
+              "desk_event_provinces_spring91_seen"
+            ],
+            "flags_remove": [
+              "provinces_vote_independently"
             ]
           }
         }
@@ -1855,6 +1943,90 @@
               "confederal_ssip_memo",
               "desk_event_ssip_memo_seen",
               "gligorov_refused_ig_frame"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "confederal_provinces_memo",
+      "date": "1991-04-25",
+      "act": 5,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Memorandum: pokrajinska sjedala uz konfederalni stol",
+      "location": "Beograd — Predsjedništvo / SIV papiri",
+      "briefing": "Memo stavlja VO/XK sjedala uz konfederalni stol — kao aritmetiku i medijaciju, ne kao Izetbegović–Gligorov nacrt. I–G nije dostupan papir. Marković ostaje predsjednik SIV-a. Nema rata; Slice A ne ide u lipanj.",
+      "constitutional_note": "Izetbegović–Gligorov nacrt **nije** prihvatljiv izbor na ovoj kartici (samo isključenje). Pokrajinska sjedala nisu zamjena za I–G.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "confederal_talks_open",
+          "provinces_mediate",
+          "provinces_vote_independently",
+          "presidency_province_quorum",
+          "desk_event_provinces_spring91_seen",
+          "dialogue_markovic_provinces",
+          "confederal_const_court_memo"
+        ]
+      },
+      "choices": [
+        {
+          "id": "memo_seats",
+          "label": "Uvrsti pokrajinska sjedala u konfederalni memo.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "provinces": {
+                "posture": "mediate_seats"
+              }
+            },
+            "federal.presidency_cohesion": 3,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "federal.international_standing": 1,
+            "flags_add": [
+              "confederal_provinces_memo",
+              "provinces_mediate",
+              "desk_event_provinces_memo_seen"
+            ],
+            "flags_remove": [
+              "provinces_bloc_tight"
+            ]
+          }
+        },
+        {
+          "id": "memo_indep",
+          "label": "Memo uz neovisne glasove VO/XK.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "provinces": {
+                "posture": "vote_independent"
+              }
+            },
+            "federal.legitimacy": 2,
+            "federal.presidency_cohesion": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "confederal_provinces_memo",
+              "provinces_vote_independently",
+              "desk_event_provinces_memo_seen"
+            ],
+            "flags_remove": [
+              "provinces_bloc_tight"
+            ]
+          }
+        },
+        {
+          "id": "memo_soft",
+          "label": "Meki zapis — sjedala spomenuta, bez pakta.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "confederal_provinces_memo",
+              "desk_event_provinces_memo_seen"
             ]
           }
         }

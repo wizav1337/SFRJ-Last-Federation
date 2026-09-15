@@ -1,0 +1,89 @@
+{
+  "id": "bajramovic",
+  "speaker": "Sejdo Bajramović",
+  "title": "član Predsjedništva SFRJ (sjedalo SAP Kosovo)",
+  "desk": "provinces",
+  "available_from": "1990-06-01",
+  "unlock": {
+    "flags_any": [
+      "provinces_vote_independently",
+      "provinces_mediate",
+      "provinces_observe",
+      "provinces_bloc_tight",
+      "desk_event_provinces_open_seen",
+      "presidency_province_voice",
+      "presidency_province_quorum",
+      "multiparty_wave"
+    ]
+  },
+  "nodes": {
+    "start": {
+      "text": "Bajramović prima u Predsjedništvu. „Kosovo ima sjedalo nakon reza 1989., ali to nije slobodan glumac po defaultu. Mogu glasati s blokom, promatrati, tražiti neovisni glas ili medijaciju s Predsjedništvom. Nema rata ovdje — samo aritmetika stolaca. Što želite?“",
+      "choices": [
+        {
+          "id": "indep",
+          "label": "Neovisni glas Kosova — izvan automatske RS mašine.",
+          "next": "indep_done",
+          "effects": {
+            "desk_set": { "provinces": { "posture": "vote_independent" } },
+            "desk_add": { "provinces": { "agenda_tension": 4, "loyalty": -1 } },
+            "federal.presidency_cohesion": -1,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "RS.federal_trust": -2,
+            "XK.federal_trust": 3,
+            "XK.elite_cohesion": 3,
+            "flags_add": ["talked_bajramovic", "dialogue_bajramovic_indep", "provinces_vote_independently"],
+            "flags_remove": ["provinces_bloc_tight"]
+          }
+        },
+        {
+          "id": "bloc",
+          "label": "Drži sjedalo u srpskoj mašini.",
+          "next": "bloc_done",
+          "effects": {
+            "desk_set": { "provinces": { "posture": "bloc_aligned" } },
+            "desk_add": { "provinces": { "loyalty": 3, "agenda_tension": -2 } },
+            "federal.presidency_cohesion": 1,
+            "RS.federal_trust": 2,
+            "XK.federal_trust": -2,
+            "flags_add": ["talked_bajramovic", "dialogue_bajramovic_bloc", "provinces_bloc_tight"],
+            "flags_remove": ["provinces_vote_independently", "provinces_mediate"]
+          }
+        },
+        {
+          "id": "mediate",
+          "label": "Medijacija sjedala s Predsjedništvom.",
+          "next": "mediate_done",
+          "effects": {
+            "desk_set": {
+              "provinces": { "posture": "mediate_seats" },
+              "presidency": { "posture": "mediate" }
+            },
+            "desk_add": { "provinces": { "loyalty": 2 }, "presidency": { "loyalty": 1 } },
+            "federal.presidency_cohesion": 3,
+            "federal.war_risk": -1,
+            "XK.federal_trust": 2,
+            "flags_add": ["talked_bajramovic", "dialogue_bajramovic_mediate", "provinces_mediate", "presidency_mediation_active"],
+            "flags_remove": ["provinces_bloc_tight", "presidency_hardline"]
+          }
+        }
+      ]
+    },
+    "indep_done": {
+      "text": "„Neovisni glas nije secesija. Samo više nije pečat. syncSerbianBloc više ne vuče Kosovo automatski.“",
+      "choices": [{ "id": "end_i", "label": "Zapiši.", "next": null, "effects": { "federal.legitimacy": 1 } }]
+    },
+    "bloc_done": {
+      "text": "Blok drži aritmetiku. Predsjedništvo ostaje predvidljivo — i usko.",
+      "choices": [{ "id": "end_b", "label": "Izađi.", "next": null, "effects": { "federal.presidency_cohesion": 1 } }]
+    },
+    "mediate_done": {
+      "text": "Medijacija diže koheziju. Marković ostaje SIV; mi držimo stolac, ne krunu.",
+      "choices": [{ "id": "end_m", "label": "Zatvori.", "next": null, "effects": { "federal.war_risk": -1 } }]
+    }
+  },
+  "entries": [
+    { "id": "start", "node": "start", "once": true }
+  ]
+}

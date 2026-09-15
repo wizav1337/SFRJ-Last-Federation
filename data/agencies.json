@@ -37,6 +37,15 @@
       "dissolve_legal": "extra_constitutional"
     },
     {
+      "id": "provinces",
+      "name": "Pokrajinska sjedala (SAP Vojvodina i SAP Kosovo)",
+      "kind": "constitutional",
+      "desk": "PRET",
+      "status": "active",
+      "competence": "sjedala VO/XK u Predsjedništvu SFRJ; blok / promatranje / neovisni glasovi / medijacija (Pass 11 šalter)",
+      "dissolve_legal": "extra_constitutional"
+    },
+    {
       "id": "nby",
       "name": "Narodna banka Jugoslavije",
       "kind": "constitutional",

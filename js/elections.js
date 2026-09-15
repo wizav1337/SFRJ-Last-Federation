@@ -77,6 +77,11 @@ function deskDialogueElectionBias(unit, spec, state) {
   if (f.const_court_yields && (id === "SI" || id === "HR")) d -= 2;
   if (f.const_court_stalled) d -= 1;
   if (f.ssup_docket_watch && id === "HR") d += 1;
+  // Provinces (Pass 11)
+  if (f.provinces_vote_independently && (id === "VO" || id === "XK")) d += 2;
+  if (f.provinces_mediate && (id === "VO" || id === "XK")) d += 1;
+  if (f.provinces_bloc_tight && (id === "VO" || id === "XK")) d -= 1;
+  if (f.ssup_province_dossier && (id === "VO" || id === "XK")) d += 1;
   if (f.dialogue_drnovsek_spring || f.dialogue_drnovsek_eve) d += id === "SI" ? 1 : 0;
   // Fond (Pass 7)
   if (f.fond_open_south || f.siv_fond_bind) d += (id === "MK" || id === "ME" || id === "BA" || id === "XK") ? 2 : 0;

@@ -491,6 +491,8 @@ async function boot() {
       loadJSON("data/dialogue/jovic_late.json"),
       loadJSON("data/dialogue/loncar.json"),
       loadJSON("data/dialogue/buzadzic.json"),
+      loadJSON("data/dialogue/bajramovic.json"),
+      loadJSON("data/dialogue/kostic.json"),
     ]);
 
     const catalogs = {

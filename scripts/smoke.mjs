@@ -57,14 +57,14 @@ catalogs.dialogues = [
   "markovic", "markovic_late", "mesic", "tudman",
   "bogicevic", "tupurkovski", "racan",
   "gligorov", "bucin", "izetbegovic", "bulatovic",
-  "mesic_late", "jovic_late", "loncar", "buzadzic",
+  "mesic_late", "jovic_late", "loncar", "buzadzic", "bajramovic", "kostic",
 ].map((id) => readJSON(`data/dialogue/${id}.json`));
 
 const acts = ["act1", "act2", "act3", "act4", "act5"].map((a) => readJSON(`data/events/${a}.json`));
 const flat = flattenActs(acts);
 
 const state = createNewState(catalogs);
-assert(state.save_schema === 10, "save_schema 10");
+assert(state.save_schema === 11, "save_schema 11");
 assert(state.attention_spent_desks === 0 && state.attention_spent_reforms === 0, "spend counters");
 
 initDesks(state, catalogs);
@@ -74,7 +74,7 @@ assert(cap === 3 || cap === 4, "attention cap");
 assert(state.attention_left === cap, "attention granted");
 
 const desks = listDesks(catalogs);
-assert(desks.length >= 16, "at least 16 desks (const_court)");
+assert(desks.length >= 17, "at least 17 desks (provinces)");
 assert(desks.some((d) => d.id === "justice"), "justice desk present");
 assert(desks.some((d) => d.id === "skj"), "skj desk present");
 assert(desks.some((d) => d.id === "assembly"), "assembly desk present");
@@ -146,6 +146,29 @@ assert(justiceDeep.some((a) => a.id === "couple_court_bind"), "justice couple_co
 const ssupDeep = actionsForDesk(state, catalogs, "ssup");
 assert(ssupDeep.some((a) => a.id === "docket_watch"), "ssup docket_watch");
 assert(ssupDeep.some((a) => a.id === "court_liaison"), "ssup court_liaison");
+
+assert(desks.some((d) => d.id === "provinces"), "provinces desk present");
+assert(state.desks.provinces?.posture === "bloc_aligned", "provinces default posture");
+const provActs = actionsForDesk(state, catalogs, "provinces");
+assert(provActs.some((a) => a.id === "align_bloc"), "provinces align_bloc");
+assert(provActs.some((a) => a.id === "observe_seats"), "provinces observe_seats");
+assert(provActs.some((a) => a.id === "independent_votes"), "provinces independent_votes");
+assert(provActs.some((a) => a.id === "mediate_seats"), "provinces mediate_seats");
+assert(actionsForDesk(state, catalogs, "presidency").some((a) => a.id === "quorum_with_provinces"), "presidency quorum_with_provinces");
+assert(actionsForDesk(state, catalogs, "presidency").some((a) => a.id === "seat_province_voice"), "presidency seat_province_voice");
+assert(actionsForDesk(state, catalogs, "ssup").some((a) => a.id === "province_dossier"), "ssup province_dossier");
+// Apply independent_votes and assert flag
+state.attention_left = 4;
+const indepAct = provActs.find((a) => a.id === "independent_votes");
+assert(indepAct, "independent_votes action object");
+const indepRes = applyDeskAction(state, catalogs, "provinces", "independent_votes");
+assert(indepRes.ok, "apply independent_votes");
+assert(state.flags.provinces_vote_independently, "flag provinces_vote_independently after action");
+assert(state.desks.provinces?.posture === "vote_independent", "posture vote_independent after action");
+// Reset attention counters so later spend tests stay deterministic
+state.attention_left = cap;
+state.attention_spent_desks = 0;
+state.attention_spent_reforms = 0;
 
 // Spend desk then reform buckets
 assert(spendAttention(state, 1, "desk"), "spend desk");
@@ -247,12 +270,20 @@ for (const id of [
   "desk_const_court_before_pleb",
   "desk_const_court_spring91",
   "confederal_const_court_memo",
+  "desk_provinces_open",
+  "desk_provinces_spring",
+  "desk_provinces_autumn",
+  "desk_ssup_province_dossier",
+  "desk_provinces_before_pleb",
+  "desk_presidency_province_quorum",
+  "desk_provinces_spring91",
+  "confederal_provinces_memo",
 ]) {
   assert(ids.has(id), "event " + id);
 }
 
 // Pass 5–6 dialogues present
-for (const id of ["bogicevic", "tupurkovski", "racan", "gligorov", "bucin", "izetbegovic", "bulatovic", "mesic_late", "jovic_late", "loncar", "buzadzic"]) {
+for (const id of ["bogicevic", "tupurkovski", "racan", "gligorov", "bucin", "izetbegovic", "bulatovic", "mesic_late", "jovic_late", "loncar", "buzadzic", "bajramovic", "kostic"]) {
   assert(catalogs.dialogues.some((d) => d.id === id), "dialogue " + id);
 }
 const mesicLate = catalogs.dialogues.find((d) => d.id === "mesic_late");
@@ -271,12 +302,17 @@ assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_fond")
 assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_ssrn"), "markovic ssrn revisit");
 assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_ssip"), "markovic ssip revisit");
 assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_const_court"), "markovic const_court revisit");
+assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_provinces"), "markovic provinces revisit");
 const loncar = catalogs.dialogues.find((d) => d.id === "loncar");
 assert(loncar && /Lončar|SSIP|EEZ/i.test(JSON.stringify(loncar)), "loncar SSIP language");
 assert(!(loncar.nodes.start.choices || []).some((c) => /priznaj seces|priznanje neovisnosti/i.test(c.label || "")), "loncar no secession recognition");
 const buzadzic = catalogs.dialogues.find((d) => d.id === "buzadzic");
 assert(buzadzic && /Buzadžić|Ustavni sud|docket/i.test(JSON.stringify(buzadzic)), "buzadzic court language");
 assert(!(buzadzic.nodes.start.choices || []).some((c) => /ratn|ratnih suđen/i.test(c.label || "")), "buzadzic no war trials as choice");
+const bajramovic = catalogs.dialogues.find((d) => d.id === "bajramovic");
+assert(bajramovic && /Bajramović|Kosovo|sjedalo/i.test(JSON.stringify(bajramovic)), "bajramovic language");
+const kostic = catalogs.dialogues.find((d) => d.id === "kostic");
+assert(kostic && /Kostić|Vojvodina|sjedalo/i.test(JSON.stringify(kostic)), "kostic language");
 const bul = catalogs.dialogues.find((d) => d.id === "bulatovic");
 assert(bul && /Titograd/i.test(JSON.stringify(bul)), "bulatovic Titograd");
 assert(!/Podgorica/i.test(JSON.stringify(bul)), "bulatovic not Podgorica");
@@ -299,6 +335,9 @@ assert(!(ssipMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.t
 const courtMemo = flat.find((e) => e.id === "confederal_const_court_memo");
 assert(courtMemo && /Izetbegović–Gligorov|I–G/i.test((courtMemo.briefing || "") + (courtMemo.constitutional_note || "")), "court memo excludes I-G");
 assert(!(courtMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.test(c.label || "")), "no accept I-G on court memo");
+const provMemo = flat.find((e) => e.id === "confederal_provinces_memo");
+assert(provMemo && /Izetbegović–Gligorov|I–G/i.test((provMemo.briefing || "") + (provMemo.constitutional_note || "")), "provinces memo excludes I-G");
+assert(!(provMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.test(c.label || "")), "no accept I-G on provinces memo");
 
 // Slice A end date invariant
 assert(!ids.has("june_war") && !flat.some((e) => (e.date || "") > "1991-05-15" && e.id !== "slice_close"), "no post-15 May cards");
@@ -315,4 +354,5 @@ console.log("smoke OK", {
   pass8: ["ssrn", "mesic_late", "jovic_late", "isolation", "soft_corridor"],
   pass9: ["ssip", "loncar", "revisit_ssip", "shared_reserve_pool", "imf_align"],
   pass10: ["const_court", "buzadzic", "revisit_const_court", "refer_to_court", "docket_watch"],
+  pass11: ["provinces", "bajramovic", "kostic", "revisit_provinces", "independent_votes", "province_dossier"],
 });

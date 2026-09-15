@@ -335,7 +335,7 @@
       "name": "Predsjedništvo",
       "name_hr": "Predsjedništvo SFRJ",
       "kind": "constitutional",
-      "briefing": "Kolektivni šef države. Stolac rotira; kohezija i medijacija mjesečno drže ili kidaju putove E1–E3. Zastoj isključuje E3.",
+      "briefing": "Kolektivni šef države. Stolac rotira; kohezija i medijacija mjesečno drže ili kidaju putove E1–E3. Zastoj isključuje E3. Pass 11: kvorum i glas pokrajinskih sjedala (VO/XK) — bez rata.",
       "stats": {
         "loyalty": 50,
         "capacity": 55,
@@ -489,6 +489,88 @@
               }
             }
           }
+        },
+        {
+          "id": "quorum_with_provinces",
+          "label": "Kvorum s pokrajinskim sjedalima: VO/XK za stolom, ne kao pečat RS.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "provinces_mediate",
+              "provinces_vote_independently",
+              "provinces_observe",
+              "desk_event_provinces_open_seen",
+              "presidency_mediation_active",
+              "multiparty_wave"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "loyalty": 3,
+                "capacity": 2,
+                "agenda_tension": -3
+              },
+              "provinces": {
+                "loyalty": 2,
+                "agenda_tension": -2
+              }
+            },
+            "federal.presidency_cohesion": 4,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "VO.federal_trust": 2,
+            "XK.federal_trust": 2,
+            "flags_add": [
+              "presidency_province_quorum",
+              "presidency_mediation_active",
+              "provinces_mediate"
+            ],
+            "flags_remove": [
+              "presidency_hardline"
+            ],
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              },
+              "provinces": {
+                "posture": "mediate_seats"
+              }
+            }
+          }
+        },
+        {
+          "id": "seat_province_voice",
+          "label": "Pozovi glas pokrajinskih sjedala u Predsjedništvu (papir, ne vojska).",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_add": {
+              "presidency": {
+                "loyalty": 2,
+                "agenda_tension": -2
+              },
+              "provinces": {
+                "capacity": 2
+              }
+            },
+            "federal.presidency_cohesion": 3,
+            "federal.legitimacy": 1,
+            "VO.elite_cohesion": 2,
+            "XK.elite_cohesion": 2,
+            "flags_add": [
+              "presidency_province_voice",
+              "provinces_observe"
+            ],
+            "desk_set": {
+              "provinces": {
+                "posture": "observe"
+              }
+            }
+          }
         }
       ]
     },
@@ -498,7 +580,7 @@
       "name": "SSUP",
       "name_hr": "Savezni sekretarijat za unutarnje poslove",
       "kind": "secretariat",
-      "briefing": "Savezni unutarnji poslovi i kanal SDB. Meka, promatračka ili tvrda linija mijenja napetost u HR/BA. Uze Predsjedništva nad SDB-om (leash) i dijeljenje dosjea mijenjaju putove prema E3/E5 — nije kazalište rata. Pass 10: mirni nadzor docketa i veza sa sudom — bez ratnih uze.",
+      "briefing": "Savezni unutarnji poslovi i kanal SDB. Meka, promatračka ili tvrda linija mijenja napetost u HR/BA. Uze Predsjedništva nad SDB-om (leash) i dijeljenje dosjea mijenjaju putove prema E3/E5 — nije kazalište rata. Pass 10: mirni nadzor docketa i veza sa sudom — bez ratnih uze. Pass 11: mirni dosje pokrajinskih sjedala — bez ratnih uze.",
       "stats": {
         "loyalty": 52,
         "capacity": 48,
@@ -795,6 +877,51 @@
             "flags_add": [
               "ssup_court_liaison",
               "ssup_soft_line"
+            ],
+            "flags_remove": [
+              "ssup_hard_line"
+            ]
+          }
+        },
+        {
+          "id": "province_dossier",
+          "label": "Mirni dosje pokrajinskih sjedala — SDB bilježi, ne udara.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "ssup_observe_line",
+              "ssup_soft_line",
+              "sdb_civilian_leash",
+              "desk_event_provinces_open_seen",
+              "provinces_bloc_tight",
+              "provinces_vote_independently",
+              "multiparty_wave"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "ssup": {
+                "posture": "observe"
+              }
+            },
+            "desk_add": {
+              "ssup": {
+                "capacity": 2
+              },
+              "provinces": {
+                "capacity": 1
+              }
+            },
+            "federal.sdb_control": 2,
+            "federal.legitimacy": 1,
+            "federal.war_risk": -1,
+            "VO.interethnic_tension": -1,
+            "XK.interethnic_tension": -1,
+            "flags_add": [
+              "ssup_province_dossier",
+              "ssup_observe_line"
             ],
             "flags_remove": [
               "ssup_hard_line"
@@ -2980,6 +3107,169 @@
             ],
             "flags_remove": [
               "const_court_yields"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "provinces",
+      "agency_id": "provinces",
+      "name": "Pokrajine",
+      "name_hr": "Pokrajinska sjedala",
+      "kind": "constitutional",
+      "briefing": "Sjedala SAP Vojvodine i SAP Kosova u Predsjedništvu SFRJ. Nakon reza 1989. na Kosovu sjedala postoje, ali nisu slobodni glumci po defaultu — prate srpsku mašinu dok igrač ne otvori neovisno glasovanje, tihu usklađenost, promatranje ili medijaciju s Predsjedništvom. Soft-lock na tvrdoj usklađenosti kad je otvoren konfederalni stol. Nema rata; samo aritmetika stolaca.",
+      "stats": {
+        "loyalty": 48,
+        "capacity": 46,
+        "agenda_tension": 42
+      },
+      "posture_default": "bloc_aligned",
+      "postures": [
+        "bloc_aligned",
+        "observe",
+        "vote_independent",
+        "mediate_seats"
+      ],
+      "actions": [
+        {
+          "id": "align_bloc",
+          "label": "Uskladi sjedala sa srpskom mašinom — tihi pečat RS linije.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "provinces": {
+                "posture": "bloc_aligned"
+              }
+            },
+            "desk_add": {
+              "provinces": {
+                "loyalty": 4,
+                "agenda_tension": -3,
+                "capacity": 1
+              }
+            },
+            "federal.presidency_cohesion": 2,
+            "federal.legitimacy": -1,
+            "RS.federal_trust": 3,
+            "VO.federal_trust": -2,
+            "XK.federal_trust": -2,
+            "VO.elite_cohesion": -2,
+            "XK.elite_cohesion": -2,
+            "flags_add": [
+              "provinces_bloc_tight"
+            ],
+            "flags_remove": [
+              "provinces_vote_independently",
+              "provinces_mediate",
+              "provinces_observe"
+            ]
+          }
+        },
+        {
+          "id": "observe_seats",
+          "label": "Promatračka postava: bilježi glasove, ne forsira blok.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "provinces": {
+                "posture": "observe"
+              }
+            },
+            "desk_add": {
+              "provinces": {
+                "capacity": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.presidency_cohesion": 1,
+            "federal.legitimacy": 1,
+            "VO.elite_cohesion": 1,
+            "XK.elite_cohesion": 1,
+            "flags_add": [
+              "provinces_observe"
+            ],
+            "flags_remove": [
+              "provinces_bloc_tight"
+            ]
+          }
+        },
+        {
+          "id": "independent_votes",
+          "label": "Neovisni glasovi VO/XK u Predsjedništvu — izvan automatske RS mašine.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "provinces": {
+                "posture": "vote_independent"
+              }
+            },
+            "desk_add": {
+              "provinces": {
+                "loyalty": -2,
+                "agenda_tension": 5,
+                "capacity": 2
+              }
+            },
+            "federal.presidency_cohesion": -2,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "RS.federal_trust": -3,
+            "VO.federal_trust": 3,
+            "XK.federal_trust": 3,
+            "VO.elite_cohesion": 4,
+            "XK.elite_cohesion": 4,
+            "flags_add": [
+              "provinces_vote_independently"
+            ],
+            "flags_remove": [
+              "provinces_bloc_tight"
+            ]
+          }
+        },
+        {
+          "id": "mediate_seats",
+          "label": "Medijacija sjedala s Predsjedništvom — meki kvorum, ne blok.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "provinces": {
+                "posture": "mediate_seats"
+              },
+              "presidency": {
+                "posture": "mediate"
+              }
+            },
+            "desk_add": {
+              "provinces": {
+                "loyalty": 2,
+                "agenda_tension": -4
+              },
+              "presidency": {
+                "loyalty": 2,
+                "agenda_tension": -2
+              }
+            },
+            "federal.presidency_cohesion": 4,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "VO.federal_trust": 2,
+            "XK.federal_trust": 2,
+            "flags_add": [
+              "provinces_mediate",
+              "presidency_mediation_active"
+            ],
+            "flags_remove": [
+              "provinces_bloc_tight",
+              "presidency_hardline"
             ]
           }
         }
