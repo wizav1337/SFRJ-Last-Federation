@@ -464,6 +464,83 @@
       ]
     },
     {
+      "id": "desk_ssrn_open",
+      "date": "1990-02-18",
+      "act": 1,
+      "desk": "SKJ",
+      "priority": "federal",
+      "title": "SSRN: masovni front ili prazna ljuštura",
+      "location": "Beograd — Socijalistički savez radnog naroda",
+      "briefing": "SSRN sada ima šalter. Otvorite masovni front, građanski forum, ili dopustite stranačko zarobljavanje. Mirnodopski jezik — bez fronte. Marković ostaje predsjednik SIV-a; SSRN nije kruna.",
+      "constitutional_note": "SSRN je društveno-politička organizacija, ne Predsjedništvo i ne SIV.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "skj_split",
+          "skj_renounced_monopoly",
+          "multiparty_wave",
+          "markovic_mandate_strong"
+        ]
+      },
+      "choices": [
+        {
+          "id": "mass_open",
+          "label": "Otvori masovni front.",
+          "legal": "party",
+          "effects": {
+            "desk_set": {
+              "ssrn": {
+                "posture": "mass_front_open"
+              }
+            },
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "ssrn_mass_front",
+              "desk_event_ssrn_open_seen"
+            ],
+            "flags_remove": [
+              "ssrn_paralyzed"
+            ]
+          }
+        },
+        {
+          "id": "civic",
+          "label": "Građanski forum bez stranačkog pečata.",
+          "legal": "party",
+          "effects": {
+            "desk_set": {
+              "ssrn": {
+                "posture": "civic_forum"
+              }
+            },
+            "federal.legitimacy": 3,
+            "federal.reform_momentum": 1,
+            "flags_add": [
+              "ssrn_civic_forum",
+              "desk_event_ssrn_open_seen"
+            ]
+          }
+        },
+        {
+          "id": "capture",
+          "label": "Neka stranke zarobe SSRN.",
+          "legal": "party",
+          "effects": {
+            "desk_set": {
+              "ssrn": {
+                "posture": "party_capture"
+              }
+            },
+            "federal.legitimacy": -1,
+            "flags_add": [
+              "ssrn_party_capture",
+              "desk_event_ssrn_open_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "multiparty_laws_wave",
       "date": "1990-02-20",
       "act": 1,
@@ -899,6 +976,92 @@
       ]
     },
     {
+      "id": "desk_fond_open",
+      "date": "1990-03-08",
+      "act": 1,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Fond za nerazvijene: južni koridor",
+      "location": "Beograd — Federalni fond za nerazvijene",
+      "briefing": "Fond sada ima šalter. Otvorite jug (MK/ME/BA/XK), smrznite doprinose, ili ciljajte uži koridor MK–ME. Marković ostaje predsjednik SIV-a — Fond izvršava transfer. Nema fronte; Titograd ostaje Titograd.",
+      "constitutional_note": "Fond je sekretarijat pod SIV-om. Marković ≠ predsjednik Jugoslavije.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "markovic_dinar_program",
+          "markovic_mandate_strong",
+          "multiparty_wave",
+          "imf_standby_active"
+        ]
+      },
+      "choices": [
+        {
+          "id": "open_south",
+          "label": "Otvori jug: transferi bez političkog pečata.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "fond": {
+                "posture": "open_south"
+              }
+            },
+            "MK.living_standard": 2,
+            "ME.living_standard": 2,
+            "BA.living_standard": 1,
+            "federal.federal_budget": -1,
+            "flags_add": [
+              "fond_open_south",
+              "desk_event_fond_open_seen"
+            ],
+            "flags_remove": [
+              "fond_freeze"
+            ]
+          }
+        },
+        {
+          "id": "freeze",
+          "label": "Smrzni Fond — pritisak na neplatiše.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "fond": {
+                "posture": "freeze"
+              }
+            },
+            "federal.federal_budget": 2,
+            "MK.federal_trust": -3,
+            "ME.federal_trust": -2,
+            "flags_add": [
+              "fond_freeze",
+              "desk_event_fond_open_seen"
+            ],
+            "flags_remove": [
+              "fond_open_south"
+            ]
+          }
+        },
+        {
+          "id": "target",
+          "label": "Ciljaj MK i ME užim koridorom.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "fond": {
+                "posture": "target_mk_me"
+              }
+            },
+            "MK.living_standard": 2,
+            "ME.living_standard": 2,
+            "BA.federal_trust": -1,
+            "flags_add": [
+              "fond_target_mk_me",
+              "desk_event_fond_open_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_nby_dinar_watch",
       "date": "1990-03-08",
       "act": 1,
@@ -982,92 +1145,6 @@
             },
             "flags_add": [
               "desk_event_nby_seen"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "id": "desk_fond_open",
-      "date": "1990-03-08",
-      "act": 1,
-      "desk": "SIV",
-      "priority": "federal",
-      "title": "Fond za nerazvijene: južni koridor",
-      "location": "Beograd — Federalni fond za nerazvijene",
-      "briefing": "Fond sada ima šalter. Otvorite jug (MK/ME/BA/XK), smrznite doprinose, ili ciljajte uži koridor MK–ME. Marković ostaje predsjednik SIV-a — Fond izvršava transfer. Nema fronte; Titograd ostaje Titograd.",
-      "constitutional_note": "Fond je sekretarijat pod SIV-om. Marković ≠ predsjednik Jugoslavije.",
-      "documents": [],
-      "requires": {
-        "flags_any": [
-          "markovic_dinar_program",
-          "markovic_mandate_strong",
-          "multiparty_wave",
-          "imf_standby_active"
-        ]
-      },
-      "choices": [
-        {
-          "id": "open_south",
-          "label": "Otvori jug: transferi bez političkog pečata.",
-          "legal": "siv",
-          "effects": {
-            "desk_set": {
-              "fond": {
-                "posture": "open_south"
-              }
-            },
-            "MK.living_standard": 2,
-            "ME.living_standard": 2,
-            "BA.living_standard": 1,
-            "federal.federal_budget": -1,
-            "flags_add": [
-              "fond_open_south",
-              "desk_event_fond_open_seen"
-            ],
-            "flags_remove": [
-              "fond_freeze"
-            ]
-          }
-        },
-        {
-          "id": "freeze",
-          "label": "Smrzni Fond — pritisak na neplatiše.",
-          "legal": "siv",
-          "effects": {
-            "desk_set": {
-              "fond": {
-                "posture": "freeze"
-              }
-            },
-            "federal.federal_budget": 2,
-            "MK.federal_trust": -3,
-            "ME.federal_trust": -2,
-            "flags_add": [
-              "fond_freeze",
-              "desk_event_fond_open_seen"
-            ],
-            "flags_remove": [
-              "fond_open_south"
-            ]
-          }
-        },
-        {
-          "id": "target",
-          "label": "Ciljaj MK i ME užim koridorom.",
-          "legal": "siv",
-          "effects": {
-            "desk_set": {
-              "fond": {
-                "posture": "target_mk_me"
-              }
-            },
-            "MK.living_standard": 2,
-            "ME.living_standard": 2,
-            "BA.federal_trust": -1,
-            "flags_add": [
-              "fond_target_mk_me",
-              "desk_event_fond_open_seen"
             ]
           }
         }

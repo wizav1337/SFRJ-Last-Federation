@@ -81,6 +81,15 @@ function rawControl(state, id) {
   if (state.flags.presidency_south_balance && (id === "MK" || id === "ME" || id === "BA")) n += 1;
   if (state.flags.dialogue_bulatovic_soft && id === "ME") n += 2;
   if (state.flags.dialogue_bulatovic_bloc && id === "ME") n += 1;
+  if (state.flags.ssrn_civic_forum || state.flags.ssrn_siv_bind) n += 1;
+  if (state.flags.ssrn_paralyzed) n -= 1;
+  if (state.flags.ssrn_party_capture && (id === "SI" || id === "HR")) n -= 1;
+  if (state.flags.finance_soft_corridor) n += 0.5;
+  if (state.flags.finance_target && (id === "SI" || id === "HR")) n -= 1;
+  if (state.flags.ssp_nam_bridge) n += 0.5;
+  if (state.flags.ssp_isolation) n -= 0.5;
+  if (state.flags.dialogue_jovic_late_quorum) n += 0.5;
+  if (state.flags.dialogue_mesic_late_duty && id === "HR") n += 1;
   return n;
 }
 

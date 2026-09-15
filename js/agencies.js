@@ -67,6 +67,15 @@ export function syncAgenciesFromFlags(state) {
   if (state.flags.fond_freeze || state.flags.fond_politicized) {
     setAgencyStatus(state, "federal_fund", "weakened");
   }
+  if (state.flags.ssrn_paralyzed || state.flags.ssrn_party_capture) {
+    setAgencyStatus(state, "ssrn", "weakened");
+  }
+  if (state.flags.ssrn_civic_forum || state.flags.ssrn_siv_bind) {
+    setAgencyStatus(state, "ssrn", "active");
+  }
+  if (state.flags.ssp_isolation) {
+    setAgencyStatus(state, "ssp", "weakened");
+  }
 }
 
 export function legalLabel(legal) {
@@ -125,6 +134,18 @@ export function deskVoteModifiers(state) {
   }
   if (f.confederal_talks_open && softAgainst >= 2) {
     notes.push("vote.mod.conflict");
+  }
+  if (f.ssrn_civic_forum || f.ssrn_siv_bind) {
+    softFor += 1;
+    notes.push("vote.mod.ssrnForum");
+  }
+  if (f.ssrn_paralyzed || f.ssrn_party_capture) {
+    softAgainst += 1;
+    notes.push("vote.mod.ssrnWeak");
+  }
+  if (f.dialogue_jovic_late_quorum || f.dialogue_mesic_late_duty) {
+    softFor += 1;
+    notes.push("vote.mod.lateChair");
   }
 
   return {

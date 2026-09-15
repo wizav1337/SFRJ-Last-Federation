@@ -179,6 +179,79 @@
       ]
     },
     {
+      "id": "desk_jna_quiet_order",
+      "date": "1990-04-22",
+      "act": 2,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "JNA: tiha preraspodjela",
+      "location": "Beograd — Generalštab / Predsjedništvo",
+      "briefing": "Štab nudi tihu preraspodjelu garnizona — kasarne, ne ulice. To nije prijetnja republikama i ne pali zastavicu player_used_jna_threat. Alternativa: pripravnost (tvrđe) ili civilni lanac.",
+      "constitutional_note": "Zapovijedanje oružanim snagama je Predsjedništvo. Tiha preraspodjela ≠ mobilizacija.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "multiparty_wave",
+          "desk_event_jna_seen",
+          "jna_garrison_posture",
+          "jna_civilian_chain"
+        ],
+        "flags_not": [
+          "desk_event_jna_quiet_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "quiet",
+          "label": "Tiha preraspodjela — bez prijetnje.",
+          "legal": "presidency_decree",
+          "effects": {
+            "federal.jna_cohesion": 2,
+            "federal.war_risk": -1,
+            "SI.federal_trust": -1,
+            "HR.federal_trust": -1,
+            "flags_add": [
+              "jna_quiet_redistribute",
+              "desk_event_jna_quiet_seen"
+            ]
+          }
+        },
+        {
+          "id": "alert_soft",
+          "label": "Podigni pripravnost umjesto tihog reda.",
+          "legal": "presidency_decree",
+          "effects": {
+            "desk_set": {
+              "jna": {
+                "posture": "alert"
+              }
+            },
+            "federal.war_risk": 3,
+            "flags_add": [
+              "jna_mobilization_alert",
+              "desk_event_jna_quiet_seen"
+            ],
+            "flags_remove": [
+              "jna_garrison_posture"
+            ]
+          }
+        },
+        {
+          "id": "civilian",
+          "label": "Pojačaj civilni lanac umjesto preraspodjele.",
+          "legal": "presidency_decree",
+          "effects": {
+            "federal.jna_obedience_to_civilian": 4,
+            "federal.presidency_cohesion": 2,
+            "flags_add": [
+              "jna_civilian_chain",
+              "desk_event_jna_quiet_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "slovenia_election",
       "date": "1990-04-22",
       "act": 2,
@@ -248,74 +321,80 @@
       ]
     },
     {
-      "id": "desk_jna_quiet_order",
-      "date": "1990-04-22",
+      "id": "desk_finance_target",
+      "date": "1990-04-25",
       "act": 2,
-      "desk": "PRET",
+      "desk": "SIV",
       "priority": "federal",
-      "title": "JNA: tiha preraspodjela",
-      "location": "Beograd — Generalštab / Predsjedništvo",
-      "briefing": "Štab nudi tihu preraspodjelu garnizona — kasarne, ne ulice. To nije prijetnja republikama i ne pali zastavicu player_used_jna_threat. Alternativa: pripravnost (tvrđe) ili civilni lanac.",
-      "constitutional_note": "Zapovijedanje oružanim snagama je Predsjedništvo. Tiha preraspodjela ≠ mobilizacija.",
+      "title": "Financije: ciljani kanali",
+      "location": "Beograd — Savezni sekretarijat za financije",
+      "briefing": "Financije mogu ciljati kanale prema platišama ili držati meki koridor uz SIV. Marković = predsjednik SIV-a. Nema fronte; Slice A mirnodopski.",
+      "constitutional_note": "Transferi su SIV/Financije kompetencija — ne Predsjedništvo.",
       "documents": [],
       "requires": {
         "flags_any": [
-          "multiparty_wave",
-          "desk_event_jna_seen",
-          "jna_garrison_posture",
-          "jna_civilian_chain"
-        ],
-        "flags_not": [
-          "desk_event_jna_quiet_seen"
+          "markovic_dinar_program",
+          "markovic_mandate_strong",
+          "finance_transfers_open",
+          "finance_transfer_freeze",
+          "imf_standby_active"
         ]
       },
       "choices": [
         {
-          "id": "quiet",
-          "label": "Tiha preraspodjela — bez prijetnje.",
-          "legal": "presidency_decree",
-          "effects": {
-            "federal.jna_cohesion": 2,
-            "federal.war_risk": -1,
-            "SI.federal_trust": -1,
-            "HR.federal_trust": -1,
-            "flags_add": [
-              "jna_quiet_redistribute",
-              "desk_event_jna_quiet_seen"
-            ]
-          }
-        },
-        {
-          "id": "alert_soft",
-          "label": "Podigni pripravnost umjesto tihog reda.",
-          "legal": "presidency_decree",
+          "id": "target",
+          "label": "Ciljaj kanale — uži transferi.",
+          "legal": "siv",
           "effects": {
             "desk_set": {
-              "jna": {
-                "posture": "alert"
+              "finance": {
+                "posture": "target"
               }
             },
-            "federal.war_risk": 3,
+            "federal.federal_budget": 2,
+            "SI.federal_trust": -2,
+            "HR.federal_trust": -2,
             "flags_add": [
-              "jna_mobilization_alert",
-              "desk_event_jna_quiet_seen"
+              "finance_target",
+              "desk_event_finance_target_seen"
             ],
             "flags_remove": [
-              "jna_garrison_posture"
+              "finance_soft_corridor"
             ]
           }
         },
         {
-          "id": "civilian",
-          "label": "Pojačaj civilni lanac umjesto preraspodjele.",
-          "legal": "presidency_decree",
+          "id": "soft",
+          "label": "Meki koridor uz SIV knjige.",
+          "legal": "siv",
           "effects": {
-            "federal.jna_obedience_to_civilian": 4,
-            "federal.presidency_cohesion": 2,
+            "desk_set": {
+              "finance": {
+                "posture": "open"
+              }
+            },
+            "federal.inter_republic_trade": 2,
+            "federal.siv_authority": 2,
             "flags_add": [
-              "jna_civilian_chain",
-              "desk_event_jna_quiet_seen"
+              "finance_soft_corridor",
+              "finance_transfers_open",
+              "desk_event_finance_target_seen"
+            ],
+            "flags_remove": [
+              "finance_target",
+              "finance_transfer_freeze"
             ]
+          }
+        },
+        {
+          "id": "hold",
+          "label": "Drži postojeću postavu — bez nove odluke.",
+          "legal": "siv",
+          "effects": {
+            "flags_add": [
+              "desk_event_finance_target_seen"
+            ],
+            "federal.legitimacy": 1
           }
         }
       ]
@@ -526,6 +605,90 @@
             "SI.federal_trust": 4,
             "flags_add": [
               "presidency_deadlock"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_ssp_isolation",
+      "date": "1990-05-18",
+      "act": 2,
+      "desk": "SSP",
+      "priority": "federal",
+      "title": "SSP: izolacija ili most Nesvrstanih",
+      "location": "Beograd — Savezni sekretarijat za inozemne poslove",
+      "briefing": "Nakon rotacije Predsjedništva (Jović = predsjedatelj, ne Milošević) SSP bira izolaciju ili most Nesvrstanih. EEZ kolosijek ostaje opcija šaltera. Mirnodopski.",
+      "constitutional_note": "Vanjski poslovi; priznanje republika nije na stolu u Slice A.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "presidency_rotation_jovic",
+          "ssp_ec_track",
+          "ssp_quiet_demarche",
+          "talked_jovic",
+          "multiparty_wave"
+        ]
+      },
+      "choices": [
+        {
+          "id": "isolate",
+          "label": "Izolacija: manje demarši, manje EEZ.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssp": {
+                "posture": "isolation"
+              }
+            },
+            "federal.international_standing": -3,
+            "flags_add": [
+              "ssp_isolation",
+              "desk_event_ssp_isolation_seen"
+            ],
+            "flags_remove": [
+              "ssp_nam_bridge"
+            ]
+          }
+        },
+        {
+          "id": "nam",
+          "label": "Most Nesvrstanih — stari jezik kao most.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssp": {
+                "posture": "nonaligned"
+              }
+            },
+            "federal.international_standing": 3,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "ssp_nam_bridge",
+              "desk_event_ssp_isolation_seen"
+            ],
+            "flags_remove": [
+              "ssp_isolation"
+            ]
+          }
+        },
+        {
+          "id": "keep_ec",
+          "label": "Drži EEZ kolosijek ako je otvoren.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssp": {
+                "posture": "ec_track"
+              }
+            },
+            "federal.international_standing": 2,
+            "flags_add": [
+              "ssp_ec_track",
+              "desk_event_ssp_isolation_seen"
+            ],
+            "flags_remove": [
+              "ssp_isolation"
             ]
           }
         }
@@ -808,6 +971,60 @@
       ]
     },
     {
+      "id": "barracks_quiet",
+      "date": "1990-05-28",
+      "act": 2,
+      "desk": "PRET",
+      "priority": "regional",
+      "title": "Vojarne, ne skladišta",
+      "location": "SSNO / garnizoni JNA",
+      "briefing": "U proljeće niste naredili savezni popis Teritorijalne obrane. Stožer JNA i dalje hoće sliku tko što drži prije ljeta. Prihvatit će popis vojarni. Neće prihvatiti da je pitanje nepristojno. Ovaj spis postoji samo zato što naredba o popisu nije pala.",
+      "constitutional_note": "Popis vojarni savezno je vlasništvo. Skladišta TO argument su koji ste odbili pokrenuti. Pokrenuti ga sada, nakon listića, glasnije je.",
+      "documents": [
+        "all_peoples_defence"
+      ],
+      "requires": {
+        "flags_not": [
+          "to_inventory_ordered"
+        ]
+      },
+      "choices": [
+        {
+          "id": "joint_commission",
+          "label": "Mješovito povjerenstvo. Časnici JNA i republikanske TO u istoj sobi, bez oduzimanja.",
+          "legal": "constitutional",
+          "effects": {
+            "federal.legitimacy": 3,
+            "federal.jna_cohesion": 2,
+            "SI.federal_trust": 3,
+            "HR.federal_trust": 2
+          }
+        },
+        {
+          "id": "leave_alone",
+          "label": "Ostavi TO na miru. Napiši da je vojska dovoljna.",
+          "legal": "political",
+          "effects": {
+            "federal.jna_cohesion": -7,
+            "SI.to_control": 5,
+            "HR.to_control": 5
+          }
+        },
+        {
+          "id": "quiet_redeploy",
+          "label": "Tiho prerasporedi JNA prema skladištima koja ne imenuješ.",
+          "legal": "presidency_decree",
+          "effects": {
+            "SI.federal_trust": -6,
+            "HR.federal_trust": -5,
+            "federal.war_risk": 4,
+            "SI.jna_presence": 6,
+            "HR.jna_presence": 5
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_assembly_after_votes",
       "date": "1990-05-28",
       "act": 2,
@@ -887,60 +1104,6 @@
               "assembly_paralysis_risk",
               "desk_event_assembly_votes_seen"
             ]
-          }
-        }
-      ]
-    },
-    {
-      "id": "barracks_quiet",
-      "date": "1990-05-28",
-      "act": 2,
-      "desk": "PRET",
-      "priority": "regional",
-      "title": "Vojarne, ne skladišta",
-      "location": "SSNO / garnizoni JNA",
-      "briefing": "U proljeće niste naredili savezni popis Teritorijalne obrane. Stožer JNA i dalje hoće sliku tko što drži prije ljeta. Prihvatit će popis vojarni. Neće prihvatiti da je pitanje nepristojno. Ovaj spis postoji samo zato što naredba o popisu nije pala.",
-      "constitutional_note": "Popis vojarni savezno je vlasništvo. Skladišta TO argument su koji ste odbili pokrenuti. Pokrenuti ga sada, nakon listića, glasnije je.",
-      "documents": [
-        "all_peoples_defence"
-      ],
-      "requires": {
-        "flags_not": [
-          "to_inventory_ordered"
-        ]
-      },
-      "choices": [
-        {
-          "id": "joint_commission",
-          "label": "Mješovito povjerenstvo. Časnici JNA i republikanske TO u istoj sobi, bez oduzimanja.",
-          "legal": "constitutional",
-          "effects": {
-            "federal.legitimacy": 3,
-            "federal.jna_cohesion": 2,
-            "SI.federal_trust": 3,
-            "HR.federal_trust": 2
-          }
-        },
-        {
-          "id": "leave_alone",
-          "label": "Ostavi TO na miru. Napiši da je vojska dovoljna.",
-          "legal": "political",
-          "effects": {
-            "federal.jna_cohesion": -7,
-            "SI.to_control": 5,
-            "HR.to_control": 5
-          }
-        },
-        {
-          "id": "quiet_redeploy",
-          "label": "Tiho prerasporedi JNA prema skladištima koja ne imenuješ.",
-          "legal": "presidency_decree",
-          "effects": {
-            "SI.federal_trust": -6,
-            "HR.federal_trust": -5,
-            "federal.war_risk": 4,
-            "SI.jna_presence": 6,
-            "HR.jna_presence": 5
           }
         }
       ]

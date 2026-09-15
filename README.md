@@ -83,3 +83,4 @@ Default UI language remains Croatian (ijekavica). IDs and flags stay English. `d
 - **Pass 5** (`expand/pass5-skj-voices`): SKJ remnant desk, Bogićević/Tupurkovski/Račan dialogues, Jović SKJ revisit, gated Act I–V cards (SKJ / SSP EC / BiH–MK voices / memo / attention), monthly drivers + path notes, save_schema 5
 - **Pass 6** (`expand/pass6-assembly-fer`): Skupština + FER desks, Gligorov/Bućin/Izetbegović (mediation-only) dialogues, gated Act I–V cards, monthly/FER coupling, save_schema 6
 - **Pass 7** (`expand/pass7-fond-core`): Fond za nerazvijene desk, deepen JNA/SIV/Presidency, Bulatović + Marković Fond revisit, gated Act I–V cards, save_schema 7
+- **Pass 8** (`expand/pass8-ssrn-depth`): SSRN desk, deepen SSP/Finance, late Mesić/Jović dialogues + Marković SSRN revisit, gated Act I–V cards, save_schema 8

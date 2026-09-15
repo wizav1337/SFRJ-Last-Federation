@@ -347,3 +347,41 @@ Akcije: `soft_federal_line` → `skj_soft_federation`; `hard_unity_rhetoric` →
 - Marković = predsjednik **SIV-a**; Jović ≠ Milošević; Titograd ostaje Titograd
 - `player_used_jna_threat` samo na namjernim tvrdim granama; tiha JNA preraspodjela **ne** pali tu zastavicu
 - ID-ovi i zastavice engleski; UI hrvatski (ijekavica)
+
+## Dodatak — Pass 8 `expand/pass8-ssrn-depth`
+
+Šalter **Socijalistički savez radnog naroda / SSRN** (`ssrn`, agencija `ssrn`); produbljeni SSP i Financije; kasni razgovori Mesić/Jović; Marković revisit SSRN; kartice čina I–V; `save_schema` 8; smoke proširen.
+
+### Nova / proširena kartica
+
+| Spis | Datum | Napomena |
+|---|---|---|
+| `desk_ssrn_open` | 1990-02-18 | SSRN: masovni front / forum / zarobljavanje |
+| `desk_finance_target` | 1990-04-25 | Financije: ciljani kanali / meki koridor |
+| `desk_ssp_isolation` | 1990-05-18 | SSP: izolacija / most Nesvrstanih; Jović ≠ Milošević |
+| `desk_ssrn_civic` | 1990-08-22 | SSRN ljeti; I–G samo isključenje |
+| `desk_ssrn_party` | 1990-10-08 | SSRN–SIV veza; Marković = SIV |
+| `desk_ssrn_before_pleb` | 1990-12-16 | SSRN pred plebiscitom; bez auto-sjedenja Mesića |
+| `desk_ssrn_spring91` | 1991-02-22 | SSRN proljeće 1991.; bez čina VI |
+| `confederal_ssrn_memo` | 1991-04-20 | SSRN + konfederalni stol; I–G **nije** dostupan |
+
+### Razgovori
+
+- `mesic_late.json` — Act IV–V jezik dužnosti stolca **bez** auto-sjedenja
+- `jovic_late.json` — predsjedatelj nakon 15. V 1990.; srpski blok vs kvorum; Jović ≠ Milošević
+- `markovic.json` — `revisit_ssrn` (SSRN/SIV zastavice)
+
+### Šalteri
+
+- **ssrn**: `mass_front_open` → `ssrn_mass_front`; `civic_forum` → `ssrn_civic_forum`; `party_capture` → `ssrn_party_capture`; `paralyzed` → `ssrn_paralyzed`; `bind_siv` → `ssrn_siv_bind`
+- **ssp** `isolation` → `ssp_isolation`; `nam_bridge` → `ssp_nam_bridge`
+- **finance** `target_channels` → `finance_target`; `soft_corridor` → `finance_soft_corridor`
+
+### Pravila koja nisu dirana
+
+- E3: otvorena povelja (≥4) + Predsjedništvo koje se može sastati; sjedenje Mesića ≠ blokada; blokada isključuje E3
+- Nema čina VI; nema lipanjskog rata; Izetbegović–Gligorov **nije** prihvatljiv papir (samo isključenje)
+- Marković = predsjednik **SIV-a**; Jović ≠ Milošević; Titograd ostaje Titograd
+- `player_used_jna_threat` samo na namjernim tvrdim granama
+- ID-ovi i zastavice engleski; UI hrvatski (ijekavica)
+
