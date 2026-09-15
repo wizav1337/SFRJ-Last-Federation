@@ -35,6 +35,7 @@ const {
   applyDeskAction,
   confederalStackDepth,
   listDesks,
+  isHardlineConflictAction,
 } = await import(desksUrl);
 const { listDialogues, isDialogueAvailable, availableEntries, startDialogue, chooseDialogue } = await import(dialogueUrl);
 const { requiresMet, flattenActs } = await import(eventsUrl);
@@ -57,14 +58,14 @@ catalogs.dialogues = [
   "markovic", "markovic_late", "mesic", "tudman",
   "bogicevic", "tupurkovski", "racan",
   "gligorov", "bucin", "izetbegovic", "bulatovic",
-  "mesic_late", "jovic_late", "loncar", "buzadzic", "bajramovic", "kostic", "gracanin",
+  "mesic_late", "jovic_late", "loncar", "buzadzic", "bajramovic", "kostic", "gracanin", "gacic",
 ].map((id) => readJSON(`data/dialogue/${id}.json`));
 
 const acts = ["act1", "act2", "act3", "act4", "act5"].map((a) => readJSON(`data/events/${a}.json`));
 const flat = flattenActs(acts);
 
 const state = createNewState(catalogs);
-assert(state.save_schema === 13, "save_schema 13");
+assert(state.save_schema === 14, "save_schema 14");
 assert(state.attention_spent_desks === 0 && state.attention_spent_reforms === 0, "spend counters");
 
 initDesks(state, catalogs);
@@ -74,7 +75,9 @@ assert(cap === 3 || cap === 4, "attention cap");
 assert(state.attention_left === cap, "attention granted");
 
 const desks = listDesks(catalogs);
-assert(desks.length >= 19, "at least 19 desks (sdb)");
+assert(desks.length >= 20, "at least 20 desks (labor)");
+assert(desks.some((d) => d.id === "labor"), "labor desk present");
+assert(state.desks.labor?.posture === "social_peace", "labor default posture");
 assert(desks.some((d) => d.id === "justice"), "justice desk present");
 assert(desks.some((d) => d.id === "skj"), "skj desk present");
 assert(desks.some((d) => d.id === "assembly"), "assembly desk present");
@@ -194,6 +197,17 @@ state.attention_spent_desks = 0;
 state.attention_spent_reforms = 0;
 
 assert(desks.some((d) => d.id === "sdb"), "sdb desk present");
+
+assert(actionsForDesk(state, catalogs, "labor").some((a) => a.id === "set_social_peace"), "labor social_peace");
+assert(actionsForDesk(state, catalogs, "labor").some((a) => a.id === "harden_line"), "labor harden_line");
+assert(actionsForDesk(state, catalogs, "siv").some((a) => a.id === "bind_labor"), "siv bind_labor");
+assert(actionsForDesk(state, catalogs, "finance").some((a) => a.id === "liaison_labor"), "finance liaison_labor");
+assert(actionsForDesk(state, catalogs, "ssrn").some((a) => a.id === "liaison_labor"), "ssrn liaison_labor");
+const laborHardRaw = catalogs.desks.find((d) => d.id === "labor").actions.find((a) => a.id === "harden_line");
+assert(laborHardRaw?.conflict_warn, "labor harden conflict_warn in catalog");
+assert(isHardlineConflictAction("labor", laborHardRaw), "labor harden is hardline conflict");
+assert(!(actionsForDesk(state, catalogs, "labor").find((a) => a.id === "set_social_peace")?.effects?.flags_add || []).includes("player_used_jna_threat"), "quiet labor must not set threat");
+
 assert(state.desks.sdb?.posture === "civilian_leash", "sdb default posture");
 const sdbActs = actionsForDesk(state, catalogs, "sdb");
 assert(sdbActs.some((a) => a.id === "set_civilian_leash"), "sdb set_civilian_leash");
@@ -386,6 +400,11 @@ assert(kostic && /Kostić|Vojvodina|sjedalo/i.test(JSON.stringify(kostic)), "kos
 const gracanin = catalogs.dialogues.find((d) => d.id === "gracanin");
 assert(gracanin && /Gračanin|SDB|uze/i.test(JSON.stringify(gracanin)), "gracanin SDB language");
 assert(!(gracanin.nodes.start.choices || []).some((c) => /priznaj seces|priznanje neovisnosti/i.test(c.label || "")), "gracanin no secession recognition");
+assert(markovic && (markovic.entries || []).some((e) => e.id === "revisit_labor"), "markovic labor revisit");
+const gacic = catalogs.dialogues.find((d) => d.id === "gacic");
+assert(gacic && /Gačić|Rad|socijal/i.test(JSON.stringify(gacic)), "gacic labor language");
+assert(!(gacic.nodes.start.choices || []).some((c) => /priznaj seces|priznanje neovisnosti/i.test(c.label || "")), "gacic no secession recognition");
+
 const bul = catalogs.dialogues.find((d) => d.id === "bulatovic");
 assert(bul && /Titograd/i.test(JSON.stringify(bul)), "bulatovic Titograd");
 assert(!/Podgorica/i.test(JSON.stringify(bul)), "bulatovic not Podgorica");
@@ -417,6 +436,10 @@ assert(!(ssnoMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.t
 const sdbMemo = flat.find((e) => e.id === "confederal_sdb_memo");
 assert(sdbMemo && /Izetbegović–Gligorov|I–G/i.test((sdbMemo.briefing || "") + (sdbMemo.constitutional_note || "")), "sdb memo excludes I-G");
 assert(!(sdbMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.test(c.label || "")), "no accept I-G on sdb memo");
+const laborMemo = flat.find((e) => e.id === "confederal_labor_memo");
+assert(laborMemo && /Izetbegović–Gligorov|I–G/i.test((laborMemo.briefing || "") + (laborMemo.constitutional_note || "")), "labor memo excludes I-G");
+assert(!(laborMemo.choices || []).some((c) => /prihvati.*I–G|potpiši I–G/i.test(c.label || "")), "no accept I-G on labor memo");
+
 
 // Slice A end date invariant
 assert(!ids.has("june_war") && !flat.some((e) => (e.date || "") > "1991-05-15" && e.id !== "slice_close"), "no post-15 May cards");
@@ -436,4 +459,5 @@ console.log("smoke OK", {
   pass11: ["provinces", "bajramovic", "kostic", "revisit_provinces", "independent_votes", "province_dossier"],
   pass12: ["ssno", "revisit_ssno", "bind_ssno_doctrine", "liaison_ssno", "confederal_ssno_memo"],
   pass13: ["sdb", "gracanin", "revisit_sdb", "liaison_sdb", "bind_sdb", "confederal_sdb_memo"],
+  pass14: ["labor", "gacic", "revisit_labor", "liaison_labor", "bind_labor", "confederal_labor_memo"],
 });

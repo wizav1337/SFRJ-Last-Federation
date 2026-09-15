@@ -1789,6 +1789,161 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_labor_before_pleb",
+      "date": "1990-12-09",
+      "act": 4,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Rad pred savjetodavnim plebiscitom",
+      "location": "Beograd — Savezni sekretarijat za rad",
+      "briefing": "Pred zimskim pritiscima: Rad može držati mir, potporu reformi ili hlađenje štrajkova. Bez vojnog jezika. Nema rata.",
+      "constitutional_note": "Plebiscitni kontekst ne otvara frontu na radnom šalteru.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_labor_open_seen",
+          "labor_social_peace",
+          "labor_reform_support",
+          "desk_event_labor_autumn_seen",
+          "dialogue_gacic"
+        ]
+      },
+      "choices": [
+        {
+          "id": "pleb_peace",
+          "label": "Socijalni mir pred glasanjem.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "labor": {
+                "posture": "social_peace"
+              }
+            },
+            "federal.labor_peace": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "labor_social_peace",
+              "desk_event_labor_pleb_seen",
+              "labor_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "pleb_reform",
+          "label": "Reformski paket radnika.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "labor": {
+                "posture": "reform_support"
+              }
+            },
+            "federal.reform_momentum": 2,
+            "federal.labor_peace": 2,
+            "flags_add": [
+              "labor_reform_support",
+              "desk_event_labor_pleb_seen",
+              "labor_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "pleb_cool",
+          "label": "Hladi štrajkove.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "labor": {
+                "posture": "strike_cool"
+              }
+            },
+            "federal.labor_peace": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "labor_strike_cool",
+              "desk_event_labor_pleb_seen",
+              "labor_quiet_paper"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_ssrn_labor_liaison",
+      "date": "1990-12-17",
+      "act": 4,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "SSRN ↔ Rad: masovni front",
+      "location": "Beograd — SSRN / Rad",
+      "briefing": "SSRN i Rad mogu dijeliti kanal socijalnog mira — masovni front bez fronte. Tihi papir. Nema rata.",
+      "constitutional_note": "Kanal ne čini Markovića predsjednikom Jugoslavije.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_labor_open_seen",
+          "ssrn_mass_front",
+          "labor_social_peace",
+          "ssrn_labor_liaison",
+          "desk_event_labor_pleb_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "ssrn_link",
+          "label": "Otvori SSRN–Rad kanal.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "ssrn": {
+                "posture": "mass_front_open"
+              },
+              "labor": {
+                "posture": "social_peace"
+              }
+            },
+            "federal.labor_peace": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "ssrn_labor_liaison",
+              "labor_social_peace",
+              "desk_event_ssrn_labor_liaison_seen",
+              "labor_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "ssrn_accept",
+          "label": "Prihvati radni kanal u frontu.",
+          "legal": "political",
+          "effects": {
+            "federal.labor_peace": 2,
+            "federal.reform_momentum": 1,
+            "flags_add": [
+              "ssrn_labor_channel",
+              "labor_reform_support",
+              "desk_event_ssrn_labor_liaison_seen",
+              "labor_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "ssrn_hold",
+          "label": "Zadrži odvojene šaltere.",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "desk_event_ssrn_labor_liaison_seen"
+            ]
+          }
+        }
+      ]
     }
   ]
 }
