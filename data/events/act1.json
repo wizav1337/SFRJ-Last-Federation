@@ -2001,6 +2001,95 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_agriculture_open",
+      "date": "1990-02-20",
+      "act": 1,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Poljoprivreda: savezni sekretarijat za hranu",
+      "location": "Beograd — Savezni sekretarijat za poljoprivredu",
+      "briefing": "Savezni sekretarijat za poljoprivredu stoji kao mirnodopski sloj: prehrambena sigurnost, nabava, olakšice farmama, potpora reformi. To nije Financije, Rad ni Fond — nego poljoprivredni šalter. Marković ostaje predsjednik SIV-a. Tihi papir ne postavlja player_used_jna_threat. Nema rata.",
+      "constitutional_note": "Poljoprivreda ne zamjenjuje Predsjedništvo ni SIV; civilni lanac ostaje politički.",
+      "documents": [
+        "1974_presidency",
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "markovic_mandate_strong",
+          "multiparty_wave",
+          "siv_austerity_stance",
+          "fond_open_south",
+          "agriculture_food_security",
+          "skj_renounced_monopoly",
+          "finance_transfers_open"
+        ]
+      },
+      "choices": [
+        {
+          "id": "open_food",
+          "label": "Otvori šalter: prehrambena sigurnost.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "agriculture": {
+                "posture": "food_security"
+              }
+            },
+            "federal.food_security": 3,
+            "federal.legitimacy": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "agriculture_food_security",
+              "desk_event_agriculture_open_seen",
+              "agriculture_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "open_procurement",
+          "label": "Meka nabava — trgovinski kanal.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "agriculture": {
+                "posture": "procurement_soft"
+              }
+            },
+            "federal.food_security": 2,
+            "federal.inter_republic_trade": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "agriculture_procurement_soft",
+              "desk_event_agriculture_open_seen",
+              "agriculture_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "open_reform",
+          "label": "Potpora reformi uz Markovića.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "agriculture": {
+                "posture": "reform_support"
+              }
+            },
+            "federal.food_security": 2,
+            "federal.reform_momentum": 2,
+            "federal.siv_authority": 1,
+            "flags_add": [
+              "agriculture_reform_support",
+              "desk_event_agriculture_open_seen",
+              "agriculture_quiet_paper",
+              "markovic_mandate_strong"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

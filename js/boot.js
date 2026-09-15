@@ -460,7 +460,7 @@ async function boot() {
     setI18n(hr, en);
     fillChrome();
 
-    const [units, parties, agencies, act1, act2, act3, act4, act5, documents, desks, dMarkovic, dKadijevic, dJovic, dMesic, dDrnovsek, dKucan, dTudman, dMarkovicLate, dKadijevicLate, dBogicevic, dTupurkovski, dRacan, dGligorov, dBucin, dIzetbegovic, dBulatovic, dMesicLate, dJovicLate, dLoncar, dBuzadzic, dBajramovic, dKostic, dGracanin, dGacic] = await Promise.all([
+    const [units, parties, agencies, act1, act2, act3, act4, act5, documents, desks, dMarkovic, dKadijevic, dJovic, dMesic, dDrnovsek, dKucan, dTudman, dMarkovicLate, dKadijevicLate, dBogicevic, dTupurkovski, dRacan, dGligorov, dBucin, dIzetbegovic, dBulatovic, dMesicLate, dJovicLate, dLoncar, dBuzadzic, dBajramovic, dKostic, dGracanin, dGacic, dMirjanic] = await Promise.all([
       loadJSON("data/units.json"),
       loadJSON("data/parties.json"),
       loadJSON("data/agencies.json"),
@@ -495,6 +495,7 @@ async function boot() {
       loadJSON("data/dialogue/kostic.json"),
       loadJSON("data/dialogue/gracanin.json"),
       loadJSON("data/dialogue/gacic.json"),
+      loadJSON("data/dialogue/mirjanic.json"),
     ]);
 
     const catalogs = {
@@ -503,7 +504,7 @@ async function boot() {
       agencies,
       documents,
       desks: desks.desks || desks,
-      dialogues: [dMarkovic, dKadijevic, dJovic, dMesic, dDrnovsek, dKucan, dTudman, dMarkovicLate, dKadijevicLate, dBogicevic, dTupurkovski, dRacan, dGligorov, dBucin, dIzetbegovic, dBulatovic, dMesicLate, dJovicLate, dLoncar, dBuzadzic, dBajramovic, dKostic, dGracanin, dGacic],
+      dialogues: [dMarkovic, dKadijevic, dJovic, dMesic, dDrnovsek, dKucan, dTudman, dMarkovicLate, dKadijevicLate, dBogicevic, dTupurkovski, dRacan, dGligorov, dBucin, dIzetbegovic, dBulatovic, dMesicLate, dJovicLate, dLoncar, dBuzadzic, dBajramovic, dKostic, dGracanin, dGacic, dMirjanic],
     };
     const catalogEvents = flattenActs([act1, act2, act3, act4, act5]);
 

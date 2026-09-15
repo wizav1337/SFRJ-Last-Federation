@@ -31,6 +31,8 @@ export function recomputeWarRisk(state) {
   if (state.flags.dialogue_kadijevic_winter) w -= 1;
   if (state.flags.sdb_civilian_leash) w -= 1;
   if (state.flags.sdb_leash_tight) w -= 1;
+  if (state.flags.agriculture_food_security || state.flags.agriculture_quiet_paper) w -= 1;
+  if (state.flags.agriculture_harden_quota) w += 1;
   if (state.flags.ssup_observe_line) w -= 0.5;
   if (state.flags.dialogue_kucan_charter) w -= 1;
   if (state.flags.confederal_stack_memo) w -= 0.5;
@@ -146,6 +148,17 @@ export function buildMonthlyReport(state, before, months) {
   if (state.flags.sdb_civilian_leash) drivers.push("SDB na uzetu Predsjedništva");
   if (state.flags.sdb_leash_tight) drivers.push("SDB: zategnuti civilni nadzor");
   if (state.flags.sdb_files_shared) drivers.push("dosjei SDB dijeljeni Predsjedništvu");
+  if (state.flags.labor_social_peace || state.desks?.labor?.posture === "social_peace") drivers.push("Rad: socijalni mir");
+  if (state.flags.labor_strike_cool || state.desks?.labor?.posture === "strike_cool") drivers.push("Rad: hlađenje štrajkova");
+  if (state.flags.labor_reform_support || state.desks?.labor?.posture === "reform_support") drivers.push("Rad: potpora reformi");
+  if (state.flags.labor_harden_line || state.desks?.labor?.posture === "harden_line") drivers.push("Rad: tvrđi radni držaj");
+  if (state.flags.confederal_labor_memo) drivers.push("memorandum Rada uz konfederalni stol");
+  if (state.flags.agriculture_food_security || state.desks?.agriculture?.posture === "food_security") drivers.push("Poljoprivreda: prehrambena sigurnost");
+  if (state.flags.agriculture_procurement_soft || state.desks?.agriculture?.posture === "procurement_soft") drivers.push("Poljoprivreda: meka nabava");
+  if (state.flags.agriculture_farm_relief || state.desks?.agriculture?.posture === "farm_relief") drivers.push("Poljoprivreda: olakšice farmama");
+  if (state.flags.agriculture_reform_support || state.desks?.agriculture?.posture === "reform_support") drivers.push("Poljoprivreda: potpora reformi");
+  if (state.flags.agriculture_harden_quota || state.desks?.agriculture?.posture === "harden_quota") drivers.push("Poljoprivreda: tvrđe kvote");
+  if (state.flags.confederal_agriculture_memo) drivers.push("memorandum Poljoprivrede uz konfederalni stol");
   if (state.flags.ssup_observe_line) drivers.push("SSUP u promatračkoj postavi");
   if (state.flags.confederal_stack_memo) drivers.push("memorandum konfederalnog stoga");
   if (state.flags.dialogue_kucan_charter) drivers.push("Kučan: potpis na konfederalnoj traci");

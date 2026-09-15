@@ -1977,6 +1977,91 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_agriculture_spring",
+      "date": "1990-05-08",
+      "act": 2,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Proljetna postava Poljoprivrede",
+      "location": "Beograd — Savezni sekretarijat za poljoprivredu",
+      "briefing": "Proljeće 1990.: šalter poljoprivrede traži jasniju postavu — sigurnost hrane, meka nabava ili olakšice farmama. Tihi papir. Nema rata.",
+      "constitutional_note": "Poljoprivreda ostaje u SIV lancu; bez vojnog jezika.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_agriculture_open_seen",
+          "agriculture_food_security",
+          "agriculture_procurement_soft",
+          "agriculture_reform_support",
+          "markovic_mandate_strong"
+        ]
+      },
+      "choices": [
+        {
+          "id": "spring_food",
+          "label": "Drži prehrambenu sigurnost.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "agriculture": {
+                "posture": "food_security"
+              }
+            },
+            "federal.food_security": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "agriculture_food_security",
+              "desk_event_agriculture_spring_seen",
+              "agriculture_quiet_paper"
+            ],
+            "flags_remove": [
+              "agriculture_harden_quota"
+            ]
+          }
+        },
+        {
+          "id": "spring_procurement",
+          "label": "Meka nabava uz Financije.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "agriculture": {
+                "posture": "procurement_soft"
+              }
+            },
+            "federal.food_security": 2,
+            "federal.hard_currency": 1,
+            "flags_add": [
+              "agriculture_procurement_soft",
+              "desk_event_agriculture_spring_seen",
+              "agriculture_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "spring_relief",
+          "label": "Olakšice farmama.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "agriculture": {
+                "posture": "farm_relief"
+              }
+            },
+            "federal.food_security": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "agriculture_farm_relief",
+              "desk_event_agriculture_spring_seen",
+              "agriculture_quiet_paper"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

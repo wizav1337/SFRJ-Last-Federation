@@ -775,5 +775,21 @@
   "desk.chip.observe_line": "Promatrač",
   "desk.chip.dossier_share": "Dosjei",
   "desk.chip.knin_watch": "Knin",
-  "desk.chip.tight_leash": "Zategnuto"
+  "desk.chip.tight_leash": "Zategnuto",
+  "desk.posture.food_security": "Prehrambena sigurnost",
+  "desk.posture.procurement_soft": "Meka nabava",
+  "desk.posture.farm_relief": "Olakšice farmama",
+  "desk.posture.harden_quota": "Tvrđe kvote",
+  "desk.chip.food_security": "Hrana",
+  "desk.chip.procurement_soft": "Nabava",
+  "desk.chip.farm_relief": "Farme",
+  "desk.chip.harden_quota": "Kvote",
+  "ency.timelinePass15": "šalter Poljoprivreda; Mirjanić; produbljeni Financije/SIV/Fond; gated kartice; save_schema 15",
+  "path.agriFood": "Poljoprivreda: prehrambena sigurnost",
+  "path.agriProcurement": "Poljoprivreda: meka nabava",
+  "path.agriRelief": "Poljoprivreda: olakšice farmama",
+  "path.agriReform": "Poljoprivreda: potpora reformi",
+  "path.agriMemo": "memorandum Poljoprivrede uz konfederalni stol",
+  "path.mirjanic": "glas Mirjanića (Poljoprivreda)",
+  "path.markovicAgriculture": "Marković o Poljoprivredi"
 }
