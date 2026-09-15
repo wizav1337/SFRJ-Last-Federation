@@ -953,6 +953,86 @@
           }
         }
       ]
+    },
+    "revisit_industry": {
+      "text": "Marković — predsjednik SIV-a — gleda Industriju. „Santo drži sekretarijat; stabilna mreža i potpora reformi smiruju; tvrđe racije dižu rizik. Ja ne vodim postrojenja — tražim papir koji SIV može čitati. Nema rata.“",
+      "choices": [
+        {
+          "id": "ind_grid",
+          "label": "Stabilna mreža — SIV iznad nestašice energije.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 2,
+            "federal.energy_security": 4,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "dialogue_markovic_industry",
+              "industry_grid_stable",
+              "industry_siv_bind",
+              "markovic_mandate_strong",
+              "industry_quiet_paper"
+            ],
+            "flags_remove": [
+              "industry_harden_ration"
+            ],
+            "desk_set": {
+              "industry": {
+                "posture": "grid_stable"
+              },
+              "siv": {
+                "posture": "technocrat"
+              }
+            }
+          }
+        },
+        {
+          "id": "ind_reform",
+          "label": "Energetsko-industrijski paket uz reformu — potpora Markoviću.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 2,
+            "federal.energy_security": 3,
+            "federal.reform_momentum": 3,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "dialogue_markovic_industry",
+              "industry_reform_support",
+              "industry_siv_bind",
+              "industry_quiet_paper",
+              "markovic_mandate_strong"
+            ],
+            "desk_set": {
+              "industry": {
+                "posture": "reform_support"
+              }
+            }
+          }
+        },
+        {
+          "id": "ind_output",
+          "label": "Potpora outputu — meki kanal.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 1,
+            "federal.energy_security": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "dialogue_markovic_industry",
+              "industry_output_support",
+              "industry_quiet_paper"
+            ],
+            "flags_remove": [
+              "industry_harden_ration"
+            ],
+            "desk_set": {
+              "industry": {
+                "posture": "output_support"
+              }
+            }
+          }
+        }
+      ]
     }
   },
   "entries": [
@@ -1139,6 +1219,26 @@
           "agriculture_siv_bind",
           "desk_event_agriculture_open_seen",
           "dialogue_mirjanic"
+        ]
+      }
+    },
+    {
+      "id": "revisit_industry",
+      "node": "revisit_industry",
+      "once": true,
+      "priority": 7,
+      "require_done": true,
+      "available_from": "1991-02-01",
+      "unlock": {
+        "flags_any": [
+          "industry_grid_stable",
+          "industry_plant_soft",
+          "industry_output_support",
+          "industry_reform_support",
+          "industry_harden_ration",
+          "industry_siv_bind",
+          "desk_event_industry_open_seen",
+          "dialogue_santo"
         ]
       }
     }

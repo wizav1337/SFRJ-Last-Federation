@@ -189,6 +189,16 @@
       "competence": "poljoprivreda / prehrambena sigurnost / meka nabava / olakšice farmama / potpora reformi (Pass 15 šalter)",
       "dissolve_legal": "presidency_decree",
       "short": "Poljoprivreda"
+    },
+    {
+      "id": "industry",
+      "name": "Savezni sekretarijat za energetiku i industriju",
+      "kind": "secretariat",
+      "desk": "SIV",
+      "status": "active",
+      "competence": "energetika / industrijski output / meka nabava za postrojenja / potpora reformi (Pass 16 šalter)",
+      "dissolve_legal": "presidency_decree",
+      "short": "Industrija"
     }
   ]
 }

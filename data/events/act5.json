@@ -3424,6 +3424,165 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_industry_spring91",
+      "date": "1991-03-20",
+      "act": 5,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Proljeće 1991.: industrijski papir",
+      "location": "Beograd — Savezni sekretarijat za energetiku i industriju",
+      "briefing": "Proljeće 1991.: Industrija nudi papirni put — stabilna mreža, reforma ili meka nabava za postrojenja. Bez čina VI. Tihi papir ne postavlja player_used_jna_threat. Nema rata.",
+      "constitutional_note": "Slice A: peacetime only; no Act VI.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_industry_open_seen",
+          "industry_grid_stable",
+          "industry_reform_support",
+          "industry_siv_bind",
+          "dialogue_markovic_industry",
+          "desk_event_industry_pleb_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "s91_grid",
+          "label": "Stabilna mreža — papirni put.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "industry": {
+                "posture": "grid_stable"
+              }
+            },
+            "federal.energy_security": 3,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "industry_grid_stable",
+              "desk_event_industry_spring91_seen",
+              "industry_quiet_paper"
+            ],
+            "flags_remove": [
+              "industry_harden_ration"
+            ]
+          }
+        },
+        {
+          "id": "s91_reform",
+          "label": "Reformski energetsko-industrijski paket.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "industry": {
+                "posture": "reform_support"
+              }
+            },
+            "federal.reform_momentum": 2,
+            "federal.energy_security": 2,
+            "flags_add": [
+              "industry_reform_support",
+              "desk_event_industry_spring91_seen",
+              "industry_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "s91_plant",
+          "label": "Meka nabava za postrojenja.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "industry": {
+                "posture": "plant_soft"
+              }
+            },
+            "federal.energy_security": 2,
+            "federal.inter_republic_trade": 1,
+            "flags_add": [
+              "industry_plant_soft",
+              "desk_event_industry_spring91_seen",
+              "industry_quiet_paper"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "confederal_industry_memo",
+      "date": "1991-04-30",
+      "act": 5,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Memorandum Industrije uz konfederalni stol",
+      "location": "Beograd — konfederalni industrijski stol",
+      "briefing": "Uz konfederalni stol stiže memo Industrije: energetska sigurnost i reformski paket kao jamstvo da industrijski šalter ne lomi pregovore. Izetbegović–Gligorov nacrt **nije** dostupan papir — samo isključenje. Nema rata.",
+      "constitutional_note": "I–G nije prihvatljiv papir na ovom stolu; memo Industrije ne priznaje secesiju.",
+      "documents": [
+        "1974_presidency"
+      ],
+      "requires": {
+        "flags_any": [
+          "confederal_talks_open",
+          "desk_event_industry_open_seen",
+          "industry_grid_stable",
+          "industry_reform_support",
+          "industry_siv_bind",
+          "dialogue_markovic_industry"
+        ]
+      },
+      "choices": [
+        {
+          "id": "memo_grid",
+          "label": "Priloži memo: energetska sigurnost uz stol.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 2,
+            "federal.war_risk": -2,
+            "federal.presidency_cohesion": 1,
+            "federal.energy_security": 2,
+            "flags_add": [
+              "confederal_industry_memo",
+              "industry_grid_stable",
+              "desk_event_industry_memo_seen",
+              "industry_quiet_paper"
+            ],
+            "flags_remove": [
+              "industry_harden_ration"
+            ]
+          }
+        },
+        {
+          "id": "memo_reform",
+          "label": "Priloži reformski energetsko-industrijski paket.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 2,
+            "federal.reform_momentum": 2,
+            "federal.siv_authority": 1,
+            "flags_add": [
+              "confederal_industry_memo",
+              "industry_reform_support",
+              "desk_event_industry_memo_seen",
+              "industry_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "memo_hold",
+          "label": "Zadrži Industriju izvan stola.",
+          "legal": "political",
+          "effects": {
+            "federal.war_risk": 1,
+            "flags_add": [
+              "desk_event_industry_memo_seen"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

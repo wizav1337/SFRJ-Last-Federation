@@ -791,5 +791,21 @@
   "path.agriReform": "Poljoprivreda: potpora reformi",
   "path.agriMemo": "memorandum Poljoprivrede uz konfederalni stol",
   "path.mirjanic": "glas Mirjanića (Poljoprivreda)",
-  "path.markovicAgriculture": "Marković o Poljoprivredi"
+  "path.markovicAgriculture": "Marković o Poljoprivredi",
+  "desk.posture.grid_stable": "Stabilna mreža",
+  "desk.posture.plant_soft": "Meka nabava postrojenja",
+  "desk.posture.output_support": "Potpora outputu",
+  "desk.posture.harden_ration": "Tvrđe racije",
+  "desk.chip.grid_stable": "Mreža",
+  "desk.chip.plant_soft": "Postrojenja",
+  "desk.chip.output_support": "Output",
+  "desk.chip.harden_ration": "Racije",
+  "ency.timelinePass16": "šalter Industrija; Santo; produbljeni Financije/SIV/FER; gated kartice; save_schema 16",
+  "path.industryGrid": "Industrija: stabilna mreža",
+  "path.industryPlant": "Industrija: meka nabava za postrojenja",
+  "path.industryOutput": "Industrija: potpora outputu",
+  "path.industryReform": "Industrija: potpora reformi",
+  "path.industryMemo": "memorandum Industrije uz konfederalni stol",
+  "path.santo": "glas Santa (Industrija)",
+  "path.markovicIndustry": "Marković o Industriji"
 }

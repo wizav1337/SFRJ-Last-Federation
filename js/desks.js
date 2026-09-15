@@ -56,6 +56,7 @@ const POSTURE_FLAG_MAP = {
   sdb: { civilian_leash: "sdb_civilian_leash", observe_line: "sdb_observe_line", dossier_share: "sdb_dossier_channel", knin_watch: "sdb_knin_watch", tight_leash: "sdb_leash_tight" },
   labor: { social_peace: "labor_social_peace", strike_cool: "labor_strike_cool", reform_support: "labor_reform_support", wage_corridor: "labor_wage_corridor", harden_line: "labor_harden_line" },
   agriculture: { food_security: "agriculture_food_security", procurement_soft: "agriculture_procurement_soft", farm_relief: "agriculture_farm_relief", reform_support: "agriculture_reform_support", harden_quota: "agriculture_harden_quota" },
+  industry: { grid_stable: "industry_grid_stable", plant_soft: "industry_plant_soft", output_support: "industry_output_support", reform_support: "industry_reform_support", harden_ration: "industry_harden_ration" },
 };
 
 export function initDesks(state, catalog) {
@@ -205,6 +206,7 @@ export function isHardlineConflictAction(deskId, action) {
     sdb: ["tight_leash", "knin_watch"],
     labor: ["harden_line"],
     agriculture: ["harden_quota"],
+    industry: ["harden_ration"],
   };
   return (hard[deskId] || []).includes(posture);
 }
@@ -943,6 +945,34 @@ export function applyDeskMonthlyPosture(state, scale = 1) {
     }
   }
 
+
+  const industry = state.desks.industry;
+  if (industry) {
+    if (industry.posture === "grid_stable" || state.flags.industry_grid_stable) {
+      f.energy_security = clamp((f.energy_security ?? 50) + 0.25 * s);
+      f.legitimacy = clamp(f.legitimacy + 0.1 * s);
+      industry.loyalty = clamp(industry.loyalty + 0.1 * s);
+    } else if (industry.posture === "plant_soft" || state.flags.industry_plant_soft) {
+      f.energy_security = clamp((f.energy_security ?? 50) + 0.2 * s);
+      f.inter_republic_trade = clamp(f.inter_republic_trade + 0.1 * s);
+    } else if (industry.posture === "output_support" || state.flags.industry_output_support) {
+      f.energy_security = clamp((f.energy_security ?? 50) + 0.15 * s);
+      f.war_risk = clamp(f.war_risk - 0.1 * s);
+    } else if (industry.posture === "reform_support" || state.flags.industry_reform_support) {
+      f.energy_security = clamp((f.energy_security ?? 50) + 0.15 * s);
+      f.reform_momentum = clamp(f.reform_momentum + 0.15 * s);
+      industry.capacity = clamp(industry.capacity + 0.1 * s);
+    } else if (industry.posture === "harden_ration" || state.flags.industry_harden_ration) {
+      f.energy_security = clamp((f.energy_security ?? 50) - 0.1 * s);
+      f.war_risk = clamp(f.war_risk + 0.15 * s);
+      industry.agenda_tension = clamp(industry.agenda_tension + 0.15 * s);
+    }
+    if (state.flags.industry_siv_bind) {
+      f.siv_authority = clamp(f.siv_authority + 0.1 * s);
+      f.energy_security = clamp((f.energy_security ?? 50) + 0.1 * s);
+    }
+  }
+
   // Pass 3: confederal stack — Kučan/Jović/Mesić/mediation quietly supports E3 path
   const confStack = confederalStackDepth(state);
   if (confStack >= 2 && state.flags.confederal_talks_open) {
@@ -986,6 +1016,7 @@ export function confederalStackDepth(state) {
   if (f.confederal_sdb_memo || f.sdb_civilian_leash || f.sdb_observe_line || f.sdb_siv_bind) n += 1;
   if (f.confederal_labor_memo || f.labor_social_peace || f.labor_reform_support || f.labor_siv_bind) n += 1;
   if (f.confederal_agriculture_memo || f.agriculture_food_security || f.agriculture_reform_support || f.agriculture_siv_bind) n += 1;
+  if (f.confederal_industry_memo || f.industry_grid_stable || f.industry_reform_support || f.industry_siv_bind) n += 1;
   if (f.dialogue_mesic_late_duty || f.dialogue_mesic_late_conf) n += 1;
   if (f.dialogue_jovic_late_quorum) n += 1;
   return n;
@@ -1143,6 +1174,14 @@ export function syncDeskFlagsFromPosture(state) {
     state.flags.agriculture_reform_support = agriD.posture === "reform_support" || state.flags.agriculture_reform_support;
     state.flags.agriculture_harden_quota = agriD.posture === "harden_quota";
   }
+  const indD = state.desks.industry;
+  if (indD) {
+    state.flags.industry_grid_stable = indD.posture === "grid_stable" || state.flags.industry_grid_stable;
+    state.flags.industry_plant_soft = indD.posture === "plant_soft" || state.flags.industry_plant_soft;
+    state.flags.industry_output_support = indD.posture === "output_support" || state.flags.industry_output_support;
+    state.flags.industry_reform_support = indD.posture === "reform_support" || state.flags.industry_reform_support;
+    state.flags.industry_harden_ration = indD.posture === "harden_ration";
+  }
 }
 
 /** Compact strip chips for UI — id + short posture label + tone. */
@@ -1152,8 +1191,8 @@ export function deskStatusChips(state, catalog) {
     const rt = deskRuntime(state, d.id);
     const posture = rt?.posture || d.posture_default || "default";
     let tone = "neutral";
-    if (["alert", "hard", "hardline", "inventory", "fragment", "political", "freeze", "hard_unity", "stalled", "customs_hard", "rubber_stamp", "politicized", "party_capture", "paralyzed", "isolation", "yield_republics", "stall", "bloc_aligned", "harden_line", "harden_quota", "tight_leash", "knin_watch", "inventory_audit"].includes(posture)) tone = "warn";
-    if (["garrison", "mediate", "soft", "coordinate", "tight", "open", "technocrat", "observe", "constitutional", "arbitrate", "soft_federal", "cede_siv", "trade_open", "imf_line", "session_open", "open_south", "target_mk_me", "mass_front_open", "civic_forum", "nonaligned", "ec_track", "docket_open", "bind_justice", "ec_dialogue", "vote_independent", "mediate_seats", "social_peace", "strike_cool", "reform_support", "wage_corridor", "food_security", "procurement_soft", "farm_relief", "civilian_leash", "observe_line", "doctrine_federal"].includes(posture)) tone = "good";
+    if (["alert", "hard", "hardline", "inventory", "fragment", "political", "freeze", "hard_unity", "stalled", "customs_hard", "rubber_stamp", "politicized", "party_capture", "paralyzed", "isolation", "yield_republics", "stall", "bloc_aligned", "harden_line", "harden_quota", "harden_ration", "tight_leash", "knin_watch", "inventory_audit"].includes(posture)) tone = "warn";
+    if (["garrison", "mediate", "soft", "coordinate", "tight", "open", "technocrat", "observe", "constitutional", "arbitrate", "soft_federal", "cede_siv", "trade_open", "imf_line", "session_open", "open_south", "target_mk_me", "mass_front_open", "civic_forum", "nonaligned", "ec_track", "docket_open", "bind_justice", "ec_dialogue", "vote_independent", "mediate_seats", "social_peace", "strike_cool", "reform_support", "wage_corridor", "food_security", "procurement_soft", "farm_relief", "grid_stable", "plant_soft", "output_support", "civilian_leash", "observe_line", "doctrine_federal"].includes(posture)) tone = "good";
     return {
       id: d.id,
       name: d.name,

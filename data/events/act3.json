@@ -2702,6 +2702,167 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_industry_autumn",
+      "date": "1990-09-18",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Jesen: pritisak na industrijski šalter",
+      "location": "Beograd — Savezni sekretarijat za energetiku i industriju",
+      "briefing": "Jesen 1990.: republike i postrojenja pritiskaju saveznu industriju. Može se držati stabilna mreža, potpora reformi ili tvrđe racije. Tihi papir ne postavlja player_used_jna_threat.",
+      "constitutional_note": "Tvrđe racije dižu napetost, ne otvaraju frontu.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_industry_open_seen",
+          "desk_event_industry_spring_seen",
+          "industry_grid_stable",
+          "industry_reform_support",
+          "multiparty_wave"
+        ]
+      },
+      "choices": [
+        {
+          "id": "autumn_grid",
+          "label": "Drži stabilnu mrežu.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "industry": {
+                "posture": "grid_stable"
+              }
+            },
+            "federal.energy_security": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "industry_grid_stable",
+              "desk_event_industry_autumn_seen",
+              "industry_quiet_paper"
+            ],
+            "flags_remove": [
+              "industry_harden_ration"
+            ]
+          }
+        },
+        {
+          "id": "autumn_reform",
+          "label": "Pojačaj potporu reformi.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "industry": {
+                "posture": "reform_support"
+              }
+            },
+            "federal.reform_momentum": 2,
+            "federal.energy_security": 2,
+            "flags_add": [
+              "industry_reform_support",
+              "desk_event_industry_autumn_seen",
+              "industry_quiet_paper",
+              "markovic_mandate_strong"
+            ]
+          }
+        },
+        {
+          "id": "autumn_harden",
+          "label": "Tvrđe racije.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "industry": {
+                "posture": "harden_ration"
+              }
+            },
+            "federal.energy_security": 1,
+            "federal.legitimacy": -1,
+            "federal.war_risk": 1,
+            "SI.federal_trust": -1,
+            "HR.federal_trust": -1,
+            "flags_add": [
+              "industry_harden_ration",
+              "desk_event_industry_autumn_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_finance_industry_bind",
+      "date": "1990-10-12",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Financije ↔ Industrija: energetski kanal",
+      "location": "Beograd — Financije / Industrija",
+      "briefing": "Financije i Industrija mogu dijeliti nabavni koridor — knjige i energetska sigurnost. Mirnodopski papir. Nema rata.",
+      "constitutional_note": "Kanal ne mijenja ustavni položaj Predsjedništva.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_industry_open_seen",
+          "industry_plant_soft",
+          "industry_grid_stable",
+          "finance_transfers_open",
+          "desk_event_industry_autumn_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "bind_channel",
+          "label": "Otvori Financije–Industrija kanal.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "finance": {
+                "posture": "target"
+              },
+              "industry": {
+                "posture": "plant_soft"
+              }
+            },
+            "federal.energy_security": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "finance_industry_liaison",
+              "industry_plant_soft",
+              "desk_event_finance_industry_bind_seen",
+              "industry_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "bind_soft",
+          "label": "Meki koridor — bez tvrde ruke.",
+          "legal": "political",
+          "effects": {
+            "federal.energy_security": 2,
+            "federal.inter_republic_trade": 1,
+            "flags_add": [
+              "finance_industry_corridor",
+              "industry_plant_soft",
+              "desk_event_finance_industry_bind_seen",
+              "industry_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "bind_hold",
+          "label": "Zadrži odvojene knjige.",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "desk_event_finance_industry_bind_seen"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

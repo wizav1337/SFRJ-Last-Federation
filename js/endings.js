@@ -331,6 +331,13 @@ function pathNotes(state) {
   if (state.flags.confederal_agriculture_memo) notes.push(t("path.agriMemo"));
   if (state.flags.talked_mirjanic || state.flags.dialogue_mirjanic) notes.push(t("path.mirjanic"));
   if (state.flags.dialogue_markovic_agriculture) notes.push(t("path.markovicAgriculture"));
+  if (state.flags.industry_grid_stable) notes.push(t("path.industryGrid"));
+  else if (state.flags.industry_plant_soft) notes.push(t("path.industryPlant"));
+  else if (state.flags.industry_output_support) notes.push(t("path.industryOutput"));
+  else if (state.flags.industry_reform_support) notes.push(t("path.industryReform"));
+  if (state.flags.confederal_industry_memo) notes.push(t("path.industryMemo"));
+  if (state.flags.talked_santo || state.flags.dialogue_santo) notes.push(t("path.santo"));
+  if (state.flags.dialogue_markovic_industry) notes.push(t("path.markovicIndustry"));
   const stack = confederalStackDepth(state);
   if (stack >= 3) notes.push(t("path.stackDepth", { n: stack }));
   return notes;

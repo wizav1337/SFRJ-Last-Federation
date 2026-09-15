@@ -33,6 +33,8 @@ export function recomputeWarRisk(state) {
   if (state.flags.sdb_leash_tight) w -= 1;
   if (state.flags.agriculture_food_security || state.flags.agriculture_quiet_paper) w -= 1;
   if (state.flags.agriculture_harden_quota) w += 1;
+  if (state.flags.industry_grid_stable || state.flags.industry_quiet_paper) w -= 1;
+  if (state.flags.industry_harden_ration) w += 1;
   if (state.flags.ssup_observe_line) w -= 0.5;
   if (state.flags.dialogue_kucan_charter) w -= 1;
   if (state.flags.confederal_stack_memo) w -= 0.5;
@@ -159,6 +161,12 @@ export function buildMonthlyReport(state, before, months) {
   if (state.flags.agriculture_reform_support || state.desks?.agriculture?.posture === "reform_support") drivers.push("Poljoprivreda: potpora reformi");
   if (state.flags.agriculture_harden_quota || state.desks?.agriculture?.posture === "harden_quota") drivers.push("Poljoprivreda: tvrđe kvote");
   if (state.flags.confederal_agriculture_memo) drivers.push("memorandum Poljoprivrede uz konfederalni stol");
+  if (state.flags.industry_grid_stable || state.desks?.industry?.posture === "grid_stable") drivers.push("Industrija: stabilna mreža");
+  if (state.flags.industry_plant_soft || state.desks?.industry?.posture === "plant_soft") drivers.push("Industrija: meka nabava za postrojenja");
+  if (state.flags.industry_output_support || state.desks?.industry?.posture === "output_support") drivers.push("Industrija: potpora outputu");
+  if (state.flags.industry_reform_support || state.desks?.industry?.posture === "reform_support") drivers.push("Industrija: potpora reformi");
+  if (state.flags.industry_harden_ration || state.desks?.industry?.posture === "harden_ration") drivers.push("Industrija: tvrđe racije");
+  if (state.flags.confederal_industry_memo) drivers.push("memorandum Industrije uz konfederalni stol");
   if (state.flags.ssup_observe_line) drivers.push("SSUP u promatračkoj postavi");
   if (state.flags.confederal_stack_memo) drivers.push("memorandum konfederalnog stoga");
   if (state.flags.dialogue_kucan_charter) drivers.push("Kučan: potpis na konfederalnoj traci");

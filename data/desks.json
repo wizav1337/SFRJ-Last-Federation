@@ -565,6 +565,55 @@
               "agriculture_harden_quota"
             ]
           }
+        },
+        {
+          "id": "bind_industry",
+          "label": "SIV kanal prema Industriji: mreža i reforma.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "desk_event_industry_open_seen",
+              "industry_grid_stable",
+              "industry_reform_support",
+              "industry_siv_bind",
+              "dialogue_markovic_industry"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "siv": {
+                "posture": "technocrat"
+              },
+              "industry": {
+                "posture": "reform_support"
+              }
+            },
+            "desk_add": {
+              "siv": {
+                "loyalty": 2,
+                "capacity": 2
+              },
+              "industry": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.siv_authority": 2,
+            "federal.energy_security": 3,
+            "federal.reform_momentum": 2,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "industry_siv_bind",
+              "industry_reform_support",
+              "industry_quiet_paper",
+              "markovic_mandate_strong"
+            ],
+            "flags_remove": [
+              "industry_harden_ration"
+            ]
+          }
         }
       ]
     },
@@ -1710,6 +1759,80 @@
               "finance_agriculture_corridor",
               "agriculture_procurement_soft",
               "agriculture_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "liaison_industry",
+          "label": "Veza Financije–Industrija: energija i fondovi.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "desk_event_industry_open_seen",
+              "industry_plant_soft",
+              "industry_grid_stable",
+              "industry_reform_support"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "finance": {
+                "posture": "target"
+              },
+              "industry": {
+                "posture": "plant_soft"
+              }
+            },
+            "desk_add": {
+              "finance": {
+                "capacity": 2
+              },
+              "industry": {
+                "capacity": 2,
+                "agenda_tension": -1
+              }
+            },
+            "federal.energy_security": 2,
+            "federal.hard_currency": 1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "finance_industry_liaison",
+              "industry_plant_soft",
+              "industry_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "accept_industry_corridor",
+          "label": "Prihvati energetsko-industrijski koridor u knjigama.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "industry_plant_soft",
+              "finance_industry_liaison",
+              "desk_event_industry_open_seen"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "finance": {
+                "loyalty": 2
+              },
+              "industry": {
+                "loyalty": 2
+              }
+            },
+            "federal.energy_security": 2,
+            "federal.inter_republic_trade": 1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "finance_industry_corridor",
+              "industry_plant_soft",
+              "industry_quiet_paper"
             ]
           }
         }
@@ -2859,6 +2982,86 @@
             "flags_remove": [
               "customs_war_active",
               "fer_customs_hard"
+            ]
+          }
+        },
+        {
+          "id": "liaison_industry",
+          "label": "FER–Industrija: energetsko-trgovački kanal.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "desk_event_industry_open_seen",
+              "industry_output_support",
+              "industry_grid_stable",
+              "industry_plant_soft",
+              "fer_trade_open"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "fer": {
+                "posture": "trade_open"
+              },
+              "industry": {
+                "posture": "output_support"
+              }
+            },
+            "desk_add": {
+              "fer": {
+                "loyalty": 2,
+                "agenda_tension": -1
+              },
+              "industry": {
+                "loyalty": 2,
+                "agenda_tension": -2
+              }
+            },
+            "federal.energy_security": 2,
+            "federal.inter_republic_trade": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "fer_industry_liaison",
+              "industry_output_support",
+              "industry_quiet_paper"
+            ],
+            "flags_remove": [
+              "industry_harden_ration"
+            ]
+          }
+        },
+        {
+          "id": "accept_industry_energy",
+          "label": "Prihvati energetski koridor u FER-u.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "fer_industry_liaison",
+              "industry_output_support",
+              "desk_event_industry_open_seen"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "fer": {
+                "capacity": 2
+              },
+              "industry": {
+                "capacity": 2
+              }
+            },
+            "federal.energy_security": 2,
+            "federal.reform_momentum": 1,
+            "RS.federal_trust": 1,
+            "BA.federal_trust": 1,
+            "flags_add": [
+              "fer_industry_energy",
+              "industry_output_support",
+              "industry_quiet_paper"
             ]
           }
         }
@@ -4890,6 +5093,241 @@
               "agriculture_siv_bind",
               "agriculture_reform_support",
               "agriculture_quiet_paper",
+              "markovic_mandate_strong"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "industry",
+      "agency_id": "industry",
+      "name": "Industrija",
+      "name_hr": "Savezni sekretarijat za energetiku i industriju",
+      "kind": "secretariat",
+      "briefing": "Savezni sekretarijat za energetiku i industriju: stabilnost mreže, industrijski output, meka nabava za postrojenja, potpora reformi — papir i okvir, ne fronta. Ne zamjenjuje Financije, FER, Poljoprivredu ni Rad. Marković ostaje predsjednik SIV-a. Tihi papir ne postavlja player_used_jna_threat. Nema rata.",
+      "stats": {
+        "loyalty": 53,
+        "capacity": 54,
+        "agenda_tension": 40
+      },
+      "posture_default": "grid_stable",
+      "postures": [
+        "grid_stable",
+        "plant_soft",
+        "output_support",
+        "reform_support",
+        "harden_ration"
+      ],
+      "actions": [
+        {
+          "id": "set_grid_stable",
+          "label": "Stabilna mreža: energija i miran stol.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "industry": {
+                "posture": "grid_stable"
+              }
+            },
+            "desk_add": {
+              "industry": {
+                "loyalty": 4,
+                "agenda_tension": -4,
+                "capacity": 2
+              },
+              "siv": {
+                "loyalty": 1
+              }
+            },
+            "federal.energy_security": 5,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "SI.living_standard": 1,
+            "HR.living_standard": 1,
+            "flags_add": [
+              "industry_grid_stable",
+              "industry_quiet_paper"
+            ],
+            "flags_remove": [
+              "industry_harden_ration"
+            ]
+          }
+        },
+        {
+          "id": "soft_plant_channel",
+          "label": "Meka nabava za postrojenja: trgovinski kanal, ne embargo.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "industry": {
+                "posture": "plant_soft"
+              }
+            },
+            "desk_add": {
+              "industry": {
+                "capacity": 3,
+                "agenda_tension": -2
+              },
+              "finance": {
+                "capacity": 1
+              },
+              "fer": {
+                "capacity": 1
+              }
+            },
+            "federal.energy_security": 3,
+            "federal.inter_republic_trade": 2,
+            "federal.hard_currency": 1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "industry_plant_soft",
+              "industry_quiet_paper"
+            ],
+            "flags_remove": [
+              "industry_harden_ration"
+            ]
+          }
+        },
+        {
+          "id": "output_support",
+          "label": "Potpora outputu: industrija i energetika.",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_set": {
+              "industry": {
+                "posture": "output_support"
+              }
+            },
+            "desk_add": {
+              "industry": {
+                "loyalty": 3,
+                "capacity": 2
+              },
+              "fer": {
+                "loyalty": 1
+              }
+            },
+            "federal.energy_security": 3,
+            "federal.federal_budget": -1,
+            "RS.federal_trust": 2,
+            "BA.living_standard": 1,
+            "HR.federal_trust": 1,
+            "flags_add": [
+              "industry_output_support",
+              "industry_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "support_reform",
+          "label": "Potpora reformi: energetsko-industrijski paket uz Markovića.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "industry": {
+                "posture": "reform_support"
+              }
+            },
+            "desk_add": {
+              "industry": {
+                "loyalty": 3,
+                "capacity": 3
+              },
+              "siv": {
+                "capacity": 2,
+                "loyalty": 2
+              }
+            },
+            "federal.energy_security": 3,
+            "federal.reform_momentum": 3,
+            "federal.siv_authority": 2,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "industry_reform_support",
+              "industry_quiet_paper",
+              "markovic_mandate_strong"
+            ]
+          }
+        },
+        {
+          "id": "harden_ration",
+          "label": "Tvrđe racije energije — pritisak na potrošnju.",
+          "cost": {
+            "reform": 1
+          },
+          "conflict_warn": true,
+          "effects": {
+            "desk_set": {
+              "industry": {
+                "posture": "harden_ration"
+              }
+            },
+            "desk_add": {
+              "industry": {
+                "loyalty": -2,
+                "capacity": 4,
+                "agenda_tension": 7
+              },
+              "fer": {
+                "agenda_tension": 2
+              }
+            },
+            "federal.energy_security": 1,
+            "federal.legitimacy": -1,
+            "federal.war_risk": 1,
+            "SI.federal_trust": -2,
+            "HR.federal_trust": -2,
+            "flags_add": [
+              "industry_harden_ration",
+              "industry_grid_stable"
+            ],
+            "flags_remove": [
+              "industry_plant_soft"
+            ]
+          }
+        },
+        {
+          "id": "bind_siv",
+          "label": "Veži industriju uz SIV kanal — zajednički papir.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "industry": {
+                "posture": "reform_support"
+              },
+              "siv": {
+                "posture": "technocrat"
+              }
+            },
+            "desk_add": {
+              "industry": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              },
+              "siv": {
+                "loyalty": 2,
+                "capacity": 1
+              }
+            },
+            "federal.energy_security": 2,
+            "federal.siv_authority": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "industry_siv_bind",
+              "industry_reform_support",
+              "industry_quiet_paper",
               "markovic_mandate_strong"
             ]
           }

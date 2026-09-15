@@ -1,0 +1,291 @@
+{
+  "id": "santo",
+  "speaker": "Stevan Santo",
+  "title": "savezni sekretar za energetiku i industriju",
+  "desk": "industry",
+  "available_from": "1990-08-01",
+  "unlock": {
+    "flags_any": [
+      "industry_grid_stable",
+      "industry_plant_soft",
+      "industry_output_support",
+      "industry_reform_support",
+      "industry_harden_ration",
+      "desk_event_industry_open_seen",
+      "fer_trade_open",
+      "multiparty_wave"
+    ]
+  },
+  "nodes": {
+    "start": {
+      "text": "Santo prima u Saveznom sekretarijatu za energetiku i industriju. „Energetika i industrija su mirnodopski resor: stabilna mreža, meka nabava za postrojenja, potpora outputu, potpora reformi ili tvrđe racije — sve papir. Marković ostaje predsjednik SIV-a. Ja držim kanal prema republikama i FER-u. Što želite od sekretarijata?“",
+      "choices": [
+        {
+          "id": "grid",
+          "label": "Stabilna mreža — energija i miran stol.",
+          "next": "grid_done",
+          "effects": {
+            "desk_add": {
+              "industry": {
+                "loyalty": 4,
+                "agenda_tension": -3
+              },
+              "siv": {
+                "loyalty": 1
+              }
+            },
+            "federal.energy_security": 4,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "talked_santo",
+              "dialogue_santo",
+              "dialogue_santo_grid",
+              "industry_grid_stable",
+              "industry_quiet_paper"
+            ],
+            "flags_remove": [
+              "industry_harden_ration"
+            ],
+            "desk_set": {
+              "industry": {
+                "posture": "grid_stable"
+              }
+            }
+          }
+        },
+        {
+          "id": "plant",
+          "label": "Meka nabava za postrojenja — trgovinski kanal.",
+          "next": "plant_done",
+          "effects": {
+            "desk_add": {
+              "industry": {
+                "capacity": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.energy_security": 3,
+            "federal.inter_republic_trade": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "talked_santo",
+              "dialogue_santo",
+              "industry_plant_soft",
+              "industry_quiet_paper"
+            ],
+            "flags_remove": [
+              "industry_harden_ration"
+            ],
+            "desk_set": {
+              "industry": {
+                "posture": "plant_soft"
+              }
+            }
+          }
+        },
+        {
+          "id": "output",
+          "label": "Potpora outputu — industrija i energetika.",
+          "next": "output_done",
+          "effects": {
+            "desk_add": {
+              "industry": {
+                "loyalty": 3,
+                "capacity": 2
+              }
+            },
+            "federal.energy_security": 3,
+            "RS.federal_trust": 1,
+            "BA.living_standard": 1,
+            "flags_add": [
+              "talked_santo",
+              "dialogue_santo",
+              "industry_output_support",
+              "industry_quiet_paper"
+            ],
+            "desk_set": {
+              "industry": {
+                "posture": "output_support"
+              }
+            }
+          }
+        },
+        {
+          "id": "harden",
+          "label": "Tvrđe racije — pritisak na potrošnju.",
+          "next": "harden_done",
+          "effects": {
+            "desk_add": {
+              "industry": {
+                "capacity": 4,
+                "agenda_tension": 5,
+                "loyalty": -2
+              }
+            },
+            "federal.energy_security": 1,
+            "federal.war_risk": 1,
+            "federal.legitimacy": -1,
+            "flags_add": [
+              "talked_santo",
+              "dialogue_santo",
+              "industry_harden_ration",
+              "industry_grid_stable"
+            ],
+            "flags_remove": [
+              "industry_plant_soft"
+            ],
+            "desk_set": {
+              "industry": {
+                "posture": "harden_ration"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "grid_done": {
+      "text": "„Stabilna mreža drži stol mirnim. Nema rata.“",
+      "choices": [
+        {
+          "id": "end_grid",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "plant_done": {
+      "text": "„Nabava za postrojenja je meka. Nema čina VI.“",
+      "choices": [
+        {
+          "id": "end_plant",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "output_done": {
+      "text": "„Output dobiva potporu. Industrija i energetika — papir, ne fronta.“",
+      "choices": [
+        {
+          "id": "end_output",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "harden_done": {
+      "text": "„Racije su tvrđe. To diže napetost — i dalje papir, ne fronta.“",
+      "choices": [
+        {
+          "id": "end_harden",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "revisit_press": {
+      "text": "Santo ponovo: „Potpora outputu, potpora reformi ili meka nabava za postrojenja. Bez priznanja secesije. Bez rata.“",
+      "choices": [
+        {
+          "id": "reform",
+          "label": "Potpora Markovićevoj reformi.",
+          "next": null,
+          "effects": {
+            "federal.energy_security": 2,
+            "federal.reform_momentum": 2,
+            "federal.siv_authority": 1,
+            "flags_add": [
+              "dialogue_santo",
+              "industry_reform_support",
+              "industry_quiet_paper",
+              "markovic_mandate_strong"
+            ],
+            "desk_set": {
+              "industry": {
+                "posture": "reform_support"
+              }
+            }
+          }
+        },
+        {
+          "id": "soft_again",
+          "label": "Meka nabava za postrojenja — trgovinski kanal.",
+          "next": null,
+          "effects": {
+            "federal.energy_security": 2,
+            "federal.inter_republic_trade": 1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "dialogue_santo",
+              "industry_plant_soft",
+              "industry_quiet_paper"
+            ],
+            "flags_remove": [
+              "industry_harden_ration"
+            ],
+            "desk_set": {
+              "industry": {
+                "posture": "plant_soft"
+              }
+            }
+          }
+        },
+        {
+          "id": "fer_back",
+          "label": "Vrati meku potporu outputu uz FER.",
+          "next": null,
+          "effects": {
+            "federal.energy_security": 2,
+            "federal.war_risk": -1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "dialogue_santo",
+              "industry_output_support",
+              "fer_industry_liaison",
+              "industry_quiet_paper"
+            ],
+            "flags_remove": [
+              "industry_harden_ration"
+            ],
+            "desk_set": {
+              "industry": {
+                "posture": "output_support"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "entries": [
+    {
+      "id": "start",
+      "node": "start",
+      "once": true,
+      "priority": 10
+    },
+    {
+      "id": "revisit_press",
+      "node": "revisit_press",
+      "once": true,
+      "priority": 6,
+      "require_done": true,
+      "available_from": "1990-11-01",
+      "unlock": {
+        "flags_any": [
+          "industry_grid_stable",
+          "industry_plant_soft",
+          "industry_output_support",
+          "industry_reform_support",
+          "fer_industry_liaison",
+          "desk_event_industry_open_seen"
+        ]
+      }
+    }
+  ]
+}
