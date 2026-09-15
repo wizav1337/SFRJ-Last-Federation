@@ -179,6 +179,16 @@
       "status": "active",
       "competence": "rad / socijalni mir / štrajkovi / potpora Markovićevoj reformi (Pass 14 šalter)",
       "dissolve_legal": "presidency_decree"
+    },
+    {
+      "id": "agriculture",
+      "name": "Savezni sekretarijat za poljoprivredu",
+      "kind": "secretariat",
+      "desk": "SIV",
+      "status": "active",
+      "competence": "poljoprivreda / prehrambena sigurnost / meka nabava / olakšice farmama / potpora reformi (Pass 15 šalter)",
+      "dissolve_legal": "presidency_decree",
+      "short": "Poljoprivreda"
     }
   ]
 }

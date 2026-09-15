@@ -261,7 +261,7 @@
       "name": "SIV",
       "name_hr": "Savezno izvršno vijeće",
       "kind": "constitutional",
-      "briefing": "Predsjednik SIV-a (Marković) nije predsjednik Jugoslavije. Stav SIV-a (štednja / poticaj / tehnokratski) vuče inflaciju, trgovinu i reformski zamah svakog mjeseca. Pass 13: bind_sdb — SIV civilni nadzor nad službom. Pass 14: bind_labor — SIV kanal prema saveznom radu.",
+      "briefing": "Predsjednik SIV-a (Marković) nije predsjednik Jugoslavije. Stav SIV-a (štednja / poticaj / tehnokratski) vuče inflaciju, trgovinu i reformski zamah svakog mjeseca. Pass 13: bind_sdb — SIV civilni nadzor nad službom. Pass 14: bind_labor — SIV kanal prema saveznom radu. Pass 15: bind_agriculture — SIV kanal prema poljoprivredi.",
       "stats": {
         "loyalty": 58,
         "capacity": 62,
@@ -514,6 +514,55 @@
             ],
             "flags_remove": [
               "labor_harden_line"
+            ]
+          }
+        },
+        {
+          "id": "bind_agriculture",
+          "label": "SIV kanal prema Poljoprivredi: hrana i reforma.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "desk_event_agriculture_open_seen",
+              "agriculture_food_security",
+              "agriculture_reform_support",
+              "agriculture_siv_bind",
+              "dialogue_markovic_agriculture"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "siv": {
+                "posture": "technocrat"
+              },
+              "agriculture": {
+                "posture": "reform_support"
+              }
+            },
+            "desk_add": {
+              "siv": {
+                "loyalty": 2,
+                "capacity": 2
+              },
+              "agriculture": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.siv_authority": 2,
+            "federal.food_security": 3,
+            "federal.reform_momentum": 2,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "agriculture_siv_bind",
+              "agriculture_reform_support",
+              "agriculture_quiet_paper",
+              "markovic_mandate_strong"
+            ],
+            "flags_remove": [
+              "agriculture_harden_quota"
             ]
           }
         }
@@ -1344,7 +1393,7 @@
       "name": "Financije",
       "name_hr": "Savezni sekretarijat za financije",
       "kind": "secretariat",
-      "briefing": "Savezni proračun i transferi. Smrzavanje ili otvaranje fondova vuče životni standard, carine i put Markovića. Pass 8: ciljani kanali (finance_target) i meki koridor (finance_soft_corridor) — mirnodopski, bez fronte. Pass 14: liaison_labor / accept_labor_corridor — plaće i transferi uz Rad.",
+      "briefing": "Savezni proračun i transferi. Smrzavanje ili otvaranje fondova vuče životni standard, carine i put Markovića. Pass 8: ciljani kanali (finance_target) i meki koridor (finance_soft_corridor) — mirnodopski, bez fronte. Pass 14: liaison_labor / accept_labor_corridor — plaće i transferi uz Rad. Pass 15: liaison_agriculture / accept_agriculture_corridor — hrana i nabava uz Poljoprivredu.",
       "stats": {
         "loyalty": 54,
         "capacity": 58,
@@ -1587,6 +1636,80 @@
               "finance_labor_corridor",
               "labor_wage_corridor",
               "labor_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "liaison_agriculture",
+          "label": "Veza Financije–Poljoprivreda: nabava i fondovi.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "desk_event_agriculture_open_seen",
+              "agriculture_procurement_soft",
+              "agriculture_food_security",
+              "agriculture_reform_support"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "finance": {
+                "posture": "target"
+              },
+              "agriculture": {
+                "posture": "procurement_soft"
+              }
+            },
+            "desk_add": {
+              "finance": {
+                "capacity": 2
+              },
+              "agriculture": {
+                "capacity": 2,
+                "agenda_tension": -1
+              }
+            },
+            "federal.food_security": 2,
+            "federal.hard_currency": 1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "finance_agriculture_liaison",
+              "agriculture_procurement_soft",
+              "agriculture_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "accept_agriculture_corridor",
+          "label": "Prihvati prehrambeni koridor Poljoprivrede u knjigama.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "agriculture_procurement_soft",
+              "finance_agriculture_liaison",
+              "desk_event_agriculture_open_seen"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "finance": {
+                "loyalty": 2
+              },
+              "agriculture": {
+                "loyalty": 2
+              }
+            },
+            "federal.food_security": 2,
+            "federal.inter_republic_trade": 1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "finance_agriculture_corridor",
+              "agriculture_procurement_soft",
+              "agriculture_quiet_paper"
             ]
           }
         }
@@ -2747,7 +2870,7 @@
       "name": "Fond",
       "name_hr": "Federalni fond za nerazvijene",
       "kind": "secretariat",
-      "briefing": "Federalni fond za nerazvijene hrani MK, ME, BA i XK. Postave (otvoren jug / smrzavanje / cilj MK–ME / politizacija) diraju living_standard, federal_trust, federal_budget i zastavice fond_*. Marković ostaje predsjednik SIV-a — Fond izvršava transfer, ne zamjenjuje SIV. Titograd ostaje Titograd.",
+      "briefing": "Federalni fond za nerazvijene hrani MK, ME, BA i XK. Postave (otvoren jug / smrzavanje / cilj MK–ME / politizacija) diraju living_standard, federal_trust, federal_budget i zastavice fond_*. Marković ostaje predsjednik SIV-a — Fond izvršava transfer, ne zamjenjuje SIV. Titograd ostaje Titograd. Pass 15: liaison_agriculture / accept_agriculture_food — jug i farme uz Poljoprivredu.",
       "stats": {
         "loyalty": 52,
         "capacity": 48,
@@ -2897,6 +3020,86 @@
             ],
             "flags_remove": [
               "fond_freeze"
+            ]
+          }
+        },
+        {
+          "id": "liaison_agriculture",
+          "label": "Fond–Poljoprivreda: južni prehrambeni kanal.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "desk_event_agriculture_open_seen",
+              "agriculture_farm_relief",
+              "agriculture_food_security",
+              "fond_open_south"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "fond": {
+                "posture": "open_south"
+              },
+              "agriculture": {
+                "posture": "farm_relief"
+              }
+            },
+            "desk_add": {
+              "fond": {
+                "loyalty": 2,
+                "agenda_tension": -1
+              },
+              "agriculture": {
+                "loyalty": 2,
+                "agenda_tension": -2
+              }
+            },
+            "federal.food_security": 2,
+            "federal.legitimacy": 1,
+            "BA.living_standard": 1,
+            "MK.living_standard": 1,
+            "flags_add": [
+              "fond_agriculture_liaison",
+              "agriculture_farm_relief",
+              "agriculture_quiet_paper"
+            ],
+            "flags_remove": [
+              "agriculture_harden_quota"
+            ]
+          }
+        },
+        {
+          "id": "accept_agriculture_food",
+          "label": "Prihvati prehrambeni koridor u Fondu.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "fond_agriculture_liaison",
+              "agriculture_farm_relief",
+              "desk_event_agriculture_open_seen"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "fond": {
+                "capacity": 2
+              },
+              "agriculture": {
+                "capacity": 2
+              }
+            },
+            "federal.food_security": 2,
+            "federal.reform_momentum": 1,
+            "RS.federal_trust": 1,
+            "BA.federal_trust": 1,
+            "flags_add": [
+              "fond_agriculture_food",
+              "agriculture_farm_relief",
+              "agriculture_quiet_paper"
             ]
           }
         }
@@ -4455,6 +4658,238 @@
               "labor_siv_bind",
               "labor_reform_support",
               "labor_quiet_paper",
+              "markovic_mandate_strong"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "agriculture",
+      "agency_id": "agriculture",
+      "name": "Poljoprivreda",
+      "name_hr": "Savezni sekretarijat za poljoprivredu",
+      "kind": "secretariat",
+      "briefing": "Savezni sekretarijat za poljoprivredu: prehrambena sigurnost, meka nabava, olakšice farmama, potpora reformi — papir i okvir, ne fronta. Ne zamjenjuje Financije, Rad, Fond ni FER. Marković ostaje predsjednik SIV-a. Tihi papir ne postavlja player_used_jna_threat. Nema rata.",
+      "stats": {
+        "loyalty": 54,
+        "capacity": 52,
+        "agenda_tension": 38
+      },
+      "posture_default": "food_security",
+      "postures": [
+        "food_security",
+        "procurement_soft",
+        "farm_relief",
+        "reform_support",
+        "harden_quota"
+      ],
+      "actions": [
+        {
+          "id": "set_food_security",
+          "label": "Prehrambena sigurnost: zalihe i miran stol.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "agriculture": {
+                "posture": "food_security"
+              }
+            },
+            "desk_add": {
+              "agriculture": {
+                "loyalty": 4,
+                "agenda_tension": -4,
+                "capacity": 2
+              },
+              "siv": {
+                "loyalty": 1
+              }
+            },
+            "federal.food_security": 5,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "SI.living_standard": 1,
+            "HR.living_standard": 1,
+            "flags_add": [
+              "agriculture_food_security",
+              "agriculture_quiet_paper"
+            ],
+            "flags_remove": [
+              "agriculture_harden_quota"
+            ]
+          }
+        },
+        {
+          "id": "soft_procurement",
+          "label": "Meka nabava: trgovinski kanal, ne embargo.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "agriculture": {
+                "posture": "procurement_soft"
+              }
+            },
+            "desk_add": {
+              "agriculture": {
+                "capacity": 3,
+                "agenda_tension": -2
+              },
+              "finance": {
+                "capacity": 1
+              }
+            },
+            "federal.food_security": 3,
+            "federal.inter_republic_trade": 2,
+            "federal.hard_currency": 1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "agriculture_procurement_soft",
+              "agriculture_quiet_paper"
+            ],
+            "flags_remove": [
+              "agriculture_harden_quota"
+            ]
+          }
+        },
+        {
+          "id": "farm_relief",
+          "label": "Olakšice farmama: jug i ravnica.",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_set": {
+              "agriculture": {
+                "posture": "farm_relief"
+              }
+            },
+            "desk_add": {
+              "agriculture": {
+                "loyalty": 3,
+                "capacity": 2
+              },
+              "fond": {
+                "loyalty": 1
+              }
+            },
+            "federal.food_security": 3,
+            "federal.federal_budget": -1,
+            "RS.federal_trust": 2,
+            "BA.living_standard": 1,
+            "HR.federal_trust": 1,
+            "flags_add": [
+              "agriculture_farm_relief",
+              "agriculture_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "support_reform",
+          "label": "Potpora reformi: poljoprivredni paket uz Markovića.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "agriculture": {
+                "posture": "reform_support"
+              }
+            },
+            "desk_add": {
+              "agriculture": {
+                "loyalty": 3,
+                "capacity": 3
+              },
+              "siv": {
+                "capacity": 2,
+                "loyalty": 2
+              }
+            },
+            "federal.food_security": 3,
+            "federal.reform_momentum": 3,
+            "federal.siv_authority": 2,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "agriculture_reform_support",
+              "agriculture_quiet_paper",
+              "markovic_mandate_strong"
+            ]
+          }
+        },
+        {
+          "id": "harden_quota",
+          "label": "Tvrđe kvote — pritisak na nabavu.",
+          "cost": {
+            "reform": 1
+          },
+          "conflict_warn": true,
+          "effects": {
+            "desk_set": {
+              "agriculture": {
+                "posture": "harden_quota"
+              }
+            },
+            "desk_add": {
+              "agriculture": {
+                "loyalty": -2,
+                "capacity": 4,
+                "agenda_tension": 7
+              },
+              "fond": {
+                "agenda_tension": 2
+              }
+            },
+            "federal.food_security": 1,
+            "federal.legitimacy": -1,
+            "federal.war_risk": 1,
+            "SI.federal_trust": -2,
+            "HR.federal_trust": -2,
+            "flags_add": [
+              "agriculture_harden_quota",
+              "agriculture_food_security"
+            ],
+            "flags_remove": [
+              "agriculture_procurement_soft"
+            ]
+          }
+        },
+        {
+          "id": "bind_siv",
+          "label": "Veži poljoprivredu uz SIV kanal — zajednički papir.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "agriculture": {
+                "posture": "reform_support"
+              },
+              "siv": {
+                "posture": "technocrat"
+              }
+            },
+            "desk_add": {
+              "agriculture": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              },
+              "siv": {
+                "loyalty": 2,
+                "capacity": 1
+              }
+            },
+            "federal.food_security": 2,
+            "federal.siv_authority": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "agriculture_siv_bind",
+              "agriculture_reform_support",
+              "agriculture_quiet_paper",
               "markovic_mandate_strong"
             ]
           }

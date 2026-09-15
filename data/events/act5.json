@@ -3265,6 +3265,165 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_agriculture_spring91",
+      "date": "1991-03-18",
+      "act": 5,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Proljeće 1991.: poljoprivredni papir",
+      "location": "Beograd — Savezni sekretarijat za poljoprivredu",
+      "briefing": "Proljeće 1991.: Poljoprivreda nudi papirni put — sigurnost hrane, reforma ili meka nabava. Bez čina VI. Tihi papir ne postavlja player_used_jna_threat. Nema rata.",
+      "constitutional_note": "Slice A: peacetime only; no Act VI.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_agriculture_open_seen",
+          "agriculture_food_security",
+          "agriculture_reform_support",
+          "agriculture_siv_bind",
+          "dialogue_markovic_agriculture",
+          "desk_event_agriculture_pleb_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "s91_food",
+          "label": "Prehrambena sigurnost — papirni put.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "agriculture": {
+                "posture": "food_security"
+              }
+            },
+            "federal.food_security": 3,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "agriculture_food_security",
+              "desk_event_agriculture_spring91_seen",
+              "agriculture_quiet_paper"
+            ],
+            "flags_remove": [
+              "agriculture_harden_quota"
+            ]
+          }
+        },
+        {
+          "id": "s91_reform",
+          "label": "Reformski poljoprivredni paket.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "agriculture": {
+                "posture": "reform_support"
+              }
+            },
+            "federal.reform_momentum": 2,
+            "federal.food_security": 2,
+            "flags_add": [
+              "agriculture_reform_support",
+              "desk_event_agriculture_spring91_seen",
+              "agriculture_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "s91_procurement",
+          "label": "Meka nabava.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "agriculture": {
+                "posture": "procurement_soft"
+              }
+            },
+            "federal.food_security": 2,
+            "federal.inter_republic_trade": 1,
+            "flags_add": [
+              "agriculture_procurement_soft",
+              "desk_event_agriculture_spring91_seen",
+              "agriculture_quiet_paper"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "confederal_agriculture_memo",
+      "date": "1991-04-28",
+      "act": 5,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Memorandum Poljoprivrede uz konfederalni stol",
+      "location": "Beograd — konfederalni poljoprivredni stol",
+      "briefing": "Uz konfederalni stol stiže memo Poljoprivrede: prehrambena sigurnost i reformski paket kao jamstvo da poljoprivredni šalter ne lomi pregovore. Izetbegović–Gligorov nacrt **nije** dostupan papir — samo isključenje. Nema rata.",
+      "constitutional_note": "I–G nije prihvatljiv papir na ovom stolu; memo Poljoprivrede ne priznaje secesiju.",
+      "documents": [
+        "1974_presidency"
+      ],
+      "requires": {
+        "flags_any": [
+          "confederal_talks_open",
+          "desk_event_agriculture_open_seen",
+          "agriculture_food_security",
+          "agriculture_reform_support",
+          "agriculture_siv_bind",
+          "dialogue_markovic_agriculture"
+        ]
+      },
+      "choices": [
+        {
+          "id": "memo_food",
+          "label": "Priloži memo: prehrambena sigurnost uz stol.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 2,
+            "federal.war_risk": -2,
+            "federal.presidency_cohesion": 1,
+            "federal.food_security": 2,
+            "flags_add": [
+              "confederal_agriculture_memo",
+              "agriculture_food_security",
+              "desk_event_agriculture_memo_seen",
+              "agriculture_quiet_paper"
+            ],
+            "flags_remove": [
+              "agriculture_harden_quota"
+            ]
+          }
+        },
+        {
+          "id": "memo_reform",
+          "label": "Priloži reformski poljoprivredni paket.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 2,
+            "federal.reform_momentum": 2,
+            "federal.siv_authority": 1,
+            "flags_add": [
+              "confederal_agriculture_memo",
+              "agriculture_reform_support",
+              "desk_event_agriculture_memo_seen",
+              "agriculture_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "memo_hold",
+          "label": "Zadrži Poljoprivredu izvan stola.",
+          "legal": "political",
+          "effects": {
+            "federal.war_risk": 1,
+            "flags_add": [
+              "desk_event_agriculture_memo_seen"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

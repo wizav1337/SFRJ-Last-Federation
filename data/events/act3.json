@@ -2541,6 +2541,167 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_agriculture_autumn",
+      "date": "1990-09-16",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Jesen: pritisak na poljoprivredni šalter",
+      "location": "Beograd — Savezni sekretarijat za poljoprivredu",
+      "briefing": "Jesen 1990.: republike i farme pritiskaju saveznu poljoprivredu. Može se držati sigurnost hrane, potpora reformi ili tvrđe kvote. Tihi papir ne postavlja player_used_jna_threat.",
+      "constitutional_note": "Tvrđe kvote dižu napetost, ne otvaraju frontu.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_agriculture_open_seen",
+          "desk_event_agriculture_spring_seen",
+          "agriculture_food_security",
+          "agriculture_reform_support",
+          "multiparty_wave"
+        ]
+      },
+      "choices": [
+        {
+          "id": "autumn_food",
+          "label": "Drži prehrambenu sigurnost.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "agriculture": {
+                "posture": "food_security"
+              }
+            },
+            "federal.food_security": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "agriculture_food_security",
+              "desk_event_agriculture_autumn_seen",
+              "agriculture_quiet_paper"
+            ],
+            "flags_remove": [
+              "agriculture_harden_quota"
+            ]
+          }
+        },
+        {
+          "id": "autumn_reform",
+          "label": "Pojačaj potporu reformi.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "agriculture": {
+                "posture": "reform_support"
+              }
+            },
+            "federal.reform_momentum": 2,
+            "federal.food_security": 2,
+            "flags_add": [
+              "agriculture_reform_support",
+              "desk_event_agriculture_autumn_seen",
+              "agriculture_quiet_paper",
+              "markovic_mandate_strong"
+            ]
+          }
+        },
+        {
+          "id": "autumn_harden",
+          "label": "Tvrđe kvote.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "agriculture": {
+                "posture": "harden_quota"
+              }
+            },
+            "federal.food_security": 1,
+            "federal.legitimacy": -1,
+            "federal.war_risk": 1,
+            "SI.federal_trust": -1,
+            "HR.federal_trust": -1,
+            "flags_add": [
+              "agriculture_harden_quota",
+              "desk_event_agriculture_autumn_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_finance_agriculture_bind",
+      "date": "1990-10-10",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Financije ↔ Poljoprivreda: prehrambeni kanal",
+      "location": "Beograd — Financije / Poljoprivreda",
+      "briefing": "Financije i Poljoprivreda mogu dijeliti nabavni koridor — knjige i prehrambena sigurnost. Mirnodopski papir. Nema rata.",
+      "constitutional_note": "Kanal ne mijenja ustavni položaj Predsjedništva.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_agriculture_open_seen",
+          "agriculture_procurement_soft",
+          "agriculture_food_security",
+          "finance_transfers_open",
+          "desk_event_agriculture_autumn_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "bind_channel",
+          "label": "Otvori Financije–Poljoprivreda kanal.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "finance": {
+                "posture": "target"
+              },
+              "agriculture": {
+                "posture": "procurement_soft"
+              }
+            },
+            "federal.food_security": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "finance_agriculture_liaison",
+              "agriculture_procurement_soft",
+              "desk_event_finance_agriculture_bind_seen",
+              "agriculture_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "bind_soft",
+          "label": "Meki koridor — bez tvrde ruke.",
+          "legal": "political",
+          "effects": {
+            "federal.food_security": 2,
+            "federal.inter_republic_trade": 1,
+            "flags_add": [
+              "finance_agriculture_corridor",
+              "agriculture_procurement_soft",
+              "desk_event_finance_agriculture_bind_seen",
+              "agriculture_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "bind_hold",
+          "label": "Zadrži odvojene knjige.",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "desk_event_finance_agriculture_bind_seen"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

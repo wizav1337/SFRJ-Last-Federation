@@ -46,7 +46,7 @@ index.html          shell
 css/                tokens + layout
 js/                 boot, events, map, reforms, desks, dialogue, elections, endings, simulation
 data/events/        Acts I–V
-data/desks.json     department desk stats + actions (17 desks)
+data/desks.json     department desk stats + actions (21 desks)
 data/dialogue/      branching institutional chats (multi-visit entries)
 data/i18n/hr.json   Croatian UI chrome
 data/i18n/en.json   English chrome (Pass 4–5)
@@ -88,3 +88,6 @@ Default UI language remains Croatian (ijekavica). IDs and flags stay English. `d
 - **Pass 10** (`expand/pass10-const-court`): Ustavni sud desk, deepen justice/SSUP, Buzadžić dialogue + Marković court revisit, gated Act I–V cards, save_schema 10
 - **Pass 11** (`expand/pass11-provinces`): Pokrajinska sjedala desk, deepen Presidency/SSUP, Bajramović/Kostić + Marković provinces revisit, gated Act I–V cards, save_schema 11
 - **Pass 12** (`expand/pass12-ssno`): SSNO desk, deepen JNA/TO, Kadijević + Marković SSNO revisit, gated Act I–V cards, save_schema 12
+- **Pass 13** (`expand/pass13-sdb`): SDB desk, Gračanin, deepen SSUP/SIV, gated cards, save_schema 13
+- **Pass 14** (`expand/pass14-labor`): Rad desk, Gačić, deepen Finance/SIV/SSRN, gated cards, save_schema 14
+- **Pass 15** (`expand/pass15-agriculture`): Poljoprivreda desk, Mirjanić, deepen Finance/SIV/Fond, gated cards, save_schema 15

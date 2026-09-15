@@ -873,6 +873,86 @@
           }
         }
       ]
+    },
+    "revisit_agriculture": {
+      "text": "Marković — predsjednik SIV-a — gleda Poljoprivredu. „Mirjanić drži sekretarijat; prehrambena sigurnost i potpora reformi smiruju; tvrđe kvote dižu rizik. Ja ne vodim farme — tražim papir koji SIV može čitati. Nema rata.“",
+      "choices": [
+        {
+          "id": "agri_food",
+          "label": "Prehrambena sigurnost — SIV iznad nestašice.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 2,
+            "federal.food_security": 4,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "dialogue_markovic_agriculture",
+              "agriculture_food_security",
+              "agriculture_siv_bind",
+              "markovic_mandate_strong",
+              "agriculture_quiet_paper"
+            ],
+            "flags_remove": [
+              "agriculture_harden_quota"
+            ],
+            "desk_set": {
+              "agriculture": {
+                "posture": "food_security"
+              },
+              "siv": {
+                "posture": "technocrat"
+              }
+            }
+          }
+        },
+        {
+          "id": "agri_reform",
+          "label": "Poljoprivredni paket uz reformu — potpora Markoviću.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 2,
+            "federal.food_security": 3,
+            "federal.reform_momentum": 3,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "dialogue_markovic_agriculture",
+              "agriculture_reform_support",
+              "agriculture_siv_bind",
+              "agriculture_quiet_paper",
+              "markovic_mandate_strong"
+            ],
+            "desk_set": {
+              "agriculture": {
+                "posture": "reform_support"
+              }
+            }
+          }
+        },
+        {
+          "id": "agri_relief",
+          "label": "Olakšice farmama — meki kanal.",
+          "next": null,
+          "effects": {
+            "federal.siv_authority": 1,
+            "federal.food_security": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "dialogue_markovic_agriculture",
+              "agriculture_farm_relief",
+              "agriculture_quiet_paper"
+            ],
+            "flags_remove": [
+              "agriculture_harden_quota"
+            ],
+            "desk_set": {
+              "agriculture": {
+                "posture": "farm_relief"
+              }
+            }
+          }
+        }
+      ]
     }
   },
   "entries": [
@@ -1039,6 +1119,26 @@
           "labor_siv_bind",
           "desk_event_labor_open_seen",
           "dialogue_gacic"
+        ]
+      }
+    },
+    {
+      "id": "revisit_agriculture",
+      "node": "revisit_agriculture",
+      "once": true,
+      "priority": 7,
+      "require_done": true,
+      "available_from": "1991-02-01",
+      "unlock": {
+        "flags_any": [
+          "agriculture_food_security",
+          "agriculture_procurement_soft",
+          "agriculture_farm_relief",
+          "agriculture_reform_support",
+          "agriculture_harden_quota",
+          "agriculture_siv_bind",
+          "desk_event_agriculture_open_seen",
+          "dialogue_mirjanic"
         ]
       }
     }

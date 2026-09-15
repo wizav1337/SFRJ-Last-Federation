@@ -1944,6 +1944,161 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_agriculture_before_pleb",
+      "date": "1990-12-11",
+      "act": 4,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Poljoprivreda pred savjetodavnim plebiscitom",
+      "location": "Beograd — Savezni sekretarijat za poljoprivredu",
+      "briefing": "Pred zimskim pritiscima: Poljoprivreda može držati sigurnost hrane, potporu reformi ili olakšice farmama. Bez vojnog jezika. Nema rata.",
+      "constitutional_note": "Plebiscitni kontekst ne otvara frontu na poljoprivrednom šalteru.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_agriculture_open_seen",
+          "agriculture_food_security",
+          "agriculture_reform_support",
+          "desk_event_agriculture_autumn_seen",
+          "dialogue_mirjanic"
+        ]
+      },
+      "choices": [
+        {
+          "id": "pleb_food",
+          "label": "Prehrambena sigurnost pred glasanjem.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "agriculture": {
+                "posture": "food_security"
+              }
+            },
+            "federal.food_security": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "agriculture_food_security",
+              "desk_event_agriculture_pleb_seen",
+              "agriculture_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "pleb_reform",
+          "label": "Reformski paket farmi.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "agriculture": {
+                "posture": "reform_support"
+              }
+            },
+            "federal.reform_momentum": 2,
+            "federal.food_security": 2,
+            "flags_add": [
+              "agriculture_reform_support",
+              "desk_event_agriculture_pleb_seen",
+              "agriculture_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "pleb_relief",
+          "label": "Olakšice farmama.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "agriculture": {
+                "posture": "farm_relief"
+              }
+            },
+            "federal.food_security": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "agriculture_farm_relief",
+              "desk_event_agriculture_pleb_seen",
+              "agriculture_quiet_paper"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_fond_agriculture_liaison",
+      "date": "1990-12-19",
+      "act": 4,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Fond ↔ Poljoprivreda: južni kanal",
+      "location": "Beograd — Fond / Poljoprivreda",
+      "briefing": "Fond i Poljoprivreda mogu dijeliti južni prehrambeni kanal — farme bez fronte. Tihi papir. Nema rata.",
+      "constitutional_note": "Kanal ne čini Markovića predsjednikom Jugoslavije.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_agriculture_open_seen",
+          "fond_open_south",
+          "agriculture_farm_relief",
+          "fond_agriculture_liaison",
+          "desk_event_agriculture_pleb_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "fond_link",
+          "label": "Otvori Fond–Poljoprivreda kanal.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "fond": {
+                "posture": "open_south"
+              },
+              "agriculture": {
+                "posture": "farm_relief"
+              }
+            },
+            "federal.food_security": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "fond_agriculture_liaison",
+              "agriculture_farm_relief",
+              "desk_event_fond_agriculture_liaison_seen",
+              "agriculture_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "fond_accept",
+          "label": "Prihvati prehrambeni koridor u Fondu.",
+          "legal": "political",
+          "effects": {
+            "federal.food_security": 2,
+            "federal.reform_momentum": 1,
+            "flags_add": [
+              "fond_agriculture_food",
+              "agriculture_farm_relief",
+              "desk_event_fond_agriculture_liaison_seen",
+              "agriculture_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "fond_hold",
+          "label": "Zadrži odvojene šaltere.",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "desk_event_fond_agriculture_liaison_seen"
+            ]
+          }
+        }
+      ]
     }
   ]
 }
