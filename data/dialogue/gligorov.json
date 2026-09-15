@@ -1,0 +1,119 @@
+{
+  "id": "gligorov",
+  "speaker": "Kiro Gligorov",
+  "title": "Predsjednik SR Makedonije",
+  "desk": "presidency",
+  "available_from": "1991-01-27",
+  "unlock": {},
+  "nodes": {
+    "start": {
+      "text": "Gligorov sjedi mirno. „Skopje traži jednakost i miran stol — konfederalni jezik, EEZ promatrači kao nota, medijacija. Ali nemojte mi staviti na stol papir Izetbegović–Gligorov. To je lipanj. Mi smo još u Slice A. Odbijam taj okvir.“",
+      "choices": [
+        {
+          "id": "confederal",
+          "label": "Konfederalni stol s jednakim republikama (bez I–G papira).",
+          "next": "conf",
+          "effects": {
+            "desk_add": { "presidency": { "loyalty": 3 } },
+            "federal.legitimacy": 2,
+            "MK.federal_trust": 6,
+            "charter_signatures_min": 1,
+            "flags_add": [
+              "talked_gligorov",
+              "dialogue_gligorov_conf",
+              "confederal_talks_open",
+              "slovenia_invited_back"
+            ],
+            "desk_set": { "presidency": { "posture": "mediate" } }
+          }
+        },
+        {
+          "id": "ec_obs",
+          "label": "EEZ promatrači — nota, ne priznanje.",
+          "next": "ec",
+          "effects": {
+            "desk_add": { "ssp": { "capacity": 2 }, "fer": { "capacity": 2 } },
+            "federal.international_standing": 4,
+            "MK.federal_trust": 4,
+            "flags_add": [
+              "talked_gligorov",
+              "dialogue_gligorov_ec",
+              "ssp_ec_track",
+              "ec_troika_watching",
+              "fer_ec_note"
+            ],
+            "desk_set": { "ssp": { "posture": "ec_track" } }
+          }
+        },
+        {
+          "id": "refuse_ig",
+          "label": "Pitaj za zajednički nacrt s Izetbegovićem.",
+          "next": "refuse",
+          "effects": {
+            "desk_add": { "presidency": { "agenda_tension": 2 } },
+            "MK.federal_trust": 1,
+            "flags_add": [
+              "talked_gligorov",
+              "dialogue_gligorov_refuse_ig"
+            ]
+          }
+        }
+      ]
+    },
+    "conf": {
+      "text": "„Dobro. Stol nije kapitulacija. E3 traži povelju i organ koji se još sastaje — ne zastoj. Marković ostaje predsjednik SIV-a.“",
+      "choices": [
+        {
+          "id": "end_conf",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": { "federal.war_risk": -1 }
+        }
+      ]
+    },
+    "ec": {
+      "text": "„Nota EEZ-a su oči, ne priznanje. FER i SSP mogu nositi jezik. Lipanjski papir ostaje van dosjea.“",
+      "choices": [
+        {
+          "id": "end_ec",
+          "label": "Zatvori.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "refuse": {
+      "text": "Gligorov maše glavom. „Ne. Izetbegović–Gligorov nije na stolu do lipnja — a lipanj nije u ovom odsječku. Medijacija da. Taj nacrt — ne.“",
+      "choices": [
+        {
+          "id": "end_refuse",
+          "label": "Prihvati odbijanje.",
+          "next": null,
+          "effects": {
+            "federal.legitimacy": 1,
+            "flags_add": ["gligorov_refused_ig_frame"]
+          }
+        }
+      ]
+    }
+  },
+  "entries": [
+    {
+      "id": "start",
+      "node": "start",
+      "once": true,
+      "available_from": "1991-01-27"
+    },
+    {
+      "id": "revisit_spring",
+      "node": "start",
+      "once": true,
+      "priority": 2,
+      "available_from": "1991-03-01",
+      "require_done": true,
+      "unlock": {
+        "flags_any": ["confederal_talks_open", "ssp_ec_track", "talked_tupurkovski"]
+      }
+    }
+  ]
+}

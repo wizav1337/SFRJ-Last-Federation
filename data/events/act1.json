@@ -725,6 +725,112 @@
       ]
     },
     {
+      "id": "desk_assembly_open",
+      "date": "1990-03-01",
+      "act": 1,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Skupština SFRJ: otvoriti, zastoj ili pečat",
+      "location": "Beograd — Skupština SFRJ",
+      "briefing": "Dva vijeća još postoje. Možete otvoriti rad (zakoniti postupak, kvorum), gurnuti u zastoj, ili pečatirati akte za Markovićev SIV. assembly_function, legitimnost i autoritet SIV-a se mijenjaju. Nije fronta.",
+      "constitutional_note": "Skupština bira SIV. Marković = predsjednik SIV-a. Nema čina VI.",
+      "documents": [
+        "1974_federation"
+      ],
+      "requires": {
+        "flags_any": [
+          "multiparty_wave",
+          "markovic_mandate_strong",
+          "skj_split",
+          "skj_renounced_monopoly"
+        ]
+      },
+      "choices": [
+        {
+          "id": "open_work",
+          "label": "Otvori rad Skupštine. Rasprava i postupak.",
+          "legal": "assembly_statute",
+          "effects": {
+            "desk_set": {
+              "assembly": {
+                "posture": "session_open"
+              }
+            },
+            "desk_add": {
+              "assembly": {
+                "loyalty": 3,
+                "agenda_tension": -3
+              }
+            },
+            "federal.assembly_function": 5,
+            "federal.legitimacy": 3,
+            "federal.siv_authority": 2,
+            "flags_add": [
+              "assembly_open",
+              "assembly_quorum_ok",
+              "desk_event_assembly_open_seen"
+            ],
+            "flags_remove": [
+              "assembly_stalled",
+              "assembly_rubber_stamp"
+            ]
+          }
+        },
+        {
+          "id": "stall",
+          "label": "Dopusti zastoj. Nema kvoruma.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "assembly": {
+                "posture": "stalled"
+              }
+            },
+            "desk_add": {
+              "assembly": {
+                "agenda_tension": 6
+              }
+            },
+            "federal.assembly_function": -5,
+            "federal.legitimacy": -2,
+            "federal.siv_authority": -2,
+            "flags_add": [
+              "assembly_stalled",
+              "assembly_paralysis_risk",
+              "desk_event_assembly_open_seen"
+            ],
+            "flags_remove": [
+              "assembly_open",
+              "assembly_quorum_ok"
+            ]
+          }
+        },
+        {
+          "id": "rubber",
+          "label": "Pečatiraj akte za SIV — brzo, bez rasprave.",
+          "legal": "assembly_statute",
+          "effects": {
+            "desk_set": {
+              "assembly": {
+                "posture": "rubber_stamp"
+              }
+            },
+            "federal.assembly_function": -2,
+            "federal.siv_authority": 4,
+            "federal.reform_momentum": 3,
+            "flags_add": [
+              "assembly_rubber_stamp",
+              "desk_event_assembly_open_seen"
+            ],
+            "flags_remove": [
+              "assembly_open",
+              "assembly_stalled"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "imf_standby",
       "date": "1990-03-01",
       "act": 1,
@@ -788,6 +894,94 @@
             "federal.siv_authority": -4,
             "SI.federal_trust": -3,
             "RS.skj_hold": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_fer_open",
+      "date": "1990-03-18",
+      "act": 1,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "FER: trgovina, MMF, carine",
+      "location": "Beograd — Savezni sekretarijat za vanjske ekonomske odnose",
+      "briefing": "FER sada ima šalter. Otvorite trgovinske koridore, držite sučelje MMF-a uz SIV, ili zategnite carine. Marković ostaje predsjednik SIV-a — FER izvršava. Nema raspada banke.",
+      "constitutional_note": "FER je sekretarijat pod SIV-om. Marković ≠ predsjednik Jugoslavije.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "markovic_dinar_program",
+          "imf_standby_active",
+          "markovic_mandate_strong",
+          "multiparty_wave"
+        ]
+      },
+      "choices": [
+        {
+          "id": "trade",
+          "label": "Otvori trgovinske koridore (FER).",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "fer": {
+                "posture": "trade_open"
+              }
+            },
+            "federal.inter_republic_trade": 4,
+            "federal.hard_currency": 2,
+            "federal.international_standing": 2,
+            "flags_add": [
+              "fer_trade_open",
+              "desk_event_fer_open_seen"
+            ],
+            "flags_remove": [
+              "fer_customs_hard"
+            ]
+          }
+        },
+        {
+          "id": "imf",
+          "label": "Drži MMF sučelje uz SIV.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "fer": {
+                "posture": "imf_line"
+              }
+            },
+            "federal.imf_pressure": -2,
+            "federal.hard_currency": 3,
+            "federal.international_standing": 3,
+            "flags_add": [
+              "fer_imf_line",
+              "imf_standby_active",
+              "desk_event_fer_open_seen"
+            ]
+          }
+        },
+        {
+          "id": "customs",
+          "label": "Tvrde carine — pritisak na zaobilaznice.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "fer": {
+                "posture": "customs_hard"
+              }
+            },
+            "federal.inter_republic_trade": -3,
+            "federal.federal_budget": 2,
+            "SI.federal_trust": -2,
+            "HR.federal_trust": -2,
+            "flags_add": [
+              "fer_customs_hard",
+              "customs_war_active",
+              "desk_event_fer_open_seen"
+            ],
+            "flags_remove": [
+              "fer_trade_open"
+            ]
           }
         }
       ]

@@ -85,6 +85,81 @@
       ]
     },
     {
+      "id": "republic_voice_gligorov",
+      "date": "1991-01-28",
+      "act": 5,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Glas Gligorova (Skopje)",
+      "location": "Skopje / Beograd — savezni koridor",
+      "briefing": "Kiro Gligorov nudi konfederalni jezik i EEZ note — i odbija okvir Izetbegović–Gligorov. Taj papir je lipanj 1991., van Slice A. Medijacija da; I–G nacrt — ne.",
+      "constitutional_note": "Izetbegović–Gligorov NIJE dostupan. E3 pravilo stoji. Marković = SIV.",
+      "documents": [
+        "1974_presidency"
+      ],
+      "requires": {
+        "units.MK.election_held": true,
+        "flags_not": [
+          "desk_event_gligorov_voice_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "conf_g",
+          "label": "Konfederalni stol (bez I–G papira).",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            },
+            "MK.federal_trust": 5,
+            "charter_signatures_min": 1,
+            "flags_add": [
+              "dialogue_gligorov_conf",
+              "confederal_talks_open",
+              "talked_gligorov",
+              "republic_voice_gligorov_seen",
+              "desk_event_gligorov_voice_seen"
+            ]
+          }
+        },
+        {
+          "id": "ec_g",
+          "label": "EEZ promatrači — nota.",
+          "legal": "political",
+          "effects": {
+            "federal.international_standing": 4,
+            "MK.federal_trust": 3,
+            "flags_add": [
+              "dialogue_gligorov_ec",
+              "ssp_ec_track",
+              "ec_troika_watching",
+              "talked_gligorov",
+              "republic_voice_gligorov_seen",
+              "desk_event_gligorov_voice_seen"
+            ]
+          }
+        },
+        {
+          "id": "refuse_frame",
+          "label": "Prihvati odbijanje I–G okvira.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "gligorov_refused_ig_frame",
+              "dialogue_gligorov_refuse_ig",
+              "talked_gligorov",
+              "republic_voice_gligorov_seen",
+              "desk_event_gligorov_voice_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "disarm_paramilitaries",
       "date": "1991-01-09",
       "act": 5,
@@ -432,6 +507,95 @@
               "skj_dissolved",
               "skj_renounced_monopoly",
               "desk_event_skj_spring_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_assembly_spring91",
+      "date": "1991-02-25",
+      "act": 5,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Skupština u proljeće 1991.",
+      "location": "Beograd — Skupština SFRJ",
+      "briefing": "Pred svibnjem Skupština može obnoviti kvorum, pečatirati reforme, ili kliznuti u zastoj. assembly_function hrani legitimnost i SIV. Nema čina VI; nema lipanjskog rata.",
+      "constitutional_note": "E3: povelja + Predsjedništvo koje se sastaje. Zastoj Skupštine nije fronta, ali kida reforme.",
+      "documents": [
+        "1974_federation"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_assembly_open_seen",
+          "desk_event_assembly_votes_seen",
+          "assembly_open",
+          "assembly_stalled",
+          "assembly_rubber_stamp"
+        ],
+        "flags_not": [
+          "desk_event_assembly_spring_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "quorum_spring",
+          "label": "Obnovi kvorum i otvoreni rad.",
+          "legal": "assembly_statute",
+          "effects": {
+            "desk_set": {
+              "assembly": {
+                "posture": "session_open"
+              }
+            },
+            "federal.assembly_function": 4,
+            "federal.legitimacy": 2,
+            "federal.reform_momentum": 2,
+            "flags_add": [
+              "assembly_open",
+              "assembly_quorum_ok",
+              "desk_event_assembly_spring_seen"
+            ],
+            "flags_remove": [
+              "assembly_stalled",
+              "assembly_paralysis_risk"
+            ]
+          }
+        },
+        {
+          "id": "rubber_spring",
+          "label": "Pečatiraj svibnjske akte za SIV.",
+          "legal": "assembly_statute",
+          "effects": {
+            "desk_set": {
+              "assembly": {
+                "posture": "rubber_stamp"
+              }
+            },
+            "federal.siv_authority": 3,
+            "federal.assembly_function": -1,
+            "flags_add": [
+              "assembly_rubber_stamp",
+              "desk_event_assembly_spring_seen"
+            ]
+          }
+        },
+        {
+          "id": "stall_spring",
+          "label": "Dopusti zastoj pred rotacijom.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "assembly": {
+                "posture": "stalled"
+              }
+            },
+            "federal.assembly_function": -5,
+            "federal.legitimacy": -2,
+            "flags_add": [
+              "assembly_stalled",
+              "assembly_paralysis_risk",
+              "desk_event_assembly_spring_seen"
             ]
           }
         }
@@ -900,6 +1064,80 @@
       ]
     },
     {
+      "id": "mediation_izetbegovic_gate",
+      "date": "1991-04-12",
+      "act": 5,
+      "desk": "PRET",
+      "priority": "regional",
+      "title": "Medijacija: Izetbegović (bez I–G nacrta)",
+      "location": "Sarajevo / Beograd — mirnodopski koridor",
+      "briefing": "Gated medijacija s Izetbegovićem. Samo most. Papir Izetbegović–Gligorov nije na stol — lipanj je van Slice A. Ako netko traži taj nacrt, odgovor je odbijanje.",
+      "constitutional_note": "Izetbegović–Gligorov NIJE dostupan na ovoj kartici. E3 pravilo ne diramo. Nema čina VI.",
+      "documents": [
+        "1974_presidency"
+      ],
+      "requires": {
+        "flags_any": [
+          "sda_sds_hdz_bosnia",
+          "talked_bogicevic",
+          "republic_voice_bih_seen",
+          "confederal_talks_open"
+        ],
+        "flags_not": [
+          "desk_event_izetbegovic_gate_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "mediate_i",
+          "label": "Samo medijacija — BiH kao most.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            },
+            "federal.presidency_cohesion": 3,
+            "BA.federal_trust": 3,
+            "BA.interethnic_tension": -2,
+            "flags_add": [
+              "dialogue_izetbegovic_mediate",
+              "talked_izetbegovic",
+              "presidency_mediation_active",
+              "desk_event_izetbegovic_gate_seen"
+            ]
+          }
+        },
+        {
+          "id": "refuse_ig_card",
+          "label": "Traži I–G nacrt — primi odbijanje.",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "izetbegovic_refused_ig_frame",
+              "dialogue_izetbegovic_refuse_ig",
+              "talked_izetbegovic",
+              "desk_event_izetbegovic_gate_seen"
+            ],
+            "federal.legitimacy": 1
+          }
+        },
+        {
+          "id": "defer_i",
+          "label": "Odgodi. Tihi kanal.",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "dialogue_izetbegovic_quiet",
+              "talked_izetbegovic",
+              "desk_event_izetbegovic_gate_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "desk_sdb_leash_may",
       "date": "1991-04-22",
       "act": 5,
@@ -1174,7 +1412,7 @@
       "priority": "regional",
       "title": "FER / trgovina: tihi koridor pred 15. V",
       "location": "Beograd — Savezni sekretarijat za vanjske ekonomske odnose",
-      "briefing": "FER (vanjski ekonomski odnosi) nije šalter u Pass 1–3, ali kartica veže financije/NBJ i carine. Pred svibnjem: otvori koridor, drži MMF liniju, ili smrzni transfer uz rizik. Nije raspada banke. Marković = predsjednik SIV-a.",
+      "briefing": "Šalter FER sada postoji. Pred svibnjem: otvori koridor, drži MMF liniju, ili smrzni/zategni carine. Marković = predsjednik SIV-a. Nije raspada banke.",
       "constitutional_note": "Nema čina VI. Lipanj nije na stolu.",
       "documents": [],
       "requires": {
@@ -1183,7 +1421,11 @@
           "imf_standby_active",
           "nby_tight_dinar",
           "finance_transfers_open",
-          "nby_reserves_held"
+          "nby_reserves_held",
+          "fer_trade_open",
+          "fer_imf_line",
+          "fer_customs_hard",
+          "desk_event_fer_open_seen"
         ],
         "flags_not": [
           "desk_event_fer_may_seen"
@@ -1196,6 +1438,9 @@
           "legal": "siv",
           "effects": {
             "desk_set": {
+              "fer": {
+                "posture": "trade_open"
+              },
               "finance": {
                 "posture": "open"
               }
@@ -1204,10 +1449,13 @@
             "federal.war_risk": -1,
             "flags_add": [
               "finance_transfers_open",
+              "fer_trade_open",
               "desk_event_fer_may_seen"
             ],
             "flags_remove": [
-              "finance_transfer_freeze"
+              "finance_transfer_freeze",
+              "fer_customs_hard",
+              "customs_war_active"
             ]
           }
         },
@@ -1225,16 +1473,25 @@
             "federal.hard_currency": 2,
             "flags_add": [
               "finance_imf_aligned",
+              "fer_imf_line",
               "desk_event_fer_may_seen"
-            ]
+            ],
+            "desk_set": {
+              "fer": {
+                "posture": "imf_line"
+              }
+            }
           }
         },
         {
           "id": "freeze",
-          "label": "Smrzni transfer — kratkoročni proračun, dugoročni rizik.",
+          "label": "Zategni carine / smrzni koridor — kratkoročni proračun, dugoročni rizik.",
           "legal": "siv",
           "effects": {
             "desk_set": {
+              "fer": {
+                "posture": "customs_hard"
+              },
               "finance": {
                 "posture": "freeze"
               }
@@ -1244,6 +1501,8 @@
             "HR.federal_trust": -3,
             "flags_add": [
               "finance_transfer_freeze",
+              "fer_customs_hard",
+              "customs_war_active",
               "desk_event_fer_may_seen"
             ]
           }

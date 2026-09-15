@@ -1216,6 +1216,91 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_fer_customs_autumn",
+      "date": "1990-10-05",
+      "act": 3,
+      "desk": "SIV",
+      "priority": "regional",
+      "title": "FER / carine u jesen",
+      "location": "Beograd — FER",
+      "briefing": "Carinski rat ili tihi koridor. FER može smiriti, zategnuti ili držati MMF liniju uz knjige SIV-a. Marković = predsjednik SIV-a.",
+      "constitutional_note": "Nema lipanjskog rata. Carine nisu fronta.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "customs_war_active",
+          "fer_customs_hard",
+          "fer_trade_open",
+          "desk_event_fer_open_seen",
+          "finance_transfers_open"
+        ]
+      },
+      "choices": [
+        {
+          "id": "ease",
+          "label": "Smiri carine — tihi koridor.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "fer": {
+                "posture": "trade_open"
+              }
+            },
+            "federal.inter_republic_trade": 5,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "customs_war_resolved",
+              "fer_trade_open",
+              "fer_customs_eased",
+              "desk_event_fer_autumn_seen"
+            ],
+            "flags_remove": [
+              "customs_war_active",
+              "fer_customs_hard"
+            ]
+          }
+        },
+        {
+          "id": "tighten",
+          "label": "Zategni carine.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "fer": {
+                "posture": "customs_hard"
+              }
+            },
+            "federal.inter_republic_trade": -4,
+            "federal.federal_budget": 2,
+            "flags_add": [
+              "customs_war_active",
+              "fer_customs_hard",
+              "desk_event_fer_autumn_seen"
+            ]
+          }
+        },
+        {
+          "id": "imf_keep",
+          "label": "Drži MMF/FER liniju.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "fer": {
+                "posture": "imf_line"
+              }
+            },
+            "federal.imf_pressure": -2,
+            "federal.hard_currency": 2,
+            "flags_add": [
+              "fer_imf_line",
+              "imf_standby_active",
+              "desk_event_fer_autumn_seen"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

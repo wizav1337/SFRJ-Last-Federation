@@ -41,6 +41,13 @@ export function recomputeWarRisk(state) {
   if (state.flags.confederal_skj_memo) w -= 0.5;
   if (state.flags.dialogue_bogicevic_mediate) w -= 0.5;
   if (state.flags.dialogue_bogicevic_bloc) w += 1;
+  if (state.flags.assembly_stalled || state.flags.assembly_paralysis_risk) w += 0.5;
+  if (state.flags.assembly_open || state.flags.assembly_quorum_ok) w -= 0.3;
+  if (state.flags.fer_customs_hard) w += 0.5;
+  if (state.flags.fer_trade_open || state.flags.fer_customs_eased) w -= 0.3;
+  if (state.flags.dialogue_bucin_bloc || state.flags.me_serbia_bloc) w += 0.5;
+  if (state.flags.dialogue_bucin_soft || state.flags.dialogue_bucin_quorum) w -= 0.4;
+  if (state.flags.dialogue_gligorov_conf || state.flags.dialogue_izetbegovic_mediate) w -= 0.4;
   state.federal.war_risk = clamp(w);
 }
 
@@ -138,6 +145,15 @@ export function buildMonthlyReport(state, before, months) {
   if (state.flags.talked_racan) drivers.push("razgovor s Račanom (SKH–SDP)");
   if (state.flags.confederal_skj_memo) drivers.push("memorandum SKJ uz otvoreni konfederalni stol");
   if (state.flags.dialogue_jovic_skj) drivers.push("Jović čita zastavice SKJ");
+  if (state.desks?.assembly?.posture === "session_open" || state.flags.assembly_open) drivers.push("Skupština: otvoreni rad");
+  if (state.desks?.assembly?.posture === "stalled" || state.flags.assembly_stalled) drivers.push("Skupština u zastoju");
+  if (state.desks?.assembly?.posture === "rubber_stamp" || state.flags.assembly_rubber_stamp) drivers.push("Skupština pečatira akte");
+  if (state.desks?.fer?.posture === "trade_open" || state.flags.fer_trade_open) drivers.push("FER: otvorena trgovina");
+  if (state.desks?.fer?.posture === "imf_line" || state.flags.fer_imf_line) drivers.push("FER: linija MMF uz SIV");
+  if (state.desks?.fer?.posture === "customs_hard" || state.flags.fer_customs_hard) drivers.push("FER: tvrde carine");
+  if (state.flags.talked_gligorov || state.flags.republic_voice_gligorov_seen) drivers.push("glas Gligorova (Skopje)");
+  if (state.flags.talked_bucin || state.flags.republic_voice_me_seen) drivers.push("glas Crne Gore (Titograd)");
+  if (state.flags.talked_izetbegovic) drivers.push("medijacija s Izetbegovićem (bez I–G)");
 
   return {
     months: months || 1,

@@ -245,6 +245,16 @@ function pathNotes(state) {
   if (state.flags.dialogue_jovic_skj) notes.push(t("path.jovicSkj"));
   if (state.flags.republic_voice_bih_seen) notes.push(t("path.voiceBih"));
   if (state.flags.republic_voice_mk_seen) notes.push(t("path.voiceMk"));
+  if (state.flags.republic_voice_me_seen) notes.push(t("path.voiceMe"));
+  if (state.flags.republic_voice_gligorov_seen || state.flags.talked_gligorov) notes.push(t("path.talkGligorov"));
+  if (state.flags.talked_bucin) notes.push(t("path.talkBucin"));
+  if (state.flags.talked_izetbegovic) notes.push(t("path.talkIzetbegovic"));
+  if (state.flags.assembly_open) notes.push(t("path.assemblyOpen"));
+  else if (state.flags.assembly_stalled) notes.push(t("path.assemblyStalled"));
+  else if (state.flags.assembly_rubber_stamp) notes.push(t("path.assemblyRubber"));
+  if (state.flags.fer_trade_open) notes.push(t("path.ferTrade"));
+  else if (state.flags.fer_imf_line) notes.push(t("path.ferImf"));
+  else if (state.flags.fer_customs_hard) notes.push(t("path.ferCustoms"));
   const stack = confederalStackDepth(state);
   if (stack >= 3) notes.push(t("path.stackDepth", { n: stack }));
   return notes;

@@ -81,3 +81,4 @@ Default UI language remains Croatian (ijekavica). IDs and flags stay English. `d
 - **Pass 3** (`expand/pass3-depth`): multi-visit dialogue, shared attention, SSUP/SDB leash depth, stronger E3 stack + live near-miss UI, gated Act II–V events, encyclopedia/chip polish, save_schema 3
 - **Pass 4** (`expand/pass4-systems`): attention spend UX, conflict soft-lock, Justice desk, Act I / late Act V cards, Drnovšek revisits, Presidency vote × desk posture, encyclopedia + en.json + CSS polish, headless smoke, save_schema 4
 - **Pass 5** (`expand/pass5-skj-voices`): SKJ remnant desk, Bogićević/Tupurkovski/Račan dialogues, Jović SKJ revisit, gated Act I–V cards (SKJ / SSP EC / BiH–MK voices / memo / attention), monthly drivers + path notes, save_schema 5
+- **Pass 6** (`expand/pass6-assembly-fer`): Skupština + FER desks, Gligorov/Bućin/Izetbegović (mediation-only) dialogues, gated Act I–V cards, monthly/FER coupling, save_schema 6
