@@ -899,94 +899,6 @@
       ]
     },
     {
-      "id": "desk_fer_open",
-      "date": "1990-03-18",
-      "act": 1,
-      "desk": "SIV",
-      "priority": "federal",
-      "title": "FER: trgovina, MMF, carine",
-      "location": "Beograd — Savezni sekretarijat za vanjske ekonomske odnose",
-      "briefing": "FER sada ima šalter. Otvorite trgovinske koridore, držite sučelje MMF-a uz SIV, ili zategnite carine. Marković ostaje predsjednik SIV-a — FER izvršava. Nema raspada banke.",
-      "constitutional_note": "FER je sekretarijat pod SIV-om. Marković ≠ predsjednik Jugoslavije.",
-      "documents": [],
-      "requires": {
-        "flags_any": [
-          "markovic_dinar_program",
-          "imf_standby_active",
-          "markovic_mandate_strong",
-          "multiparty_wave"
-        ]
-      },
-      "choices": [
-        {
-          "id": "trade",
-          "label": "Otvori trgovinske koridore (FER).",
-          "legal": "siv",
-          "effects": {
-            "desk_set": {
-              "fer": {
-                "posture": "trade_open"
-              }
-            },
-            "federal.inter_republic_trade": 4,
-            "federal.hard_currency": 2,
-            "federal.international_standing": 2,
-            "flags_add": [
-              "fer_trade_open",
-              "desk_event_fer_open_seen"
-            ],
-            "flags_remove": [
-              "fer_customs_hard"
-            ]
-          }
-        },
-        {
-          "id": "imf",
-          "label": "Drži MMF sučelje uz SIV.",
-          "legal": "siv",
-          "effects": {
-            "desk_set": {
-              "fer": {
-                "posture": "imf_line"
-              }
-            },
-            "federal.imf_pressure": -2,
-            "federal.hard_currency": 3,
-            "federal.international_standing": 3,
-            "flags_add": [
-              "fer_imf_line",
-              "imf_standby_active",
-              "desk_event_fer_open_seen"
-            ]
-          }
-        },
-        {
-          "id": "customs",
-          "label": "Tvrde carine — pritisak na zaobilaznice.",
-          "legal": "siv",
-          "effects": {
-            "desk_set": {
-              "fer": {
-                "posture": "customs_hard"
-              }
-            },
-            "federal.inter_republic_trade": -3,
-            "federal.federal_budget": 2,
-            "SI.federal_trust": -2,
-            "HR.federal_trust": -2,
-            "flags_add": [
-              "fer_customs_hard",
-              "customs_war_active",
-              "desk_event_fer_open_seen"
-            ],
-            "flags_remove": [
-              "fer_trade_open"
-            ]
-          }
-        }
-      ]
-    },
-    {
       "id": "desk_nby_dinar_watch",
       "date": "1990-03-08",
       "act": 1,
@@ -1070,6 +982,92 @@
             },
             "flags_add": [
               "desk_event_nby_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_fond_open",
+      "date": "1990-03-08",
+      "act": 1,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Fond za nerazvijene: južni koridor",
+      "location": "Beograd — Federalni fond za nerazvijene",
+      "briefing": "Fond sada ima šalter. Otvorite jug (MK/ME/BA/XK), smrznite doprinose, ili ciljajte uži koridor MK–ME. Marković ostaje predsjednik SIV-a — Fond izvršava transfer. Nema fronte; Titograd ostaje Titograd.",
+      "constitutional_note": "Fond je sekretarijat pod SIV-om. Marković ≠ predsjednik Jugoslavije.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "markovic_dinar_program",
+          "markovic_mandate_strong",
+          "multiparty_wave",
+          "imf_standby_active"
+        ]
+      },
+      "choices": [
+        {
+          "id": "open_south",
+          "label": "Otvori jug: transferi bez političkog pečata.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "fond": {
+                "posture": "open_south"
+              }
+            },
+            "MK.living_standard": 2,
+            "ME.living_standard": 2,
+            "BA.living_standard": 1,
+            "federal.federal_budget": -1,
+            "flags_add": [
+              "fond_open_south",
+              "desk_event_fond_open_seen"
+            ],
+            "flags_remove": [
+              "fond_freeze"
+            ]
+          }
+        },
+        {
+          "id": "freeze",
+          "label": "Smrzni Fond — pritisak na neplatiše.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "fond": {
+                "posture": "freeze"
+              }
+            },
+            "federal.federal_budget": 2,
+            "MK.federal_trust": -3,
+            "ME.federal_trust": -2,
+            "flags_add": [
+              "fond_freeze",
+              "desk_event_fond_open_seen"
+            ],
+            "flags_remove": [
+              "fond_open_south"
+            ]
+          }
+        },
+        {
+          "id": "target",
+          "label": "Ciljaj MK i ME užim koridorom.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "fond": {
+                "posture": "target_mk_me"
+              }
+            },
+            "MK.living_standard": 2,
+            "ME.living_standard": 2,
+            "BA.federal_trust": -1,
+            "flags_add": [
+              "fond_target_mk_me",
+              "desk_event_fond_open_seen"
             ]
           }
         }
@@ -1209,6 +1207,94 @@
             "SI.to_control": 6,
             "HR.to_control": 6,
             "federal.war_risk": 4
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_fer_open",
+      "date": "1990-03-18",
+      "act": 1,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "FER: trgovina, MMF, carine",
+      "location": "Beograd — Savezni sekretarijat za vanjske ekonomske odnose",
+      "briefing": "FER sada ima šalter. Otvorite trgovinske koridore, držite sučelje MMF-a uz SIV, ili zategnite carine. Marković ostaje predsjednik SIV-a — FER izvršava. Nema raspada banke.",
+      "constitutional_note": "FER je sekretarijat pod SIV-om. Marković ≠ predsjednik Jugoslavije.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "markovic_dinar_program",
+          "imf_standby_active",
+          "markovic_mandate_strong",
+          "multiparty_wave"
+        ]
+      },
+      "choices": [
+        {
+          "id": "trade",
+          "label": "Otvori trgovinske koridore (FER).",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "fer": {
+                "posture": "trade_open"
+              }
+            },
+            "federal.inter_republic_trade": 4,
+            "federal.hard_currency": 2,
+            "federal.international_standing": 2,
+            "flags_add": [
+              "fer_trade_open",
+              "desk_event_fer_open_seen"
+            ],
+            "flags_remove": [
+              "fer_customs_hard"
+            ]
+          }
+        },
+        {
+          "id": "imf",
+          "label": "Drži MMF sučelje uz SIV.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "fer": {
+                "posture": "imf_line"
+              }
+            },
+            "federal.imf_pressure": -2,
+            "federal.hard_currency": 3,
+            "federal.international_standing": 3,
+            "flags_add": [
+              "fer_imf_line",
+              "imf_standby_active",
+              "desk_event_fer_open_seen"
+            ]
+          }
+        },
+        {
+          "id": "customs",
+          "label": "Tvrde carine — pritisak na zaobilaznice.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "fer": {
+                "posture": "customs_hard"
+              }
+            },
+            "federal.inter_republic_trade": -3,
+            "federal.federal_budget": 2,
+            "SI.federal_trust": -2,
+            "HR.federal_trust": -2,
+            "flags_add": [
+              "fer_customs_hard",
+              "customs_war_active",
+              "desk_event_fer_open_seen"
+            ],
+            "flags_remove": [
+              "fer_trade_open"
+            ]
           }
         }
       ]

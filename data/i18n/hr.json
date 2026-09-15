@@ -623,5 +623,21 @@
   "path.ferCustoms": "FER: tvrde carine",
   "ency.timelinePass6": "šalteri Skupština + FER; Gligorov / Bućin / Izetbegović (medijacija); gated kartice; save_schema 6",
   "desk.posture.session_open": "Otvoreni rad",
-  "desk.chip.session_open": "Sjednica"
+  "desk.chip.session_open": "Sjednica",
+  "path.fondOpen": "Fond: otvoren jug",
+  "path.fondFreeze": "Fond smrznut",
+  "path.fondTarget": "Fond: cilj MK–ME",
+  "path.fondPoliticized": "Fond politiziran",
+  "path.sivFond": "SIV vezan uz Fond",
+  "path.jnaQuiet": "JNA: tiha preraspodjela (bez prijetnje)",
+  "path.southBalance": "Predsjedništvo: južna ravnoteža",
+  "path.fondMemo": "memorandum Fond uz konfederalni stol",
+  "path.talkBulatovic": "razgovor s Bulatovićem (Titograd)",
+  "path.markovicFond": "Marković o Fondu/MMF",
+  "desk.posture.open_south": "Otvoren jug",
+  "desk.posture.target_mk_me": "Cilj MK–ME",
+  "desk.posture.politicized": "Politiziran",
+  "desk.chip.open_south": "Jug",
+  "desk.chip.target_mk_me": "MK–ME",
+  "desk.chip.politicized": "Polit."
 }

@@ -21,12 +21,12 @@ Desktop-first, 1280×720 minimum.
 
 ## What is in the shell
 
-- Title / new game / continue (`localStorage` key `sfrj1990.v1`, schema ≥ 5) / encyclopedia (timeline + E1–E5 + desks/dialogue + attention + E3 path)
+- Title / new game / continue (`localStorage` key `sfrj1990.v1`, schema ≥ 7) / encyclopedia (timeline + E1–E5 + desks/dialogue + attention + E3 path)
 - Map of eight 1990 SFRJ units (republics and provinces). Toggle **Raskol** vs **Savezna kontrola**
 - Unit inspector with control band, heat/tension, and trade readout
 - Agency strip + **Reforme** desk (shared attention with desks), including trade corridors and IMF review
-- **Šalteri** (department desks): JNA, SIV, Predsjedništvo, SSUP (SDB leash), SSP, Financije, TO, NBJ, Pravosuđe, **Ostatak SKJ** — loyalty / capacity / agenda + actions. Posture chips (overflow-safe) on the agency strip; posture feeds monthly drift, federal control, election weights, Presidency votes, and endings
-- **Razgovori**: multi-visit branching chats — Drnovšek revisits through 15 May 1990; Kučan/Jović/Marković/Mesić/Tuđman/Kadijević; Pass 5 adds Bogićević, Tupurkovski, Račan (SKH path) + Jović SKJ revisit. Flags + desk stats, not an LLM
+- **Šalteri** (department desks): JNA, SIV, Predsjedništvo, SSUP (SDB leash), SSP, Financije, TO, NBJ, Pravosuđe, **Ostatak SKJ**, Skupština, FER, **Fond** — loyalty / capacity / agenda + actions. Posture chips (overflow-safe) on the agency strip; posture feeds monthly drift, federal control, election weights, Presidency votes, and endings
+- **Razgovori**: multi-visit branching chats — Drnovšek revisits through 15 May 1990; Kučan/Jović/Marković/Mesić/Tuđman/Kadijević; Pass 5–7 add Bogićević, Tupurkovski, Račan, Gligorov, Bućin, Izetbegović (mediation), Bulatović + Marković Fond revisit. Flags + desk stats, not an LLM
 - **Shared attention UX**: reforms and desks burn the same monthly pool (3; 4 if SIV ≥ 60); UI shows spent on desks vs reforms vs remaining
 - **Soft-lock / conflict**: hardline desks + open confederal talks warn on the strip and tax hardline desk actions (+1 attention)
 - **Presidency vote × desks**: mediation / quorum / justice vs hardline JNA/SSUP adjust effective tally and cohesion
@@ -46,7 +46,7 @@ index.html          shell
 css/                tokens + layout
 js/                 boot, events, map, reforms, desks, dialogue, elections, endings, simulation
 data/events/        Acts I–V
-data/desks.json     department desk stats + actions (10 desks)
+data/desks.json     department desk stats + actions (13 desks)
 data/dialogue/      branching institutional chats (multi-visit entries)
 data/i18n/hr.json   Croatian UI chrome
 data/i18n/en.json   English chrome (Pass 4–5)
@@ -82,3 +82,4 @@ Default UI language remains Croatian (ijekavica). IDs and flags stay English. `d
 - **Pass 4** (`expand/pass4-systems`): attention spend UX, conflict soft-lock, Justice desk, Act I / late Act V cards, Drnovšek revisits, Presidency vote × desk posture, encyclopedia + en.json + CSS polish, headless smoke, save_schema 4
 - **Pass 5** (`expand/pass5-skj-voices`): SKJ remnant desk, Bogićević/Tupurkovski/Račan dialogues, Jović SKJ revisit, gated Act I–V cards (SKJ / SSP EC / BiH–MK voices / memo / attention), monthly drivers + path notes, save_schema 5
 - **Pass 6** (`expand/pass6-assembly-fer`): Skupština + FER desks, Gligorov/Bućin/Izetbegović (mediation-only) dialogues, gated Act I–V cards, monthly/FER coupling, save_schema 6
+- **Pass 7** (`expand/pass7-fond-core`): Fond za nerazvijene desk, deepen JNA/SIV/Presidency, Bulatović + Marković Fond revisit, gated Act I–V cards, save_schema 7

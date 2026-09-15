@@ -307,3 +307,43 @@ Akcije: `soft_federal_line` → `skj_soft_federation`; `hard_unity_rhetoric` →
 - `player_used_jna_threat` samo na namjernim tvrdim granama; `to_inventory_ordered` ekskluzivnost nepromijenjena
 - ID-ovi i zastavice engleski; UI hrvatski (ijekavica)
 
+
+
+---
+
+## Dodatak — Pass 7 `expand/pass7-fond-core`
+
+Šalter **Federalni fond za nerazvijene** (`fond`, agencija `federal_fund`); produbljeni JNA/SIV/Predsjedništvo; glas Bulatovića (CG / Titograd); Marković revisit Fonda/MMF; kartice čina I–V; `save_schema` 7; smoke proširen.
+
+### Nova / proširena kartica
+
+| Spis | Datum | Napomena |
+|---|---|---|
+| `desk_fond_open` | 1990-03-08 | Fond: otvoren jug / smrzavanje / cilj MK–ME |
+| `desk_jna_quiet_order` | 1990-04-22 | Tiha preraspodjela; **ne** pali `player_used_jna_threat` |
+| `desk_siv_fond_bind` | 1990-05-12 | SIV veže knjige uz Fond; Marković = SIV |
+| `desk_fond_autumn` | 1990-09-20 | Fond jesen; I–G samo isključenje |
+| `republic_voice_bulatovic` | 1990-12-28 | Glas Titograda; Titograd ostaje Titograd |
+| `desk_presidency_south` | 1991-02-08 | Južna ravnoteža Predsjedništva |
+| `desk_fond_spring91` | 1991-03-08 | Fond u proljeće 1991.; bez čina VI |
+| `confederal_fond_memo` | 1991-04-18 | Fond + konfederalni stol; I–G **nije** dostupan |
+
+### Razgovori
+
+- `bulatovic.json` — CG; Titograd; meka / blok / Fond
+- `markovic.json` — `revisit_fond` (SIV/Fond/MMF zastavice)
+
+### Šalteri
+
+- **fond**: `open_south` → `fond_open_south`; `freeze` → `fond_freeze`; `target_mk_me` → `fond_target_mk_me`; `politicized` → `fond_politicized`
+- **jna** `quiet_redistribute` → `jna_quiet_redistribute` (**bez** `player_used_jna_threat`)
+- **siv** `bind_fond` → `siv_fond_bind`
+- **presidency** `south_balance` → `presidency_south_balance`
+
+### Pravila koja nisu dirana
+
+- E3: otvorena povelja (≥4) + Predsjedništvo koje se može sastati; sjedenje Mesića ≠ blokada; blokada isključuje E3
+- Nema čina VI; nema lipanjskog rata; Izetbegović–Gligorov **nije** prihvatljiv papir (samo isključenje)
+- Marković = predsjednik **SIV-a**; Jović ≠ Milošević; Titograd ostaje Titograd
+- `player_used_jna_threat` samo na namjernim tvrdim granama; tiha JNA preraspodjela **ne** pali tu zastavicu
+- ID-ovi i zastavice engleski; UI hrvatski (ijekavica)

@@ -248,6 +248,79 @@
       ]
     },
     {
+      "id": "desk_jna_quiet_order",
+      "date": "1990-04-22",
+      "act": 2,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "JNA: tiha preraspodjela",
+      "location": "Beograd — Generalštab / Predsjedništvo",
+      "briefing": "Štab nudi tihu preraspodjelu garnizona — kasarne, ne ulice. To nije prijetnja republikama i ne pali zastavicu player_used_jna_threat. Alternativa: pripravnost (tvrđe) ili civilni lanac.",
+      "constitutional_note": "Zapovijedanje oružanim snagama je Predsjedništvo. Tiha preraspodjela ≠ mobilizacija.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "multiparty_wave",
+          "desk_event_jna_seen",
+          "jna_garrison_posture",
+          "jna_civilian_chain"
+        ],
+        "flags_not": [
+          "desk_event_jna_quiet_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "quiet",
+          "label": "Tiha preraspodjela — bez prijetnje.",
+          "legal": "presidency_decree",
+          "effects": {
+            "federal.jna_cohesion": 2,
+            "federal.war_risk": -1,
+            "SI.federal_trust": -1,
+            "HR.federal_trust": -1,
+            "flags_add": [
+              "jna_quiet_redistribute",
+              "desk_event_jna_quiet_seen"
+            ]
+          }
+        },
+        {
+          "id": "alert_soft",
+          "label": "Podigni pripravnost umjesto tihog reda.",
+          "legal": "presidency_decree",
+          "effects": {
+            "desk_set": {
+              "jna": {
+                "posture": "alert"
+              }
+            },
+            "federal.war_risk": 3,
+            "flags_add": [
+              "jna_mobilization_alert",
+              "desk_event_jna_quiet_seen"
+            ],
+            "flags_remove": [
+              "jna_garrison_posture"
+            ]
+          }
+        },
+        {
+          "id": "civilian",
+          "label": "Pojačaj civilni lanac umjesto preraspodjele.",
+          "legal": "presidency_decree",
+          "effects": {
+            "federal.jna_obedience_to_civilian": 4,
+            "federal.presidency_cohesion": 2,
+            "flags_add": [
+              "jna_civilian_chain",
+              "desk_event_jna_quiet_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "croatia_election",
       "date": "1990-05-06",
       "act": 2,
@@ -313,6 +386,89 @@
             "HR.opposition_org": 6,
             "HR.skj_hold": 3,
             "HR.secession_readiness": 4
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_siv_fond_bind",
+      "date": "1990-05-12",
+      "act": 2,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "SIV veže knjige uz Fond",
+      "location": "Beograd — Savezno izvršno vijeće",
+      "briefing": "Marković (predsjednik SIV-a) može vezati knjige uz Federalni fond, držati štednju, ili poticati transfer. Nema bitke. Fond nije zamjena za SIV.",
+      "constitutional_note": "Marković = predsjednik SIV-a, ne predsjednik Jugoslavije.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "desk_event_fond_open_seen",
+          "fond_open_south",
+          "fond_freeze",
+          "fond_target_mk_me",
+          "markovic_dinar_program"
+        ],
+        "flags_not": [
+          "desk_event_siv_fond_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "bind",
+          "label": "Veži SIV uz Fond — južni koridor.",
+          "legal": "siv",
+          "effects": {
+            "federal.siv_authority": 3,
+            "MK.living_standard": 2,
+            "ME.living_standard": 2,
+            "flags_add": [
+              "siv_fond_bind",
+              "fond_open_south",
+              "desk_event_siv_fond_seen",
+              "markovic_mandate_strong"
+            ],
+            "desk_set": {
+              "fond": {
+                "posture": "open_south"
+              }
+            }
+          }
+        },
+        {
+          "id": "austerity_keep",
+          "label": "Drži štednju; Fond sekundarno.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "siv": {
+                "posture": "austerity"
+              }
+            },
+            "federal.inflation": -2,
+            "federal.federal_budget": 2,
+            "flags_add": [
+              "siv_austerity_stance",
+              "desk_event_siv_fond_seen"
+            ]
+          }
+        },
+        {
+          "id": "stimulus_keep",
+          "label": "Poticaj bez specijalnog Fonda.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "siv": {
+                "posture": "stimulus"
+              }
+            },
+            "federal.inter_republic_trade": 3,
+            "flags_add": [
+              "siv_stimulus_stance",
+              "markovic_mandate_strong",
+              "desk_event_siv_fond_seen"
+            ]
           }
         }
       ]
@@ -523,90 +679,6 @@
       ]
     },
     {
-      "id": "desk_assembly_after_votes",
-      "date": "1990-05-28",
-      "act": 2,
-      "desk": "PRET",
-      "priority": "federal",
-      "title": "Skupština nakon proljetnih listića",
-      "location": "Beograd — Skupština SFRJ",
-      "briefing": "Nakon SI/HR izbora savezna Skupština osjeća novi Sabor. Možete obnoviti kvorum, pečatirati reforme za SIV, ili dopustiti zastoj. assembly_* zastavice i legitimnost.",
-      "constitutional_note": "Nema čina VI. Rotacija Predsjedništva nije raspad Skupštine.",
-      "documents": [
-        "1974_federation"
-      ],
-      "requires": {
-        "flags_any": [
-          "slovenia_election_held",
-          "croatia_election_held",
-          "desk_event_assembly_open_seen"
-        ]
-      },
-      "choices": [
-        {
-          "id": "restore_quorum",
-          "label": "Obnovi kvorum i otvoreni rad.",
-          "legal": "assembly_statute",
-          "effects": {
-            "desk_set": {
-              "assembly": {
-                "posture": "session_open"
-              }
-            },
-            "federal.assembly_function": 4,
-            "federal.legitimacy": 2,
-            "flags_add": [
-              "assembly_open",
-              "assembly_quorum_ok",
-              "desk_event_assembly_votes_seen"
-            ],
-            "flags_remove": [
-              "assembly_stalled",
-              "assembly_paralysis_risk"
-            ]
-          }
-        },
-        {
-          "id": "rubber_siv",
-          "label": "Pečatiraj pakete za SIV.",
-          "legal": "assembly_statute",
-          "effects": {
-            "desk_set": {
-              "assembly": {
-                "posture": "rubber_stamp"
-              }
-            },
-            "federal.siv_authority": 3,
-            "federal.reform_momentum": 2,
-            "federal.assembly_function": -1,
-            "flags_add": [
-              "assembly_rubber_stamp",
-              "desk_event_assembly_votes_seen"
-            ]
-          }
-        },
-        {
-          "id": "let_stall",
-          "label": "Neka zastoj traje.",
-          "legal": "political",
-          "effects": {
-            "desk_set": {
-              "assembly": {
-                "posture": "stalled"
-              }
-            },
-            "federal.assembly_function": -4,
-            "federal.siv_authority": -2,
-            "flags_add": [
-              "assembly_stalled",
-              "assembly_paralysis_risk",
-              "desk_event_assembly_votes_seen"
-            ]
-          }
-        }
-      ]
-    },
-    {
       "id": "hdz_government",
       "date": "1990-05-25",
       "act": 2,
@@ -730,6 +802,90 @@
             "HR.secession_readiness": -2,
             "flags_add": [
               "confederal_talks_open"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_assembly_after_votes",
+      "date": "1990-05-28",
+      "act": 2,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Skupština nakon proljetnih listića",
+      "location": "Beograd — Skupština SFRJ",
+      "briefing": "Nakon SI/HR izbora savezna Skupština osjeća novi Sabor. Možete obnoviti kvorum, pečatirati reforme za SIV, ili dopustiti zastoj. assembly_* zastavice i legitimnost.",
+      "constitutional_note": "Nema čina VI. Rotacija Predsjedništva nije raspad Skupštine.",
+      "documents": [
+        "1974_federation"
+      ],
+      "requires": {
+        "flags_any": [
+          "slovenia_election_held",
+          "croatia_election_held",
+          "desk_event_assembly_open_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "restore_quorum",
+          "label": "Obnovi kvorum i otvoreni rad.",
+          "legal": "assembly_statute",
+          "effects": {
+            "desk_set": {
+              "assembly": {
+                "posture": "session_open"
+              }
+            },
+            "federal.assembly_function": 4,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "assembly_open",
+              "assembly_quorum_ok",
+              "desk_event_assembly_votes_seen"
+            ],
+            "flags_remove": [
+              "assembly_stalled",
+              "assembly_paralysis_risk"
+            ]
+          }
+        },
+        {
+          "id": "rubber_siv",
+          "label": "Pečatiraj pakete za SIV.",
+          "legal": "assembly_statute",
+          "effects": {
+            "desk_set": {
+              "assembly": {
+                "posture": "rubber_stamp"
+              }
+            },
+            "federal.siv_authority": 3,
+            "federal.reform_momentum": 2,
+            "federal.assembly_function": -1,
+            "flags_add": [
+              "assembly_rubber_stamp",
+              "desk_event_assembly_votes_seen"
+            ]
+          }
+        },
+        {
+          "id": "let_stall",
+          "label": "Neka zastoj traje.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "assembly": {
+                "posture": "stalled"
+              }
+            },
+            "federal.assembly_function": -4,
+            "federal.siv_authority": -2,
+            "flags_add": [
+              "assembly_stalled",
+              "assembly_paralysis_risk",
+              "desk_event_assembly_votes_seen"
             ]
           }
         }

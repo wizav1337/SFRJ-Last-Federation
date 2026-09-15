@@ -255,6 +255,16 @@ function pathNotes(state) {
   if (state.flags.fer_trade_open) notes.push(t("path.ferTrade"));
   else if (state.flags.fer_imf_line) notes.push(t("path.ferImf"));
   else if (state.flags.fer_customs_hard) notes.push(t("path.ferCustoms"));
+  if (state.flags.fond_open_south) notes.push(t("path.fondOpen"));
+  else if (state.flags.fond_freeze) notes.push(t("path.fondFreeze"));
+  else if (state.flags.fond_target_mk_me) notes.push(t("path.fondTarget"));
+  else if (state.flags.fond_politicized) notes.push(t("path.fondPoliticized"));
+  if (state.flags.siv_fond_bind) notes.push(t("path.sivFond"));
+  if (state.flags.jna_quiet_redistribute) notes.push(t("path.jnaQuiet"));
+  if (state.flags.presidency_south_balance) notes.push(t("path.southBalance"));
+  if (state.flags.confederal_fond_memo) notes.push(t("path.fondMemo"));
+  if (state.flags.talked_bulatovic || state.flags.republic_voice_bulatovic_seen) notes.push(t("path.talkBulatovic"));
+  if (state.flags.dialogue_markovic_fond) notes.push(t("path.markovicFond"));
   const stack = confederalStackDepth(state);
   if (stack >= 3) notes.push(t("path.stackDepth", { n: stack }));
   return notes;

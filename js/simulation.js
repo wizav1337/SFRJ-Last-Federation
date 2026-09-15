@@ -48,6 +48,13 @@ export function recomputeWarRisk(state) {
   if (state.flags.dialogue_bucin_bloc || state.flags.me_serbia_bloc) w += 0.5;
   if (state.flags.dialogue_bucin_soft || state.flags.dialogue_bucin_quorum) w -= 0.4;
   if (state.flags.dialogue_gligorov_conf || state.flags.dialogue_izetbegovic_mediate) w -= 0.4;
+  if (state.flags.fond_freeze) w += 0.4;
+  if (state.flags.fond_open_south || state.flags.fond_target_mk_me) w -= 0.25;
+  if (state.flags.fond_politicized) w += 0.2;
+  if (state.flags.jna_quiet_redistribute) w -= 0.3;
+  if (state.flags.presidency_south_balance || state.flags.confederal_fond_memo) w -= 0.3;
+  if (state.flags.dialogue_bulatovic_bloc) w += 0.4;
+  if (state.flags.dialogue_bulatovic_soft || state.flags.dialogue_bulatovic_fond) w -= 0.3;
   state.federal.war_risk = clamp(w);
 }
 
@@ -154,6 +161,16 @@ export function buildMonthlyReport(state, before, months) {
   if (state.flags.talked_gligorov || state.flags.republic_voice_gligorov_seen) drivers.push("glas Gligorova (Skopje)");
   if (state.flags.talked_bucin || state.flags.republic_voice_me_seen) drivers.push("glas Crne Gore (Titograd)");
   if (state.flags.talked_izetbegovic) drivers.push("medijacija s Izetbegovićem (bez I–G)");
+  if (state.desks?.fond?.posture === "open_south" || state.flags.fond_open_south) drivers.push("Fond: otvoren jug");
+  if (state.desks?.fond?.posture === "freeze" || state.flags.fond_freeze) drivers.push("Fond smrznut");
+  if (state.desks?.fond?.posture === "target_mk_me" || state.flags.fond_target_mk_me) drivers.push("Fond: cilj MK–ME");
+  if (state.desks?.fond?.posture === "politicized" || state.flags.fond_politicized) drivers.push("Fond politiziran");
+  if (state.flags.siv_fond_bind) drivers.push("SIV vezan uz Fond");
+  if (state.flags.jna_quiet_redistribute) drivers.push("JNA: tiha preraspodjela (bez prijetnje)");
+  if (state.flags.presidency_south_balance) drivers.push("Predsjedništvo: južna ravnoteža");
+  if (state.flags.talked_bulatovic || state.flags.republic_voice_bulatovic_seen) drivers.push("glas Bulatovića (Titograd)");
+  if (state.flags.confederal_fond_memo) drivers.push("memorandum Fond uz konfederalni stol");
+  if (state.flags.dialogue_markovic_fond) drivers.push("Marković o Fondu/MMF");
 
   return {
     months: months || 1,

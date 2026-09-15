@@ -73,6 +73,23 @@ function deskDialogueElectionBias(unit, spec, state) {
   if (f.justice_constitutional_line || f.justice_arbitrate_line) d += 1;
   if (f.justice_hard_line && (id === "SI" || id === "HR")) d -= 2;
   if (f.dialogue_drnovsek_spring || f.dialogue_drnovsek_eve) d += id === "SI" ? 1 : 0;
+  // Fond (Pass 7)
+  if (f.fond_open_south || f.siv_fond_bind) d += (id === "MK" || id === "ME" || id === "BA" || id === "XK") ? 2 : 0;
+  if (f.fond_target_mk_me) {
+    if (id === "MK" || id === "ME") d += 2;
+    else if (id === "BA" || id === "XK") d -= 1;
+  }
+  if (f.fond_freeze && (id === "MK" || id === "ME" || id === "BA" || id === "XK")) d -= 2;
+  if (f.fond_politicized) {
+    if (id === "MK" || id === "ME") d += 1;
+    else if (id === "SI" || id === "HR") d -= 1;
+  }
+  if (f.dialogue_bulatovic_soft || f.dialogue_bulatovic_fond) d += id === "ME" ? 2 : 0;
+  if (f.dialogue_bulatovic_bloc) d += id === "ME" ? 1 : (id === "RS" ? 1 : 0);
+  if (f.jna_quiet_redistribute && (f.desk_event_jna_quiet_seen || f.desk_event_jna_seen)) {
+    d += id === "SI" || id === "HR" ? -1 : 1;
+  }
+  if (f.presidency_south_balance) d += (id === "MK" || id === "ME" || id === "BA") ? 1 : 0;
   // Kučan / Tuđman
   if (f.dialogue_kucan_conf && id === "SI") d += 3;
   if (f.dialogue_kucan_press && id === "SI") d -= 4;

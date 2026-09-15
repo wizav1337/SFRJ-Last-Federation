@@ -85,81 +85,6 @@
       ]
     },
     {
-      "id": "republic_voice_gligorov",
-      "date": "1991-01-28",
-      "act": 5,
-      "desk": "PRET",
-      "priority": "federal",
-      "title": "Glas Gligorova (Skopje)",
-      "location": "Skopje / Beograd — savezni koridor",
-      "briefing": "Kiro Gligorov nudi konfederalni jezik i EEZ note — i odbija okvir Izetbegović–Gligorov. Taj papir je lipanj 1991., van Slice A. Medijacija da; I–G nacrt — ne.",
-      "constitutional_note": "Izetbegović–Gligorov NIJE dostupan. E3 pravilo stoji. Marković = SIV.",
-      "documents": [
-        "1974_presidency"
-      ],
-      "requires": {
-        "units.MK.election_held": true,
-        "flags_not": [
-          "desk_event_gligorov_voice_seen"
-        ]
-      },
-      "choices": [
-        {
-          "id": "conf_g",
-          "label": "Konfederalni stol (bez I–G papira).",
-          "legal": "political",
-          "effects": {
-            "desk_set": {
-              "presidency": {
-                "posture": "mediate"
-              }
-            },
-            "MK.federal_trust": 5,
-            "charter_signatures_min": 1,
-            "flags_add": [
-              "dialogue_gligorov_conf",
-              "confederal_talks_open",
-              "talked_gligorov",
-              "republic_voice_gligorov_seen",
-              "desk_event_gligorov_voice_seen"
-            ]
-          }
-        },
-        {
-          "id": "ec_g",
-          "label": "EEZ promatrači — nota.",
-          "legal": "political",
-          "effects": {
-            "federal.international_standing": 4,
-            "MK.federal_trust": 3,
-            "flags_add": [
-              "dialogue_gligorov_ec",
-              "ssp_ec_track",
-              "ec_troika_watching",
-              "talked_gligorov",
-              "republic_voice_gligorov_seen",
-              "desk_event_gligorov_voice_seen"
-            ]
-          }
-        },
-        {
-          "id": "refuse_frame",
-          "label": "Prihvati odbijanje I–G okvira.",
-          "legal": "political",
-          "effects": {
-            "federal.legitimacy": 1,
-            "flags_add": [
-              "gligorov_refused_ig_frame",
-              "dialogue_gligorov_refuse_ig",
-              "talked_gligorov",
-              "republic_voice_gligorov_seen",
-              "desk_event_gligorov_voice_seen"
-            ]
-          }
-        }
-      ]
-    },
-    {
       "id": "disarm_paramilitaries",
       "date": "1991-01-09",
       "act": 5,
@@ -335,6 +260,174 @@
               "slovenia_invited_back",
               "presidency_mediation_active",
               "desk_event_pret_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "republic_voice_gligorov",
+      "date": "1991-01-28",
+      "act": 5,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Glas Gligorova (Skopje)",
+      "location": "Skopje / Beograd — savezni koridor",
+      "briefing": "Kiro Gligorov nudi konfederalni jezik i EEZ note — i odbija okvir Izetbegović–Gligorov. Taj papir je lipanj 1991., van Slice A. Medijacija da; I–G nacrt — ne.",
+      "constitutional_note": "Izetbegović–Gligorov NIJE dostupan. E3 pravilo stoji. Marković = SIV.",
+      "documents": [
+        "1974_presidency"
+      ],
+      "requires": {
+        "units.MK.election_held": true,
+        "flags_not": [
+          "desk_event_gligorov_voice_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "conf_g",
+          "label": "Konfederalni stol (bez I–G papira).",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            },
+            "MK.federal_trust": 5,
+            "charter_signatures_min": 1,
+            "flags_add": [
+              "dialogue_gligorov_conf",
+              "confederal_talks_open",
+              "talked_gligorov",
+              "republic_voice_gligorov_seen",
+              "desk_event_gligorov_voice_seen"
+            ]
+          }
+        },
+        {
+          "id": "ec_g",
+          "label": "EEZ promatrači — nota.",
+          "legal": "political",
+          "effects": {
+            "federal.international_standing": 4,
+            "MK.federal_trust": 3,
+            "flags_add": [
+              "dialogue_gligorov_ec",
+              "ssp_ec_track",
+              "ec_troika_watching",
+              "talked_gligorov",
+              "republic_voice_gligorov_seen",
+              "desk_event_gligorov_voice_seen"
+            ]
+          }
+        },
+        {
+          "id": "refuse_frame",
+          "label": "Prihvati odbijanje I–G okvira.",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "gligorov_refused_ig_frame",
+              "dialogue_gligorov_refuse_ig",
+              "talked_gligorov",
+              "republic_voice_gligorov_seen",
+              "desk_event_gligorov_voice_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "desk_presidency_south",
+      "date": "1991-02-08",
+      "act": 5,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Predsjedništvo: južna ravnoteža",
+      "location": "Beograd — Predsjedništvo SFRJ",
+      "briefing": "Predsjedništvo može uravnotežiti južne glasove (MK/ME/BA), držati medijaciju, ili tvrdu liniju. Južna ravnoteža hrani koheziju bez Izetbegović–Gligorov nacrta — taj papir je van Slice A.",
+      "constitutional_note": "I–G nije dostupan. E3: povelja + Predsjedništvo koje se sastaje.",
+      "documents": [
+        "1974_federation"
+      ],
+      "requires": {
+        "flags_any": [
+          "fond_politicized",
+          "presidency_south_balance",
+          "talked_bulatovic",
+          "talked_bucin",
+          "talked_gligorov",
+          "republic_voice_bulatovic_seen",
+          "desk_event_fond_autumn_seen"
+        ],
+        "flags_not": [
+          "desk_event_presidency_south_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "balance",
+          "label": "Uravnoteži južne glasove za stolom.",
+          "legal": "presidency_decree",
+          "effects": {
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            },
+            "federal.presidency_cohesion": 4,
+            "MK.federal_trust": 2,
+            "ME.federal_trust": 2,
+            "BA.federal_trust": 1,
+            "flags_add": [
+              "presidency_south_balance",
+              "presidency_mediation_active",
+              "desk_event_presidency_south_seen"
+            ],
+            "flags_remove": [
+              "presidency_hardline"
+            ]
+          }
+        },
+        {
+          "id": "mediate_only",
+          "label": "Samo medijacija — bez specijalnog juga.",
+          "legal": "presidency_decree",
+          "effects": {
+            "desk_set": {
+              "presidency": {
+                "posture": "mediate"
+              }
+            },
+            "federal.war_risk": -1,
+            "flags_add": [
+              "presidency_mediation_active",
+              "desk_event_presidency_south_seen"
+            ]
+          }
+        },
+        {
+          "id": "hard_south",
+          "label": "Tvrda linija umjesto južne ravnoteže.",
+          "legal": "presidency_decree",
+          "effects": {
+            "desk_set": {
+              "presidency": {
+                "posture": "hardline"
+              }
+            },
+            "federal.presidency_cohesion": -3,
+            "SI.secession_readiness": 2,
+            "HR.secession_readiness": 2,
+            "flags_add": [
+              "presidency_hardline",
+              "desk_event_presidency_south_seen"
+            ],
+            "flags_remove": [
+              "presidency_mediation_active"
             ]
           }
         }
@@ -788,6 +881,90 @@
       ]
     },
     {
+      "id": "desk_fond_spring91",
+      "date": "1991-03-08",
+      "act": 5,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Fond u proljeće 1991.",
+      "location": "Beograd — Federalni fond / SIV",
+      "briefing": "Pred svibnjem Fond može obnoviti jug, zadržati smrzavanje, ili politizirati transfer uz SIV. Nema čina VI; nema lipanjskog rata; Izetbegović–Gligorov nije na stolu.",
+      "constitutional_note": "Marković = SIV. Fond ne otvara frontu.",
+      "documents": [],
+      "requires": {
+        "flags_any": [
+          "desk_event_fond_open_seen",
+          "desk_event_fond_autumn_seen",
+          "fond_open_south",
+          "fond_freeze",
+          "fond_politicized",
+          "siv_fond_bind"
+        ],
+        "flags_not": [
+          "desk_event_fond_spring_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "reopen",
+          "label": "Obnovi otvoreni jug.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "fond": {
+                "posture": "open_south"
+              }
+            },
+            "MK.living_standard": 2,
+            "ME.living_standard": 2,
+            "flags_add": [
+              "fond_open_south",
+              "siv_fond_bind",
+              "desk_event_fond_spring_seen"
+            ],
+            "flags_remove": [
+              "fond_freeze"
+            ]
+          }
+        },
+        {
+          "id": "keep_freeze",
+          "label": "Zadrži smrzavanje.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "fond": {
+                "posture": "freeze"
+              }
+            },
+            "federal.federal_budget": 2,
+            "flags_add": [
+              "fond_freeze",
+              "desk_event_fond_spring_seen"
+            ]
+          }
+        },
+        {
+          "id": "politicize_spring",
+          "label": "Politiziraj Fond pred rotacijom.",
+          "legal": "siv",
+          "effects": {
+            "desk_set": {
+              "fond": {
+                "posture": "politicized"
+              }
+            },
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "fond_politicized",
+              "presidency_south_balance",
+              "desk_event_fond_spring_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "id": "belgrade_march91",
       "date": "1991-03-09",
       "act": 5,
@@ -1132,6 +1309,73 @@
               "dialogue_izetbegovic_quiet",
               "talked_izetbegovic",
               "desk_event_izetbegovic_gate_seen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "confederal_fond_memo",
+      "date": "1991-04-18",
+      "act": 5,
+      "desk": "PRET",
+      "priority": "federal",
+      "title": "Memorandum: Fond uz konfederalni stol",
+      "location": "Beograd — Predsjedništvo / SIV",
+      "briefing": "Ako je Fond otvoren ili politiziran i konfederalni stol stoji, možete vezati južne transferе uz meki savezni jezik — ili odbiti. Ovo nije Izetbegović–Gligorov nacrt; taj imenovani papir je lipanj 1991., van Vertical Slice A. Samo isključenje.",
+      "constitutional_note": "Izetbegović–Gligorov = isključenje. E3 traži povelju + Predsjedništvo koje se sastaje — ne fondovski pečat.",
+      "documents": [
+        "1974_federation"
+      ],
+      "requires": {
+        "flags_any": [
+          "confederal_talks_open",
+          "fond_open_south",
+          "fond_politicized",
+          "siv_fond_bind",
+          "presidency_south_balance"
+        ],
+        "flags_not": [
+          "desk_event_fond_memo_seen"
+        ]
+      },
+      "choices": [
+        {
+          "id": "tie_memo",
+          "label": "Veži Fond uz otvoreni konfederalni stol (bez I–G).",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": 2,
+            "federal.presidency_cohesion": 2,
+            "federal.war_risk": -1,
+            "charter_signatures_add": 1,
+            "flags_add": [
+              "confederal_fond_memo",
+              "fond_open_south",
+              "desk_event_fond_memo_seen"
+            ]
+          }
+        },
+        {
+          "id": "refuse_ig_frame",
+          "label": "Traži I–G okvir — primi odbijanje (isključenje).",
+          "legal": "political",
+          "effects": {
+            "federal.legitimacy": -1,
+            "flags_add": [
+              "gligorov_refused_ig_frame",
+              "izetbegovic_refused_ig_frame",
+              "desk_event_fond_memo_seen"
+            ]
+          }
+        },
+        {
+          "id": "defer_memo",
+          "label": "Odgodi. Fond i stol odvojeno.",
+          "legal": "political",
+          "effects": {
+            "flags_add": [
+              "desk_event_fond_memo_seen"
             ]
           }
         }

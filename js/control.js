@@ -71,6 +71,16 @@ function rawControl(state, id) {
   if (state.flags.dialogue_bogicevic_mediate && id === "BA") n += 2;
   if (state.flags.dialogue_tupurkovski_conf && id === "MK") n += 2;
   if (state.flags.talked_racan && id === "HR") n += 2;
+  if (state.flags.fond_open_south || state.flags.siv_fond_bind) {
+    if (id === "MK" || id === "ME" || id === "BA" || id === "XK") n += 2;
+  }
+  if (state.flags.fond_freeze && (id === "MK" || id === "ME" || id === "BA" || id === "XK")) n -= 2;
+  if (state.flags.fond_target_mk_me && (id === "MK" || id === "ME")) n += 2;
+  if (state.flags.fond_politicized && (id === "SI" || id === "HR")) n -= 1;
+  if (state.flags.jna_quiet_redistribute) n += 0.5;
+  if (state.flags.presidency_south_balance && (id === "MK" || id === "ME" || id === "BA")) n += 1;
+  if (state.flags.dialogue_bulatovic_soft && id === "ME") n += 2;
+  if (state.flags.dialogue_bulatovic_bloc && id === "ME") n += 1;
   return n;
 }
 
