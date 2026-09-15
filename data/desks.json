@@ -712,6 +712,55 @@
               "transport_harden_priority"
             ]
           }
+        },
+        {
+          "id": "bind_development",
+          "label": "SIV kanal prema Razvoju: plan i reforma.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "desk_event_development_open_seen",
+              "development_plan_open",
+              "development_reform_align",
+              "development_siv_bind",
+              "dialogue_markovic_development"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "siv": {
+                "posture": "technocrat"
+              },
+              "development": {
+                "posture": "reform_align"
+              }
+            },
+            "desk_add": {
+              "siv": {
+                "loyalty": 2,
+                "capacity": 2
+              },
+              "development": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.siv_authority": 2,
+            "federal.development_plan": 3,
+            "federal.reform_momentum": 2,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "development_siv_bind",
+              "development_reform_align",
+              "development_quiet_paper",
+              "markovic_mandate_strong"
+            ],
+            "flags_remove": [
+              "development_harden_plan"
+            ]
+          }
         }
       ]
     },
@@ -2079,6 +2128,79 @@
               "finance_transport_corridor",
               "transport_schedule_soft",
               "transport_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "liaison_development",
+          "label": "Veza Financije–Razvoj: plan i fondovi.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "desk_event_development_open_seen",
+              "development_regional_soft",
+              "development_plan_open",
+              "development_reform_align"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "finance": {
+                "posture": "target"
+              },
+              "development": {
+                "posture": "regional_soft"
+              }
+            },
+            "desk_add": {
+              "finance": {
+                "capacity": 2
+              },
+              "development": {
+                "capacity": 2,
+                "agenda_tension": -1
+              }
+            },
+            "federal.development_plan": 2,
+            "federal.legitimacy": 1,
+            "federal.hard_currency": 1,
+            "flags_add": [
+              "finance_development_liaison",
+              "development_regional_soft",
+              "development_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "accept_development_plan",
+          "label": "Prihvati razvojni plan u knjigama.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "development_regional_soft",
+              "finance_development_liaison",
+              "desk_event_development_open_seen"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "finance": {
+                "loyalty": 2
+              },
+              "development": {
+                "loyalty": 2
+              }
+            },
+            "federal.development_plan": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "finance_development_plan",
+              "development_regional_soft",
+              "development_quiet_paper"
             ]
           }
         }
@@ -3709,6 +3831,86 @@
               "fond_agriculture_food",
               "agriculture_farm_relief",
               "agriculture_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "liaison_development",
+          "label": "Fond–Razvoj: južni razvojni kanal.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "desk_event_development_open_seen",
+              "development_south_balance",
+              "development_plan_open",
+              "fond_open_south"
+            ]
+          },
+          "effects": {
+            "desk_set": {
+              "fond": {
+                "posture": "open_south"
+              },
+              "development": {
+                "posture": "south_balance"
+              }
+            },
+            "desk_add": {
+              "fond": {
+                "loyalty": 2,
+                "agenda_tension": -1
+              },
+              "development": {
+                "loyalty": 2,
+                "agenda_tension": -2
+              }
+            },
+            "federal.development_plan": 2,
+            "federal.legitimacy": 1,
+            "BA.living_standard": 1,
+            "MK.living_standard": 1,
+            "flags_add": [
+              "fond_development_liaison",
+              "development_south_balance",
+              "development_quiet_paper"
+            ],
+            "flags_remove": [
+              "development_harden_plan"
+            ]
+          }
+        },
+        {
+          "id": "accept_development_plan",
+          "label": "Prihvati razvojni plan u Fondu.",
+          "cost": {
+            "reform": 1
+          },
+          "requires": {
+            "flags_any": [
+              "fond_development_liaison",
+              "development_south_balance",
+              "desk_event_development_open_seen"
+            ]
+          },
+          "effects": {
+            "desk_add": {
+              "fond": {
+                "capacity": 2
+              },
+              "development": {
+                "capacity": 2
+              }
+            },
+            "federal.development_plan": 2,
+            "federal.reform_momentum": 1,
+            "RS.federal_trust": 1,
+            "BA.federal_trust": 1,
+            "flags_add": [
+              "fond_development_plan",
+              "development_south_balance",
+              "development_quiet_paper"
             ]
           }
         }
@@ -6206,6 +6408,244 @@
               "transport_siv_bind",
               "transport_reform_support",
               "transport_quiet_paper",
+              "markovic_mandate_strong"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "development",
+      "agency_id": "development",
+      "name": "Razvoj",
+      "name_hr": "Savezni sekretarijat za razvoj",
+      "kind": "secretariat",
+      "briefing": "Savezni sekretarijat za razvoj: planski okvir, meki regionalni programi, usklađivanje reforme, južna ravnoteža uz Fond — papir i okvir, ne fronta. Ne zamjenjuje Fond, Financije, Industriju ni Poljoprivredu. Marković ostaje predsjednik SIV-a. Tihi papir ne postavlja player_used_jna_threat. Nema rata; nema vojnog razvoja kao borbe.",
+      "stats": {
+        "loyalty": 54,
+        "capacity": 52,
+        "agenda_tension": 38
+      },
+      "posture_default": "plan_open",
+      "postures": [
+        "plan_open",
+        "regional_soft",
+        "reform_align",
+        "south_balance",
+        "harden_plan"
+      ],
+      "actions": [
+        {
+          "id": "set_plan_open",
+          "label": "Otvoreni plan: savezni razvojni okvir među republikama.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "development": {
+                "posture": "plan_open"
+              }
+            },
+            "desk_add": {
+              "development": {
+                "loyalty": 4,
+                "agenda_tension": -4,
+                "capacity": 2
+              },
+              "siv": {
+                "loyalty": 1
+              }
+            },
+            "federal.development_plan": 5,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "BA.living_standard": 1,
+            "MK.living_standard": 1,
+            "flags_add": [
+              "development_plan_open",
+              "development_quiet_paper"
+            ],
+            "flags_remove": [
+              "development_harden_plan"
+            ]
+          }
+        },
+        {
+          "id": "regional_soft",
+          "label": "Meki regionalni programi: kanal razvoja među republikama.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "development": {
+                "posture": "regional_soft"
+              }
+            },
+            "desk_add": {
+              "development": {
+                "capacity": 3,
+                "agenda_tension": -2
+              },
+              "finance": {
+                "capacity": 1
+              },
+              "fond": {
+                "capacity": 1
+              }
+            },
+            "federal.development_plan": 3,
+            "federal.legitimacy": 1,
+            "federal.hard_currency": 1,
+            "BA.federal_trust": 1,
+            "MK.federal_trust": 1,
+            "flags_add": [
+              "development_regional_soft",
+              "development_quiet_paper"
+            ],
+            "flags_remove": [
+              "development_harden_plan"
+            ]
+          }
+        },
+        {
+          "id": "reform_align",
+          "label": "Usklađivanje reforme: razvojni paket uz Markovića.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "development": {
+                "posture": "reform_align"
+              }
+            },
+            "desk_add": {
+              "development": {
+                "loyalty": 3,
+                "capacity": 3
+              },
+              "siv": {
+                "capacity": 2,
+                "loyalty": 2
+              }
+            },
+            "federal.development_plan": 3,
+            "federal.reform_momentum": 3,
+            "federal.siv_authority": 2,
+            "federal.legitimacy": 2,
+            "flags_add": [
+              "development_reform_align",
+              "development_quiet_paper",
+              "markovic_mandate_strong"
+            ]
+          }
+        },
+        {
+          "id": "south_balance",
+          "label": "Južna ravnoteža: razvoj uz Fond za nerazvijene.",
+          "cost": {
+            "reform": 1,
+            "budget": 1
+          },
+          "effects": {
+            "desk_set": {
+              "development": {
+                "posture": "south_balance"
+              }
+            },
+            "desk_add": {
+              "development": {
+                "loyalty": 3,
+                "capacity": 2
+              },
+              "fond": {
+                "loyalty": 2,
+                "agenda_tension": -1
+              }
+            },
+            "federal.development_plan": 3,
+            "federal.legitimacy": 1,
+            "federal.federal_budget": -1,
+            "BA.living_standard": 1,
+            "MK.living_standard": 1,
+            "ME.living_standard": 1,
+            "flags_add": [
+              "development_south_balance",
+              "development_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "harden_plan",
+          "label": "Tvrđi plan — pritisak na razvojne tokove.",
+          "cost": {
+            "reform": 1
+          },
+          "conflict_warn": true,
+          "effects": {
+            "desk_set": {
+              "development": {
+                "posture": "harden_plan"
+              }
+            },
+            "desk_add": {
+              "development": {
+                "loyalty": -2,
+                "capacity": 4,
+                "agenda_tension": 7
+              },
+              "fond": {
+                "agenda_tension": 2
+              }
+            },
+            "federal.development_plan": 1,
+            "federal.legitimacy": -1,
+            "federal.war_risk": 1,
+            "SI.federal_trust": -2,
+            "HR.federal_trust": -2,
+            "flags_add": [
+              "development_harden_plan",
+              "development_plan_open"
+            ],
+            "flags_remove": [
+              "development_regional_soft"
+            ]
+          }
+        },
+        {
+          "id": "bind_siv",
+          "label": "Veži razvoj uz SIV kanal — zajednički papir.",
+          "cost": {
+            "reform": 1
+          },
+          "effects": {
+            "desk_set": {
+              "development": {
+                "posture": "reform_align"
+              },
+              "siv": {
+                "posture": "technocrat"
+              }
+            },
+            "desk_add": {
+              "development": {
+                "loyalty": 3,
+                "agenda_tension": -2
+              },
+              "siv": {
+                "loyalty": 2,
+                "capacity": 1
+              }
+            },
+            "federal.development_plan": 2,
+            "federal.siv_authority": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "development_siv_bind",
+              "development_reform_align",
+              "development_quiet_paper",
               "markovic_mandate_strong"
             ]
           }

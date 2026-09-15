@@ -219,6 +219,16 @@
       "competence": "promet i veze / koridori / meki rasporedi / telekom veze / potpora reformi (Pass 18 šalter)",
       "dissolve_legal": "presidency_decree",
       "short": "Promet"
+    },
+    {
+      "id": "development",
+      "name": "Savezni sekretarijat za razvoj",
+      "kind": "secretariat",
+      "desk": "SIV",
+      "status": "active",
+      "competence": "razvoj / planski okvir / meki regionalni programi / usklađivanje reforme / južna ravnoteža uz Fond (Pass 19 šalter)",
+      "dissolve_legal": "presidency_decree",
+      "short": "Razvoj"
     }
   ]
 }

@@ -352,6 +352,13 @@ function pathNotes(state) {
   if (state.flags.confederal_transport_memo) notes.push(t("path.transportMemo"));
   if (state.flags.talked_slokar || state.flags.dialogue_slokar) notes.push(t("path.slokar"));
   if (state.flags.dialogue_markovic_transport) notes.push(t("path.markovicTransport"));
+  if (state.flags.development_plan_open) notes.push(t("path.developmentPlan"));
+  else if (state.flags.development_regional_soft) notes.push(t("path.developmentRegional"));
+  else if (state.flags.development_reform_align) notes.push(t("path.developmentReform"));
+  else if (state.flags.development_south_balance) notes.push(t("path.developmentSouth"));
+  if (state.flags.confederal_development_memo) notes.push(t("path.developmentMemo"));
+  if (state.flags.talked_marendic || state.flags.dialogue_marendic) notes.push(t("path.marendic"));
+  if (state.flags.dialogue_markovic_development) notes.push(t("path.markovicDevelopment"));
   const stack = confederalStackDepth(state);
   if (stack >= 3) notes.push(t("path.stackDepth", { n: stack }));
   return notes;

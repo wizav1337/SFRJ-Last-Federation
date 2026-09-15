@@ -1,0 +1,290 @@
+{
+  "id": "marendic",
+  "speaker": "Božo Marendić",
+  "title": "savezni sekretar za razvoj",
+  "desk": "development",
+  "available_from": "1990-08-01",
+  "unlock": {
+    "flags_any": [
+      "development_plan_open",
+      "development_regional_soft",
+      "development_reform_align",
+      "development_south_balance",
+      "development_harden_plan",
+      "desk_event_development_open_seen",
+      "fond_open_south",
+      "multiparty_wave"
+    ]
+  },
+  "nodes": {
+    "start": {
+      "text": "Božo Marendić prima u Saveznom sekretarijatu za razvoj. Glas iz Službenog lista 20/1989 — „Božo Marendić za razvoj“. „Razvoj je mirnodopski resor: otvoreni plan, meki regionalni programi, usklađivanje reforme, južna ravnoteža uz Fond ili tvrđi plan — sve papir. Marković ostaje predsjednik SIV-a. Ja držim kanal prema republikama i Fondu. Što želite od sekretarijata?“",
+      "choices": [
+        {
+          "id": "plan",
+          "label": "Otvoreni plan — savezni razvojni okvir.",
+          "next": "plan_done",
+          "effects": {
+            "desk_add": {
+              "development": {
+                "loyalty": 4,
+                "agenda_tension": -3
+              },
+              "siv": {
+                "loyalty": 1
+              }
+            },
+            "federal.development_plan": 4,
+            "federal.legitimacy": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "talked_marendic",
+              "dialogue_marendic",
+              "dialogue_marendic_plan",
+              "development_plan_open",
+              "development_quiet_paper"
+            ],
+            "flags_remove": [
+              "development_harden_plan"
+            ],
+            "desk_set": {
+              "development": {
+                "posture": "plan_open"
+              }
+            }
+          }
+        },
+        {
+          "id": "regional",
+          "label": "Meki regionalni programi — kanal među republikama.",
+          "next": "regional_done",
+          "effects": {
+            "desk_add": {
+              "development": {
+                "capacity": 3,
+                "agenda_tension": -2
+              }
+            },
+            "federal.development_plan": 3,
+            "federal.legitimacy": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "talked_marendic",
+              "dialogue_marendic",
+              "development_regional_soft",
+              "development_quiet_paper"
+            ],
+            "flags_remove": [
+              "development_harden_plan"
+            ],
+            "desk_set": {
+              "development": {
+                "posture": "regional_soft"
+              }
+            }
+          }
+        },
+        {
+          "id": "south",
+          "label": "Južna ravnoteža — uz Fond.",
+          "next": "south_done",
+          "effects": {
+            "desk_add": {
+              "development": {
+                "loyalty": 3,
+                "capacity": 2
+              }
+            },
+            "federal.development_plan": 3,
+            "BA.living_standard": 1,
+            "MK.living_standard": 1,
+            "flags_add": [
+              "talked_marendic",
+              "dialogue_marendic",
+              "development_south_balance",
+              "development_quiet_paper"
+            ],
+            "desk_set": {
+              "development": {
+                "posture": "south_balance"
+              }
+            }
+          }
+        },
+        {
+          "id": "harden",
+          "label": "Tvrđi plan — pritisak na tokove.",
+          "next": "harden_done",
+          "effects": {
+            "desk_add": {
+              "development": {
+                "capacity": 4,
+                "agenda_tension": 5,
+                "loyalty": -2
+              }
+            },
+            "federal.development_plan": 1,
+            "federal.war_risk": 1,
+            "federal.legitimacy": -1,
+            "flags_add": [
+              "talked_marendic",
+              "dialogue_marendic",
+              "development_harden_plan",
+              "development_plan_open"
+            ],
+            "flags_remove": [
+              "development_regional_soft"
+            ],
+            "desk_set": {
+              "development": {
+                "posture": "harden_plan"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "plan_done": {
+      "text": "„Plan je otvoren. Stol miran. Nema rata.“",
+      "choices": [
+        {
+          "id": "end_plan",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "regional_done": {
+      "text": "„Regionalni programi su meki. Nema čina VI.“",
+      "choices": [
+        {
+          "id": "end_regional",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "south_done": {
+      "text": "„Južna ravnoteža stoji uz Fond. Razvoj — papir, ne fronta.“",
+      "choices": [
+        {
+          "id": "end_south",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "harden_done": {
+      "text": "„Plan je tvrđi. To diže napetost — i dalje papir, ne fronta.“",
+      "choices": [
+        {
+          "id": "end_harden",
+          "label": "Zapiši.",
+          "next": null,
+          "effects": {}
+        }
+      ]
+    },
+    "revisit_press": {
+      "text": "Božo Marendić ponovo: „Usklađivanje reforme, meki regionalni programi ili južna ravnoteža uz Fond. Bez priznanja secesije. Bez rata.“",
+      "choices": [
+        {
+          "id": "reform",
+          "label": "Usklađivanje Markovićeve reforme.",
+          "next": null,
+          "effects": {
+            "federal.development_plan": 2,
+            "federal.reform_momentum": 2,
+            "federal.siv_authority": 1,
+            "flags_add": [
+              "dialogue_marendic",
+              "development_reform_align",
+              "development_quiet_paper",
+              "markovic_mandate_strong"
+            ],
+            "desk_set": {
+              "development": {
+                "posture": "reform_align"
+              }
+            }
+          }
+        },
+        {
+          "id": "soft_again",
+          "label": "Meki regionalni programi.",
+          "next": null,
+          "effects": {
+            "federal.development_plan": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "dialogue_marendic",
+              "development_regional_soft",
+              "development_quiet_paper"
+            ],
+            "flags_remove": [
+              "development_harden_plan"
+            ],
+            "desk_set": {
+              "development": {
+                "posture": "regional_soft"
+              }
+            }
+          }
+        },
+        {
+          "id": "fond_back",
+          "label": "Vrati južnu ravnotežu uz Fond.",
+          "next": null,
+          "effects": {
+            "federal.development_plan": 2,
+            "federal.war_risk": -1,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "dialogue_marendic",
+              "development_south_balance",
+              "fond_development_liaison",
+              "development_quiet_paper"
+            ],
+            "flags_remove": [
+              "development_harden_plan"
+            ],
+            "desk_set": {
+              "development": {
+                "posture": "south_balance"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "entries": [
+    {
+      "id": "start",
+      "node": "start",
+      "once": true,
+      "priority": 10
+    },
+    {
+      "id": "revisit_press",
+      "node": "revisit_press",
+      "once": true,
+      "priority": 6,
+      "require_done": true,
+      "available_from": "1990-11-01",
+      "unlock": {
+        "flags_any": [
+          "development_plan_open",
+          "development_regional_soft",
+          "development_south_balance",
+          "development_reform_align",
+          "fond_development_liaison",
+          "desk_event_development_open_seen"
+        ]
+      }
+    }
+  ]
+}

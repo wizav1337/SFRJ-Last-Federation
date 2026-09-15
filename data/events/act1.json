@@ -2357,6 +2357,95 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_development_open",
+      "date": "1990-03-04",
+      "act": 1,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Razvoj: savezni sekretarijat za razvoj",
+      "location": "Beograd — Savezni sekretarijat za razvoj",
+      "briefing": "Savezni sekretarijat za razvoj stoji kao mirnodopski sloj: planski okvir, meki regionalni programi, usklađivanje reforme, južna ravnoteža uz Fond. To nije Fond, Financije, Industrija ni Poljoprivreda — nego razvojni šalter. Marković ostaje predsjednik SIV-a. Tihi papir ne postavlja player_used_jna_threat. Nema rata; nema vojnog razvoja kao borbe.",
+      "constitutional_note": "Razvoj ne zamjenjuje Predsjedništvo ni SIV; civilni lanac ostaje politički.",
+      "documents": [
+        "1974_presidency",
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "markovic_mandate_strong",
+          "multiparty_wave",
+          "siv_austerity_stance",
+          "fond_open_south",
+          "development_plan_open",
+          "skj_renounced_monopoly",
+          "finance_transfers_open"
+        ]
+      },
+      "choices": [
+        {
+          "id": "open_plan",
+          "label": "Otvori šalter: otvoreni plan.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "development": {
+                "posture": "plan_open"
+              }
+            },
+            "federal.development_plan": 3,
+            "federal.legitimacy": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "development_plan_open",
+              "desk_event_development_open_seen",
+              "development_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "open_regional",
+          "label": "Meki regionalni programi — međurepublički kanal.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "development": {
+                "posture": "regional_soft"
+              }
+            },
+            "federal.development_plan": 2,
+            "federal.legitimacy": 1,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "development_regional_soft",
+              "desk_event_development_open_seen",
+              "development_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "open_reform",
+          "label": "Usklađivanje reforme uz Markovića.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "development": {
+                "posture": "reform_align"
+              }
+            },
+            "federal.development_plan": 2,
+            "federal.reform_momentum": 2,
+            "federal.siv_authority": 1,
+            "flags_add": [
+              "development_reform_align",
+              "desk_event_development_open_seen",
+              "development_quiet_paper",
+              "markovic_mandate_strong"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

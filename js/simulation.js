@@ -37,6 +37,8 @@ export function recomputeWarRisk(state) {
   if (state.flags.industry_harden_ration) w += 1;
   if (state.flags.trade_market_calm || state.flags.trade_quiet_paper) w -= 1;
   if (state.flags.trade_harden_controls) w += 1;
+  if (state.flags.development_plan_open || state.flags.development_quiet_paper) w -= 1;
+  if (state.flags.development_harden_plan) w += 1;
   if (state.flags.ssup_observe_line) w -= 0.5;
   if (state.flags.dialogue_kucan_charter) w -= 1;
   if (state.flags.confederal_stack_memo) w -= 0.5;
@@ -181,6 +183,12 @@ export function buildMonthlyReport(state, before, months) {
   if (state.flags.transport_reform_support || state.desks?.transport?.posture === "reform_support") drivers.push("Promet: potpora reformi");
   if (state.flags.transport_harden_priority || state.desks?.transport?.posture === "harden_priority") drivers.push("Promet: tvrđi prioriteti");
   if (state.flags.confederal_transport_memo) drivers.push("memorandum Prometa uz konfederalni stol");
+  if (state.flags.development_plan_open || state.desks?.development?.posture === "plan_open") drivers.push("Razvoj: otvoreni plan");
+  if (state.flags.development_regional_soft || state.desks?.development?.posture === "regional_soft") drivers.push("Razvoj: meki regionalni programi");
+  if (state.flags.development_reform_align || state.desks?.development?.posture === "reform_align") drivers.push("Razvoj: usklađivanje reforme");
+  if (state.flags.development_south_balance || state.desks?.development?.posture === "south_balance") drivers.push("Razvoj: južna ravnoteža");
+  if (state.flags.development_harden_plan || state.desks?.development?.posture === "harden_plan") drivers.push("Razvoj: tvrđi plan");
+  if (state.flags.confederal_development_memo) drivers.push("memorandum Razvoja uz konfederalni stol");
   if (state.flags.ssup_observe_line) drivers.push("SSUP u promatračkoj postavi");
   if (state.flags.confederal_stack_memo) drivers.push("memorandum konfederalnog stoga");
   if (state.flags.dialogue_kucan_charter) drivers.push("Kučan: potpis na konfederalnoj traci");

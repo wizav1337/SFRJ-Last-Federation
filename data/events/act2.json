@@ -2318,6 +2318,91 @@
           }
         }
       ]
+    },
+    {
+      "id": "desk_development_spring",
+      "date": "1990-05-20",
+      "act": 2,
+      "desk": "SIV",
+      "priority": "federal",
+      "title": "Proljetna postava Razvoja",
+      "location": "Beograd — Savezni sekretarijat za razvoj",
+      "briefing": "Proljeće 1990.: šalter razvoja traži jasniju postavu — otvoreni plan, meki regionalni programi ili južna ravnoteža. Tihi papir. Nema rata.",
+      "constitutional_note": "Razvoj ostaje u SIV lancu; bez vojnog jezika.",
+      "documents": [
+        "1974_siv"
+      ],
+      "requires": {
+        "flags_any": [
+          "desk_event_development_open_seen",
+          "development_plan_open",
+          "development_regional_soft",
+          "development_reform_align",
+          "markovic_mandate_strong"
+        ]
+      },
+      "choices": [
+        {
+          "id": "spring_plan",
+          "label": "Drži otvoreni plan.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "development": {
+                "posture": "plan_open"
+              }
+            },
+            "federal.development_plan": 2,
+            "federal.legitimacy": 1,
+            "flags_add": [
+              "development_plan_open",
+              "desk_event_development_spring_seen",
+              "development_quiet_paper"
+            ],
+            "flags_remove": [
+              "development_harden_plan"
+            ]
+          }
+        },
+        {
+          "id": "spring_regional",
+          "label": "Meki regionalni programi uz Financije.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "development": {
+                "posture": "regional_soft"
+              }
+            },
+            "federal.development_plan": 2,
+            "federal.hard_currency": 1,
+            "flags_add": [
+              "development_regional_soft",
+              "desk_event_development_spring_seen",
+              "development_quiet_paper"
+            ]
+          }
+        },
+        {
+          "id": "spring_south",
+          "label": "Južna ravnoteža uz Fond.",
+          "legal": "political",
+          "effects": {
+            "desk_set": {
+              "development": {
+                "posture": "south_balance"
+              }
+            },
+            "federal.development_plan": 2,
+            "federal.war_risk": -1,
+            "flags_add": [
+              "development_south_balance",
+              "desk_event_development_spring_seen",
+              "development_quiet_paper"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

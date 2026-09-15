@@ -685,3 +685,41 @@ Akcije: `soft_federal_line` → `skj_soft_federation`; `hard_unity_rhetoric` →
 ### Preostali 1990 SIV sekretarijati bez šaltera
 
 - razvoj; prava i uprava
+
+
+## Dodatak — Pass 19 `expand/pass19-development`
+
+Šalter **Savezni sekretarijat za razvoj** (`development`, agencija `development`); produbljeni Financije, SIV i Fond; glas Bože Marendića (Službeni list 20/1989); Marković revisit Razvoja; kartice čina I–V; `save_schema` 19; smoke proširen. Mirnodopski sloj (otvoreni plan / meki regionalni programi / usklađivanje reforme / južna ravnoteža / tvrđi plan) — **nije** zamjena za Fond, Financije, Industriju ni Poljoprivredu.
+
+### Nova / proširena kartica
+
+| Spis | Datum | Napomena |
+|---|---|---|
+| `desk_development_open` | 1990-03-04 | Otvaranje šaltera |
+| `desk_development_spring` | 1990-05-20 | Proljetna postava |
+| `desk_development_autumn` | 1990-09-28 | Jesen: pritisak |
+| `desk_finance_development_bind` | 1990-10-22 | Financije ↔ Razvoj |
+| `desk_development_before_pleb` | 1990-12-20 | Pred plebiscitom |
+| `desk_fond_development_liaison` | 1990-12-31 | Fond ↔ Razvoj kanal |
+| `desk_development_spring91` | 1991-03-30 | Proljeće 1991.; bez čina VI |
+| `confederal_development_memo` | 1991-05-09 | Memo uz konfederalni stol; I–G **nije** dostupan |
+
+### Razgovori
+
+- `marendic.json` — Božo Marendić (savezni sekretar za razvoj)
+- `markovic.json` — `revisit_development` (SIV × Razvoj)
+
+### Šalteri
+
+- **development**: `plan_open` → `development_plan_open`; `regional_soft` → `development_regional_soft`; `reform_align` → `development_reform_align`; `south_balance` → `development_south_balance`; `harden_plan` → `development_harden_plan`
+- **finance** `liaison_development` / `accept_development_plan`
+- **siv** `bind_development` → `development_siv_bind`
+- **fond** `liaison_development` / `accept_development_plan` (ne sudara se s `fond_open_south`)
+- Soft-lock: `harden_plan` sukobljava se s `confederal_talks_open`
+- Tihi razvojni papir **ne** postavlja `player_used_jna_threat`
+- `federal.development_plan` default 50
+
+### Preostali 1990 SIV sekretarijati bez šaltera
+
+- prava i uprava (Vlado Kambovski)
+
